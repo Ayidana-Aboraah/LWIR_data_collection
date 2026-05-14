@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Resources\camera.ico</ApplicationIcon>
+    <AssemblyName>OptrisXiLogger</AssemblyName>
+    <RootNamespace>OptrisXiLogger</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <!--
+    SETUP INSTRUCTIONS:
+    1. Install the OTC SDK from Optris (default: C:\Program Files\Optris\otcsdk)
+    2. Copy the C# wrapper classes from:
+         C:\Program Files\Optris\otcsdk\bindings\csharp\classes\
+       into the 'classes/' subfolder of this project (already referenced below).
+    3. The SDK native DLLs (otcsdk.dll, SoSCorrectionLib.dll, etc.) must be in
+       the output directory. Set them as "Copy to Output Directory = Always" or
+       place them in the build output manually.
+    4. Install NI-DAQmx driver and add the NuGet package reference below.
+    5. Build for x64 Release.
+  -->
+
+  <ItemGroup>
+    <!-- OTC SDK C# wrapper classes (copy from SDK install) -->
+    <Compile Include="classes\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- NI-DAQmx managed library. Install NI-DAQmx driver first, then: -->
+    <!-- Install-Package NationalInstruments.DAQmx -->
+    <PackageReference Include="NationalInstruments.DAQmx" Version="*" />
+
+    <!-- LibTiff.Net for full-featured TIFF writing -->
+    <PackageReference Include="BitMiracle.LibTiff.NET" Version="2.4.1" />
+
+    <!-- JSON settings persistence -->
+    <PackageReference Include="System.Text.Json" Version="*" />
+  </ItemGroup>
+
+  <!-- Copy SDK native DLLs to output directory.
+       Adjust source paths to match your SDK installation directory. -->
+  <ItemGroup>
+    <Content Include="$(OTC_SDK_DIR)\bin\otcsdk.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>otcsdk.dll</Link>
+    </Content>
+    <Content Include="$(OTC_SDK_DIR)\bin\SoSCorrectionLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>SoSCorrectionLib.dll</Link>
+    </Content>
+  </ItemGroup>
+
+</Project>

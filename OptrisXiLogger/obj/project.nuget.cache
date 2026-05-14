@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "dgSpecHash": "dfgGPXr8uPc=",
+  "success": false,
+  "projectFilePath": "C:\\Users\\logan.schorr\\OneDrive - CCAM- Commonwealth Center for Advanced Manufacturing\\Projects\\AMPRO\\WAAM\\Sensing\\LWIR_C\\OptrisXiLogger\\OptrisXiLogger.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\logan.schorr\\.nuget\\packages\\bitmiracle.libtiff.net\\2.4.500\\bitmiracle.libtiff.net.2.4.500.nupkg.sha512",
+    "C:\\Users\\logan.schorr\\.nuget\\packages\\system.io.pipelines\\10.0.7\\system.io.pipelines.10.0.7.nupkg.sha512",
+    "C:\\Users\\logan.schorr\\.nuget\\packages\\system.text.encodings.web\\10.0.7\\system.text.encodings.web.10.0.7.nupkg.sha512",
+    "C:\\Users\\logan.schorr\\.nuget\\packages\\system.text.json\\10.0.7\\system.text.json.10.0.7.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "message": "OptrisXiLogger depends on BitMiracle.LibTiff.NET (>= 2.4.1) but BitMiracle.LibTiff.NET 2.4.1 was not found. BitMiracle.LibTiff.NET 2.4.500 was resolved instead.",
+      "projectPath": "C:\\Users\\logan.schorr\\OneDrive - CCAM- Commonwealth Center for Advanced Manufacturing\\Projects\\AMPRO\\WAAM\\Sensing\\LWIR_C\\OptrisXiLogger\\OptrisXiLogger.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\logan.schorr\\OneDrive - CCAM- Commonwealth Center for Advanced Manufacturing\\Projects\\AMPRO\\WAAM\\Sensing\\LWIR_C\\OptrisXiLogger\\OptrisXiLogger.csproj",
+      "libraryId": "BitMiracle.LibTiff.NET",
+      "targetGraphs": [
+        "net8.0-windows7.0",
+        "net8.0-windows7.0/win-x64"
+      ]
+    },
+    {
+      "code": "NU1101",
+      "level": "Error",
+      "message": "Unable to find package NationalInstruments.DAQmx. No packages exist with this id in source(s): Microsoft Visual Studio Offline Packages, nuget.org",
+      "projectPath": "C:\\Users\\logan.schorr\\OneDrive - CCAM- Commonwealth Center for Advanced Manufacturing\\Projects\\AMPRO\\WAAM\\Sensing\\LWIR_C\\OptrisXiLogger\\OptrisXiLogger.csproj",
+      "filePath": "C:\\Users\\logan.schorr\\OneDrive - CCAM- Commonwealth Center for Advanced Manufacturing\\Projects\\AMPRO\\WAAM\\Sensing\\LWIR_C\\OptrisXiLogger\\OptrisXiLogger.csproj",
+      "libraryId": "NationalInstruments.DAQmx",
+      "targetGraphs": [
+        "net8.0-windows7.0",
+        "net8.0-windows7.0/win-x64"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "Package 'BitMiracle.LibTiff.NET 2.4.500' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Users\\logan.schorr\\OneDrive - CCAM- Commonwealth Center for Advanced Manufacturing\\Projects\\AMPRO\\WAAM\\Sensing\\LWIR_C\\OptrisXiLogger\\OptrisXiLogger.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\logan.schorr\\OneDrive - CCAM- Commonwealth Center for Advanced Manufacturing\\Projects\\AMPRO\\WAAM\\Sensing\\LWIR_C\\OptrisXiLogger\\OptrisXiLogger.csproj",
+      "libraryId": "BitMiracle.LibTiff.NET",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
+}
