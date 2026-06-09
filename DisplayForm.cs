@@ -1,18 +1,8 @@
 // Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Win32;
 using Optris.OtcSDK;
 using SimpleViewCS.models;
 
