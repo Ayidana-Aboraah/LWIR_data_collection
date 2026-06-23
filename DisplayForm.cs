@@ -3,6 +3,7 @@
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using LWIR_app.classes;
 using Optris.OtcSDK;
 using SimpleViewCS.models;
 
@@ -387,7 +388,8 @@ namespace SimpleViewCS
             if (!imagerShow.IsRecording)
             {
                 imagerShow.StartRecording(
-                    saveDirectory.Text);
+                    saveDirectory.Text,
+                    GetSelectedSaveDataType());
                 recordEnable.BackColor = Color.LimeGreen;
                 recordEnable.Text = "Stop Recording";
                 recordingIndicatorVisible = true;
@@ -401,6 +403,20 @@ namespace SimpleViewCS
                 recordingIndicatorVisible = false;
                 blinkTimer.Stop();
             }
+        }
+
+        private SaveDataType GetSelectedSaveDataType()
+        {
+            if (saveTypeBase.Checked)
+                return SaveDataType.BaseData;
+
+            if (saveTypeInt.Checked)
+                return SaveDataType.IntData;
+
+            if (saveTypeRle.Checked)
+                return SaveDataType.RleData;
+
+            return SaveDataType.All;
         }
 
         private void SetSelectedPalette(ColoringPalette palette)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Globalization;
 using Optris.OtcSDK;
+using System.Diagnostics;
 
 namespace LWIR_app.classes
 {
@@ -22,13 +23,22 @@ namespace LWIR_app.classes
         private StreamWriter? metadataWriter;
 
         private int frameIndex = 0;
+        private SaveDataType saveDataType = SaveDataType.All;
 
         public bool IsRecording => isRecording;
 
         public void Start(string baseDirectory)
         {
+            Start(baseDirectory, SaveDataType.All);
+        }
+
+        public void Start(string baseDirectory, SaveDataType dataType)
+        {
             if (isRecording)
                 return;
+
+            saveDataType = dataType;
+            frameIndex = 0;
 
             string sessionName =
                 $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
@@ -101,35 +111,105 @@ namespace LWIR_app.classes
         }
         private void WriteFrame(RecordedFrame frame)
         {
-            string filename =
-                Path.Combine(
-                    frameDirectory,
-                    $"frame_{frameIndex:D8}.bin");
+            switch (saveDataType) {
+                case SaveDataType.BaseData: WriteBaseDataFrame(frame);
+                break;
+                
+                case SaveDataType.IntData:  WriteIntFrame(frame);
+                break;
 
-            using (var writer =
-                   new BinaryWriter(
-                       File.Open(
-                           filename,
-                           FileMode.Create,
-                           FileAccess.Write,
-                           FileShare.None)))
-            {
-                writer.Write(frame.Width);
-                writer.Write(frame.Height);
+                case SaveDataType.RleData:  WriteRleFrame(frame);
+                break;
 
-                writer.Write(frame.Metadata.getTimestamp());
-                writer.Write(frame.Metadata.getCounter());
-                writer.Write(frame.Metadata.getCounterHardware());
-
-                foreach (float value in frame.Temperatures)
-                {
-                    writer.Write(value);
-                }
+                default:
+                    WriteBaseDataFrame(frame);
+                    WriteIntFrame(frame);
+                    WriteRleFrame(frame);
+                    break;
             }
 
             WriteMetadataRow(frame);
 
             frameIndex++;
+        }
+
+        private void WriteBaseDataFrame(RecordedFrame frame)
+        {
+            string filename =
+                Path.Combine(
+                    frameDirectory,
+                    $"frame_{frameIndex:D8}_base.bin");
+
+            using var writer =
+                new BinaryWriter(
+                    File.Open(
+                        filename,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None));
+
+            WriteFrameHeader(frame, writer); // TODO: Discuss Removing or shortening Frame header
+
+            foreach (float value in frame.temperatures)
+            {
+                writer.Write(value);
+            }
+        }
+
+        private void WriteIntFrame(RecordedFrame frame)
+        {
+            string filename =
+                Path.Combine(
+                    frameDirectory,
+                    $"frame_{frameIndex:D8}_int.bin");
+
+            using var writer =
+                new BinaryWriter(
+                    File.Open(
+                        filename,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None));
+
+            WriteFrameHeader(frame, writer);
+            foreach (ushort value in frame.temperature_Ints)
+            {
+                writer.Write(value);
+            }
+        }
+
+        private void WriteRleFrame(RecordedFrame frame)
+        {
+            string filename =
+                Path.Combine(
+                    frameDirectory,
+                    $"frame_{frameIndex:D8}_rle.bin");
+
+            using var writer =
+                new BinaryWriter(
+                    File.Open(
+                        filename,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None));
+
+            WriteFrameHeader(frame, writer);
+
+            Debug.WriteLine(frame.RLE.Length);
+
+            for (int i = 0; i < frame.RLE.Length; i++){
+                writer.Write(frame.RLE[i].value);
+                writer.Write(frame.RLE[i].length);
+            }
+        }
+
+        private static void WriteFrameHeader(RecordedFrame frame, BinaryWriter writer)
+        {
+            writer.Write(frame.width);
+            writer.Write(frame.height);
+            writer.Write(frame.metadata.getTimestamp());
+            writer.Write(frame.metadata.getCounter());
+            writer.Write(frame.metadata.getCounterHardware());
         }
 
         private void WriteMetadataRow(RecordedFrame frame)
@@ -139,7 +219,7 @@ namespace LWIR_app.classes
 
             double sum = 0;
 
-            foreach (float temp in frame.Temperatures)
+            foreach (float temp in frame.temperatures)
             {
                 if (temp < min)
                     min = temp;
@@ -151,21 +231,23 @@ namespace LWIR_app.classes
             }
 
             double mean =
-                sum / frame.Temperatures.Length;
+                sum / frame.temperatures.Length;
 
             metadataWriter!.WriteLine(
                 string.Join(",",
                     frameIndex,
-                    frame.Metadata.getTimestamp(),
-                    frame.Metadata.getCounter(),
-                    frame.Metadata.getCounterHardware(),
+                    frame.metadata.getTimestamp(),
+                    frame.metadata.getCounter(),
+                    frame.metadata.getCounterHardware(),
                     min.ToString(CultureInfo.InvariantCulture),
                     max.ToString(CultureInfo.InvariantCulture),
                     mean.ToString(CultureInfo.InvariantCulture),
-                    frame.Metadata.getTemperatureBox().ToString(CultureInfo.InvariantCulture),
-                    frame.Metadata.getTemperatureChip().ToString(CultureInfo.InvariantCulture)));
+                    frame.metadata.getTemperatureBox().ToString(CultureInfo.InvariantCulture),
+                    frame.metadata.getTemperatureChip().ToString(CultureInfo.InvariantCulture)));
 
             metadataWriter.Flush();
         }
     }
+
+
 }

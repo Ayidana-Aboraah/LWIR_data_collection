@@ -50,6 +50,11 @@ namespace SimpleViewCS
             recordEnable = new Button();
             controlPanel = new Panel();
             recordingBox = new GroupBox();
+            saveDataTypeBox = new GroupBox();
+            saveTypeAll = new RadioButton();
+            saveTypeRle = new RadioButton();
+            saveTypeInt = new RadioButton();
+            saveTypeBase = new RadioButton();
             saveDirectory = new Button();
             tempOutputBox = new GroupBox();
             operationMode = new GroupBox();
@@ -75,6 +80,7 @@ namespace SimpleViewCS
             statusStrip.SuspendLayout();
             controlPanel.SuspendLayout();
             recordingBox.SuspendLayout();
+            saveDataTypeBox.SuspendLayout();
             tempOutputBox.SuspendLayout();
             operationMode.SuspendLayout();
             imageScale.SuspendLayout();
@@ -238,7 +244,7 @@ namespace SimpleViewCS
             // 
             recordEnable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             recordEnable.Enabled = false;
-            recordEnable.Location = new Point(88, 61);
+            recordEnable.Location = new Point(88, 186);
             recordEnable.Name = "recordEnable";
             recordEnable.Size = new Size(86, 29);
             recordEnable.TabIndex = 3;
@@ -263,14 +269,73 @@ namespace SimpleViewCS
             // recordingBox
             // 
             recordingBox.BackColor = Color.Transparent;
+            recordingBox.Controls.Add(saveDataTypeBox);
             recordingBox.Controls.Add(recordEnable);
             recordingBox.Controls.Add(saveDirectory);
             recordingBox.Location = new Point(93, 642);
             recordingBox.Name = "recordingBox";
-            recordingBox.Size = new Size(268, 100);
+            recordingBox.Size = new Size(268, 219);
             recordingBox.TabIndex = 17;
             recordingBox.TabStop = false;
             recordingBox.Text = "Recording";
+            // 
+            // saveDataTypeBox
+            // 
+            saveDataTypeBox.Controls.Add(saveTypeAll);
+            saveDataTypeBox.Controls.Add(saveTypeRle);
+            saveDataTypeBox.Controls.Add(saveTypeInt);
+            saveDataTypeBox.Controls.Add(saveTypeBase);
+            saveDataTypeBox.Location = new Point(6, 60);
+            saveDataTypeBox.Name = "saveDataTypeBox";
+            saveDataTypeBox.Size = new Size(256, 120);
+            saveDataTypeBox.TabIndex = 12;
+            saveDataTypeBox.TabStop = false;
+            saveDataTypeBox.Text = "Save Data Type";
+            // 
+            // saveTypeAll
+            // 
+            saveTypeAll.AutoSize = true;
+            saveTypeAll.Checked = true;
+            saveTypeAll.Location = new Point(130, 71);
+            saveTypeAll.Name = "saveTypeAll";
+            saveTypeAll.Size = new Size(45, 24);
+            saveTypeAll.TabIndex = 3;
+            saveTypeAll.TabStop = true;
+            saveTypeAll.Text = "All";
+            saveTypeAll.UseVisualStyleBackColor = true;
+            // 
+            // saveTypeRle
+            // 
+            saveTypeRle.AutoSize = true;
+            saveTypeRle.Location = new Point(16, 71);
+            saveTypeRle.Name = "saveTypeRle";
+            saveTypeRle.Size = new Size(87, 24);
+            saveTypeRle.TabIndex = 2;
+            saveTypeRle.TabStop = true;
+            saveTypeRle.Text = "RLE Data";
+            saveTypeRle.UseVisualStyleBackColor = true;
+            // 
+            // saveTypeInt
+            // 
+            saveTypeInt.AutoSize = true;
+            saveTypeInt.Location = new Point(130, 32);
+            saveTypeInt.Name = "saveTypeInt";
+            saveTypeInt.Size = new Size(79, 24);
+            saveTypeInt.TabIndex = 1;
+            saveTypeInt.TabStop = true;
+            saveTypeInt.Text = "IntData";
+            saveTypeInt.UseVisualStyleBackColor = true;
+            // 
+            // saveTypeBase
+            // 
+            saveTypeBase.AutoSize = true;
+            saveTypeBase.Location = new Point(16, 32);
+            saveTypeBase.Name = "saveTypeBase";
+            saveTypeBase.Size = new Size(92, 24);
+            saveTypeBase.TabIndex = 0;
+            saveTypeBase.TabStop = true;
+            saveTypeBase.Text = "BaseData";
+            saveTypeBase.UseVisualStyleBackColor = true;
             // 
             // saveDirectory
             // 
@@ -507,6 +572,8 @@ namespace SimpleViewCS
             statusStrip.PerformLayout();
             controlPanel.ResumeLayout(false);
             recordingBox.ResumeLayout(false);
+            saveDataTypeBox.ResumeLayout(false);
+            saveDataTypeBox.PerformLayout();
             tempOutputBox.ResumeLayout(false);
             tempOutputBox.PerformLayout();
             operationMode.ResumeLayout(false);
@@ -562,5 +629,10 @@ namespace SimpleViewCS
         private RadioButton opMode1;
         private GroupBox operationMode;
         private GroupBox recordingBox;
+        private GroupBox saveDataTypeBox;
+        private RadioButton saveTypeAll;
+        private RadioButton saveTypeRle;
+        private RadioButton saveTypeInt;
+        private RadioButton saveTypeBase;
     }
 }

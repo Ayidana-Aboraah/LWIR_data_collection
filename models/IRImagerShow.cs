@@ -5,6 +5,7 @@ using Optris.OtcSDK;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -50,6 +51,8 @@ namespace SimpleViewCS.models
         private float scaleHigh = 100f;
 
         public int ActiveModeIndex { get { return activeModeIndex; }}
+
+        private SaveDataType saveDataType;
 
         /// <summary>Constructor</summary>
         public IRImagerShow()
@@ -295,21 +298,20 @@ namespace SimpleViewCS.models
             // Sending thermal frame to the recorder if recording is active
             if (recorder.IsRecording)
             {
-                float[] temperatures =
-                    new float[thermal.getSize()];
+                float[] temperatures = new float[thermal.getSize()];
 
                 thermal.copyTemperaturesTo(
                     temperatures,
                     temperatures.Length);
 
                 recorder.Enqueue(
-                    new RecordedFrame
-                    {
-                        Width = thermal.getWidth(),
-                        Height = thermal.getHeight(),
-                        Temperatures = temperatures,
-                        Metadata = meta.clone()
-                    });
+                    new RecordedFrame(
+                        thermal.getWidth(),
+                        thermal.getHeight(),
+                        temperatures,
+                        meta.clone(),
+                        saveDataType
+                ));
             }
         }
 
@@ -408,7 +410,13 @@ namespace SimpleViewCS.models
 
         public void StartRecording(string directory)
         {
-            recorder.Start(directory);
+            recorder.Start(directory, SaveDataType.All);
+        }
+
+        public void StartRecording(string directory, SaveDataType saveDataType)
+        {
+            this.saveDataType = saveDataType;
+            recorder.Start(directory, saveDataType);
         }
 
         public void StopRecording()
