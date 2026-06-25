@@ -407,8 +407,8 @@ namespace SimpleViewCS
 
         private SaveDataType GetSelectedSaveDataType()
         {
-            if (saveTypeBase.Checked)
-                return SaveDataType.BaseData;
+            if (saveTypeAll.Checked)
+                return SaveDataType.All;
 
             if (saveTypeInt.Checked)
                 return SaveDataType.IntData;
@@ -416,7 +416,7 @@ namespace SimpleViewCS
             if (saveTypeRle.Checked)
                 return SaveDataType.RleData;
 
-            return SaveDataType.All;
+            return SaveDataType.BaseData;
         }
 
         private void SetSelectedPalette(ColoringPalette palette)

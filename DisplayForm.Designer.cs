@@ -281,10 +281,10 @@ namespace SimpleViewCS
             // 
             // saveDataTypeBox
             // 
-            saveDataTypeBox.Controls.Add(saveTypeAll);
+            saveDataTypeBox.Controls.Add(saveTypeBase);
             saveDataTypeBox.Controls.Add(saveTypeRle);
             saveDataTypeBox.Controls.Add(saveTypeInt);
-            saveDataTypeBox.Controls.Add(saveTypeBase);
+            saveDataTypeBox.Controls.Add(saveTypeAll);
             saveDataTypeBox.Location = new Point(6, 60);
             saveDataTypeBox.Name = "saveDataTypeBox";
             saveDataTypeBox.Size = new Size(256, 120);
@@ -295,7 +295,7 @@ namespace SimpleViewCS
             // saveTypeAll
             // 
             saveTypeAll.AutoSize = true;
-            saveTypeAll.Checked = true;
+            saveTypeAll.Checked = false;
             saveTypeAll.Location = new Point(130, 71);
             saveTypeAll.Name = "saveTypeAll";
             saveTypeAll.Size = new Size(45, 24);
@@ -329,6 +329,7 @@ namespace SimpleViewCS
             // saveTypeBase
             // 
             saveTypeBase.AutoSize = true;
+            saveTypeBase.Checked = true;
             saveTypeBase.Location = new Point(16, 32);
             saveTypeBase.Name = "saveTypeBase";
             saveTypeBase.Size = new Size(92, 24);
