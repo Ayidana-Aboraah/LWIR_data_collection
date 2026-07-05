@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 using System.Globalization;
 using Optris.OtcSDK;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace LWIR_app.classes
 {
@@ -21,51 +22,56 @@ namespace LWIR_app.classes
         private string frameDirectory = "";
 
         private StreamWriter? metadataWriter;
-
+        private BinaryWriter? singleFileWriter;
         private int frameIndex = 0;
-        private SaveDataType saveDataType = SaveDataType.All;
-
         public bool IsRecording => isRecording;
 
-        public void Start(string baseDirectory)
-        {
-            Start(baseDirectory, SaveDataType.All);
-        }
+        private RecorderSettings settings;
 
-        public void Start(string baseDirectory, SaveDataType dataType)
+        public void Start(RecorderSettings settings)
         {
-            if (isRecording)
-                return;
+            this.settings = settings;
+            if (isRecording) return;
 
-            saveDataType = dataType;
             frameIndex = 0;
 
-            string sessionName =
-                $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
+            string sessionName = $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
 
-            sessionDirectory =
-                Path.Combine(baseDirectory, sessionName);
+            sessionDirectory = Path.Combine(settings.baseDirectory, sessionName);
 
-            frameDirectory =
-                Path.Combine(sessionDirectory, "frames");
-
-            Directory.CreateDirectory(sessionDirectory);
-            Directory.CreateDirectory(frameDirectory);
-
-            metadataWriter =
-                new StreamWriter(
-                    Path.Combine(sessionDirectory, "metadata.csv"));
+            metadataWriter = new StreamWriter(Path.Combine(sessionDirectory, "metadata.csv"));
 
             metadataWriter.WriteLine(
                 "Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
 
-            queue =
-                new BlockingCollection<RecordedFrame>(500);
+            Directory.CreateDirectory(sessionDirectory);
 
+            queue = new BlockingCollection<RecordedFrame>(600);
             isRecording = true;
 
-            writerTask =
-                Task.Run(WriterLoop);
+            if (settings.singleBinary)
+            {
+                string filename = Path.Combine(
+                    frameDirectory,
+                    $"frame_{settings.dataType}.bin");
+
+                singleFileWriter = new BinaryWriter(
+                    File.Open(
+                        filename,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None));
+
+                // Don't worry about the queue warning since start can only be called after getting camera feed
+                WriteBinHeader(singleFileWriter);
+
+                writerTask = Task.Run(SingleWriterLoop);
+            }
+            else
+            {
+                Directory.CreateDirectory(Path.Combine(sessionDirectory, "frames"));
+                writerTask = Task.Run(WriterLoop);
+            }
         }
 
         public void Stop()
@@ -79,6 +85,7 @@ namespace LWIR_app.classes
 
             metadataWriter?.Flush();
             metadataWriter?.Close();
+            singleFileWriter?.Close();
 
             isRecording = false;
         }
@@ -106,25 +113,50 @@ namespace LWIR_app.classes
         {
             foreach (var frame in queue!.GetConsumingEnumerable())
             {
-                WriteFrame(frame);
+                string filename = Path.Combine(
+                    frameDirectory,
+                    $"frame_{frameIndex:D8}_base.bin");
+
+                using var writer =
+                    new BinaryWriter(
+                        File.Open(
+                            filename,
+                            FileMode.Create,
+                            FileAccess.Write,
+                            FileShare.None));
+
+                WriteFrameHeader(frame, writer);
+                WriteFrame(frame, writer);
             }
         }
-        private void WriteFrame(RecordedFrame frame)
-        {
-            switch (saveDataType) {
-                case SaveDataType.BaseData: WriteBaseDataFrame(frame);
-                break;
-                
-                case SaveDataType.IntData:  WriteIntFrame(frame);
-                break;
 
-                case SaveDataType.RleData:  WriteRleFrame(frame);
-                break;
+        private void SingleWriterLoop()
+        {
+            foreach (var frame in queue!.GetConsumingEnumerable())
+                WriteFrame(frame, singleFileWriter);
+        }
+
+        private void WriteFrame(RecordedFrame frame, BinaryWriter writer)
+        {
+
+            switch (frame.saveType)
+            {
+                case SaveDataType.Float:
+                    WriteBaseDataFrame(frame, writer);
+                    break;
+
+                case SaveDataType.U16:
+                    WriteIntFrame(frame, writer);
+                    break;
+
+                case SaveDataType.RLE:
+                    WriteRleFrame(frame, writer);
+                    break;
 
                 default:
-                    WriteBaseDataFrame(frame);
-                    WriteIntFrame(frame);
-                    WriteRleFrame(frame);
+                    WriteBaseDataFrame(frame, writer);
+                    WriteIntFrame(frame, writer);
+                    WriteRleFrame(frame, writer);
                     break;
             }
 
@@ -133,77 +165,38 @@ namespace LWIR_app.classes
             frameIndex++;
         }
 
-        private void WriteBaseDataFrame(RecordedFrame frame)
+        private void WriteBaseDataFrame(RecordedFrame frame, BinaryWriter writer)
         {
-            string filename =
-                Path.Combine(
-                    frameDirectory,
-                    $"frame_{frameIndex:D8}_base.bin");
-
-            using var writer =
-                new BinaryWriter(
-                    File.Open(
-                        filename,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None));
-
-            WriteFrameHeader(frame, writer); // TODO: Discuss Removing or shortening Frame header
-
             foreach (float value in frame.temperatures)
             {
                 writer.Write(value);
             }
         }
 
-        private void WriteIntFrame(RecordedFrame frame)
+        private void WriteIntFrame(RecordedFrame frame, BinaryWriter writer)
         {
-            string filename =
-                Path.Combine(
-                    frameDirectory,
-                    $"frame_{frameIndex:D8}_int.bin");
-
-            using var writer =
-                new BinaryWriter(
-                    File.Open(
-                        filename,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None));
-
-            WriteFrameHeader(frame, writer);
             foreach (ushort value in frame.temperature_Ints)
             {
                 writer.Write(value);
             }
         }
 
-        private void WriteRleFrame(RecordedFrame frame)
+        private void WriteRleFrame(RecordedFrame frame, BinaryWriter writer)
         {
-            string filename =
-                Path.Combine(
-                    frameDirectory,
-                    $"frame_{frameIndex:D8}_rle.bin");
-
-            using var writer =
-                new BinaryWriter(
-                    File.Open(
-                        filename,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None));
-
-            WriteFrameHeader(frame, writer);
-
-            Debug.WriteLine(frame.RLE.Length);
-
-            for (int i = 0; i < frame.RLE.Length; i++){
+            for (int i = 0; i < frame.RLE.Length; i++)
+            {
                 writer.Write(frame.RLE[i].value);
                 writer.Write(frame.RLE[i].length);
             }
         }
 
-        private static void WriteFrameHeader(RecordedFrame frame, BinaryWriter writer)
+        private void WriteBinHeader(BinaryWriter writer)
+        {
+            writer.Write(settings.camera_width);
+            writer.Write(settings.camera_height);
+        }
+
+        private void WriteFrameHeader(RecordedFrame frame, BinaryWriter writer)
         {
             writer.Write(frame.width);
             writer.Write(frame.height);

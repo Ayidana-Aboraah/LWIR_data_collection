@@ -2,9 +2,9 @@ namespace LWIR_app.classes
 {
     public enum SaveDataType
     {
-        BaseData,
-        IntData,
-        RleData,
+        Float,
+        U16,
+        RLE,
         All
     }
 }

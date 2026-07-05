@@ -408,21 +408,23 @@ namespace SimpleViewCS.models
             get { return recorder.IsRecording; }
         }
 
-        public void StartRecording(string directory)
-        {
-            recorder.Start(directory, SaveDataType.All);
-        }
-
-        public void StartRecording(string directory, SaveDataType saveDataType)
+        public void StartRecording(string directory, SaveDataType saveDataType, bool singleBinary)
         {
             this.saveDataType = saveDataType;
-            recorder.Start(directory, saveDataType);
+            recorder.Start(
+                new RecorderSettings{
+                    baseDirectory = directory, 
+                    dataType = saveDataType,
+                    singleBinary = singleBinary
+                }
+            );
         }
 
         public void StopRecording()
         {
             recorder.Stop();
         }
+        
         public void SetScaleRange(float low, float high)
         {
             scaleLow = low;

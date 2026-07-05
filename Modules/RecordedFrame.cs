@@ -13,7 +13,7 @@ namespace LWIR_app.classes
 
         public SaveDataType saveType;
 
-        public UInt16[] temperature_Ints;
+        public ushort[] temperature_Ints;
         public RLE_Pair[] RLE;
 
         public RecordedFrame(int width, int height, float[] temperatures, FrameMetadata metadata, SaveDataType saveType)
@@ -24,19 +24,18 @@ namespace LWIR_app.classes
             this.metadata = metadata;
             this.saveType = saveType;
 
-            if (saveType == SaveDataType.BaseData) return;
+            if (saveType == SaveDataType.Float) return;
 
-            temperature_Ints = new UInt16[temperatures.Length];
+            temperature_Ints = new ushort[temperatures.Length];
             RLE = new RLE_Pair[temperatures.Length];
 
             int current_pair = 0;
             for (int i = 0; i < temperatures.Length; i++)
             {
-
                 // Int Compression
-                temperature_Ints[i] = (UInt16)(MathF.Truncate(temperatures[i] * 10.0f));
+                temperature_Ints[i] = (ushort)(temperatures[i] * 100.0f);
 
-                if (saveType == SaveDataType.IntData) continue;
+                if (saveType == SaveDataType.U16) continue;
 
                 // Run-Length Encoding
                 if (RLE[current_pair].value == temperature_Ints[i])
@@ -50,7 +49,7 @@ namespace LWIR_app.classes
 
     public struct RLE_Pair
     {
-        public UInt16 value;
-        public UInt32 length;
+        public ushort value;
+        public uint length;
     }
 }

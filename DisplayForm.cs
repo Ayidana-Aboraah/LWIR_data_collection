@@ -389,10 +389,15 @@ namespace SimpleViewCS
             {
                 imagerShow.StartRecording(
                     saveDirectory.Text,
-                    GetSelectedSaveDataType());
+                    GetSelectedSaveDataType(),
+                    false); // TODO: Recieve data from the Single BInary Toggle UI
                 recordEnable.BackColor = Color.LimeGreen;
                 recordEnable.Text = "Stop Recording";
                 recordingIndicatorVisible = true;
+                // TODO: Disable:
+                //  - The Record Path Text
+                //  - The SaveType
+                //  - THe Single binary Checkbox
                 blinkTimer.Start();
             }
             else
@@ -411,12 +416,12 @@ namespace SimpleViewCS
                 return SaveDataType.All;
 
             if (saveTypeInt.Checked)
-                return SaveDataType.IntData;
+                return SaveDataType.U16;
 
             if (saveTypeRle.Checked)
-                return SaveDataType.RleData;
+                return SaveDataType.RLE;
 
-            return SaveDataType.BaseData;
+            return SaveDataType.Float;
         }
 
         private void SetSelectedPalette(ColoringPalette palette)
