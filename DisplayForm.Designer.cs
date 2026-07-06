@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
-namespace SimpleViewCS
+namespace LWIR_app
 {
     partial class DisplayForm
     {

@@ -3,7 +3,7 @@
 using Optris.OtcSDK;
 
 
-namespace SimpleViewCS
+namespace LWIR_app
 {
     internal static class Program
     {
@@ -16,7 +16,7 @@ namespace SimpleViewCS
             ApplicationConfiguration.Initialize();
 
             // Initialize the SDK by setting log verbosity
-            Sdk.init(Verbosity.Off, Verbosity.Off, "SimpleViewCS");
+            Sdk.init(Verbosity.Off, Verbosity.Off, "LWIR_app");
 
             /*
              * Add an additional detector for Ethernet devices on the network 192.168.0.0/24. A detector for 

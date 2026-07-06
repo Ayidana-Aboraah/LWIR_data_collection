@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SimpleViewCS.models
+namespace LWIR_app.models
 {
     /// <summary>
     /// A more feature rich implementation of an IRImagerClient that converts thermal frames to false color images and

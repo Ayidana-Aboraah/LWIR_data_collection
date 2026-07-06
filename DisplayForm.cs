@@ -1,13 +1,13 @@
 // Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
-using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.ComponentModel;
 using System.Drawing.Text;
 using LWIR_app.classes;
+using LWIR_app.models;
 using Optris.OtcSDK;
-using SimpleViewCS.models;
 
-namespace SimpleViewCS
+namespace LWIR_app
 {
     /// <summary>Main windows of the application.</summary>
     public partial class DisplayForm : Form
