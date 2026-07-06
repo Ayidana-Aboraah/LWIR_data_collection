@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace LWIR_app.models
 {
@@ -156,15 +158,14 @@ namespace LWIR_app.models
                 }
                 catch (SDKException ex)
                 {
-                    MessageBox.Show(ex.Message, "Failed to refresh flag", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowMessageBox(ex.Message, "Failed to refresh flag", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
         public void SetOperationMode(int modeIndex)
         {
-            if (!IsConnected)
-                return;
+            if (!IsConnected) return;
 
             try
             {
@@ -173,11 +174,11 @@ namespace LWIR_app.models
             }
             catch (SDKException ex)
             {
-                MessageBox.Show(
+                ShowMessageBox(
                     ex.Message,
                     "Failed to change operation mode",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
             UpdateOperationModeString();
         }
@@ -329,7 +330,7 @@ namespace LWIR_app.models
         /// <summary>Called when the connection to the camera is lost and can not be recovered.</summary>
         public override void onConnectionLost()
         {
-            MessageBox.Show("Lost connection to device.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ShowMessageBox("Lost connection to device.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             
             IsConnectionLost = true;
         }
@@ -337,9 +338,9 @@ namespace LWIR_app.models
         /// <summary>Called when the SDK has not received frames from the camera for a while.</summary>
         public override void onConnectionTimeout()
         {
-            DialogResult dialogResult = MessageBox.Show("Connection to the device timed out. Disconnect?", "Connection Timeout", MessageBoxButtons.YesNo);
+            MessageBoxResult dialogResult = ShowMessageBox("Connection to the device timed out. Disconnect?", "Connection Timeout", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            IsConnectionLost = (dialogResult == DialogResult.Yes);
+            IsConnectionLost = (dialogResult == MessageBoxResult.Yes);
         }
 
         /// <summary>Starts the imager processing loop.</summary>
@@ -396,7 +397,7 @@ namespace LWIR_app.models
                 }
                 catch (SDKException ex)
                 {
-                    MessageBox.Show(ex.Message, "Failed to change palette", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowMessageBox(ex.Message, "Failed to change palette", MessageBoxButton.OK, MessageBoxImage.Error);
                     ColoringPalette palette = imageBuilder.getPalette();
                 }
             }
@@ -446,6 +447,18 @@ namespace LWIR_app.models
                         ? PaletteScalingMethod.MinMax
                         : PaletteScalingMethod.Manual);
             }
+        }
+
+        private static MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton button, MessageBoxImage icon)
+        {
+            Dispatcher? dispatcher = Application.Current?.Dispatcher;
+
+            if (dispatcher != null && !dispatcher.CheckAccess())
+            {
+                return dispatcher.Invoke(() => MessageBox.Show(message, title, button, icon));
+            }
+
+            return MessageBox.Show(message, title, button, icon);
         }
     }
 }

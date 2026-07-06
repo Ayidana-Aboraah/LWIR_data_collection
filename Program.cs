@@ -1,6 +1,9 @@
 // Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
 using Optris.OtcSDK;
+using System.IO;
+using System.Runtime.ExceptionServices;
+using System.Windows;
 
 
 namespace LWIR_app
@@ -11,9 +14,18 @@ namespace LWIR_app
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            AppDomain.CurrentDomain.FirstChanceException += (_, eventArgs) =>
+            {
+                if (eventArgs.Exception is InvalidOperationException)
+                {
+                    LogException(eventArgs.Exception);
+                }
+            };
+
+            AppDomain.CurrentDomain.UnhandledException += (_, eventArgs) =>
+            {
+                LogException(eventArgs.ExceptionObject as Exception ?? new Exception("Unknown unhandled exception"));
+            };
 
             // Initialize the SDK by setting log verbosity
             Sdk.init(Verbosity.Off, Verbosity.Off, "LWIR_app");
@@ -26,12 +38,30 @@ namespace LWIR_app
 
             try
             {
-                Application.Run(new DisplayForm());
+                var app = new Application();
+                app.DispatcherUnhandledException += (_, eventArgs) =>
+                {
+                    LogException(eventArgs.Exception);
+                    eventArgs.Handled = true;
+                };
+                app.Run(new DisplayForm());
             }
             catch (SDKException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogException(ex);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (Exception ex)
+            {
+                LogException(ex);
+                MessageBox.Show(ex.ToString(), "Unhandled Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private static void LogException(Exception exception)
+        {
+            string logPath = Path.Combine(Path.GetTempPath(), "LWIR_app_error.log");
+            File.AppendAllText(logPath, DateTime.Now.ToString("O") + Environment.NewLine + exception + Environment.NewLine + Environment.NewLine);
         }
     }
 }

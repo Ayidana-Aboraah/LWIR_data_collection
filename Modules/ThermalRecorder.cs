@@ -8,6 +8,7 @@ using System.Globalization;
 using Optris.OtcSDK;
 using System.Diagnostics;
 using System.Configuration;
+using System.IO;
 
 namespace LWIR_app.classes
 {
@@ -38,13 +39,15 @@ namespace LWIR_app.classes
             string sessionName = $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
 
             sessionDirectory = Path.Combine(settings.baseDirectory, sessionName);
+            frameDirectory = Path.Combine(sessionDirectory, "frames");
+
+            Directory.CreateDirectory(sessionDirectory);
+            Directory.CreateDirectory(frameDirectory);
 
             metadataWriter = new StreamWriter(Path.Combine(sessionDirectory, "metadata.csv"));
 
             metadataWriter.WriteLine(
                 "Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
-
-            Directory.CreateDirectory(sessionDirectory);
 
             queue = new BlockingCollection<RecordedFrame>(600);
             isRecording = true;
@@ -52,7 +55,7 @@ namespace LWIR_app.classes
             if (settings.singleBinary)
             {
                 string filename = Path.Combine(
-                    frameDirectory,
+                    sessionDirectory,
                     $"frame_{settings.dataType}.bin");
 
                 singleFileWriter = new BinaryWriter(
@@ -69,7 +72,6 @@ namespace LWIR_app.classes
             }
             else
             {
-                Directory.CreateDirectory(Path.Combine(sessionDirectory, "frames"));
                 writerTask = Task.Run(WriterLoop);
             }
         }

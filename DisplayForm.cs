@@ -1,30 +1,450 @@
 // Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.ComponentModel;
 using System.Drawing.Text;
+using Microsoft.Win32;
 using LWIR_app.classes;
 using LWIR_app.models;
 using Optris.OtcSDK;
+using WpfBrushes = System.Windows.Media.Brushes;
 
 namespace LWIR_app
 {
-    /// <summary>Main windows of the application.</summary>
-    public partial class DisplayForm : Form
+    /// <summary>Main window of the application.</summary>
+    public sealed class DisplayForm : Window
     {
-        private IRImagerShow imagerShow = new();
-        private System.Windows.Forms.Timer uiUpdateTimer = new();
-        private bool recordingIndicatorVisible = false;
+        private readonly IRImagerShow imagerShow = new();
+        private readonly DispatcherTimer uiUpdateTimer = new();
+        private readonly Dictionary<ColoringPalette, MenuItem> paletteMenuItems = new();
+
+        private bool suppressScaleTextEvents;
+
+        private System.Windows.Controls.Image thermalImage;
+        private TextBlock sbOperationMode = new TextBlock
+        {
+            Text = string.Empty,
+            VerticalAlignment = VerticalAlignment.Center,
+            Padding = new Thickness(5, 0, 5, 0)
+        };
+
+        private TextBlock sbFlag = new TextBlock
+        {
+            Text = "                  ",
+            VerticalAlignment = VerticalAlignment.Center,
+            Padding = new Thickness(5, 0, 5, 0)
+        };
+
+        private TextBlock sbFPS = new TextBlock
+        {
+            Text = "                  ",
+            VerticalAlignment = VerticalAlignment.Center,
+            Padding = new Thickness(5, 0, 5, 0),
+            TextAlignment = TextAlignment.Right
+        };
+
+        private Button recordEnable = new Button
+        {
+            Content = "Record",
+            IsEnabled = false,
+            Height = 30
+        };
+
+        private Button saveDirectory = new Button
+        {
+            Content = "Set Save Directory",
+            Height = 30,
+            Margin = new Thickness(0, 0, 0, 10)
+        };
+
+        private TextBox saveDirectoryPath = new TextBox
+        {
+            Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            Margin = new Thickness(0, 0, 0, 8)
+        };
+
+        private CheckBox singleBinaryToggle = new CheckBox
+        {
+            Content = "Single Binary File",
+            IsChecked = false,
+            Margin = new Thickness(0, 0, 0, 10)
+        };
+
+        private CheckBox autoTempScale = new CheckBox
+        {
+            Content = "Automatic Temperature Scale",
+            IsChecked = true,
+            Margin = new Thickness(0, 16, 0, 0)
+        };
+
+        private TextBox imageScaleLow;
+        private TextBox imageScaleHigh;
+        private TextBlock minTemp;
+        private TextBlock maxTemp;
+
+        private RadioButton[] opModes;
+        // private RadioButton opMode1;
+        // private RadioButton opMode2;
+        // private RadioButton opMode3;
+
+        private RadioButton[] saveTypes = new RadioButton[4]{
+            new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
+            new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
+            new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
+            new RadioButton { Content = "All" } 
+        };
+        // private RadioButton saveTypeBase = ;
+        // private RadioButton saveTypeInt = ;
+        // private RadioButton saveTypeRle = ;
+        // private RadioButton saveTypeAll = ;
+        private MenuItem miDeviceQuickConnect = new MenuItem { Header = "Quick Connect" };
+        private MenuItem miDeviceConnect = new MenuItem { Header = "Connect With Configuration..." };
+        private MenuItem miDeviceDisconnect = new MenuItem { Header = "Disconnect", IsEnabled = false };
+        private MenuItem miDeviceRefreshFlag = new MenuItem { Header = "Refresh Flag", IsEnabled = false };
+        private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
+        private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
+        private GroupBox saveDataTypeBox = new GroupBox
+        {
+            Header = "Save Data Type",
+            Margin = new Thickness(0, 0, 0, 10)
+        };
 
         /// <summary>Constructor.</summary>
         public DisplayForm()
         {
             InitializeComponent();
+
+            uiUpdateTimer.Interval = TimeSpan.FromMilliseconds(33);
+            uiUpdateTimer.Tick += (_, _) => UpdateUI();
+
+            BuildPaletteMenu();
+            UpdateUiOnConnectionStatus();
         }
 
-        /// <summary>Connects to the device specified in the configuration file.</summary>
-        /// 
-        /// <param name="filename">path to the configuration file of the device to connect to.</param>
+        private void InitializeComponent()
+        {
+            Title = "Optris Imager";
+            Width = 1538;
+            Height = 879;
+            MinWidth = 683;
+            MinHeight = 515;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Background = WpfBrushes.Black;
+
+            var root = new DockPanel();
+            Content = root;
+
+            var menuStrip = BuildMenu();
+            DockPanel.SetDock(menuStrip, Dock.Top);
+            root.Children.Add(menuStrip);
+
+            var footer = BuildFooter();
+            DockPanel.SetDock(footer, Dock.Bottom);
+            root.Children.Add(footer);
+
+            var controlPanelBorder = BuildControlPanel();
+            DockPanel.SetDock(controlPanelBorder, Dock.Right);
+            root.Children.Add(controlPanelBorder);
+
+            thermalImage = new System.Windows.Controls.Image
+            {
+                Stretch = Stretch.Uniform,
+                SnapsToDevicePixels = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch
+            };
+            RenderOptions.SetBitmapScalingMode(thermalImage, BitmapScalingMode.HighQuality);
+
+            var thermalBorder = new Border
+            {
+                Background = WpfBrushes.DimGray,
+                Child = thermalImage
+            };
+            root.Children.Add(thermalBorder);
+
+            Closing += (_, _) => Disconnect();
+        }
+
+        private FrameworkElement BuildFooter()
+        {
+            var footer = new Border
+            {
+                Background = WpfBrushes.Gainsboro,
+                BorderBrush = WpfBrushes.Gray,
+                BorderThickness = new Thickness(1, 1, 0, 0),
+                Padding = new Thickness(6, 4, 6, 4)
+            };
+
+            var footerGrid = new Grid();
+            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+            Grid.SetColumn(sbOperationMode, 0);
+            Grid.SetColumn(sbFlag, 1);
+            Grid.SetColumn(sbFPS, 2);
+            footerGrid.Children.Add(sbOperationMode);
+            footerGrid.Children.Add(sbFlag);
+            footerGrid.Children.Add(sbFPS);
+
+            footer.Child = footerGrid;
+            return footer;
+        }
+
+        private Menu BuildMenu()
+        {
+            var menuStrip = new Menu();
+
+            var fileMenu = new MenuItem { Header = "File" };
+            var quitMenu = new MenuItem { Header = "Quit" };
+            quitMenu.Click += (_, _) =>
+            {
+                Disconnect();
+                Application.Current.Shutdown();
+            };
+            fileMenu.Items.Add(quitMenu);
+
+            var deviceMenu = new MenuItem { Header = "Device" };
+
+            miDeviceQuickConnect.Click += (_, _) => QuickConnect();
+
+            miDeviceConnect.Click += (_, _) => ConnectWithConfigSelection();
+
+            miDeviceDisconnect.Click += (_, _) => Disconnect();
+
+            miDeviceRefreshFlag.Click += (_, _) => imagerShow.RefreshFlag();
+
+            deviceMenu.Items.Add(miDeviceQuickConnect);
+            deviceMenu.Items.Add(miDeviceConnect);
+            deviceMenu.Items.Add(miDeviceDisconnect);
+            deviceMenu.Items.Add(new Separator());
+            deviceMenu.Items.Add(miDeviceRefreshFlag);
+
+            imageConfigurationMenu.Items.Add(colorPaletteMenu);
+
+            menuStrip.Items.Add(fileMenu);
+            menuStrip.Items.Add(deviceMenu);
+            menuStrip.Items.Add(imageConfigurationMenu);
+
+            return menuStrip;
+        }
+
+        private Border BuildControlPanel()
+        {
+            var panelBorder = new Border
+            {
+                Width = 378,
+                Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(245, 245, 245)),
+                BorderBrush = WpfBrushes.Gray,
+                BorderThickness = new Thickness(1),
+                Padding = new Thickness(10)
+            };
+
+            var scrollViewer = new ScrollViewer
+            {
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
+            };
+
+            var stack = new StackPanel
+            {
+                Orientation = Orientation.Vertical
+            };
+
+            stack.Children.Add(BuildScaleGroup());
+            stack.Children.Add(BuildTemperatureGroup());
+            stack.Children.Add(BuildRecordingGroup());
+
+            scrollViewer.Content = stack;
+            panelBorder.Child = scrollViewer;
+            return panelBorder;
+        }
+
+        private GroupBox BuildScaleGroup()
+        {
+            var group = new GroupBox
+            {
+                Header = "Scale",
+                Margin = new Thickness(0, 0, 0, 12)
+            };
+
+            Grid panel = new Grid {Margin = new Thickness(8)};
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            FrameworkElement[] s = {
+                BuildScaleRow("High:", out imageScaleHigh),
+                BuildScaleRow("Low:", out imageScaleLow)
+            };
+
+            // TODO: Create a space between the elements
+
+            for (int i = 0; i < s.Length; i++){
+                Grid.SetRow(s[i], 0);
+                Grid.SetColumn(s[i], i);
+                panel.Children.Add(s[i]);
+            }
+
+            group.Content = panel;
+            return group;
+        }
+
+        private GroupBox BuildTemperatureGroup()
+        {
+            var group = new GroupBox
+            {
+                Header = "Temperature",
+                Margin = new Thickness(0, 0, 0, 12)
+            };
+
+            var layout = new Grid { Margin = new Thickness(8) };
+            layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+            var valueStack = new StackPanel { Orientation = Orientation.Vertical };
+            valueStack.Children.Add(BuildTemperatureValueRow("Max:", out maxTemp));
+            valueStack.Children.Add(BuildTemperatureValueRow("Min:", out minTemp, 10));
+
+
+            autoTempScale.Checked += (_, _) => AutoTempScale_CheckedChanged();
+            autoTempScale.Unchecked += (_, _) => AutoTempScale_CheckedChanged();
+            valueStack.Children.Add(autoTempScale);
+
+            Grid.SetColumn(valueStack, 0);
+            layout.Children.Add(valueStack);
+
+            var opGroup = new GroupBox
+            {
+                Header = "Operation Mode",
+                Margin = new Thickness(10, 0, 0, 0),
+                Padding = new Thickness(6)
+            };
+
+            var opStack = new StackPanel { Orientation = Orientation.Vertical };
+            opModes = new RadioButton[3]{
+                BuildOperationModeRadio(" -20°C–100°C", 0),
+                BuildOperationModeRadio("0°C–250°C", 1),
+                BuildOperationModeRadio("250°C–900°C", 2)
+            };
+
+            foreach (RadioButton opMode in opModes) opStack.Children.Add(opMode);
+            opGroup.Content = opStack;
+
+            Grid.SetColumn(opGroup, 1);
+            layout.Children.Add(opGroup);
+
+            group.Content = layout;
+            return group;
+        }
+
+        private FrameworkElement BuildTemperatureValueRow(string labelText, out TextBlock valueText, double topMargin = 0)
+        {
+            var row = new DockPanel
+            {
+                Margin = new Thickness(0, topMargin, 0, 0)
+            };
+
+            var label = new TextBlock
+            {
+                Text = labelText,
+                Width = 48,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            valueText = new TextBlock
+            {
+                Text = "0.00",
+                Width = 80,
+                TextAlignment = TextAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 6, 0)
+            };
+
+            var unit = new TextBlock
+            {
+                Text = "°C",
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            DockPanel.SetDock(label, Dock.Left);
+            DockPanel.SetDock(unit, Dock.Right);
+
+            row.Children.Add(label);
+            row.Children.Add(valueText);
+            row.Children.Add(unit);
+            return row;
+        }
+
+        private RadioButton BuildOperationModeRadio(string text, int modeIndex)
+        {
+            var radio = new RadioButton
+            {
+                Content = text,
+                Tag = modeIndex,
+                Margin = new Thickness(0, 4, 0, 4),
+            };
+            radio.Checked += OperationMode_CheckedChanged;
+            return radio;
+        }
+
+        private GroupBox BuildRecordingGroup()
+        {
+            var group = new GroupBox
+            {
+                Header = "Recording"
+            };
+
+            var stack = new StackPanel
+            {
+                Margin = new Thickness(8)
+            };
+
+            saveDirectory.Click += saveDirectory_Click;
+
+            var radioGrid = new Grid { Margin = new Thickness(8) };
+            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            radioGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            // TODO: Create a space between the elements
+
+            for (int i = 0; i < saveTypes.Length; i++){
+                Grid.SetRow(saveTypes[i], 0);
+                Grid.SetColumn(saveTypes[i], i);
+                radioGrid.Children.Add(saveTypes[i]);
+            }
+
+            saveDataTypeBox.Content = radioGrid;
+
+            recordEnable.Click += recordEnable_Click;
+
+            stack.Children.Add(new TextBlock
+            {
+                Text = "Save Directory",
+                Margin = new Thickness(0, 0, 0, 4)
+            });
+            stack.Children.Add(saveDirectoryPath);
+            stack.Children.Add(saveDirectory);
+            stack.Children.Add(saveDataTypeBox);
+            stack.Children.Add(singleBinaryToggle);
+            stack.Children.Add(recordEnable);
+
+            group.Content = stack;
+            return group;
+        }
+
         private void Connect(string filename)
         {
             if (imagerShow.IsConnected)
@@ -38,13 +458,12 @@ namespace LWIR_app
             }
             catch (SDKException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             UpdateUiOnConnectionStatus();
         }
 
-        /// <summary>Quickly connects to the first detected device on the USB port.</summary>
         private void QuickConnect()
         {
             if (imagerShow.IsConnected)
@@ -58,41 +477,38 @@ namespace LWIR_app
             }
             catch (SDKException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             UpdateUiOnConnectionStatus();
         }
 
-        /// <summary>Opens a file dialog to choose the configuration file of the device to connect to and starts the connection.</summary>
         private void ConnectWithConfigSelection()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Please select the configuration file of the device to connect to...";
-            openFileDialog.Filter = "XML configuration files (*.xml)|*.xml|All files (*.*)|*.*";
-            openFileDialog.Multiselect = false;
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Please select the configuration file of the device to connect to...",
+                Filter = "XML configuration files (*.xml)|*.xml|All files (*.*)|*.*",
+                Multiselect = false
+            };
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog.ShowDialog() == true)
             {
                 Connect(openFileDialog.FileName);
             }
         }
 
-        /// <summary>Disconnects form the currently connected device.</summary>
         private void Disconnect()
         {
-            if (!imagerShow.IsConnected)
-            {
-                return;
-            }
+            if (!imagerShow.IsConnected) return;
+
+            if (imagerShow.IsRecording) imagerShow.StopRecording();
 
             imagerShow.Disconnect();
-
             UpdateUiOnConnectionStatus();
         }
 
-        /// <summary>Callback of the UI update timer.</summary>
-        private void UpdateUI(object? sender, EventArgs e)
+        private void UpdateUI()
         {
             if (!imagerShow.IsConnected || imagerShow.IsConnectionLost)
             {
@@ -102,389 +518,342 @@ namespace LWIR_app
 
             sbOperationMode.Text = imagerShow.OperationModeString;
             sbFlag.Text = imagerShow.GetFlagState();
-            sbFPS.Text = imagerShow.GetFPS().ToString() + " Hz";
+            sbFPS.Text = imagerShow.GetFPS().ToString("N1", CultureInfo.CurrentCulture) + " Hz";
 
             Bitmap? image = imagerShow.GetImage();
+            if (image == null) return;
 
-            if (imagerShow.IsRecording && recordingIndicatorVisible)
+            if (imagerShow.CalculateMinMaxTemperatureRegions())
             {
-                DrawRecordingIndicator();
+                DrawMeasurement(
+                    image,
+                    (imagerShow.MaxRegion.x1 + imagerShow.MaxRegion.x2) / 2,
+                    (imagerShow.MaxRegion.y1 + imagerShow.MaxRegion.y2) / 2,
+                    imagerShow.MaxRegion.temperature,
+                    System.Drawing.Color.Red,
+                    System.Drawing.Color.White);
+
+                minTemp.Text = imagerShow.MinRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
+                maxTemp.Text = imagerShow.MaxRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
+
+                if (autoTempScale.IsChecked == true) SetAutoScalingRange();
             }
 
-            if (image != null)
-            {
-                // False color image
-                thermalImage.Image = image;
-
-                // Determine the coldest and hottest region with the given radius in the thermal frame
-                if (imagerShow.CalculateMinMaxTemperatureRegions())
-                {
-                    /*
-                    // Draws a blue crosshair at the center of the lowest temperature region in the thermal frame
-                    drawMeasurement((imagerShow.MinRegion.x1 + imagerShow.MinRegion.x2) / 2,
-                                    (imagerShow.MinRegion.y1 + imagerShow.MinRegion.y2) / 2,
-                                    imagerShow.MinRegion.temperature,
-                                    Color.Blue,
-                                    Color.White);
-                    */
-                    // Draws a red crosshair at the center of the hottest temperature region in the thermal frame
-                    drawMeasurement((imagerShow.MaxRegion.x1 + imagerShow.MaxRegion.x2) / 2,
-                                    (imagerShow.MaxRegion.y1 + imagerShow.MaxRegion.y2) / 2,
-                                    imagerShow.MaxRegion.temperature,
-                                    Color.Red,
-                                    Color.White);
-
-                    minTemp.Text = imagerShow.MinRegion.temperature.ToString("N2");
-                    maxTemp.Text = imagerShow.MaxRegion.temperature.ToString("N2");
-
-                    if (AutoTempScale.Checked)
-                    {
-                        imageScaleLow.Value = (int)imagerShow.MinRegion.temperature;
-                        imageScaleHigh.Value = (int)imagerShow.MaxRegion.temperature;
-                    }
-
-                }
-
-                // Calculate the mean temperature in a small region in the center of thermal frame
-                /*
-                if (imagerShow.CalculateCenterMeanTemperatureRegion())
-                {
-                    // Draws a white cross hair in the center of the display with the mean temperature
-                    drawMeasurement(imagerShow.Imager.getWidth() / 2 - 1,
-                                    imagerShow.Imager.getHeight() / 2 - 1,
-                                    imagerShow.MeanRegion.temperature,
-                                    Color.Black,
-                                    Color.White);
-                }
-                */
-
-                thermalImage.Invalidate();
-            }
-        }
-        private void DrawRecordingIndicator()
-        {
-            if (thermalImage.Image == null)
-                return;
-
-            using (Graphics g = Graphics.FromImage(thermalImage.Image))
-            {
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-
-                g.FillEllipse(
-                    Brushes.Red,
-                    10,
-                    10,
-                    20,
-                    20);
-
-                g.DrawString(
-                    "REC",
-                    new Font("Segoe UI", 12, FontStyle.Bold),
-                    Brushes.Red,
-                    40,
-                    5);
-            }
+            thermalImage.Source = ConvertBitmapToSource(image);
+            image.Dispose();
         }
 
-        /// <summary>Draws a marker at the position of a temperature measurement and its value next to it.</summary>
-        /// <param name="x">x position.</param>
-        /// <param name="y">y position.</param>
-        /// <param name="value">of the measurement.</param>
-        /// <param name="fgColor">foreground color to use.</param>
-        /// <param name="bgColor">background color to use.</param>
-        private void drawMeasurement(int x, int y, float value, Color fgColor, Color bgColor)
+        private void DrawMeasurement(Bitmap bitmap, int x, int y, float value, System.Drawing.Color fgColor, System.Drawing.Color bgColor)
         {
             int markerSize = 20;
             int markerSizeHalf = markerSize / 2;
 
-            using (Graphics g = Graphics.FromImage(thermalImage.Image))
-            using (GraphicsPath path = new GraphicsPath(FillMode.Winding))
-            using (Brush fgBrush = new SolidBrush(fgColor))
-            using (Pen fgPen = new Pen(fgBrush, 1))
-            using (Pen bgPen = new Pen(bgColor, 3))
-            {
-                // Rendering options
-                g.SmoothingMode = SmoothingMode.HighQuality;
-                g.InterpolationMode = InterpolationMode.HighQualityBilinear;
-                g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+            using Graphics graphics = Graphics.FromImage(bitmap);
+            using GraphicsPath path = new GraphicsPath(FillMode.Winding);
+            using System.Drawing.Brush fgBrush = new System.Drawing.SolidBrush(fgColor);
+            using System.Drawing.Pen fgPen = new System.Drawing.Pen(fgBrush, 1);
+            using System.Drawing.Pen bgPen = new System.Drawing.Pen(bgColor, 3);
 
-                // Draw marker denoting measurement position
-                g.DrawLine(bgPen, x - markerSizeHalf, y, x + markerSizeHalf, y);
-                g.DrawLine(bgPen, x, y - markerSizeHalf, x, y + markerSizeHalf);
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
-                g.DrawLine(fgPen, x - markerSizeHalf, y, x + markerSizeHalf, y);
-                g.DrawLine(fgPen, x, y - markerSizeHalf, x, y + markerSizeHalf);
+            graphics.DrawLine(bgPen, x - markerSizeHalf, y, x + markerSizeHalf, y);
+            graphics.DrawLine(bgPen, x, y - markerSizeHalf, x, y + markerSizeHalf);
 
-                // Measurement value
-                path.AddString(string.Format("{0:N1}", value),
-                               SystemFonts.DefaultFont.FontFamily,
-                               (int)FontStyle.Regular,
-                               (float)(12),
-                               new Point(x + markerSizeHalf / 2, y - markerSizeHalf * 2),
-                               StringFormat.GenericDefault);
+            graphics.DrawLine(fgPen, x - markerSizeHalf, y, x + markerSizeHalf, y);
+            graphics.DrawLine(fgPen, x, y - markerSizeHalf, x, y + markerSizeHalf);
 
-                g.DrawPath(bgPen, path);
-                g.FillPath(fgBrush, path);
-            }
+            path.AddString(
+                string.Format(CultureInfo.CurrentCulture, "{0:N1}", value),
+                System.Drawing.SystemFonts.DefaultFont.FontFamily,
+                (int)System.Drawing.FontStyle.Regular,
+                12,
+                new System.Drawing.Point(x + markerSizeHalf / 2, y - markerSizeHalf * 2),
+                StringFormat.GenericDefault);
+
+            graphics.DrawPath(bgPen, path);
+            graphics.FillPath(fgBrush, path);
         }
 
-        /// <summary>Updates the UI based on the current connection status.</summary>
         private void UpdateUiOnConnectionStatus()
         {
             bool connected = imagerShow.IsConnected;
 
             if (connected)
             {
-                // Title bar
-                Text = "Optris Imager - " + imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString() + ")";
-
-                // Status bar
+                Title = "Optris Imager - " + imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
                 sbOperationMode.Text = imagerShow.OperationModeString;
                 sbFlag.Text = imagerShow.GetFlagState();
-
-                // Ui updates
-                uiUpdateTimer.Tick += new EventHandler(UpdateUI);
-                uiUpdateTimer.Interval = 1;
                 uiUpdateTimer.Start();
+                SetAutoScalingRange();
             }
             else
             {
-                // Title bar
-                Text = "Optris Imager";
-
-                // Status bar
-                sbOperationMode.Text = "";
-                sbFlag.Text = string.Format("{0, 18}", " ");
-                sbFPS.Text = string.Format("{0, 11}", " ");
-
-                // Remove displayed false color image
-                thermalImage.Image = null;
-                thermalImage.Invalidate();
-
-                // Ui updates
+                Title = "Optris Imager";
+                sbOperationMode.Text = string.Empty;
+                sbFlag.Text = string.Format(CultureInfo.CurrentCulture, "{0, 18}", " ");
+                sbFPS.Text = string.Format(CultureInfo.CurrentCulture, "{0, 11}", " ");
+                thermalImage.Source = null;
                 uiUpdateTimer.Stop();
+                SetRecordingUiState(false);
             }
 
-            // Menu
-            miDeviceQuickConnect.Enabled = !connected;
-            miDeviceConnect.Enabled = !connected;
-            miDeviceDisconnect.Enabled = connected;
-            miDeviceRefreshFlag.Enabled = connected;
-            controlPanel.Enabled = connected;
-            imageConfigurationToolStripMenuItem.Enabled = connected;
+            miDeviceQuickConnect.IsEnabled = !connected;
+            miDeviceConnect.IsEnabled = !connected;
+            miDeviceDisconnect.IsEnabled = connected;
+            miDeviceRefreshFlag.IsEnabled = connected;
+            imageConfigurationMenu.IsEnabled = connected;
+            saveDirectory.IsEnabled = connected;
+            saveDirectoryPath.IsEnabled = connected;
+            saveDataTypeBox.IsEnabled = connected;
+            singleBinaryToggle.IsEnabled = connected;
+            recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(saveDirectoryPath.Text);
 
-            SetAutoScalingRange();
-
-            switch (imagerShow.ActiveModeIndex)
-            {
-                case 0:
-                    opMode1.Checked = true;
-                    break;
-
-                case 1:
-                    opMode2.Checked = true;
-                    break;
-
-                case 2:
-                    opMode3.Checked = true;
-                    break;
-            }
+            SetOperationModeSelection(imagerShow.ActiveModeIndex);
         }
+
         private void SetAutoScalingRange()
         {
+            if (!imagerShow.IsConnected || autoTempScale.IsChecked != true) return;
+
             var range = imagerShow.GetTemperatureRange();
-            imageScaleLow.Minimum = (int)range.Lower - 50;
-            imageScaleHigh.Maximum = (int)range.Upper + 50;
+
+            suppressScaleTextEvents = true;
+            try
+            {
+                imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
+                imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
+            }
+            finally
+            {
+                suppressScaleTextEvents = false;
+            }
         }
 
-        /// <summary>Action called when the quick connect menu entry is clicked.</summary>
-        private void miDeviceQuickConnect_Click(object sender, EventArgs e)
+        private void SetOperationModeSelection(int modeIndex)
         {
-            QuickConnect();
-        }
-
-        /// <summary>Action called when the connect menu entry is clicked.</summary>
-        private void miDeviceConnect_Click(object? sender, EventArgs e)
-        {
-            ConnectWithConfigSelection();
-        }
-
-        /// <summary>Action called when the disconnect menu entry is clicked.</summary>
-        private void miDeviceDisconnect_Click(object? sender, EventArgs e)
-        {
-            Disconnect();
-        }
-
-        /// <summary>Action called when the refresh flag menu entry is clicked.</summary>
-        private void miDeviceRefreshFlag_Click(object sender, EventArgs e)
-        {
-            imagerShow.RefreshFlag();
-        }
-
-        /// <summary>Action called when the quit menu entry is clicked.</summary>
-        private void msFileQuit_Click(object? sender, EventArgs e)
-        {
-            Disconnect();
-            Application.Exit();
-        }
-
-        /// <summary>Action called prior to closing the window.</summary>
-        private void DisplayForm_FormClosing(object? sender, FormClosingEventArgs e)
-        {
-            Disconnect();
-        }
-
-        private void DisplayForm_Load(object sender, EventArgs e)
-        {
-            BuildPaletteMenu();
+            opModes[modeIndex].IsChecked = true;
+            // for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
         }
 
         private void BuildPaletteMenu()
         {
-            colorPaletteToolStripMenuItem.DropDownItems.Clear();
+            colorPaletteMenu.Items.Clear();
+            paletteMenuItems.Clear();
 
-            foreach (ColoringPalette palette in Enum.GetValues(typeof(ColoringPalette)))
+            foreach (ColoringPalette palette in System.Enum.GetValues(typeof(ColoringPalette)))
             {
-                var item = new ToolStripMenuItem(palette.ToString())
+                var item = new MenuItem
                 {
-                    Tag = palette,
-                    CheckOnClick = false // we manually enforce single selection
+                    Header = palette.ToString(),
+                    IsCheckable = true,
+                    Tag = palette
                 };
-
-                colorPaletteToolStripMenuItem.DropDownItems.Add(item);
-            }
-            SetSelectedPalette(ColoringPalette.Iron);
-        }
-
-        //data directory
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void saveDirectory_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
-            {
-                // Optional configuration
-                folderDialog.Description = "Select the directory to save data to";
-                folderDialog.UseDescriptionForTitle = true; // Use description text as the window title
-                folderDialog.InitialDirectory = @"C:\Users\Public"; // Set starting point
-
-                // Display the dialog and verify the user pressed 'OK'
-                if (folderDialog.ShowDialog() == DialogResult.OK)
+                item.Click += (object sender, RoutedEventArgs e) =>
                 {
-                    // Capture the absolute path to the directory
-                    string selectedPath = folderDialog.SelectedPath;
+                    if (sender is not MenuItem item || item.Tag is not ColoringPalette palette) return;
 
-                    // Output confirmation or use the path
-                    saveDirectory.Text = selectedPath;
-                }
+                    SetSelectedPalette(palette);
+                    imagerShow.ChangePalette(palette);
+                };
+                colorPaletteMenu.Items.Add(item);
+                paletteMenuItems[palette] = item;
             }
-            recordEnable.Enabled = true;
-        }
-        private void recordEnable_Click(object sender, EventArgs e)
-        {
-            if (!imagerShow.IsRecording)
-            {
-                imagerShow.StartRecording(
-                    saveDirectory.Text,
-                    GetSelectedSaveDataType(),
-                    false); // TODO: Recieve data from the Single BInary Toggle UI
-                recordEnable.BackColor = Color.LimeGreen;
-                recordEnable.Text = "Stop Recording";
-                recordingIndicatorVisible = true;
-                // TODO: Disable:
-                //  - The Record Path Text
-                //  - The SaveType
-                //  - THe Single binary Checkbox
-                blinkTimer.Start();
-            }
-            else
-            {
-                imagerShow.StopRecording();
-                recordEnable.BackColor = SystemColors.Control;
-                recordEnable.Text = "Record";
-                recordingIndicatorVisible = false;
-                blinkTimer.Stop();
-            }
-        }
 
-        private SaveDataType GetSelectedSaveDataType()
-        {
-            if (saveTypeAll.Checked)
-                return SaveDataType.All;
-
-            if (saveTypeInt.Checked)
-                return SaveDataType.U16;
-
-            if (saveTypeRle.Checked)
-                return SaveDataType.RLE;
-
-            return SaveDataType.Float;
+            SetSelectedPalette(ColoringPalette.Iron);
         }
 
         private void SetSelectedPalette(ColoringPalette palette)
         {
-            foreach (ToolStripMenuItem item in colorPaletteToolStripMenuItem.DropDownItems)
+            foreach (var pair in paletteMenuItems)
             {
-                if (item.Tag is ColoringPalette p)
-                {
-                    item.Checked = (p == palette);
-                }
+                pair.Value.IsChecked = pair.Key == palette;
             }
         }
-        private void AutoTempScale_CheckedChanged(object sender, EventArgs e)
+
+        private void saveDirectory_Click(object sender, RoutedEventArgs e)
         {
-            bool autoTempScaleEnabled = AutoTempScale.Checked;
-            imageScaleHigh.ReadOnly = autoTempScaleEnabled;
-            imageScaleLow.ReadOnly = autoTempScaleEnabled;
+            OpenFolderDialog folderDialog = new OpenFolderDialog();
+
+            if (folderDialog.ShowDialog() == true)
+            {
+                string path = folderDialog.FolderName;
+                if (string.IsNullOrWhiteSpace(path))
+                {
+                    MessageBox.Show("Please enter a directory path first.", "Save Directory", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                try
+                {
+                    System.IO.Directory.CreateDirectory(path);
+                    saveDirectoryPath.Text = System.IO.Path.GetFullPath(path);
+                    recordEnable.IsEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Invalid Directory", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+        }
+
+        private void recordEnable_Click(object sender, RoutedEventArgs e)
+        {
+            if (!imagerShow.IsRecording)
+            {
+                string directory = saveDirectoryPath.Text.Trim();
+                if (string.IsNullOrWhiteSpace(directory))
+                {
+                    MessageBox.Show("Please set a save directory first.", "Recording", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                imagerShow.StartRecording(
+                    directory,
+                    GetSelectedSaveDataType(),
+                    singleBinaryToggle.IsChecked == true);
+
+                recordEnable.Background = WpfBrushes.LimeGreen;
+                recordEnable.Content = "Stop Recording";
+                SetRecordingUiState(true);
+            }
+            else
+            {
+                imagerShow.StopRecording();
+                recordEnable.ClearValue(BackgroundProperty);
+                recordEnable.Content = "Record";
+                SetRecordingUiState(false);
+            }
+        }
+
+        private void SetRecordingUiState(bool recording)
+        {
+            saveDirectory.IsEnabled = !recording && imagerShow.IsConnected;
+            saveDirectoryPath.IsEnabled = !recording && imagerShow.IsConnected;
+            saveDataTypeBox.IsEnabled = !recording && imagerShow.IsConnected;
+            singleBinaryToggle.IsEnabled = !recording && imagerShow.IsConnected;
+        }
+
+        private SaveDataType GetSelectedSaveDataType()
+        {
+            for (int i = 0; i < saveTypes.Length; i++){
+                if (saveTypes[i].IsChecked == true) return (SaveDataType) i;
+            }
+
+            return SaveDataType.Float;
+        }
+
+        private void AutoTempScale_CheckedChanged()
+        {
+            bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
+            imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
+            imageScaleLow.IsReadOnly = autoTempScaleEnabled;
             imagerShow.SetAutoScaling(autoTempScaleEnabled);
+
+            if (autoTempScaleEnabled) SetAutoScalingRange();
+            else ApplyManualScaleRangeFromInputs();
         }
 
-        private void imageScaleHigh_ValueChanged(object sender, EventArgs e)
+        private FrameworkElement BuildScaleRow(string labelText, out TextBox textBox, double topMargin = 0)
         {
-            if (AutoTempScale.Checked) return;
-            imagerShow.SetScaleRange(
-                (float)imageScaleLow.Value,
-                (float)imageScaleHigh.Value);
+            var row = new DockPanel{ Margin = new Thickness(0, topMargin, 0, 0) };
+
+            textBox = new TextBox
+            {
+                Width = 72,
+                Text = "0",
+                HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right,
+                IsReadOnly = true,
+                Margin = new Thickness(0, 0, 6, 0)
+            };
+            textBox.TextChanged += imageScale_TextChanged;
+
+            var label = new TextBlock
+            {
+                Text = labelText,
+                Width = 48,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var unit = new TextBlock
+            {
+                Text = "°C",
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            DockPanel.SetDock(label, Dock.Left);
+            DockPanel.SetDock(unit, Dock.Right);
+
+            row.Children.Add(label);
+            row.Children.Add(textBox);
+            row.Children.Add(unit);
+            return row;
         }
 
-        private void imageScaleLow_ValueChanged(object sender, EventArgs e)
+        private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (AutoTempScale.Checked) return;
-            imagerShow.SetScaleRange(
-                (float)imageScaleLow.Value,
-                (float)imageScaleHigh.Value);
-        }
-        private void opMode1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!opMode1.Checked)
+            if (suppressScaleTextEvents || autoTempScale.IsChecked == true)
+            {
                 return;
+            }
 
-            imagerShow.SetOperationMode(0);
+            ApplyManualScaleRangeFromInputs();
+        }
+
+        private void ApplyManualScaleRangeFromInputs()
+        {
+            if (!TryReadScaleValue(imageScaleLow.Text, out float low)) return;
+
+            if (!TryReadScaleValue(imageScaleHigh.Text, out float high)) return;
+
+            if (low > high) (low, high) = (high, low);
+
+            imagerShow.SetScaleRange(low, high);
+        }
+
+        private static bool TryReadScaleValue(string? text, out float value)
+        {
+            return float.TryParse(
+                text,
+                NumberStyles.Float,
+                CultureInfo.CurrentCulture,
+                out value);
+        }
+
+        private void OperationMode_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is not RadioButton radioButton || radioButton.IsChecked != true) return;
+
+            if (radioButton.Tag is not int modeIndex) return;
+
+            imagerShow.SetOperationMode(modeIndex);
             SetAutoScalingRange();
         }
-        private void opMode2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!opMode2.Checked)
-                return;
 
-            imagerShow.SetOperationMode(1);
-            SetAutoScalingRange();
-        }
-        private void opMode3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!opMode3.Checked)
-                return;
 
-            imagerShow.SetOperationMode(2);
-            SetAutoScalingRange();
-        }
+        [DllImport("gdi32.dll")]
+        private static extern bool DeleteObject(IntPtr hObject);
 
-        private void blinkTimer_Tick(object sender, EventArgs e)
+        private static BitmapSource ConvertBitmapToSource(Bitmap bitmap)
         {
-            recordingIndicatorVisible = !recordingIndicatorVisible;
+            IntPtr hBitmap = bitmap.GetHbitmap();
+            try
+            {
+                BitmapSource source = Imaging.CreateBitmapSourceFromHBitmap(
+                    hBitmap,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+
+                source.Freeze();
+                return source;
+            }
+            finally
+            {
+                DeleteObject(hBitmap);
+            }
         }
     }
 }
