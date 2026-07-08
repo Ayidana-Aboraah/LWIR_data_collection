@@ -32,17 +32,17 @@ namespace LWIR_app.models
         public TemperatureRegion MaxRegion { get; private set; }
         public TemperatureRegion MeanRegion { get; private set; }
 
-        private ImageBuilder     imageBuilder;
-        private ThermalFrame     thermalFrame = new ();
-        private FramerateCounter counter      = new();
-        private string           flagState    = "";
-        private int              regionRadius = 3;
-        public string OperationModeString { get; private set; }
+        private ImageBuilder imageBuilder;
+        private ThermalFrame thermalFrame = new();
+        private FramerateCounter counter = new();
+        private string flagState = "";
+        private int regionRadius = 3;
+        public string OperationModeString { get; private set; } = string.Empty;
 
         private ThermalRecorder recorder = new();
 
-        private OperationModeVector operationModes  = new();
-        private int                 activeModeIndex = 0;
+        private OperationModeVector operationModes = new();
+        private int activeModeIndex = 0;
 
         public bool IsConnected { get; private set; }
         public bool IsConnectionLost { get; private set; }
@@ -51,8 +51,12 @@ namespace LWIR_app.models
 
         private float scaleLow = 0f;
         private float scaleHigh = 100f;
-
-        public int ActiveModeIndex { get { return activeModeIndex; }}
+        private readonly List<int> roiTemperatureIndices = new();
+        private int roiWidth;
+        private int roiHeight;
+        public int ActiveModeIndex { get { return activeModeIndex; } }
+        public IReadOnlyList<int> RoiTemperatureIndices { get { return roiTemperatureIndices; } }
+        public bool HasROI { get { return roiTemperatureIndices.Count > 0; } }
 
         private SaveDataType saveDataType;
 
@@ -93,20 +97,58 @@ namespace LWIR_app.models
             IsConnectionLost = false;
 
             // Hottest, coldest and mean temperature regions
-            MinRegion  = new TemperatureRegion();
-            MaxRegion  = new TemperatureRegion();
+            MinRegion = new TemperatureRegion();
+            MaxRegion = new TemperatureRegion();
             MeanRegion = new TemperatureRegion();
         }
+
+
+        public void UpdateROI(System.Windows.Point start, System.Windows.Point end)
+        {
+            lock (thermalFrame)
+            {
+                if (thermalFrame.isEmpty()) return;
+            }
+
+            roiTemperatureIndices.Clear();
+
+            roiWidth = thermalFrame.getWidth();
+            roiHeight = thermalFrame.getHeight();
+
+            if (roiWidth <= 0 || roiHeight <= 0) return;
+
+            int left = Math.Clamp((int)Math.Floor(Math.Min(start.X, end.X)), 0, roiWidth - 1);
+            int right = Math.Clamp((int)Math.Floor(Math.Max(start.X, end.X)), 0, roiWidth - 1);
+            int top = Math.Clamp((int)Math.Floor(Math.Min(start.Y, end.Y)), 0, roiHeight - 1);
+            int bottom = Math.Clamp((int)Math.Floor(Math.Max(start.Y, end.Y)), 0, roiHeight - 1);
+
+            if (left > right || top > bottom) return;
+
+            int roiPixelCount = (right - left + 1) * (bottom - top + 1);
+            roiTemperatureIndices.Capacity = Math.Max(roiTemperatureIndices.Capacity, roiPixelCount);
+
+            for (int y = top; y <= bottom; y++)
+            {
+                int rowOffset = y * roiWidth;
+                for (int x = left; x <= right; x++)
+                {
+                    // Flatten 2D image coordinates into a 1D temperature index.
+                    int index = rowOffset + x;
+                    roiTemperatureIndices.Add(index);
+                }
+            }
+
+            recorder.roi = roiTemperatureIndices;
+        }
+
+        public void ClearROI() => roiTemperatureIndices.Clear();
 
         /// <summary>Connects to the device specified in the configuration file.</summary>
         /// 
         /// <param name="configFile">path to the configuration files of the device to connect to.</param>
         public void Connect(string configFile)
         {
-            if (IsConnected)
-            {
-                return;
-            }
+            if (IsConnected) return;
 
             // Read the configuration file and initialize the imager with it
             IRImagerConfig config = IRImagerConfigReader.read(configFile);
@@ -183,7 +225,7 @@ namespace LWIR_app.models
             UpdateOperationModeString();
         }
 
-       
+
         /// <summary>Returns the type of the device.</summary>
         /// 
         /// <return>type of the device.</summary>
@@ -241,7 +283,7 @@ namespace LWIR_app.models
             imageBuilder.convertTemperatureToPaletteImage();
 
             // Extract the image data...
-            int width  = imageBuilder.getWidth();
+            int width = imageBuilder.getWidth();
             int height = imageBuilder.getHeight();
 
             // The image size in bytes may not equal width * height due to width padding
@@ -273,9 +315,9 @@ namespace LWIR_app.models
         /// <returns>True, if calculation was successful. False otherwise.</returns>
         public bool CalculateCenterMeanTemperatureRegion()
         {
-            MeanRegion = new TemperatureRegion(Imager.getWidth()  / 2 - regionRadius,
+            MeanRegion = new TemperatureRegion(Imager.getWidth() / 2 - regionRadius,
                                                Imager.getHeight() / 2 - regionRadius,
-                                               Imager.getWidth()  / 2 + regionRadius,
+                                               Imager.getWidth() / 2 + regionRadius,
                                                Imager.getHeight() / 2 + regionRadius);
 
             return imageBuilder.getMeanTemperatureInRegion(MeanRegion);
@@ -331,7 +373,7 @@ namespace LWIR_app.models
         public override void onConnectionLost()
         {
             ShowMessageBox("Lost connection to device.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            
+
             IsConnectionLost = true;
         }
 
@@ -379,7 +421,7 @@ namespace LWIR_app.models
                                                  mode.getFramerate());
         }
 
-        public (float Lower,float Upper) GetTemperatureRange()
+        public (float Lower, float Upper) GetTemperatureRange()
         {
             OperationMode mode = Imager.getActiveOperationMode();
             var range = (mode.getTemperatureLowerLimit(), mode.getTemperatureUpperLimit());
@@ -409,14 +451,18 @@ namespace LWIR_app.models
             get { return recorder.IsRecording; }
         }
 
-        public void StartRecording(string directory, SaveDataType saveDataType, bool singleBinary)
+        public void StartRecording(string directory, SaveDataType saveDataType, bool singleBinary, bool recordROIOnly)
         {
             this.saveDataType = saveDataType;
             recorder.Start(
-                new RecorderSettings{
-                    baseDirectory = directory, 
+                new RecorderSettings
+                {
+                    camera_width = ((HasROI) ? roiWidth : Imager.getWidth()),
+                    camera_height = ((HasROI) ? roiHeight : Imager.getHeight()),
+                    baseDirectory = directory,
                     dataType = saveDataType,
-                    singleBinary = singleBinary
+                    singleBinary = singleBinary,
+                    recordROIOnly = recordROIOnly
                 }
             );
         }
@@ -425,7 +471,7 @@ namespace LWIR_app.models
         {
             recorder.Stop();
         }
-        
+
         public void SetScaleRange(float low, float high)
         {
             scaleLow = low;

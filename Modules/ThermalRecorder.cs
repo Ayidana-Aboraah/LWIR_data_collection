@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
+using System.Windows.Controls;
 
 namespace LWIR_app.classes
 {
@@ -22,6 +23,8 @@ namespace LWIR_app.classes
 
         private RecorderSettings settings;
 
+        public List<int> roi = new();
+
         public void Start(RecorderSettings settings)
         {
             this.settings = settings;
@@ -32,10 +35,8 @@ namespace LWIR_app.classes
             string sessionName = $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
 
             sessionDirectory = Path.Combine(settings.baseDirectory, sessionName);
-            frameDirectory = Path.Combine(sessionDirectory, "frames");
 
             Directory.CreateDirectory(sessionDirectory);
-            Directory.CreateDirectory(frameDirectory);
 
             metadataWriter = new StreamWriter(Path.Combine(sessionDirectory, "metadata.csv"));
 
@@ -47,10 +48,10 @@ namespace LWIR_app.classes
 
             if (settings.singleBinary)
             {
+                string suffix = settings.dataType.ToString() + ((settings.recordROIOnly) ? "_ROI" : "");
                 string filename = Path.Combine(
                     sessionDirectory,
-                    $"frame_{settings.dataType}.bin");
-
+                    $"frame_{suffix}.bin");
                 singleFileWriter = new BinaryWriter(
                     File.Open(
                         filename,
@@ -65,6 +66,8 @@ namespace LWIR_app.classes
             }
             else
             {
+                frameDirectory = Path.Combine(sessionDirectory, "frames");
+                Directory.CreateDirectory(frameDirectory);
                 writerTask = Task.Run(WriterLoop);
             }
         }
@@ -99,11 +102,12 @@ namespace LWIR_app.classes
             }
         }
 
-        public RecordedFrame[]? ReadFrames(){
+        public RecordedFrame[]? ReadFrames()
+        {
             if (!isRecording) return null;
 
             var len = queue.Count;
-            return queue.ToArray()[(len-20)..len];
+            return queue.ToArray()[(len - 20)..len];
         }
 
         public void Dispose()
@@ -115,9 +119,10 @@ namespace LWIR_app.classes
         {
             foreach (var frame in queue!.GetConsumingEnumerable())
             {
+                string suffix = settings.dataType.ToString() + ((settings.recordROIOnly) ? "_ROI" : "");
                 string filename = Path.Combine(
                     frameDirectory,
-                    $"frame_{frameIndex:D8}_base.bin");
+                    $"frame_{suffix}_base.bin");
 
                 using var writer =
                     new BinaryWriter(
@@ -134,8 +139,7 @@ namespace LWIR_app.classes
 
         private void SingleWriterLoop()
         {
-            foreach (var frame in queue!.GetConsumingEnumerable())
-                WriteFrame(frame, singleFileWriter);
+            foreach (var frame in queue!.GetConsumingEnumerable()) WriteFrame(frame, singleFileWriter);
         }
 
         private void WriteFrame(RecordedFrame frame, BinaryWriter writer)
@@ -169,27 +173,40 @@ namespace LWIR_app.classes
 
         private void WriteBaseDataFrame(RecordedFrame frame, BinaryWriter writer)
         {
-            foreach (float value in frame.temperatures)
+            if (settings.recordROIOnly)
             {
-                writer.Write(value);
+                for(int i = 0; i < roi.Count; i++) writer.Write(frame.temperatures[roi[i]]);
             }
+            else foreach (float value in frame.temperatures) writer.Write(value);
         }
 
         private void WriteIntFrame(RecordedFrame frame, BinaryWriter writer)
         {
-            foreach (ushort value in frame.temperature_Ints)
+            if (settings.recordROIOnly)
             {
-                writer.Write(value);
+                for(int i = 0; i < roi.Count; i++) writer.Write(frame.temperature_Ints[roi[i]]);
             }
+            else foreach (ushort value in frame.temperature_Ints) writer.Write(value);
         }
 
         private void WriteRleFrame(RecordedFrame frame, BinaryWriter writer)
         {
-            for (int i = 0; i < frame.RLE.Length; i++)
+            if (settings.recordROIOnly)
             {
-                writer.Write(frame.RLE[i].value);
-                writer.Write(frame.RLE[i].length);
+                for(int i = 0; i < roi.Count; i++) {
+                    writer.Write(frame.RLE[roi[i]].value);
+                    writer.Write(frame.RLE[roi[i]].length);
+                }
             }
+            else
+            {
+                for (int i = 0; i < frame.RLE.Length; i++)
+                {
+                    writer.Write(frame.RLE[i].value);
+                    writer.Write(frame.RLE[i].length);
+                }
+            }
+
         }
 
         private void WriteBinHeader(BinaryWriter writer)

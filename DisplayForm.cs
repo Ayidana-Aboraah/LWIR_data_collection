@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -16,6 +17,8 @@ using LWIR_app.classes;
 using LWIR_app.models;
 using Optris.OtcSDK;
 using WpfBrushes = System.Windows.Media.Brushes;
+using System.Windows.Controls.Primitives;
+using System.Net.Http.Headers;
 
 namespace LWIR_app
 {
@@ -27,8 +30,15 @@ namespace LWIR_app
         private readonly Dictionary<ColoringPalette, MenuItem> paletteMenuItems = new();
 
         private bool suppressScaleTextEvents;
+        private bool isDraggingRoi;
+        private bool hasRoi;
+        private System.Windows.Point roiDragStart;
+        private System.Windows.Point roiDragCurrent;
+        private System.Drawing.Rectangle selectedRoi;
+        private int currentImageWidth;
+        private int currentImageHeight;
 
-        private System.Windows.Controls.Image thermalImage;
+        private System.Windows.Controls.Image thermalImage = null!;
         private TextBlock sbOperationMode = new TextBlock
         {
             Text = string.Empty,
@@ -76,6 +86,13 @@ namespace LWIR_app
         private CheckBox singleBinaryToggle = new CheckBox
         {
             Content = "Single Binary File",
+            IsChecked = true,
+            Margin = new Thickness(0, 0, 0, 10)
+        };
+
+        private CheckBox recordROIOnlyToggle = new CheckBox
+        {
+            Content = "Record Only ROI",
             IsChecked = false,
             Margin = new Thickness(0, 0, 0, 10)
         };
@@ -87,26 +104,24 @@ namespace LWIR_app
             Margin = new Thickness(0, 16, 0, 0)
         };
 
-        private TextBox imageScaleLow;
-        private TextBox imageScaleHigh;
-        private TextBlock minTemp;
-        private TextBlock maxTemp;
+        private TextBox imageScaleLow = null!;
+        private TextBox imageScaleHigh = null!;
+        private TextBlock minTemp = null!;
+        private TextBlock maxTemp = null!;
+        private System.Windows.Controls.Image roiPreviewImage = null!;
+        private TextBlock roiPreviewInfo = null!;
 
-        private RadioButton[] opModes;
+        private RadioButton[] opModes = null!;
         // private RadioButton opMode1;
         // private RadioButton opMode2;
         // private RadioButton opMode3;
 
-        private RadioButton[] saveTypes = new RadioButton[4]{
+        private RadioButton[] saveTypes = new RadioButton[3]{
             new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
             new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
             new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
-            new RadioButton { Content = "All" }
         };
-        // private RadioButton saveTypeBase = ;
-        // private RadioButton saveTypeInt = ;
-        // private RadioButton saveTypeRle = ;
-        // private RadioButton saveTypeAll = ;
+
         private MenuItem miDeviceQuickConnect = new MenuItem { Header = "Quick Connect" };
         private MenuItem miDeviceConnect = new MenuItem { Header = "Connect With Configuration..." };
         private MenuItem miDeviceDisconnect = new MenuItem { Header = "Disconnect", IsEnabled = false };
@@ -164,6 +179,10 @@ namespace LWIR_app
                 VerticalAlignment = VerticalAlignment.Stretch
             };
             RenderOptions.SetBitmapScalingMode(thermalImage, BitmapScalingMode.HighQuality);
+            thermalImage.MouseLeftButtonDown += ThermalImage_MouseLeftButtonDown;
+            thermalImage.MouseMove += ThermalImage_MouseMove;
+            thermalImage.MouseLeftButtonUp += ThermalImage_MouseLeftButtonUp;
+            thermalImage.MouseRightButtonDown += ThermalImage_MouseRightButtonDown;
 
             // TODO: Add Camera B-Side Settings and disable during vieo playback
 
@@ -265,6 +284,7 @@ namespace LWIR_app
 
             stack.Children.Add(BuildScaleGroup());
             stack.Children.Add(BuildTemperatureGroup());
+            stack.Children.Add(BuildRoiPreviewGroup());
             stack.Children.Add(BuildRecordingGroup());
 
             scrollViewer.Content = stack;
@@ -430,7 +450,6 @@ namespace LWIR_app
             radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             radioGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
             // TODO: Create a space between the elements
@@ -455,7 +474,51 @@ namespace LWIR_app
             stack.Children.Add(saveDirectory);
             stack.Children.Add(saveDataTypeBox);
             stack.Children.Add(singleBinaryToggle);
+            stack.Children.Add(recordROIOnlyToggle);
             stack.Children.Add(recordEnable);
+
+            group.Content = stack;
+            return group;
+        }
+
+        private GroupBox BuildRoiPreviewGroup()
+        {
+            var group = new GroupBox
+            {
+                Header = "Region Of Interest",
+                Margin = new Thickness(0, 0, 0, 12)
+            };
+
+            var stack = new StackPanel { Margin = new Thickness(8) };
+
+            roiPreviewImage = new System.Windows.Controls.Image
+            {
+                Height = 170,
+                Stretch = Stretch.Uniform,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Center,
+                SnapsToDevicePixels = true
+            };
+            RenderOptions.SetBitmapScalingMode(roiPreviewImage, BitmapScalingMode.HighQuality);
+
+            var imageHost = new Border
+            {
+                Background = WpfBrushes.Black,
+                BorderBrush = WpfBrushes.Gray,
+                BorderThickness = new Thickness(1),
+                Padding = new Thickness(4),
+                Child = roiPreviewImage
+            };
+
+            roiPreviewInfo = new TextBlock
+            {
+                Text = "No ROI selected",
+                Margin = new Thickness(0, 8, 0, 0),
+                Foreground = WpfBrushes.DimGray
+            };
+
+            stack.Children.Add(imageHost);
+            stack.Children.Add(roiPreviewInfo);
 
             group.Content = stack;
             return group;
@@ -539,6 +602,9 @@ namespace LWIR_app
             Bitmap? image = imagerShow.GetImage();
             if (image == null) return;
 
+            currentImageWidth = image.Width;
+            currentImageHeight = image.Height;
+
             if (imagerShow.CalculateMinMaxTemperatureRegions())
             {
                 DrawMeasurement(
@@ -555,8 +621,205 @@ namespace LWIR_app
                 if (autoTempScale.IsChecked == true) SetAutoScalingRange();
             }
 
+            UpdateRoiPreview(image);
+
+            DrawRoiOverlay(image);
+
             thermalImage.Source = ConvertBitmapToSource(image);
             image.Dispose();
+        }
+
+        private void ThermalImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!imagerShow.IsConnected || currentImageWidth <= 0 || currentImageHeight <= 0 || imagerShow.IsRecording) return;
+
+            System.Windows.Point cursor = e.GetPosition(thermalImage);
+            if (!IsPointInsideImageViewport(cursor)) return;
+
+            isDraggingRoi = true;
+            roiDragStart = cursor;
+            roiDragCurrent = cursor;
+            thermalImage.CaptureMouse();
+            e.Handled = true;
+        }
+
+        private void ThermalImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!isDraggingRoi) return;
+
+            roiDragCurrent = e.GetPosition(thermalImage);
+        }
+
+        private void ThermalImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!isDraggingRoi) return;
+
+            roiDragCurrent = e.GetPosition(thermalImage);
+            isDraggingRoi = false;
+            thermalImage.ReleaseMouseCapture();
+
+            if (TryBuildImageRectangle(roiDragStart, roiDragCurrent, out System.Drawing.Rectangle rectangle))
+            {
+                selectedRoi = rectangle;
+                hasRoi = true;
+                imagerShow.UpdateROI(
+                    new System.Windows.Point(rectangle.Left, rectangle.Top),
+                    new System.Windows.Point(rectangle.Right - 1, rectangle.Bottom - 1));
+            }
+            else
+            {
+                hasRoi = false;
+                imagerShow.ClearROI();
+            }
+
+            e.Handled = true;
+        }
+
+        private void ThermalImage_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            hasRoi = false;
+            isDraggingRoi = false;
+            imagerShow.ClearROI();
+            thermalImage.ReleaseMouseCapture();
+            e.Handled = true;
+        }
+
+        private bool IsPointInsideImageViewport(System.Windows.Point point)
+        {
+            Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
+            return viewport.Contains(point);
+        }
+
+        private Rect GetImageViewport(int imageWidth, int imageHeight)
+        {
+            double controlWidth = thermalImage.ActualWidth;
+            double controlHeight = thermalImage.ActualHeight;
+
+            if (controlWidth <= 0 || controlHeight <= 0 || imageWidth <= 0 || imageHeight <= 0) return Rect.Empty;
+
+            double imageAspect = (double)imageWidth / imageHeight;
+            double controlAspect = controlWidth / controlHeight;
+
+            if (controlAspect > imageAspect)
+            {
+                double scaledWidth = controlHeight * imageAspect;
+                double offsetX = (controlWidth - scaledWidth) / 2.0;
+                return new Rect(offsetX, 0, scaledWidth, controlHeight);
+            }
+
+            double scaledHeight = controlWidth / imageAspect;
+            double offsetY = (controlHeight - scaledHeight) / 2.0;
+            return new Rect(0, offsetY, controlWidth, scaledHeight);
+        }
+
+        private bool TryBuildImageRectangle(System.Windows.Point start, System.Windows.Point end, out System.Drawing.Rectangle rectangle)
+        {
+            rectangle = System.Drawing.Rectangle.Empty;
+
+            Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
+            if (viewport.IsEmpty) return false;
+
+            System.Windows.Point startClamped = ClampToRect(start, viewport);
+            System.Windows.Point endClamped = ClampToRect(end, viewport);
+
+            System.Drawing.Point startPixel = MapDisplayToImagePixel(startClamped, viewport);
+            System.Drawing.Point endPixel = MapDisplayToImagePixel(endClamped, viewport);
+
+            int left = Math.Min(startPixel.X, endPixel.X);
+            int right = Math.Max(startPixel.X, endPixel.X);
+            int top = Math.Min(startPixel.Y, endPixel.Y);
+            int bottom = Math.Max(startPixel.Y, endPixel.Y);
+
+            if (right - left < 2 || bottom - top < 2)
+            {
+                return false;
+            }
+
+            rectangle = new System.Drawing.Rectangle(left, top, right - left + 1, bottom - top + 1);
+            return true;
+        }
+
+        private static System.Windows.Point ClampToRect(System.Windows.Point point, Rect rect)
+        {
+            if (rect.IsEmpty)
+            {
+                return point;
+            }
+
+            double clampedX = Math.Max(rect.Left, Math.Min(point.X, rect.Right));
+            double clampedY = Math.Max(rect.Top, Math.Min(point.Y, rect.Bottom));
+
+            return new System.Windows.Point(clampedX, clampedY);
+        }
+
+        private System.Drawing.Point MapDisplayToImagePixel(System.Windows.Point point, Rect viewport)
+        {
+            double normalizedX = (point.X - viewport.X) / viewport.Width;
+            double normalizedY = (point.Y - viewport.Y) / viewport.Height;
+
+            normalizedX = Math.Max(0.0, Math.Min(1.0, normalizedX));
+            normalizedY = Math.Max(0.0, Math.Min(1.0, normalizedY));
+
+            int pixelX = (int)Math.Round(normalizedX * (currentImageWidth - 1));
+            int pixelY = (int)Math.Round(normalizedY * (currentImageHeight - 1));
+
+            return new System.Drawing.Point(pixelX, pixelY);
+        }
+
+        private void DrawRoiOverlay(Bitmap bitmap)
+        {
+            if (hasRoi)
+            {
+                DrawRectangleOverlay(bitmap, selectedRoi, System.Drawing.Color.Lime, 2f);
+            }
+
+            if (isDraggingRoi && TryBuildImageRectangle(roiDragStart, roiDragCurrent, out System.Drawing.Rectangle preview))
+            {
+                DrawRectangleOverlay(bitmap, preview, System.Drawing.Color.Yellow, 1.5f);
+            }
+        }
+
+        private void UpdateRoiPreview(Bitmap sourceImage)
+        {
+            if (!hasRoi)
+            {
+                roiPreviewImage.Source = null;
+                roiPreviewInfo.Text = "No ROI selected";
+                return;
+            }
+
+            System.Drawing.Rectangle imageBounds = new System.Drawing.Rectangle(0, 0, sourceImage.Width, sourceImage.Height);
+            System.Drawing.Rectangle roi = System.Drawing.Rectangle.Intersect(selectedRoi, imageBounds);
+
+            if (roi.Width < 2 || roi.Height < 2)
+            {
+                roiPreviewImage.Source = null;
+                roiPreviewInfo.Text = "No ROI selected";
+                return;
+            }
+
+            using Bitmap roiBitmap = sourceImage.Clone(roi, sourceImage.PixelFormat);
+            roiPreviewImage.Source = ConvertBitmapToSource(roiBitmap);
+            roiPreviewInfo.Text = string.Format(CultureInfo.CurrentCulture, "{0} x {1} px", roi.Width, roi.Height);
+        }
+
+        private static void DrawRectangleOverlay(Bitmap bitmap, System.Drawing.Rectangle rectangle, System.Drawing.Color color, float thickness)
+        {
+            if (rectangle.Width < 2 || rectangle.Height < 2)
+            {
+                return;
+            }
+
+            using Graphics graphics = Graphics.FromImage(bitmap);
+            using System.Drawing.Pen borderPen = new System.Drawing.Pen(color, thickness)
+            {
+                DashStyle = System.Drawing.Drawing2D.DashStyle.Dash
+            };
+            using System.Drawing.Brush fillBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(45, color));
+
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            graphics.FillRectangle(fillBrush, rectangle);
+            graphics.DrawRectangle(borderPen, rectangle);
         }
 
         private void DrawMeasurement(Bitmap bitmap, int x, int y, float value, System.Drawing.Color fgColor, System.Drawing.Color bgColor)
@@ -611,6 +874,12 @@ namespace LWIR_app
                 sbFlag.Text = string.Format(CultureInfo.CurrentCulture, "{0, 18}", " ");
                 sbFPS.Text = string.Format(CultureInfo.CurrentCulture, "{0, 11}", " ");
                 thermalImage.Source = null;
+                roiPreviewImage.Source = null;
+                roiPreviewInfo.Text = "No ROI selected";
+                hasRoi = false;
+                isDraggingRoi = false;
+                currentImageWidth = 0;
+                currentImageHeight = 0;
                 uiUpdateTimer.Stop();
                 SetRecordingUiState(false);
             }
@@ -624,6 +893,7 @@ namespace LWIR_app
             // saveDirectoryPath.IsEnabled = connected;
             saveDataTypeBox.IsEnabled = connected;
             singleBinaryToggle.IsEnabled = connected;
+            recordROIOnlyToggle.IsEnabled = connected;
             recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(save_path);
 
             SetOperationModeSelection(imagerShow.ActiveModeIndex);
@@ -727,10 +997,16 @@ namespace LWIR_app
                     return;
                 }
 
+            if (recordROIOnlyToggle.IsChecked == true && !hasRoi) {
+                MessageBox.Show("Create ROI");
+                return;
+            }
+
                 imagerShow.StartRecording(
                     directory,
                     GetSelectedSaveDataType(),
-                    singleBinaryToggle.IsChecked == true);
+                    singleBinaryToggle.IsChecked == true,
+                    recordROIOnlyToggle.IsChecked == true);
 
                 recordEnable.Background = WpfBrushes.LimeGreen;
                 recordEnable.Content = "Stop Recording";
@@ -750,6 +1026,7 @@ namespace LWIR_app
             saveDirectory.IsEnabled = !recording && imagerShow.IsConnected;
             saveDataTypeBox.IsEnabled = !recording && imagerShow.IsConnected;
             singleBinaryToggle.IsEnabled = !recording && imagerShow.IsConnected;
+            recordROIOnlyToggle.IsEnabled = !recording && imagerShow.IsConnected;
         }
 
         private SaveDataType GetSelectedSaveDataType()
