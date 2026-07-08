@@ -65,11 +65,13 @@ namespace LWIR_app
             Margin = new Thickness(0, 0, 0, 10)
         };
 
-        private TextBox saveDirectoryPath = new TextBox
-        {
-            Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            Margin = new Thickness(0, 0, 0, 8)
-        };
+        private string save_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+        // private TextBox saveDirectoryPath = new TextBox
+        // {
+        //     Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        //     Margin = new Thickness(0, 0, 0, 8)
+        // };
 
         private CheckBox singleBinaryToggle = new CheckBox
         {
@@ -99,7 +101,7 @@ namespace LWIR_app
             new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
             new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
             new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
-            new RadioButton { Content = "All" } 
+            new RadioButton { Content = "All" }
         };
         // private RadioButton saveTypeBase = ;
         // private RadioButton saveTypeInt = ;
@@ -162,6 +164,8 @@ namespace LWIR_app
                 VerticalAlignment = VerticalAlignment.Stretch
             };
             RenderOptions.SetBitmapScalingMode(thermalImage, BitmapScalingMode.HighQuality);
+
+            // TODO: Add Camera B-Side Settings and disable during vieo playback
 
             var thermalBorder = new Border
             {
@@ -276,7 +280,7 @@ namespace LWIR_app
                 Margin = new Thickness(0, 0, 0, 12)
             };
 
-            Grid panel = new Grid {Margin = new Thickness(8)};
+            Grid panel = new Grid { Margin = new Thickness(8) };
             panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -289,7 +293,8 @@ namespace LWIR_app
 
             // TODO: Create a space between the elements
 
-            for (int i = 0; i < s.Length; i++){
+            for (int i = 0; i < s.Length; i++)
+            {
                 Grid.SetRow(s[i], 0);
                 Grid.SetColumn(s[i], i);
                 panel.Children.Add(s[i]);
@@ -331,11 +336,11 @@ namespace LWIR_app
             };
 
             var opStack = new StackPanel { Orientation = Orientation.Vertical };
-            opModes = new RadioButton[3]{
+            opModes = [
                 BuildOperationModeRadio(" -20°C–100°C", 0),
                 BuildOperationModeRadio("0°C–250°C", 1),
                 BuildOperationModeRadio("250°C–900°C", 2)
-            };
+            ];
 
             foreach (RadioButton opMode in opModes) opStack.Children.Add(opMode);
             opGroup.Content = opStack;
@@ -397,21 +402,31 @@ namespace LWIR_app
             return radio;
         }
 
+        // TODO: Finish this ting
+        private GroupBox BuildCameraSettingsGroup()
+        {
+            GroupBox group = new GroupBox { Header = "Playback" };
+            StackPanel stack = new StackPanel { Margin = new Thickness(8) };
+
+            Slider playback_speed = new Slider { };
+            Slider playback = new Slider { };
+
+            playback_speed.ValueChanged += (_, _) => { };
+
+            playback.ValueChanged += (_, _) => { };
+
+            return group;
+        }
+
         private GroupBox BuildRecordingGroup()
         {
-            var group = new GroupBox
-            {
-                Header = "Recording"
-            };
+            var group = new GroupBox { Header = "Recording" };
 
-            var stack = new StackPanel
-            {
-                Margin = new Thickness(8)
-            };
+            var stack = new StackPanel { Margin = new Thickness(8) };
 
-            saveDirectory.Click += saveDirectory_Click;
+            saveDirectory.Click += (_, _) => saveDirectory_Click();
 
-            var radioGrid = new Grid { Margin = new Thickness(8) };
+            Grid radioGrid = new Grid { Margin = new Thickness(8) };
             radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -420,7 +435,8 @@ namespace LWIR_app
 
             // TODO: Create a space between the elements
 
-            for (int i = 0; i < saveTypes.Length; i++){
+            for (int i = 0; i < saveTypes.Length; i++)
+            {
                 Grid.SetRow(saveTypes[i], 0);
                 Grid.SetColumn(saveTypes[i], i);
                 radioGrid.Children.Add(saveTypes[i]);
@@ -435,7 +451,7 @@ namespace LWIR_app
                 Text = "Save Directory",
                 Margin = new Thickness(0, 0, 0, 4)
             });
-            stack.Children.Add(saveDirectoryPath);
+            // stack.Children.Add(saveDirectoryPath);
             stack.Children.Add(saveDirectory);
             stack.Children.Add(saveDataTypeBox);
             stack.Children.Add(singleBinaryToggle);
@@ -605,10 +621,10 @@ namespace LWIR_app
             miDeviceRefreshFlag.IsEnabled = connected;
             imageConfigurationMenu.IsEnabled = connected;
             saveDirectory.IsEnabled = connected;
-            saveDirectoryPath.IsEnabled = connected;
+            // saveDirectoryPath.IsEnabled = connected;
             saveDataTypeBox.IsEnabled = connected;
             singleBinaryToggle.IsEnabled = connected;
-            recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(saveDirectoryPath.Text);
+            recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(save_path);
 
             SetOperationModeSelection(imagerShow.ActiveModeIndex);
         }
@@ -672,7 +688,7 @@ namespace LWIR_app
             }
         }
 
-        private void saveDirectory_Click(object sender, RoutedEventArgs e)
+        private void saveDirectory_Click()
         {
             OpenFolderDialog folderDialog = new OpenFolderDialog();
 
@@ -688,7 +704,8 @@ namespace LWIR_app
                 try
                 {
                     System.IO.Directory.CreateDirectory(path);
-                    saveDirectoryPath.Text = System.IO.Path.GetFullPath(path);
+                    save_path = System.IO.Path.GetFullPath(path);
+                    saveDirectory.Content = save_path;
                     recordEnable.IsEnabled = true;
                 }
                 catch (Exception ex)
@@ -703,7 +720,7 @@ namespace LWIR_app
         {
             if (!imagerShow.IsRecording)
             {
-                string directory = saveDirectoryPath.Text.Trim();
+                string directory = save_path;
                 if (string.IsNullOrWhiteSpace(directory))
                 {
                     MessageBox.Show("Please set a save directory first.", "Recording", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -731,15 +748,15 @@ namespace LWIR_app
         private void SetRecordingUiState(bool recording)
         {
             saveDirectory.IsEnabled = !recording && imagerShow.IsConnected;
-            saveDirectoryPath.IsEnabled = !recording && imagerShow.IsConnected;
             saveDataTypeBox.IsEnabled = !recording && imagerShow.IsConnected;
             singleBinaryToggle.IsEnabled = !recording && imagerShow.IsConnected;
         }
 
         private SaveDataType GetSelectedSaveDataType()
         {
-            for (int i = 0; i < saveTypes.Length; i++){
-                if (saveTypes[i].IsChecked == true) return (SaveDataType) i;
+            for (int i = 0; i < saveTypes.Length; i++)
+            {
+                if (saveTypes[i].IsChecked == true) return (SaveDataType)i;
             }
 
             return SaveDataType.Float;
@@ -758,7 +775,7 @@ namespace LWIR_app
 
         private FrameworkElement BuildScaleRow(string labelText, out TextBox textBox, double topMargin = 0)
         {
-            var row = new DockPanel{ Margin = new Thickness(0, topMargin, 0, 0) };
+            var row = new DockPanel { Margin = new Thickness(0, topMargin, 0, 0) };
 
             textBox = new TextBox
             {

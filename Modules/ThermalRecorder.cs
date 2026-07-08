@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Globalization;
-using Optris.OtcSDK;
-using System.Diagnostics;
-using System.Configuration;
 using System.IO;
 
 namespace LWIR_app.classes
@@ -106,6 +99,13 @@ namespace LWIR_app.classes
             }
         }
 
+        public RecordedFrame[]? ReadFrames(){
+            if (!isRecording) return null;
+
+            var len = queue.Count;
+            return queue.ToArray()[(len-20)..len];
+        }
+
         public void Dispose()
         {
             Stop();
@@ -200,8 +200,8 @@ namespace LWIR_app.classes
 
         private void WriteFrameHeader(RecordedFrame frame, BinaryWriter writer)
         {
-            writer.Write(frame.width);
-            writer.Write(frame.height);
+            writer.Write(settings.camera_width);
+            writer.Write(settings.camera_height);
             writer.Write(frame.metadata.getTimestamp());
             writer.Write(frame.metadata.getCounter());
             writer.Write(frame.metadata.getCounterHardware());
