@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 ///  Represents the available modes for PIF fail safe channels.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum PifFsMode {
   ///  Off.
   Off,

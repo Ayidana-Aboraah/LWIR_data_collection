@@ -8,13 +8,14 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 /// <summary>Represents the different states of the shutter flag.</summary>
 /// A flag cycle is defined by the transition through the following states:
 ///  Open - Closing - Closed - Opening - Open
 /// During the automated startup calibration after a successful device connection the flag
 /// state will be Initializing indicating the thermal frame data is not yet reliable.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum FlagState {
   ///  Flag is open.
   Open,

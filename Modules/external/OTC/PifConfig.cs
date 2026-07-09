@@ -8,10 +8,11 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Holds the configuration of the processing interface.</summary>
 /// This can be single PIF or a set of stackable PIFs.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class PifConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -57,10 +58,6 @@ public class PifConfig : global::System.IDisposable {
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
-  }
-
-  ///  Constructor.
-  public PifConfig() : this(otcsdkPINVOKE.new_PifConfig(), true) {
   }
 
   /// <summary>Specifies the desired PIF device type.</summary>
@@ -157,6 +154,9 @@ public class PifConfig : global::System.IDisposable {
       PifFsConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new PifFsConfig(cPtr, false);
       return ret;
     } 
+  }
+
+  public PifConfig() : this(otcsdkPINVOKE.new_PifConfig(), true) {
   }
 
 }

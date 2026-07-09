@@ -8,10 +8,11 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates the parameters of a linear transformation.</summary>
 /// y(x) = gain * x + offset
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class Slope : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -59,16 +60,6 @@ public class Slope : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public Slope() : this(otcsdkPINVOKE.new_Slope__SWIG_0(), true) {
-  }
-
-  /// <summary>Constructor.</summary>
-  /// <param name="gain">   of the linear transformation.</param> 
-  /// <param name="offset"> of the linear transformation.</param>
-  public Slope(float gain, float offset) : this(otcsdkPINVOKE.new_Slope__SWIG_1(gain, offset), true) {
-  }
-
   ///  Gain of the linear transformation.
   public float gain {
     set {
@@ -89,6 +80,9 @@ public class Slope : global::System.IDisposable {
       float ret = otcsdkPINVOKE.Slope_offset_get(swigCPtr);
       return ret;
     } 
+  }
+
+  public Slope() : this(otcsdkPINVOKE.new_Slope(), true) {
   }
 
 }

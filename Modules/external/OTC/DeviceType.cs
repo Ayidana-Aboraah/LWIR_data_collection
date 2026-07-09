@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 ///  Represents the different types of Optris thermal cameras.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum DeviceType {
   Unknown,
   PI1,

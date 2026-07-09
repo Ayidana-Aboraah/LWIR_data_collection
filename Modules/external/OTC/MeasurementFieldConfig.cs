@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 ///  Encapsulates the configuration of a measurement field.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class MeasurementFieldConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -58,18 +59,7 @@ public class MeasurementFieldConfig : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public MeasurementFieldConfig() : this(otcsdkPINVOKE.new_MeasurementFieldConfig(), true) {
-  }
-
-  /// <summary>Validates the configuration settings.</summary>
-  /// <exception cref="SDKException"> if the configuration contains invalid settings.</exception>
-  public void validate() {
-    otcsdkPINVOKE.MeasurementFieldConfig_validate(swigCPtr);
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  ///  Name of the measurement field.
+  ///  Measurement field name.
   public string name {
     set {
       otcsdkPINVOKE.MeasurementFieldConfig_name_set(swigCPtr, value);
@@ -82,90 +72,50 @@ public class MeasurementFieldConfig : global::System.IDisposable {
     } 
   }
 
-  ///  Shape of the measurement field.
-  public FieldShape shape {
+  ///  Defines the shape of the measurement field.
+  public FieldShapeConfig shape {
     set {
-      otcsdkPINVOKE.MeasurementFieldConfig_shape_set(swigCPtr, (int)value);
+      otcsdkPINVOKE.MeasurementFieldConfig_shape_set(swigCPtr, FieldShapeConfig.getCPtr(value));
     } 
     get {
-      FieldShape ret = (FieldShape)otcsdkPINVOKE.MeasurementFieldConfig_shape_get(swigCPtr);
+      global::System.IntPtr cPtr = otcsdkPINVOKE.MeasurementFieldConfig_shape_get(swigCPtr);
+      FieldShapeConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new FieldShapeConfig(cPtr, false);
       return ret;
     } 
   }
 
-  ///  Mode for the measurement field.
-  public FieldMode mode {
+  /// <summary>Field-specific emissivity value in [0.01, 1.1].</summary>
+  /// The field customEmissivity needs to be set to true for the specified value to be applied.
+  public float emissivity {
     set {
-      otcsdkPINVOKE.MeasurementFieldConfig_mode_set(swigCPtr, (int)value);
+      otcsdkPINVOKE.MeasurementFieldConfig_emissivity_set(swigCPtr, value);
     } 
     get {
-      FieldMode ret = (FieldMode)otcsdkPINVOKE.MeasurementFieldConfig_mode_get(swigCPtr);
+      float ret = otcsdkPINVOKE.MeasurementFieldConfig_emissivity_get(swigCPtr);
       return ret;
     } 
   }
 
-  /// <summary>x position of the measurement field in pixels.</summary>
-  /// Depending of the shape of the field this may refer to different things:
-  /// - rectangle: Position of the upper left corner.
-  public int positionX {
+  ///  Indicates whether a custom emissivity should be used.
+  public bool customEmissivity {
     set {
-      otcsdkPINVOKE.MeasurementFieldConfig_positionX_set(swigCPtr, value);
+      otcsdkPINVOKE.MeasurementFieldConfig_customEmissivity_set(swigCPtr, value);
     } 
     get {
-      int ret = otcsdkPINVOKE.MeasurementFieldConfig_positionX_get(swigCPtr);
+      bool ret = otcsdkPINVOKE.MeasurementFieldConfig_customEmissivity_get(swigCPtr);
       return ret;
     } 
   }
 
-  /// <summary>y position of the measurement field in pixels.</summary>
-  /// Depending of the shape of the field this may refer to different things:
-  /// - rectangle: Position of the upper left corner.
-  public int positionY {
-    set {
-      otcsdkPINVOKE.MeasurementFieldConfig_positionY_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.MeasurementFieldConfig_positionY_get(swigCPtr);
-      return ret;
-    } 
+  /// <summary>Validates the measurement field configuration.</summary>
+  /// <param name="config"> to validate.</param> 
+  /// <exception cref="SDKException"> if the configuration is invalid.</exception>
+  public static void validate(MeasurementFieldConfig config) {
+    otcsdkPINVOKE.MeasurementFieldConfig_validate(MeasurementFieldConfig.getCPtr(config));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  /// <summary>Width of the measurement field in pixels.</summary>
-  /// Applicable for the following shapes:
-  /// - rectangle
-  public int width {
-    set {
-      otcsdkPINVOKE.MeasurementFieldConfig_width_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.MeasurementFieldConfig_width_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  /// <summary>Height of the measurement field in pixels.</summary>
-  /// Applicable for the following shapes:
-  /// - rectangle
-  public int height {
-    set {
-      otcsdkPINVOKE.MeasurementFieldConfig_height_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.MeasurementFieldConfig_height_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Radiation parameters for the measurement field.
-  public RadiationParameters radiation {
-    set {
-      otcsdkPINVOKE.MeasurementFieldConfig_radiation_set(swigCPtr, RadiationParameters.getCPtr(value));
-    } 
-    get {
-      global::System.IntPtr cPtr = otcsdkPINVOKE.MeasurementFieldConfig_radiation_get(swigCPtr);
-      RadiationParameters ret = (cPtr == global::System.IntPtr.Zero) ? null : new RadiationParameters(cPtr, false);
-      return ret;
-    } 
+  public MeasurementFieldConfig() : this(otcsdkPINVOKE.new_MeasurementFieldConfig(), true) {
   }
 
 }

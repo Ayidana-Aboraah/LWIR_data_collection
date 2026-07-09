@@ -8,14 +8,19 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
-///  Represents the different event types.
-public enum SnapshotType {
-  ///  Event source is snapshot.
-  Snapshot,
-  ///  Event source is snapshot on edge.
-  SnapshotOnEdge
+///  Represents the different modes for radial distortion correction.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
+public enum RdcMode {
+  ///  Deactivated.
+  Off,
+  ///  Normal mode.
+  Normal,
+  ///  Wide mode.
+  Wide,
+  ///  Unknown mode. Used for error handling.
+  Unknown
 }
 
 }

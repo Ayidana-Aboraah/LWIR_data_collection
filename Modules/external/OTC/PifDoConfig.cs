@@ -8,11 +8,12 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates the configuration for a PIF digital output channel.</summary>
 /// For a detailed overview of all available modes and parameters please refer to the corresponding section in the documentation
 /// of the [configuration file](#important-files-configuration-process-interface-digital-outputs).
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class PifDoConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -60,8 +61,38 @@ public class PifDoConfig : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public PifDoConfig() : this(otcsdkPINVOKE.new_PifDoConfig(), true) {
+  ///  Identifies the channel by the indices of its pin and the PIF device on which it is located.
+  public PifIndex index {
+    set {
+      otcsdkPINVOKE.PifDoConfig_index_set(swigCPtr, PifIndex.getCPtr(value));
+    } 
+    get {
+      global::System.IntPtr cPtr = otcsdkPINVOKE.PifDoConfig_index_get(swigCPtr);
+      PifIndex ret = (cPtr == global::System.IntPtr.Zero) ? null : new PifIndex(cPtr, false);
+      return ret;
+    } 
+  }
+
+  ///  Mode to be applied to the channel.
+  public PifDoMode mode {
+    set {
+      otcsdkPINVOKE.PifDoConfig_mode_set(swigCPtr, (int)value);
+    } 
+    get {
+      PifDoMode ret = (PifDoMode)otcsdkPINVOKE.PifDoConfig_mode_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Indicates if the output is low active.
+  public bool outputLowActive {
+    set {
+      otcsdkPINVOKE.PifDoConfig_outputLowActive_set(swigCPtr, value);
+    } 
+    get {
+      bool ret = otcsdkPINVOKE.PifDoConfig_outputLowActive_get(swigCPtr);
+      return ret;
+    } 
   }
 
   /// <summary>Creates a configuration for the mode PifDoMode::Off.</summary>
@@ -70,6 +101,16 @@ public class PifDoConfig : global::System.IDisposable {
   /// <returns>configuration for the mode PifDoMode::Off.</returns>
   public static PifDoConfig createOff(int deviceIndex, int pinIndex) {
     PifDoConfig ret = new PifDoConfig(otcsdkPINVOKE.PifDoConfig_createOff(deviceIndex, pinIndex), true);
+    return ret;
+  }
+
+  /// <summary>Creates a configuration for the mode PifDoMode::Alarm.</summary>
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <param name="lowIfActive"> if true, a low signal will be output, if the alarm is active.</param> 
+  /// <returns>configuration for the mode PifDoMode::Alarm.</returns>
+  public static PifDoConfig createAlarm(int deviceIndex, int pinIndex, bool lowIfActive) {
+    PifDoConfig ret = new PifDoConfig(otcsdkPINVOKE.PifDoConfig_createAlarm(deviceIndex, pinIndex, lowIfActive), true);
     return ret;
   }
 
@@ -115,48 +156,7 @@ public class PifDoConfig : global::System.IDisposable {
     return ret;
   }
 
-  ///  Identifies the channel by specifying the PIF device on which its pins are located.
-  public int deviceIndex {
-    set {
-      otcsdkPINVOKE.PifDoConfig_deviceIndex_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.PifDoConfig_deviceIndex_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Identifies the channel by locating its pins on the specified PIF device.
-  public int pinIndex {
-    set {
-      otcsdkPINVOKE.PifDoConfig_pinIndex_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.PifDoConfig_pinIndex_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Mode to be applied to the channel.
-  public PifDoMode mode {
-    set {
-      otcsdkPINVOKE.PifDoConfig_mode_set(swigCPtr, (int)value);
-    } 
-    get {
-      PifDoMode ret = (PifDoMode)otcsdkPINVOKE.PifDoConfig_mode_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Indicates if the output is low active.
-  public bool outputLowActive {
-    set {
-      otcsdkPINVOKE.PifDoConfig_outputLowActive_set(swigCPtr, value);
-    } 
-    get {
-      bool ret = otcsdkPINVOKE.PifDoConfig_outputLowActive_get(swigCPtr);
-      return ret;
-    } 
+  public PifDoConfig() : this(otcsdkPINVOKE.new_PifDoConfig(), true) {
   }
 
 }

@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 ///  Holds the radiation parameters for a frame or a measurement field.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class RadiationParameters : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -58,24 +59,8 @@ public class RadiationParameters : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public RadiationParameters() : this(otcsdkPINVOKE.new_RadiationParameters(), true) {
-  }
-
-  ///  Validates and rectifies the radiation parameters.
-  public void validate() {
-    otcsdkPINVOKE.RadiationParameters_validate(swigCPtr);
-  }
-
-  /// <summary>Returns a string representation of the radiation parameters.</summary>
-  /// <returns>string representation of the radiation parameters.</returns>
-  public string toString() {
-    string ret = otcsdkPINVOKE.RadiationParameters_toString(swigCPtr);
-    return ret;
-  }
-
   /// <summary>Emissivity.</summary>
-  /// Its value will be limited to [0.1, 1.1].
+  /// Its value will be limited to [0.01, 1.1].
   public float emissivity {
     set {
       otcsdkPINVOKE.RadiationParameters_emissivity_set(swigCPtr, value);
@@ -87,7 +72,7 @@ public class RadiationParameters : global::System.IDisposable {
   }
 
   /// <summary>Transmissivity.</summary>
-  /// Its value will be limited to [0.1, 1.1].
+  /// Its value will be limited to [0.01, 1.1].
   public float transmissivity {
     set {
       otcsdkPINVOKE.RadiationParameters_transmissivity_set(swigCPtr, value);
@@ -128,6 +113,17 @@ public class RadiationParameters : global::System.IDisposable {
       bool ret = otcsdkPINVOKE.RadiationParameters_estimateAmbientTemperature_get(swigCPtr);
       return ret;
     } 
+  }
+
+  /// <summary>Validates the radiation parameters.</summary>
+  /// Clamps emissivity and transmissivity values to [0.01, 1.1]. If ambientTemperature is less than
+  /// or equal to INVALID_TEMPERATURE, estimateAmbientTemperature will be set to true.
+  public static void validate(RadiationParameters radiation) {
+    otcsdkPINVOKE.RadiationParameters_validate(RadiationParameters.getCPtr(radiation));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public RadiationParameters() : this(otcsdkPINVOKE.new_RadiationParameters(), true) {
   }
 
 }

@@ -8,12 +8,12 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Factory instantiating IRImager implementations.</summary>
 /// The factory is implemented based on the Singleton design pattern. As a consequence, you have to use
 /// the IRImagerFactory::getInstance() method to interact with it.
 
-public class IRImagerFactory : global::System.IDisposable {
+public partial class IRImagerFactory : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
@@ -60,6 +60,29 @@ public class IRImagerFactory : global::System.IDisposable {
     }
   }
 
+  /// <summary>Registered downcaster providers. Each returns a
+  /// derived IRImager wrapper if the underlying C++ shared_ptr
+  /// is of its expected type, or null otherwise. Modules that
+  /// add new IRImager subclasses call RegisterDowncaster from
+  /// their own static initializer.
+  ///
+  /// Ownership contract: a downcaster that returns a non-null
+  /// wrapper takes ownership of the supplied shared_ptr handle
+  /// (it must delete the incoming shared_ptr and hand back a
+  /// new one for the derived type). A downcaster that returns
+  /// null leaves the handle untouched so the next downcaster,
+  /// or the IRImager fallback, can consume it.</summary>
+  internal static readonly System.Collections.Generic.List<
+      System.Func<System.IntPtr, IRImager>> __Downcasters
+    = new System.Collections.Generic.List<
+        System.Func<System.IntPtr, IRImager>>();
+
+  public static void RegisterDowncaster(
+      System.Func<System.IntPtr, IRImager> downcaster) {
+    if (downcaster == null) return;
+    lock (__Downcasters) __Downcasters.Add(downcaster);
+  }
+
   /// <summary>Returns an instance of the IRImagerFactory.</summary>
   /// Only one instance per program is available.
   /// <returns>IRImagerFactory instance.</returns>
@@ -76,11 +99,17 @@ public class IRImagerFactory : global::System.IDisposable {
   /// <exception cref="SDKException"> if the instantiation fails or an implementation with the given name is not
   ///                         available.</exception>
   public IRImager create(string name) {
-    global::System.IntPtr cPtr = otcsdkPINVOKE.IRImagerFactory_create(swigCPtr, name);
-    IRImager ret = (cPtr == global::System.IntPtr.Zero) ? null : new IRImager(cPtr, true);
+  global::System.IntPtr cPtr = otcsdkPINVOKE.IRImagerFactory_create(swigCPtr, name);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  if (cPtr == global::System.IntPtr.Zero) return null;
+  lock (IRImagerFactory.__Downcasters) {
+    foreach (var d in IRImagerFactory.__Downcasters) {
+      var specialized = d(cPtr);
+      if (specialized != null) return specialized;
+    }
   }
+  return new IRImager(cPtr, true);
+}
 
 }
 

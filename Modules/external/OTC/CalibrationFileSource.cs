@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 ///  Represents the different sources from which the calibration files can be acquired.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum CalibrationFileSource {
   ///  The calibration files are fetched from the on-board memory of the device. Not supported by all devices.
   Device,

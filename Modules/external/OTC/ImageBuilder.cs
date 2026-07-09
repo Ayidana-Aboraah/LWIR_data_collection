@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 ///  Creates false color images from thermal frames.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class ImageBuilder : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -148,50 +149,91 @@ public class ImageBuilder : global::System.IDisposable {
     return ret;
   }
 
-  /// <summary>Sets the temperature range for the manual scaling method.</summary>
+  /// <summary>Sets the temperature range for the manual scaling mode.</summary>
+  /// <remarks>If the scaling mode is not set to manual the set values will be overriden once the next image           conversion is triggered.</remarks>
   /// <param name="min"> lower limit in °C.</param> 
-  /// <param name="max"> upper limit in °C.</param>
-  public void setManualTemperatureRange(float min, float max) {
-    otcsdkPINVOKE.ImageBuilder_setManualTemperatureRange(swigCPtr, min, max);
+  /// <param name="max"> upper limit in °C.</param> 
+  /// <exception cref="SDKException"> if the provided temperatures are invalid or if max is not at least 1°C higher than min.</exception>
+  public void setTemperatureScaling(float min, float max) {
+    otcsdkPINVOKE.ImageBuilder_setTemperatureScaling(swigCPtr, min, max);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   /// <summary>Returns the minimum temperature used to scale the image.</summary>
   /// <returns>temperature in °C.</returns>
-  public float getIsothermalMin() {
-    float ret = otcsdkPINVOKE.ImageBuilder_getIsothermalMin(swigCPtr);
+  public float getTemperatureScalingMin() {
+    float ret = otcsdkPINVOKE.ImageBuilder_getTemperatureScalingMin(swigCPtr);
     return ret;
   }
 
   /// <summary>Returns the maximum temperature used to scale the image.</summary>
-  /// <returns>Temperature in °C</returns>
-  public float getIsothermalMax() {
-    float ret = otcsdkPINVOKE.ImageBuilder_getIsothermalMax(swigCPtr);
+  /// <returns>temperature in °C.</returns>
+  public float getTemperatureScalingMax() {
+    float ret = otcsdkPINVOKE.ImageBuilder_getTemperatureScalingMax(swigCPtr);
     return ret;
   }
 
-  /// <summary>Sets the scaling method for the false color conversion.</summary>
-  /// <param name="method"> scaling method.</param>
-  public void setPaletteScalingMethod(PaletteScalingMethod method) {
-    otcsdkPINVOKE.ImageBuilder_setPaletteScalingMethod(swigCPtr, (int)method);
-  }
-
-  /// <summary>Returns the current scaling method for the false color conversion.</summary>
-  /// <returns>scaling method.</returns>
-  public PaletteScalingMethod getPaletteScalingMethod() {
-    PaletteScalingMethod ret = (PaletteScalingMethod)otcsdkPINVOKE.ImageBuilder_getPaletteScalingMethod(swigCPtr);
+  /// <summary>Returns the filtered minimum temperature actually used by the most recent       frame's palette rendering.</summary>
+  /// For the auto-scaling modes this lags #getTemperatureScalingMin() by the hysteresis
+  /// filter (see #setTemperatureScalingFilterFactor); in Manual mode both return the
+  /// same value because #setTemperatureScaling resets the filter.
+  /// <returns>temperature in °C.</returns>
+  public float getTemperatureScalingMinFiltered() {
+    float ret = otcsdkPINVOKE.ImageBuilder_getTemperatureScalingMinFiltered(swigCPtr);
     return ret;
   }
 
-  /// <summary>Sets the palette for the false color conversion.</summary>
-  /// <param name="palette"> coloring palette to set.</param>
-  public void setPalette(ColoringPalette palette) {
-    otcsdkPINVOKE.ImageBuilder_setPalette(swigCPtr, (int)palette);
+  /// <summary>Returns the filtered maximum temperature actually used by the most recent       frame's palette rendering. See #getTemperatureScalingMinFiltered().</summary>
+  /// <returns>temperature in °C.</returns>
+  public float getTemperatureScalingMaxFiltered() {
+    float ret = otcsdkPINVOKE.ImageBuilder_getTemperatureScalingMaxFiltered(swigCPtr);
+    return ret;
   }
 
-  /// <summary>Returns the palette for the false color conversion.</summary>
-  /// <returns>used coloring palette.</returns>
-  public ColoringPalette getPalette() {
-    ColoringPalette ret = (ColoringPalette)otcsdkPINVOKE.ImageBuilder_getPalette(swigCPtr);
+  /// <summary>Sets the low pass filter factor for the temperature scaling for smooth transitions.</summary>
+  /// <remarks>The filtering only affects decreasing maximum values and increasing minimum values. Increasing maximum           values and decreasing minimum values are instantly updated to prevent saturation.</remarks>
+  /// <param name="filterFactor"> low pass filter factor in the interval [0.0, 1.0]. The default value is 0.96 and the value
+  ///                             0.0 disables the filter.</param> 
+  /// <exception cref="SDKException"> if the provided filter factor is out of bounds.</exception>
+  public void setTemperatureScalingFilterFactor(float filterFactor) {
+    otcsdkPINVOKE.ImageBuilder_setTemperatureScalingFilterFactor(swigCPtr, filterFactor);
+  }
+
+  /// <summary>Returns the low pass filter factor for the temperature scaling method.</summary>
+  /// <returns>low pass filter factor.</returns>
+  public float getTemperatureScalingFilterFactor() {
+    float ret = otcsdkPINVOKE.ImageBuilder_getTemperatureScalingFilterFactor(swigCPtr);
+    return ret;
+  }
+
+  /// <summary>Sets the temperature scaling mode for the false color conversion.</summary>
+  /// <param name="mode"> temperature scaling mode.</param>
+  public void setTemperatureScalingMode(TemperatureScalingMode mode) {
+    otcsdkPINVOKE.ImageBuilder_setTemperatureScalingMode(swigCPtr, (int)mode);
+  }
+
+  /// <summary>Returns the current temperate scaling mode for the false color conversion.</summary>
+  /// <returns>temperature scaling mode.</returns>
+  public TemperatureScalingMode getTemperatureScalingMode() {
+    TemperatureScalingMode ret = (TemperatureScalingMode)otcsdkPINVOKE.ImageBuilder_getTemperatureScalingMode(swigCPtr);
+    return ret;
+  }
+
+  /// <summary>Sets the palette for the false color conversion by name.</summary>
+  /// If palettes have not been loaded yet, this triggers Sdk::loadPalettes() automatically.
+  /// The palette data is copied into the ImageBuilder — subsequent registry changes do not
+  /// affect an already constructed ImageBuilder.
+  /// <param name="name"> palette name (case-sensitive, e.g. "Iron").</param> 
+  /// <exception cref="SDKException"> if the named palette cannot be found even after auto-loading.</exception>
+  public void setPalette(string name) {
+    otcsdkPINVOKE.ImageBuilder_setPalette(swigCPtr, name);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns the name of the currently active palette.</summary>
+  /// <returns>palette name string.</returns>
+  public string getPaletteName() {
+    string ret = otcsdkPINVOKE.ImageBuilder_getPaletteName(swigCPtr);
     return ret;
   }
 
@@ -231,7 +273,19 @@ public class ImageBuilder : global::System.IDisposable {
 
   ///  Triggers the image conversion.
   public void convertTemperatureToPaletteImage() {
-    otcsdkPINVOKE.ImageBuilder_convertTemperatureToPaletteImage(swigCPtr);
+    otcsdkPINVOKE.ImageBuilder_convertTemperatureToPaletteImage__SWIG_0(swigCPtr);
+  }
+
+  /// <summary>Converts thermal data to a false color image, writing output to an external buffer.</summary>
+  /// The external buffer must be at least getImageSizeInBytes() bytes and have the same
+  /// stride as getImageStride(). The internal Image member is NOT updated or allocated.
+  /// <param name="destination"> pointer to the output buffer.</param> 
+  /// <param name="size">        buffer size in bytes (must be >= getImageSizeInBytes()).</param>
+  public void convertTemperatureToPaletteImage(global::System.IntPtr destination, int size) {
+    global::System.Runtime.InteropServices.HandleRef handle = new(null, destination);
+    {
+      otcsdkPINVOKE.ImageBuilder_convertTemperatureToPaletteImage__SWIG_1(swigCPtr, destination, size);
+    }
   }
 
 }

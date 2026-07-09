@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 ///  Converts temperatures in °C to and from their internal SDK representation.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class TemperatureConverter : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -83,8 +84,18 @@ public class TemperatureConverter : global::System.IDisposable {
   /// <summary>Converts an internal value to a temperature in °C.</summary>
   /// <param name="value"> internal value to convert.</param> 
   /// <returns>temperature in °C.</returns>
+  public float toTemperature(ushort value) {
+    float ret = otcsdkPINVOKE.TemperatureConverter_toTemperature__SWIG_0(swigCPtr, value);
+    return ret;
+  }
+
+  /// <summary>Converts a sub-integer internal value to a temperature in °C.</summary>
+  /// For callers that hold scaling-range state at sub-integer precision
+  /// (see ImageBuilder's hysteresis filter and the Sigma scaling modes).
+  /// <param name="value"> sub-integer internal value to convert.</param> 
+  /// <returns>temperature in °C.</returns>
   public float toTemperature(float value) {
-    float ret = otcsdkPINVOKE.TemperatureConverter_toTemperature(swigCPtr, value);
+    float ret = otcsdkPINVOKE.TemperatureConverter_toTemperature__SWIG_1(swigCPtr, value);
     return ret;
   }
 
@@ -109,6 +120,20 @@ public class TemperatureConverter : global::System.IDisposable {
   /// <returns>true if the value is valid. False otherwise.</returns>
   public bool isValueValid(ushort value) {
     bool ret = otcsdkPINVOKE.TemperatureConverter_isValueValid(swigCPtr, value);
+    return ret;
+  }
+
+  /// <summary>Returns the value signifying an invalid temperature.</summary>
+  /// <returns>value signifying an invalid temperature.</returns>
+  public float getInvalidTemperature() {
+    float ret = otcsdkPINVOKE.TemperatureConverter_getInvalidTemperature(swigCPtr);
+    return ret;
+  }
+
+  /// <summary>Returns the value signifying an invalid internal value.</summary>
+  /// <returns>value signifying an invalid internal value.</returns>
+  public ushort getInvalidValue() {
+    ushort ret = otcsdkPINVOKE.TemperatureConverter_getInvalidValue(swigCPtr);
     return ret;
   }
 

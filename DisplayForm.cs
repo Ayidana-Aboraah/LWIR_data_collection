@@ -15,7 +15,7 @@ using System.Drawing.Text;
 using Microsoft.Win32;
 using LWIR_app.classes;
 using LWIR_app.models;
-using Optris.OtcSDK;
+using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
 using System.Windows.Controls.Primitives;
 using System.Net.Http.Headers;
@@ -27,11 +27,12 @@ namespace LWIR_app
     {
         private readonly IRImagerShow imagerShow = new();
         private readonly DispatcherTimer uiUpdateTimer = new();
-        private readonly Dictionary<ColoringPalette, MenuItem> paletteMenuItems = new();
+        private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
         private bool suppressScaleTextEvents;
         private bool isDraggingRoi;
         private bool hasRoi;
+        private System.Windows.Point mouse_position;
         private System.Windows.Point roiDragStart;
         private System.Windows.Point roiDragCurrent;
         private System.Drawing.Rectangle selectedRoi;
@@ -97,15 +98,15 @@ namespace LWIR_app
             Margin = new Thickness(0, 0, 0, 10)
         };
 
-        private CheckBox autoTempScale = new CheckBox
-        {
-            Content = "Automatic Temperature Scale",
-            IsChecked = true,
-            Margin = new Thickness(0, 16, 0, 0)
-        };
+        // private CheckBox autoTempScale = new CheckBox
+        // {
+        //     Content = "Automatic Temperature Scale",
+        //     IsChecked = true,
+        //     Margin = new Thickness(0, 16, 0, 0)
+        // };
 
-        private TextBox imageScaleLow = null!;
-        private TextBox imageScaleHigh = null!;
+        // private TextBox imageScaleLow = null!;
+        // private TextBox imageScaleHigh = null!;
         private TextBlock minTemp = null!;
         private TextBlock maxTemp = null!;
         private System.Windows.Controls.Image roiPreviewImage = null!;
@@ -282,7 +283,7 @@ namespace LWIR_app
                 Orientation = Orientation.Vertical
             };
 
-            stack.Children.Add(BuildScaleGroup());
+            // stack.Children.Add(BuildScaleGroup());
             stack.Children.Add(BuildTemperatureGroup());
             stack.Children.Add(BuildRoiPreviewGroup());
             stack.Children.Add(BuildRecordingGroup());
@@ -292,37 +293,37 @@ namespace LWIR_app
             return panelBorder;
         }
 
-        private GroupBox BuildScaleGroup()
-        {
-            var group = new GroupBox
-            {
-                Header = "Scale",
-                Margin = new Thickness(0, 0, 0, 12)
-            };
+        // private GroupBox BuildScaleGroup()
+        // {
+        //     var group = new GroupBox
+        //     {
+        //         Header = "Scale",
+        //         Margin = new Thickness(0, 0, 0, 12)
+        //     };
 
-            Grid panel = new Grid { Margin = new Thickness(8) };
-            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+        //     Grid panel = new Grid { Margin = new Thickness(8) };
+        //     panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        //     panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        //     panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        //     panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            FrameworkElement[] s = {
-                BuildScaleRow("High:", out imageScaleHigh),
-                BuildScaleRow("Low:", out imageScaleLow)
-            };
+        //     FrameworkElement[] s = {
+        //         BuildScaleRow("High:", out imageScaleHigh),
+        //         BuildScaleRow("Low:", out imageScaleLow)
+        //     };
 
-            // TODO: Create a space between the elements
+        //     // TODO: Create a space between the elements
 
-            for (int i = 0; i < s.Length; i++)
-            {
-                Grid.SetRow(s[i], 0);
-                Grid.SetColumn(s[i], i);
-                panel.Children.Add(s[i]);
-            }
+        //     for (int i = 0; i < s.Length; i++)
+        //     {
+        //         Grid.SetRow(s[i], 0);
+        //         Grid.SetColumn(s[i], i);
+        //         panel.Children.Add(s[i]);
+        //     }
 
-            group.Content = panel;
-            return group;
-        }
+        //     group.Content = panel;
+        //     return group;
+        // }
 
         private GroupBox BuildTemperatureGroup()
         {
@@ -341,9 +342,9 @@ namespace LWIR_app
             valueStack.Children.Add(BuildTemperatureValueRow("Min:", out minTemp, 10));
 
 
-            autoTempScale.Checked += (_, _) => AutoTempScale_CheckedChanged();
-            autoTempScale.Unchecked += (_, _) => AutoTempScale_CheckedChanged();
-            valueStack.Children.Add(autoTempScale);
+            // autoTempScale.Checked += (_, _) => AutoTempScale_CheckedChanged();
+            // autoTempScale.Unchecked += (_, _) => AutoTempScale_CheckedChanged();
+            // valueStack.Children.Add(autoTempScale);
 
             Grid.SetColumn(valueStack, 0);
             layout.Children.Add(valueStack);
@@ -605,20 +606,23 @@ namespace LWIR_app
             currentImageWidth = image.Width;
             currentImageHeight = image.Height;
 
-            if (imagerShow.CalculateMinMaxTemperatureRegions())
+            if (TryGetMouseImagePixel(out System.Drawing.Point cursorPixel))
             {
                 DrawMeasurement(
                     image,
-                    (imagerShow.MaxRegion.x1 + imagerShow.MaxRegion.x2) / 2,
-                    (imagerShow.MaxRegion.y1 + imagerShow.MaxRegion.y2) / 2,
-                    imagerShow.MaxRegion.temperature,
+                    cursorPixel.X,
+                    cursorPixel.Y,
+                    imagerShow.findTemp(cursorPixel.X, cursorPixel.Y),
                     System.Drawing.Color.Red,
                     System.Drawing.Color.White);
+            }
 
+            if (imagerShow.CalculateMinMaxTemperatureRegions())
+            {
                 minTemp.Text = imagerShow.MinRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
                 maxTemp.Text = imagerShow.MaxRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
 
-                if (autoTempScale.IsChecked == true) SetAutoScalingRange();
+                // if (autoTempScale.IsChecked == true) SetAutoScalingRange();
             }
 
             UpdateRoiPreview(image);
@@ -645,8 +649,8 @@ namespace LWIR_app
 
         private void ThermalImage_MouseMove(object sender, MouseEventArgs e)
         {
+            mouse_position = e.GetPosition(thermalImage);
             if (!isDraggingRoi) return;
-
             roiDragCurrent = e.GetPosition(thermalImage);
         }
 
@@ -677,6 +681,7 @@ namespace LWIR_app
 
         private void ThermalImage_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             hasRoi = false;
             isDraggingRoi = false;
             imagerShow.ClearROI();
@@ -688,6 +693,19 @@ namespace LWIR_app
         {
             Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
             return viewport.Contains(point);
+        }
+
+        private bool TryGetMouseImagePixel(out System.Drawing.Point imagePixel)
+        {
+            imagePixel = default;
+
+            if (currentImageWidth <= 0 || currentImageHeight <= 0) return false;
+
+            Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
+            if (viewport.IsEmpty || !viewport.Contains(mouse_position)) return false;
+
+            imagePixel = MapDisplayToImagePixel(mouse_position, viewport);
+            return true;
         }
 
         private Rect GetImageViewport(int imageWidth, int imageHeight)
@@ -768,15 +786,10 @@ namespace LWIR_app
 
         private void DrawRoiOverlay(Bitmap bitmap)
         {
-            if (hasRoi)
-            {
-                DrawRectangleOverlay(bitmap, selectedRoi, System.Drawing.Color.Lime, 2f);
-            }
+            if (hasRoi) DrawRectangleOverlay(bitmap, selectedRoi, System.Drawing.Color.Lime, 2f);
 
             if (isDraggingRoi && TryBuildImageRectangle(roiDragStart, roiDragCurrent, out System.Drawing.Rectangle preview))
-            {
                 DrawRectangleOverlay(bitmap, preview, System.Drawing.Color.Yellow, 1.5f);
-            }
         }
 
         private void UpdateRoiPreview(Bitmap sourceImage)
@@ -865,7 +878,7 @@ namespace LWIR_app
                 sbOperationMode.Text = imagerShow.OperationModeString;
                 sbFlag.Text = imagerShow.GetFlagState();
                 uiUpdateTimer.Start();
-                SetAutoScalingRange();
+                // SetAutoScalingRange();
             }
             else
             {
@@ -899,23 +912,23 @@ namespace LWIR_app
             SetOperationModeSelection(imagerShow.ActiveModeIndex);
         }
 
-        private void SetAutoScalingRange()
-        {
-            if (!imagerShow.IsConnected || autoTempScale.IsChecked != true) return;
+        // private void SetAutoScalingRange()
+        // {
+        //     if (!imagerShow.IsConnected || autoTempScale.IsChecked != true) return;
 
-            var range = imagerShow.GetTemperatureRange();
+        //     var range = imagerShow.GetTemperatureRange();
 
-            suppressScaleTextEvents = true;
-            try
-            {
-                imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
-                imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
-            }
-            finally
-            {
-                suppressScaleTextEvents = false;
-            }
-        }
+        //     suppressScaleTextEvents = true;
+        //     try
+        //     {
+        //         imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
+        //         imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
+        //     }
+        //     finally
+        //     {
+        //         suppressScaleTextEvents = false;
+        //     }
+        // }
 
         private void SetOperationModeSelection(int modeIndex)
         {
@@ -928,7 +941,22 @@ namespace LWIR_app
             colorPaletteMenu.Items.Clear();
             paletteMenuItems.Clear();
 
-            foreach (ColoringPalette palette in System.Enum.GetValues(typeof(ColoringPalette)))
+            // TODO: have the palette options be generated by reading all palette file names from the default directory
+            string[] builtinPalettes = [
+                "AlarmBlue",
+                "AlarmBlueHi",
+                "AlarmGreen",
+                "AlarmRed",
+                "GrayBW",
+                "GrayWB",
+                "Iron",
+                "IronHi",
+                "Medical",
+                "Rainbow",
+                "RainbowHi",
+            ];
+
+            foreach (string palette in builtinPalettes)
             {
                 var item = new MenuItem
                 {
@@ -938,7 +966,7 @@ namespace LWIR_app
                 };
                 item.Click += (object sender, RoutedEventArgs e) =>
                 {
-                    if (sender is not MenuItem item || item.Tag is not ColoringPalette palette) return;
+                    if (sender is not MenuItem item || item.Tag is not string) return;
 
                     SetSelectedPalette(palette);
                     imagerShow.ChangePalette(palette);
@@ -947,10 +975,10 @@ namespace LWIR_app
                 paletteMenuItems[palette] = item;
             }
 
-            SetSelectedPalette(ColoringPalette.Iron);
+            SetSelectedPalette("Iron");
         }
 
-        private void SetSelectedPalette(ColoringPalette palette)
+        private void SetSelectedPalette(string palette)
         {
             foreach (var pair in paletteMenuItems)
             {
@@ -1039,73 +1067,73 @@ namespace LWIR_app
             return SaveDataType.Float;
         }
 
-        private void AutoTempScale_CheckedChanged()
-        {
-            bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
-            imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
-            imageScaleLow.IsReadOnly = autoTempScaleEnabled;
-            imagerShow.SetAutoScaling(autoTempScaleEnabled);
+        // private void AutoTempScale_CheckedChanged()
+        // {
+        //     bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
+        //     imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
+        //     imageScaleLow.IsReadOnly = autoTempScaleEnabled;
+        //     // imagerShow.SetAutoScaling(autoTempScaleEnabled);
 
-            if (autoTempScaleEnabled) SetAutoScalingRange();
-            else ApplyManualScaleRangeFromInputs();
-        }
+        //     if (autoTempScaleEnabled) SetAutoScalingRange();
+        //     else ApplyManualScaleRangeFromInputs();
+        // }
 
-        private FrameworkElement BuildScaleRow(string labelText, out TextBox textBox, double topMargin = 0)
-        {
-            var row = new DockPanel { Margin = new Thickness(0, topMargin, 0, 0) };
+        // private FrameworkElement BuildScaleRow(string labelText, out TextBox textBox, double topMargin = 0)
+        // {
+        //     var row = new DockPanel { Margin = new Thickness(0, topMargin, 0, 0) };
 
-            textBox = new TextBox
-            {
-                Width = 72,
-                Text = "0",
-                HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right,
-                IsReadOnly = true,
-                Margin = new Thickness(0, 0, 6, 0)
-            };
-            textBox.TextChanged += imageScale_TextChanged;
+        //     textBox = new TextBox
+        //     {
+        //         Width = 72,
+        //         Text = "0",
+        //         HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right,
+        //         IsReadOnly = true,
+        //         Margin = new Thickness(0, 0, 6, 0)
+        //     };
+        //     textBox.TextChanged += imageScale_TextChanged;
 
-            var label = new TextBlock
-            {
-                Text = labelText,
-                Width = 48,
-                VerticalAlignment = VerticalAlignment.Center
-            };
+        //     var label = new TextBlock
+        //     {
+        //         Text = labelText,
+        //         Width = 48,
+        //         VerticalAlignment = VerticalAlignment.Center
+        //     };
 
-            var unit = new TextBlock
-            {
-                Text = "°C",
-                VerticalAlignment = VerticalAlignment.Center
-            };
+        //     var unit = new TextBlock
+        //     {
+        //         Text = "°C",
+        //         VerticalAlignment = VerticalAlignment.Center
+        //     };
 
-            DockPanel.SetDock(label, Dock.Left);
-            DockPanel.SetDock(unit, Dock.Right);
+        //     DockPanel.SetDock(label, Dock.Left);
+        //     DockPanel.SetDock(unit, Dock.Right);
 
-            row.Children.Add(label);
-            row.Children.Add(textBox);
-            row.Children.Add(unit);
-            return row;
-        }
+        //     row.Children.Add(label);
+        //     row.Children.Add(textBox);
+        //     row.Children.Add(unit);
+        //     return row;
+        // }
 
-        private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (suppressScaleTextEvents || autoTempScale.IsChecked == true)
-            {
-                return;
-            }
+        // private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
+        // {
+        //     if (suppressScaleTextEvents || autoTempScale.IsChecked == true)
+        //     {
+        //         return;
+        //     }
 
-            ApplyManualScaleRangeFromInputs();
-        }
+        //     ApplyManualScaleRangeFromInputs();
+        // }
 
-        private void ApplyManualScaleRangeFromInputs()
-        {
-            if (!TryReadScaleValue(imageScaleLow.Text, out float low)) return;
+        // private void ApplyManualScaleRangeFromInputs()
+        // {
+        //     if (!TryReadScaleValue(imageScaleLow.Text, out float low)) return;
 
-            if (!TryReadScaleValue(imageScaleHigh.Text, out float high)) return;
+        //     if (!TryReadScaleValue(imageScaleHigh.Text, out float high)) return;
 
-            if (low > high) (low, high) = (high, low);
+        //     if (low > high) (low, high) = (high, low);
 
-            imagerShow.SetScaleRange(low, high);
-        }
+        //     imagerShow.SetScaleRange(low, high);
+        // }
 
         private static bool TryReadScaleValue(string? text, out float value)
         {
@@ -1123,7 +1151,7 @@ namespace LWIR_app
             if (radioButton.Tag is not int modeIndex) return;
 
             imagerShow.SetOperationMode(modeIndex);
-            SetAutoScalingRange();
+            // SetAutoScalingRange();
         }
 
 

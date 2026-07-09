@@ -8,10 +8,11 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates version and build information about the SDK.</summary>
 /// The version is represented in the format: major.minor.patch.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class VersionInfo : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -63,40 +64,10 @@ public class VersionInfo : global::System.IDisposable {
   public VersionInfo() : this(otcsdkPINVOKE.new_VersionInfo(), true) {
   }
 
-  /// <summary>Returns the SDK version as a string in the format: "major.minor.patch".</summary>
-  /// <returns>SDK version as string.</returns>
-  public string getVersionString() {
-    string ret = otcsdkPINVOKE.VersionInfo_getVersionString(swigCPtr);
-    return ret;
-  }
-
-  /// <summary>Returns the major version of the SDK.</summary>
-  /// <returns>major version of the SDK.</returns>
-  public int getMajorVersion() {
-    int ret = otcsdkPINVOKE.VersionInfo_getMajorVersion(swigCPtr);
-    return ret;
-  }
-
-  /// <summary>Returns the minor version of the SDK.</summary>
-  /// <returns>minor version of the SDK.</returns>
-  public int getMinorVersion() {
-    int ret = otcsdkPINVOKE.VersionInfo_getMinorVersion(swigCPtr);
-    return ret;
-  }
-
-  /// <summary>Returns the patch version of the SDK.</summary>
-  /// <returns>patch version of the SDK.</returns>
-  public int getPatchVersion() {
-    int ret = otcsdkPINVOKE.VersionInfo_getPatchVersion(swigCPtr);
-    return ret;
-  }
-
-  /// <summary>Compares the provided version with the one of the SDK.</summary>
-  /// <returns>0  if both versions are equal.
-  ///             -1 if the SDK version is less than the provided one.
-  ///             +1 if the SDK version is greater than the provide one.</returns>
-  public int compareVersion(int major, int minor, int patch) {
-    int ret = otcsdkPINVOKE.VersionInfo_compareVersion(swigCPtr, major, minor, patch);
+  /// <summary>Returns the SDK version.</summary>
+  /// <returns>SDK version.</returns>
+  public Version getSdkVersion() {
+    Version ret = new Version(otcsdkPINVOKE.VersionInfo_getSdkVersion(swigCPtr), true);
     return ret;
   }
 
@@ -172,10 +143,18 @@ public class VersionInfo : global::System.IDisposable {
   }
 
   /// <summary>Returns the name of the platform for which the SDK was build for.</summary>
-  /// Examples: AMD64, ARM64.
+  /// Examples: amd64, arm64.
   /// <returns>name of the platform for which the SDK was build for.</returns>
   public string getBuildPlatform() {
     string ret = otcsdkPINVOKE.VersionInfo_getBuildPlatform(swigCPtr);
+    return ret;
+  }
+
+  /// <summary>Returns the version of the format definitions.</summary>
+  /// <returns>version of the format definitions or an invalid version if the corresponding
+  ///             Formats.def file was not found or could not be read.</returns>
+  public Version getFormatsVersion() {
+    Version ret = new Version(otcsdkPINVOKE.VersionInfo_getFormatsVersion(swigCPtr), true);
     return ret;
   }
 

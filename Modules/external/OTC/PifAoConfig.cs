@@ -8,11 +8,12 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates the configuration for a PIF analog output channel.</summary>
 /// For a detailed overview of all available modes and parameters please refer to the corresponding section in the documentation
 /// of the [configuration file](#important-files-configuration-process-interface-analog-outputs).
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class PifAoConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -60,8 +61,105 @@ public class PifAoConfig : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public PifAoConfig() : this(otcsdkPINVOKE.new_PifAoConfig(), true) {
+  ///  Identifies the channel by the indices of its pin and the PIF device on which it is located.
+  public PifIndex index {
+    set {
+      otcsdkPINVOKE.PifAoConfig_index_set(swigCPtr, PifIndex.getCPtr(value));
+    } 
+    get {
+      global::System.IntPtr cPtr = otcsdkPINVOKE.PifAoConfig_index_get(swigCPtr);
+      PifIndex ret = (cPtr == global::System.IntPtr.Zero) ? null : new PifIndex(cPtr, false);
+      return ret;
+    } 
+  }
+
+  ///  Mode to be applied to the channel.
+  public PifAoMode mode {
+    set {
+      otcsdkPINVOKE.PifAoConfig_mode_set(swigCPtr, (int)value);
+    } 
+    get {
+      PifAoMode ret = (PifAoMode)otcsdkPINVOKE.PifAoConfig_mode_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Output mode to be applied to the channel.
+  public PifAoOutputMode outputMode {
+    set {
+      otcsdkPINVOKE.PifAoConfig_outputMode_set(swigCPtr, (int)value);
+    } 
+    get {
+      PifAoOutputMode ret = (PifAoOutputMode)otcsdkPINVOKE.PifAoConfig_outputMode_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Defines how data points are converted into output values.
+  public Slope slope {
+    set {
+      otcsdkPINVOKE.PifAoConfig_slope_set(swigCPtr, Slope.getCPtr(value));
+    } 
+    get {
+      global::System.IntPtr cPtr = otcsdkPINVOKE.PifAoConfig_slope_get(swigCPtr);
+      Slope ret = (cPtr == global::System.IntPtr.Zero) ? null : new Slope(cPtr, false);
+      return ret;
+    } 
+  }
+
+  ///  Identifies the measurement field by its index.
+  public int fieldIndex {
+    set {
+      otcsdkPINVOKE.PifAoConfig_fieldIndex_set(swigCPtr, value);
+    } 
+    get {
+      int ret = otcsdkPINVOKE.PifAoConfig_fieldIndex_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Determines which field statistic should be output.
+  public FieldStat fieldStat {
+    set {
+      otcsdkPINVOKE.PifAoConfig_fieldStat_set(swigCPtr, (int)value);
+    } 
+    get {
+      FieldStat ret = (FieldStat)otcsdkPINVOKE.PifAoConfig_fieldStat_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Output value for an active event/state.
+  public float outputActive {
+    set {
+      otcsdkPINVOKE.PifAoConfig_outputActive_set(swigCPtr, value);
+    } 
+    get {
+      float ret = otcsdkPINVOKE.PifAoConfig_outputActive_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Output value for an intermediate event/state.
+  public float outputIntermediate {
+    set {
+      otcsdkPINVOKE.PifAoConfig_outputIntermediate_set(swigCPtr, value);
+    } 
+    get {
+      float ret = otcsdkPINVOKE.PifAoConfig_outputIntermediate_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Output value for an inactive event/state.
+  public float outputInactive {
+    set {
+      otcsdkPINVOKE.PifAoConfig_outputInactive_set(swigCPtr, value);
+    } 
+    get {
+      float ret = otcsdkPINVOKE.PifAoConfig_outputInactive_get(swigCPtr);
+      return ret;
+    } 
   }
 
   /// <summary>Creates a configuration for the mode PifAoMode::Off.</summary>
@@ -70,6 +168,19 @@ public class PifAoConfig : global::System.IDisposable {
   /// <returns>configuration for the mode PifAoMode::Off.</returns>
   public static PifAoConfig createOff(int deviceIndex, int pinIndex) {
     PifAoConfig ret = new PifAoConfig(otcsdkPINVOKE.PifAoConfig_createOff(deviceIndex, pinIndex), true);
+    return ret;
+  }
+
+  /// <summary>Creates a configuration for the mode PifAoMode::Alarm.</summary>
+  /// The values for active and clear are automatically clipped to the specified output mode limits.
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <param name="outputMode">  to apply.</param> 
+  /// <param name="active">      value to output if the alarm is active.</param> 
+  /// <param name="clear">       value to output if the alarm is clear.</param> 
+  /// <returns>configuration for the mode PifAoMode::Alarm.</returns>
+  public static PifAoConfig createAlarm(int deviceIndex, int pinIndex, PifAoOutputMode outputMode, float active, float clear) {
+    PifAoConfig ret = new PifAoConfig(otcsdkPINVOKE.PifAoConfig_createAlarm(deviceIndex, pinIndex, (int)outputMode, active, clear), true);
     return ret;
   }
 
@@ -135,13 +246,14 @@ public class PifAoConfig : global::System.IDisposable {
   /// <param name="deviceIndex"> identifying the channel.</param> 
   /// <param name="pinIndex">    identifying the channel.</param> 
   /// <param name="outputMode">  to apply.</param> 
-  /// <param name="fieldIndex">  identifying the measurement field. It start at 0 and increments with every measurement field that is added.
-  ///                            The method IRImager::addMeasurementField() will return the index of the added field.</param> 
+  /// <param name="field">       shared pointer to the measurement field. If nullptr is passed, the field index will be set to 0.</param> 
+  /// <param name="fieldStat">   determining which field statistic should be output.</param> 
   /// <param name="gain">        for converting the measurement field data point into an output value.</param> 
   /// <param name="offset">      for converting the measurement field data point into an output value.</param> 
   /// <returns>configuration for the mode PifAoMode::MeasurementField.</returns>
-  public static PifAoConfig createMeasurementField(int deviceIndex, int pinIndex, PifAoOutputMode outputMode, int fieldIndex, float gain, float offset) {
-    PifAoConfig ret = new PifAoConfig(otcsdkPINVOKE.PifAoConfig_createMeasurementField(deviceIndex, pinIndex, (int)outputMode, fieldIndex, gain, offset), true);
+  public static PifAoConfig createMeasurementField(int deviceIndex, int pinIndex, PifAoOutputMode outputMode, MeasurementField field, FieldStat fieldStat, float gain, float offset) {
+    PifAoConfig ret = new PifAoConfig(otcsdkPINVOKE.PifAoConfig_createMeasurementField(deviceIndex, pinIndex, (int)outputMode, MeasurementField.getCPtr(field), (int)fieldStat, gain, offset), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -159,104 +271,7 @@ public class PifAoConfig : global::System.IDisposable {
     return ret;
   }
 
-  ///  Identifies the channel by specifying the PIF device on which its pins are located.
-  public int deviceIndex {
-    set {
-      otcsdkPINVOKE.PifAoConfig_deviceIndex_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.PifAoConfig_deviceIndex_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Identifies the channel by locating its pins on the specified PIF device.
-  public int pinIndex {
-    set {
-      otcsdkPINVOKE.PifAoConfig_pinIndex_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.PifAoConfig_pinIndex_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Mode to be applied to the channel.
-  public PifAoMode mode {
-    set {
-      otcsdkPINVOKE.PifAoConfig_mode_set(swigCPtr, (int)value);
-    } 
-    get {
-      PifAoMode ret = (PifAoMode)otcsdkPINVOKE.PifAoConfig_mode_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Output mode to be applied to the channel.
-  public PifAoOutputMode outputMode {
-    set {
-      otcsdkPINVOKE.PifAoConfig_outputMode_set(swigCPtr, (int)value);
-    } 
-    get {
-      PifAoOutputMode ret = (PifAoOutputMode)otcsdkPINVOKE.PifAoConfig_outputMode_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Defines how data points are converted into output values.
-  public Slope slope {
-    set {
-      otcsdkPINVOKE.PifAoConfig_slope_set(swigCPtr, Slope.getCPtr(value));
-    } 
-    get {
-      global::System.IntPtr cPtr = otcsdkPINVOKE.PifAoConfig_slope_get(swigCPtr);
-      Slope ret = (cPtr == global::System.IntPtr.Zero) ? null : new Slope(cPtr, false);
-      return ret;
-    } 
-  }
-
-  ///  Identifies the measurement field by its index.
-  public int fieldIndex {
-    set {
-      otcsdkPINVOKE.PifAoConfig_fieldIndex_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.PifAoConfig_fieldIndex_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Output value for an active event/state.
-  public float outputActive {
-    set {
-      otcsdkPINVOKE.PifAoConfig_outputActive_set(swigCPtr, value);
-    } 
-    get {
-      float ret = otcsdkPINVOKE.PifAoConfig_outputActive_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Output value for an intermediate event/state.
-  public float outputIntermediate {
-    set {
-      otcsdkPINVOKE.PifAoConfig_outputIntermediate_set(swigCPtr, value);
-    } 
-    get {
-      float ret = otcsdkPINVOKE.PifAoConfig_outputIntermediate_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Output value for an inactive event/state.
-  public float outputInactive {
-    set {
-      otcsdkPINVOKE.PifAoConfig_outputInactive_set(swigCPtr, value);
-    } 
-    get {
-      float ret = otcsdkPINVOKE.PifAoConfig_outputInactive_get(swigCPtr);
-      return ret;
-    } 
+  public PifAoConfig() : this(otcsdkPINVOKE.new_PifAoConfig(), true) {
   }
 
 }

@@ -8,7 +8,7 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Interface defining the API for interacting with process interfaces (PIFs).</summary>
 /// Each PIF can have up to five different channel type. The API uses the following abbreviations to mark
 /// resources specific to a channel type:
@@ -32,6 +32,7 @@ namespace Optris.OtcSDK {
 /// For more details and an overview of the process interface capabilities please refer to the
 /// [Process Interface (PIF)](#pif) chapter.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class ProcessInterface : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -89,6 +90,16 @@ public class ProcessInterface : global::System.IDisposable {
   /// <returns>PIF device type.</returns>
   public virtual PifDeviceType getDeviceType() {
     PifDeviceType ret = (PifDeviceType)otcsdkPINVOKE.ProcessInterface_getDeviceType(swigCPtr);
+    return ret;
+  }
+
+  /// <summary>Returns the list of PIF device types this camera model accepts in setConfig().</summary>
+  /// Cameras are categorized into three groups (autonomous, PI1, non-autonomous), each
+  /// accepting a different subset of PifDeviceType values. This method reports the subset
+  /// for the connected camera so clients can build a UI that only offers valid choices.
+  /// <returns>supported PIF device types for this camera.</returns>
+  public virtual PifDeviceTypeVector getSupportedDeviceTypes() {
+    PifDeviceTypeVector ret = new PifDeviceTypeVector(otcsdkPINVOKE.ProcessInterface_getSupportedDeviceTypes(swigCPtr), true);
     return ret;
   }
 
@@ -172,6 +183,8 @@ public class ProcessInterface : global::System.IDisposable {
   }
 
   /// <summary>Sets the configuration for a single analog input channel.</summary>
+  /// If an analog input channel that generates an uncommitted value is switch to a different mode,
+  /// dependent alarm channel turn orphaned and are subsequently removed.
   /// <param name="config"> to set.</param> 
   /// <exception cref="SDKExceptions"> if the provided configuration could not be applied.</exception>
   public virtual void setAiConfig(PifAiConfig config) {

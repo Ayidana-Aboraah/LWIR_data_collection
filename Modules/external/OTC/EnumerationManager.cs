@@ -8,7 +8,7 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Detects and monitors available devices.</summary>
 /// It detects devices that the SDK can potentially connect to.
 /// This class is implemented with the help of the Singleton design pattern. As a consequence, you have to use
@@ -16,6 +16,7 @@ namespace Optris.OtcSDK {
 /// Furthermore, allows the registration of observers aka. EnumerationClient that want be informed if the detection
 /// status of a device changes.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class EnumerationManager : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;

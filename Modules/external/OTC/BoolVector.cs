@@ -8,23 +8,24 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
-public class SnapshotEventVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IEnumerable<SnapshotEvent>
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
+public class BoolVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IList<bool>
  {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal SnapshotEventVector(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal BoolVector(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(SnapshotEventVector obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(BoolVector obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(SnapshotEventVector obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(BoolVector obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -37,7 +38,7 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
     }
   }
 
-  ~SnapshotEventVector() {
+  ~BoolVector() {
     Dispose(false);
   }
 
@@ -51,25 +52,25 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          otcsdkPINVOKE.delete_SnapshotEventVector(swigCPtr);
+          otcsdkPINVOKE.delete_BoolVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public SnapshotEventVector(global::System.Collections.IEnumerable c) : this() {
+  public BoolVector(global::System.Collections.IEnumerable c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
-    foreach (SnapshotEvent element in c) {
+    foreach (bool element in c) {
       this.Add(element);
     }
   }
 
-  public SnapshotEventVector(global::System.Collections.Generic.IEnumerable<SnapshotEvent> c) : this() {
+  public BoolVector(global::System.Collections.Generic.IEnumerable<bool> c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
-    foreach (SnapshotEvent element in c) {
+    foreach (bool element in c) {
       this.Add(element);
     }
   }
@@ -86,7 +87,7 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
     }
   }
 
-  public SnapshotEvent this[int index]  {
+  public bool this[int index]  {
     get {
       return getitem(index);
     }
@@ -124,17 +125,17 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
     }
   }
 
-  public void CopyTo(SnapshotEvent[] array)
+  public void CopyTo(bool[] array)
   {
     CopyTo(0, array, 0, this.Count);
   }
 
-  public void CopyTo(SnapshotEvent[] array, int arrayIndex)
+  public void CopyTo(bool[] array, int arrayIndex)
   {
     CopyTo(0, array, arrayIndex, this.Count);
   }
 
-  public void CopyTo(int index, SnapshotEvent[] array, int arrayIndex, int count)
+  public void CopyTo(int index, bool[] array, int arrayIndex, int count)
   {
     if (array == null)
       throw new global::System.ArgumentNullException("array");
@@ -152,22 +153,22 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
       array.SetValue(getitemcopy(index+i), arrayIndex+i);
   }
 
-  public SnapshotEvent[] ToArray() {
-    SnapshotEvent[] array = new SnapshotEvent[this.Count];
+  public bool[] ToArray() {
+    bool[] array = new bool[this.Count];
     this.CopyTo(array);
     return array;
   }
 
-  global::System.Collections.Generic.IEnumerator<SnapshotEvent> global::System.Collections.Generic.IEnumerable<SnapshotEvent>.GetEnumerator() {
-    return new SnapshotEventVectorEnumerator(this);
+  global::System.Collections.Generic.IEnumerator<bool> global::System.Collections.Generic.IEnumerable<bool>.GetEnumerator() {
+    return new BoolVectorEnumerator(this);
   }
 
   global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator() {
-    return new SnapshotEventVectorEnumerator(this);
+    return new BoolVectorEnumerator(this);
   }
 
-  public SnapshotEventVectorEnumerator GetEnumerator() {
-    return new SnapshotEventVectorEnumerator(this);
+  public BoolVectorEnumerator GetEnumerator() {
+    return new BoolVectorEnumerator(this);
   }
 
   // Type-safe enumerator
@@ -175,15 +176,15 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
   /// whenever the collection is modified. This has been done for changes in the size of the
   /// collection but not when one of the elements of the collection is modified as it is a bit
   /// tricky to detect unmanaged code that modifies the collection under our feet.
-  public sealed class SnapshotEventVectorEnumerator : global::System.Collections.IEnumerator
-    , global::System.Collections.Generic.IEnumerator<SnapshotEvent>
+  public sealed class BoolVectorEnumerator : global::System.Collections.IEnumerator
+    , global::System.Collections.Generic.IEnumerator<bool>
   {
-    private SnapshotEventVector collectionRef;
+    private BoolVector collectionRef;
     private int currentIndex;
     private object currentObject;
     private int currentSize;
 
-    public SnapshotEventVectorEnumerator(SnapshotEventVector collection) {
+    public BoolVectorEnumerator(BoolVector collection) {
       collectionRef = collection;
       currentIndex = -1;
       currentObject = null;
@@ -191,7 +192,7 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
     }
 
     // Type-safe iterator Current
-    public SnapshotEvent Current {
+    public bool Current {
       get {
         if (currentIndex == -1)
           throw new global::System.InvalidOperationException("Enumeration not started.");
@@ -199,7 +200,7 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
           throw new global::System.InvalidOperationException("Enumeration finished.");
         if (currentObject == null)
           throw new global::System.InvalidOperationException("Collection modified.");
-        return (SnapshotEvent)currentObject;
+        return (bool)currentObject;
       }
     }
 
@@ -236,113 +237,132 @@ public class SnapshotEventVector : global::System.IDisposable, global::System.Co
     }
   }
 
-  public SnapshotEventVector() : this(otcsdkPINVOKE.new_SnapshotEventVector__SWIG_0(), true) {
+  public BoolVector() : this(otcsdkPINVOKE.new_BoolVector__SWIG_0(), true) {
   }
 
-  public SnapshotEventVector(SnapshotEventVector other) : this(otcsdkPINVOKE.new_SnapshotEventVector__SWIG_1(SnapshotEventVector.getCPtr(other)), true) {
+  public BoolVector(BoolVector other) : this(otcsdkPINVOKE.new_BoolVector__SWIG_1(BoolVector.getCPtr(other)), true) {
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Clear() {
-    otcsdkPINVOKE.SnapshotEventVector_Clear(swigCPtr);
+    otcsdkPINVOKE.BoolVector_Clear(swigCPtr);
   }
 
-  public void Add(SnapshotEvent x) {
-    otcsdkPINVOKE.SnapshotEventVector_Add(swigCPtr, SnapshotEvent.getCPtr(x));
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  public void Add(bool x) {
+    otcsdkPINVOKE.BoolVector_Add(swigCPtr, x);
   }
 
   private uint size() {
-    uint ret = otcsdkPINVOKE.SnapshotEventVector_size(swigCPtr);
+    uint ret = otcsdkPINVOKE.BoolVector_size(swigCPtr);
     return ret;
   }
 
   private bool empty() {
-    bool ret = otcsdkPINVOKE.SnapshotEventVector_empty(swigCPtr);
+    bool ret = otcsdkPINVOKE.BoolVector_empty(swigCPtr);
     return ret;
   }
 
   private uint capacity() {
-    uint ret = otcsdkPINVOKE.SnapshotEventVector_capacity(swigCPtr);
+    uint ret = otcsdkPINVOKE.BoolVector_capacity(swigCPtr);
     return ret;
   }
 
   private void reserve(uint n) {
-    otcsdkPINVOKE.SnapshotEventVector_reserve(swigCPtr, n);
+    otcsdkPINVOKE.BoolVector_reserve(swigCPtr, n);
   }
 
-  public SnapshotEventVector(int capacity) : this(otcsdkPINVOKE.new_SnapshotEventVector__SWIG_2(capacity), true) {
+  public BoolVector(int capacity) : this(otcsdkPINVOKE.new_BoolVector__SWIG_2(capacity), true) {
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  private SnapshotEvent getitemcopy(int index) {
-    SnapshotEvent ret = new SnapshotEvent(otcsdkPINVOKE.SnapshotEventVector_getitemcopy(swigCPtr, index), true);
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  private SnapshotEvent getitem(int index) {
-    SnapshotEvent ret = new SnapshotEvent(otcsdkPINVOKE.SnapshotEventVector_getitem(swigCPtr, index), false);
+  private bool getitemcopy(int index) {
+    bool ret = otcsdkPINVOKE.BoolVector_getitemcopy(swigCPtr, index);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  private void setitem(int index, SnapshotEvent val) {
-    otcsdkPINVOKE.SnapshotEventVector_setitem(swigCPtr, index, SnapshotEvent.getCPtr(val));
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void AddRange(SnapshotEventVector values) {
-    otcsdkPINVOKE.SnapshotEventVector_AddRange(swigCPtr, SnapshotEventVector.getCPtr(values));
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public SnapshotEventVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = otcsdkPINVOKE.SnapshotEventVector_GetRange(swigCPtr, index, count);
-    SnapshotEventVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new SnapshotEventVector(cPtr, true);
+  private bool getitem(int index) {
+    bool ret = otcsdkPINVOKE.BoolVector_getitem(swigCPtr, index);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public void Insert(int index, SnapshotEvent x) {
-    otcsdkPINVOKE.SnapshotEventVector_Insert(swigCPtr, index, SnapshotEvent.getCPtr(x));
+  private void setitem(int index, bool val) {
+    otcsdkPINVOKE.BoolVector_setitem(swigCPtr, index, val);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void InsertRange(int index, SnapshotEventVector values) {
-    otcsdkPINVOKE.SnapshotEventVector_InsertRange(swigCPtr, index, SnapshotEventVector.getCPtr(values));
+  public void AddRange(BoolVector values) {
+    otcsdkPINVOKE.BoolVector_AddRange(swigCPtr, BoolVector.getCPtr(values));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public BoolVector GetRange(int index, int count) {
+    global::System.IntPtr cPtr = otcsdkPINVOKE.BoolVector_GetRange(swigCPtr, index, count);
+    BoolVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new BoolVector(cPtr, true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void Insert(int index, bool x) {
+    otcsdkPINVOKE.BoolVector_Insert(swigCPtr, index, x);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void InsertRange(int index, BoolVector values) {
+    otcsdkPINVOKE.BoolVector_InsertRange(swigCPtr, index, BoolVector.getCPtr(values));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    otcsdkPINVOKE.SnapshotEventVector_RemoveAt(swigCPtr, index);
+    otcsdkPINVOKE.BoolVector_RemoveAt(swigCPtr, index);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    otcsdkPINVOKE.SnapshotEventVector_RemoveRange(swigCPtr, index, count);
+    otcsdkPINVOKE.BoolVector_RemoveRange(swigCPtr, index, count);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public static SnapshotEventVector Repeat(SnapshotEvent value, int count) {
-    global::System.IntPtr cPtr = otcsdkPINVOKE.SnapshotEventVector_Repeat(SnapshotEvent.getCPtr(value), count);
-    SnapshotEventVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new SnapshotEventVector(cPtr, true);
+  public static BoolVector Repeat(bool value, int count) {
+    global::System.IntPtr cPtr = otcsdkPINVOKE.BoolVector_Repeat(value, count);
+    BoolVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new BoolVector(cPtr, true);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    otcsdkPINVOKE.SnapshotEventVector_Reverse__SWIG_0(swigCPtr);
+    otcsdkPINVOKE.BoolVector_Reverse__SWIG_0(swigCPtr);
   }
 
   public void Reverse(int index, int count) {
-    otcsdkPINVOKE.SnapshotEventVector_Reverse__SWIG_1(swigCPtr, index, count);
+    otcsdkPINVOKE.BoolVector_Reverse__SWIG_1(swigCPtr, index, count);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void SetRange(int index, SnapshotEventVector values) {
-    otcsdkPINVOKE.SnapshotEventVector_SetRange(swigCPtr, index, SnapshotEventVector.getCPtr(values));
+  public void SetRange(int index, BoolVector values) {
+    otcsdkPINVOKE.BoolVector_SetRange(swigCPtr, index, BoolVector.getCPtr(values));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public bool Contains(bool value) {
+    bool ret = otcsdkPINVOKE.BoolVector_Contains(swigCPtr, value);
+    return ret;
+  }
+
+  public int IndexOf(bool value) {
+    int ret = otcsdkPINVOKE.BoolVector_IndexOf(swigCPtr, value);
+    return ret;
+  }
+
+  public int LastIndexOf(bool value) {
+    int ret = otcsdkPINVOKE.BoolVector_LastIndexOf(swigCPtr, value);
+    return ret;
+  }
+
+  public bool Remove(bool value) {
+    bool ret = otcsdkPINVOKE.BoolVector_Remove(swigCPtr, value);
+    return ret;
   }
 
 }

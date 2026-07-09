@@ -1,4 +1,4 @@
-﻿using Optris.OtcSDK;
+﻿using Optris.OtcSdk;
 
 namespace LWIR_app.classes
 {

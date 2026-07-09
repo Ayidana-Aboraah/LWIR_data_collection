@@ -8,12 +8,13 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Base class for clients observing an IRImager.</summary>
 /// The architecture is following the Observer design pattern. To receive data like thermal frames from your device
 /// derive your own class from it and implement the callback methods. After creating an instance of you need to
 /// register it with an IRImager object by calling its IRImager::addClient() method.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class IRImagerClient : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -72,131 +73,129 @@ public class IRImagerClient : global::System.IDisposable {
     SwigDirectorConnect();
   }
 
-  /// <summary>Callback method for thermal frames.</summary>
-  /// The provided references will remain valid outside the callback but the data that they are pointing to will be
-  /// overwritten. Make a copy (C++) or use the clone() method (other languages) if you want to use them outside of
-  /// the callback.
-  /// The references are const. Thus, you have only read access to the objects they are referring to. Attempts to
-  /// manipulate their content will cause issues.
-  /// This callback will also be triggered during the initial startup calibration phase following a successful device
-  /// connection. During this time the thermal data is unreliable. You can detect this phase by checking whether the
-  /// flag state stored in the meta data (FrameMetadata::getFlagState()) is set to Initializing.
-  /// This callback is triggered by the thread that executes the IRImager::run() method. In case of IRImager::runAsync()
-  /// this will be an internal thread managed by the SDK.
-  /// <param name="thermal"> frame.</param> 
-  /// <param name="meta">    additional meta data.</param>
-  public virtual void onThermalFrame(ThermalFrame thermal, FrameMetadata meta) {
-    if (SwigDerivedClassHasMethod("onThermalFrame", swigMethodTypes0)) otcsdkPINVOKE.IRImagerClient_onThermalFrameSwigExplicitIRImagerClient(swigCPtr, ThermalFrame.getCPtr(thermal), FrameMetadata.getCPtr(meta)); else otcsdkPINVOKE.IRImagerClient_onThermalFrame(swigCPtr, ThermalFrame.getCPtr(thermal), FrameMetadata.getCPtr(meta));
+  /// <summary>Called when the connection state has changed.</summary>
+  /// The ConnectionState also models the process of acquiring missing calibration files.
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy (C++) or use the clone() method (all other languages).</remarks>
+  /// This callback is triggered by a dedicated thread that does not block the processing loop. Slow processing in this callback
+  /// will, however, block subsequent callbacks.
+  /// <param name="evt"> event containing the updated connection state.</param>
+  public virtual void onConnection(ConnectionEvent evt) {
+    if (SwigDerivedClassHasMethod("onConnection", swigMethodTypes0)) otcsdkPINVOKE.IRImagerClient_onConnectionSwigExplicitIRImagerClient(swigCPtr, ConnectionEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onConnection(swigCPtr, ConnectionEvent.getCPtr(evt));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  /// <summary>Callback method for thermal frames triggered with a raising edge event on PIF digital input or software       trigger.</summary>
-  /// The provided references will remain valid outside the callback but the data that they are pointing to will be
-  /// overwritten. Make a copy (C++) or use the clone() method (other languages) if you want to use them outside of
-  /// the callback.
-  /// The references are const. Thus, you have only read access to the objects they are referring to. Attempts to
-  /// manipulate their content will cause issues.
-  /// This callback is triggered by the thread that executes the IRImager::run() method. In case of IRImager::runAsync()
-  /// this will be an internal thread managed by the SDK.
-  /// For future use.
-  /// <param name="thermal"> frame.</param> 
-  /// <param name="energy">  frame.</param> 
-  /// <param name="meta">    additional meta data for both frames.</param> 
-  /// <param name="events">  snapshot events.</param>
-  public virtual void onThermalFrameEvent(ThermalFrame thermal, Frame energy, FrameMetadata meta, SnapshotEventVector events) {
-    if (SwigDerivedClassHasMethod("onThermalFrameEvent", swigMethodTypes1)) otcsdkPINVOKE.IRImagerClient_onThermalFrameEventSwigExplicitIRImagerClient(swigCPtr, ThermalFrame.getCPtr(thermal), Frame.getCPtr(energy), FrameMetadata.getCPtr(meta), SnapshotEventVector.getCPtr(events)); else otcsdkPINVOKE.IRImagerClient_onThermalFrameEvent(swigCPtr, ThermalFrame.getCPtr(thermal), Frame.getCPtr(energy), FrameMetadata.getCPtr(meta), SnapshotEventVector.getCPtr(events));
+  /// <summary>Triggered when the processing of a frame is complete.</summary>
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy (C++) or use the clone() method (all other languages).</remarks>
+  /// The SDK has an internal pool of buffers that it uses to store the processing results. The buffers are resused for
+  /// subsequent frames. Since this callback is now triggered by a dedicated thread it will no longer block the processing loop.
+  /// But slow processing in this callback can clog the internal buffer pool and will cause the SDK to drop old processing results.
+  /// The maximum possible frequency of this callback is determined by two configuration parameters:
+  /// - The set frame rate of the device. This is the upper limit for the callback frequency.
+  /// - The set subsampled frame rate that internally limits the device frame rate.
+  /// Depending on the set ProcessingOutputConfig the provided event may contain an empty thermal frame or no measurement field data.
+  /// This callback will also be triggered during the initial startup calibration phase following a successful device connection.
+  /// During this time the thermal data is unreliable. You can detect this phase by checking whether the flag state stored in the
+  /// meta data is set to Initializing.
+  /// <param name="evt"> event containing metadata, thermal frame data and measurement field data.</param> 
+  /// <seealso cref="FrameEvent"/>
+  public virtual void onFrame(FrameEvent evt) {
+    if (SwigDerivedClassHasMethod("onFrame", swigMethodTypes1)) otcsdkPINVOKE.IRImagerClient_onFrameSwigExplicitIRImagerClient(swigCPtr, FrameEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onFrame(swigCPtr, FrameEvent.getCPtr(evt));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  /// <summary>Callback method for flag state events. The method is called when the flag state changes.</summary>
-  /// This callback is triggered by the thread that executes the IRImager::run() method. In case of IRImager::runAsync()
-  /// this will be an internal thread managed by the SDK.
-  /// <param name="flagState"> current flag state.</param>
-  public virtual void onFlagStateChange(FlagState flagState) {
-    if (SwigDerivedClassHasMethod("onFlagStateChange", swigMethodTypes2)) otcsdkPINVOKE.IRImagerClient_onFlagStateChangeSwigExplicitIRImagerClient(swigCPtr, (int)flagState); else otcsdkPINVOKE.IRImagerClient_onFlagStateChange(swigCPtr, (int)flagState);
+  /// <summary>Triggered when a new raw frames is available.</summary>
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy (C++) or use the clone() method (all other languages).</remarks>
+  /// The SDK has an internal pool of buffers that it uses to store the processing results. The buffers are resused for
+  /// subsequent frames. Since this callback is now triggered by a dedicated thread it will no longer block the processing loop.
+  /// But slow processing in this callback can clog the internal buffer pool and will cause the SDK to drop old processing results.
+  /// The maximum possible frequency of this callback is determined by the set frame rate of the device. It is unaffected by the set
+  /// subsampled frame rate.
+  /// The callback will not be triggered if ProcessingOutputConfig::rawFrames is set to false.
+  /// <param name="evt"> event containing metadata and raw frame data.</param> 
+  /// <seealso cref="RawFrameEvent"/>
+  public virtual void onRawFrame(RawFrameEvent evt) {
+    if (SwigDerivedClassHasMethod("onRawFrame", swigMethodTypes2)) otcsdkPINVOKE.IRImagerClient_onRawFrameSwigExplicitIRImagerClient(swigCPtr, RawFrameEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onRawFrame(swigCPtr, RawFrameEvent.getCPtr(evt));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  /// <summary>Callback method for measurement fields. The method is called when the calculation has finished.</summary>
-  /// The provided reference will remain valid outside the callback but the data that it is pointing to will be
-  /// overwritten. Make a copy (C++) or use the clone() method (other languages) if you want to use it outside
-  /// of the callback.
-  /// The reference is const. Thus, you have only read access to the object it is referring to. Attempts to
-  /// manipulate its content will cause issues.
-  /// This callback is called by the thread that executes the IRImager::run() method. In case of IRImager::runAsync()
-  /// this will be an internal thread managed by the SDK.
-  /// <param name="field"> measurement field.</param>
-  public virtual void onMeasurementField(MeasurementField field) {
-    if (SwigDerivedClassHasMethod("onMeasurementField", swigMethodTypes3)) otcsdkPINVOKE.IRImagerClient_onMeasurementFieldSwigExplicitIRImagerClient(swigCPtr, MeasurementField.getCPtr(field)); else otcsdkPINVOKE.IRImagerClient_onMeasurementField(swigCPtr, MeasurementField.getCPtr(field));
+  /// <summary>Called when the video format changed.</summary>
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy (C++) or use the clone() method (all other languages).</remarks>
+  /// This callback is triggered by a dedicated thread that does not block the processing loop. Slow processing in this callback
+  /// will, however, block subsequent callbacks.
+  /// <param name="evt"> event containing the updated video format information.</param> 
+  /// <seealso cref="VideoFormatEvent"/>
+  public virtual void onVideoFormatChanged(VideoFormatEvent evt) {
+    if (SwigDerivedClassHasMethod("onVideoFormatChanged", swigMethodTypes3)) otcsdkPINVOKE.IRImagerClient_onVideoFormatChangedSwigExplicitIRImagerClient(swigCPtr, VideoFormatEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onVideoFormatChanged(swigCPtr, VideoFormatEvent.getCPtr(evt));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Called when the state of the composite alarm changes.</summary>
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy with a simple assignment (C++) or the clone() method (all other languages).</remarks>
+  /// The callback will not be triggered, if none of the active alarm channels is configured to be part of the composite alarm.
+  /// This callback is triggered by a dedicated thread that does not block the processing loop. Slow processing in this callback
+  /// will, however, block subsequent callbacks.
+  /// <param name="evt"> event containing the composite alarm information.</param> 
+  /// <seealso cref="CompositeAlarmEvent"/>
+  public virtual void onCompositeAlarm(CompositeAlarmEvent evt) {
+    if (SwigDerivedClassHasMethod("onCompositeAlarm", swigMethodTypes4)) otcsdkPINVOKE.IRImagerClient_onCompositeAlarmSwigExplicitIRImagerClient(swigCPtr, CompositeAlarmEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onCompositeAlarm(swigCPtr, CompositeAlarmEvent.getCPtr(evt));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Called when the state of an alarm channel changes.</summary>
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy with a simple assignment (C++) or the clone() method (all other languages).</remarks>
+  /// This callback is triggered by a dedicated thread that does not block the processing loop. Slow processing in this callback
+  /// will, however, block subsequent callbacks.
+  /// <param name="evt"> event containing the alarm information.</param> 
+  /// <seealso cref="AlarmEvent"/>
+  public virtual void onAlarm(AlarmEvent evt) {
+    if (SwigDerivedClassHasMethod("onAlarm", swigMethodTypes5)) otcsdkPINVOKE.IRImagerClient_onAlarmSwigExplicitIRImagerClient(swigCPtr, AlarmEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onAlarm(swigCPtr, AlarmEvent.getCPtr(evt));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   /// <summary>Called when an updated uncommitted value is available.</summary>
   /// The callback is only triggered when the corresponding PIF analog input signal has changed.
-  /// This callback is triggered by the thread that executes the IRImager::run() method. In case of IRImager::runAsync()
-  /// this will be an internal thread managed by the SDK.
-  /// <param name="name">  of the uncommitted value as specified in the configuration.</param> 
-  /// <param name="unit">  of the uncommitted value as specified in the con</param> 
-  /// <param name="value"> calculated from the PIF analog input signal based on the configured gain and offset.</param>
-  public virtual void onPifUncommittedValue(string name, string unit, float value) {
-    if (SwigDerivedClassHasMethod("onPifUncommittedValue", swigMethodTypes4)) otcsdkPINVOKE.IRImagerClient_onPifUncommittedValueSwigExplicitIRImagerClient(swigCPtr, name, unit, value); else otcsdkPINVOKE.IRImagerClient_onPifUncommittedValue(swigCPtr, name, unit, value);
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy with a simple assignment (C++) or the clone() method (all other languages).</remarks>
+  /// This callback is triggered by a dedicated thread that does not block the processing loop. Slow processing in this callback
+  /// will, however, block subsequent callbacks.
+  /// <param name="evt"> event containing the updated uncommitted value.</param> 
+  /// <seealso cref="UncommittedValueEvent"/>
+  public virtual void onPifUncommittedValue(UncommittedValueEvent evt) {
+    if (SwigDerivedClassHasMethod("onPifUncommittedValue", swigMethodTypes6)) otcsdkPINVOKE.IRImagerClient_onPifUncommittedValueSwigExplicitIRImagerClient(swigCPtr, UncommittedValueEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onPifUncommittedValue(swigCPtr, UncommittedValueEvent.getCPtr(evt));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  /// <summary>Called when the video format changed.</summary>
-  /// This callback is triggered by the thread that called IRImager::connect() or IRImager::setActiveOperationMode().
-  /// <param name="width">     of the frame in pixels.</param> 
-  /// <param name="height">    of the frame in pixels.</param> 
-  /// <param name="framerate"> from the device in Hz (not subsampled).</param> 
-  /// <param name="bitCount">  defines the size of the data point for an individual pixel in bits.</param>
-  public virtual void onVideoFormatChanged(int width, int height, float framerate, int bitCount) {
-    if (SwigDerivedClassHasMethod("onVideoFormatChanged", swigMethodTypes5)) otcsdkPINVOKE.IRImagerClient_onVideoFormatChangedSwigExplicitIRImagerClient(swigCPtr, width, height, framerate, bitCount); else otcsdkPINVOKE.IRImagerClient_onVideoFormatChanged(swigCPtr, width, height, framerate, bitCount);
-  }
-
-  /// <summary>Called when a connection loss is detected.</summary>
-  /// A connection loss can not be recovered. This happens, for example, if the USB connection is interrupted by
-  /// pulling the plug.
-  /// <remarks>When IRImager::runAsync() was used to start the processing loop do not call IRImager::disconnect() here but</remarks>This callback is called by the thread that executes the IRImager::run() method. In case of IRImager::runAsync()
-  /// this will be an internal thread managed by the SDK.
-  public virtual void onConnectionLost() {
-    if (SwigDerivedClassHasMethod("onConnectionLost", swigMethodTypes6)) otcsdkPINVOKE.IRImagerClient_onConnectionLostSwigExplicitIRImagerClient(swigCPtr); else otcsdkPINVOKE.IRImagerClient_onConnectionLost(swigCPtr);
-  }
-
-  /// <summary>Called when a connection timeout is detected.</summary>
-  /// Unlike with connection losses you may recover from a timeout.
-  /// Connection timeouts are the only way to detect connection losses with Ethernet devices. This is due to the
-  /// fact that these devices continuously send UDP packages once they are powered. Besides receiving these packages
-  /// the SDK has no way of knowing whether the connection is lost.
-  /// <remarks>When IRImager::runAsync() was used to start the processing loop do not call IRImager::disconnect() here but</remarks>This callback is called by the thread that executes the IRImager::run() method. In case of IRImager::runAsync()
-  /// this will be an internal thread managed by the SDK.
-  public virtual void onConnectionTimeout() {
-    if (SwigDerivedClassHasMethod("onConnectionTimeout", swigMethodTypes7)) otcsdkPINVOKE.IRImagerClient_onConnectionTimeoutSwigExplicitIRImagerClient(swigCPtr); else otcsdkPINVOKE.IRImagerClient_onConnectionTimeout(swigCPtr);
-  }
-
-  /// <summary>Callback method for synchronizing data. This is the very last method to be called for each raw data set.</summary>
-  public virtual void onProcessExit() {
-    if (SwigDerivedClassHasMethod("onProcessExit", swigMethodTypes8)) otcsdkPINVOKE.IRImagerClient_onProcessExitSwigExplicitIRImagerClient(swigCPtr); else otcsdkPINVOKE.IRImagerClient_onProcessExit(swigCPtr);
+  /// <summary>Called when a new set of operation module tracing information is available.</summary>
+  /// <remarks>The memory referenced by the provided event is only valid during the callback. If you wish to use it outside           of the callback make an explict copy with a simple assignment (C++) or the clone() method (all other languages).</remarks>
+  /// The SDK has an internal pool of buffers that it uses to store the processing results. The buffers are resused for
+  /// subsequent frames. Since this callback is now triggered by a dedicated thread it will no longer block the processing loop.
+  /// But slow processing in this callback can clog the internal buffer pool and will cause the SDK to drop old processing results.
+  /// The maximum possible frequency of this callback is determined by the interval time provided when configuring the operation info
+  /// tracing via IRImager::configureOperationInfo(). If the interval is set to 0, this callback will not be triggered at all.
+  /// <param name="evt"> event containing the updated operation mode tracing information.</param> 
+  /// <seealso cref="OperationInfoEvent, IRImager.configureOperationInfo"/>
+  public virtual void onOperationInfo(OperationInfoEvent evt) {
+    if (SwigDerivedClassHasMethod("onOperationInfo", swigMethodTypes7)) otcsdkPINVOKE.IRImagerClient_onOperationInfoSwigExplicitIRImagerClient(swigCPtr, OperationInfoEvent.getCPtr(evt)); else otcsdkPINVOKE.IRImagerClient_onOperationInfo(swigCPtr, OperationInfoEvent.getCPtr(evt));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   private void SwigDirectorConnect() {
-    if (SwigDerivedClassHasMethod("onThermalFrame", swigMethodTypes0))
-      swigDelegate0 = new SwigDelegateIRImagerClient_0(SwigDirectorMethodonThermalFrame);
-    if (SwigDerivedClassHasMethod("onThermalFrameEvent", swigMethodTypes1))
-      swigDelegate1 = new SwigDelegateIRImagerClient_1(SwigDirectorMethodonThermalFrameEvent);
-    if (SwigDerivedClassHasMethod("onFlagStateChange", swigMethodTypes2))
-      swigDelegate2 = new SwigDelegateIRImagerClient_2(SwigDirectorMethodonFlagStateChange);
-    if (SwigDerivedClassHasMethod("onMeasurementField", swigMethodTypes3))
-      swigDelegate3 = new SwigDelegateIRImagerClient_3(SwigDirectorMethodonMeasurementField);
-    if (SwigDerivedClassHasMethod("onPifUncommittedValue", swigMethodTypes4))
-      swigDelegate4 = new SwigDelegateIRImagerClient_4(SwigDirectorMethodonPifUncommittedValue);
-    if (SwigDerivedClassHasMethod("onVideoFormatChanged", swigMethodTypes5))
-      swigDelegate5 = new SwigDelegateIRImagerClient_5(SwigDirectorMethodonVideoFormatChanged);
-    if (SwigDerivedClassHasMethod("onConnectionLost", swigMethodTypes6))
-      swigDelegate6 = new SwigDelegateIRImagerClient_6(SwigDirectorMethodonConnectionLost);
-    if (SwigDerivedClassHasMethod("onConnectionTimeout", swigMethodTypes7))
-      swigDelegate7 = new SwigDelegateIRImagerClient_7(SwigDirectorMethodonConnectionTimeout);
-    if (SwigDerivedClassHasMethod("onProcessExit", swigMethodTypes8))
-      swigDelegate8 = new SwigDelegateIRImagerClient_8(SwigDirectorMethodonProcessExit);
-    otcsdkPINVOKE.IRImagerClient_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7, swigDelegate8);
+    if (SwigDerivedClassHasMethod("onConnection", swigMethodTypes0))
+      swigDelegate0 = new SwigDelegateIRImagerClient_0(SwigDirectorMethodonConnection);
+    if (SwigDerivedClassHasMethod("onFrame", swigMethodTypes1))
+      swigDelegate1 = new SwigDelegateIRImagerClient_1(SwigDirectorMethodonFrame);
+    if (SwigDerivedClassHasMethod("onRawFrame", swigMethodTypes2))
+      swigDelegate2 = new SwigDelegateIRImagerClient_2(SwigDirectorMethodonRawFrame);
+    if (SwigDerivedClassHasMethod("onVideoFormatChanged", swigMethodTypes3))
+      swigDelegate3 = new SwigDelegateIRImagerClient_3(SwigDirectorMethodonVideoFormatChanged);
+    if (SwigDerivedClassHasMethod("onCompositeAlarm", swigMethodTypes4))
+      swigDelegate4 = new SwigDelegateIRImagerClient_4(SwigDirectorMethodonCompositeAlarm);
+    if (SwigDerivedClassHasMethod("onAlarm", swigMethodTypes5))
+      swigDelegate5 = new SwigDelegateIRImagerClient_5(SwigDirectorMethodonAlarm);
+    if (SwigDerivedClassHasMethod("onPifUncommittedValue", swigMethodTypes6))
+      swigDelegate6 = new SwigDelegateIRImagerClient_6(SwigDirectorMethodonPifUncommittedValue);
+    if (SwigDerivedClassHasMethod("onOperationInfo", swigMethodTypes7))
+      swigDelegate7 = new SwigDelegateIRImagerClient_7(SwigDirectorMethodonOperationInfo);
+    otcsdkPINVOKE.IRImagerClient_director_connect(swigCPtr, swigDelegate0, swigDelegate1, swigDelegate2, swigDelegate3, swigDelegate4, swigDelegate5, swigDelegate6, swigDelegate7);
   }
 
   private bool SwigDerivedClassHasMethod(string methodName, global::System.Type[] methodTypes) {
@@ -233,51 +232,46 @@ public class IRImagerClient : global::System.IDisposable {
     return false;
   }
 
-  private void SwigDirectorMethodonThermalFrame(global::System.IntPtr thermal, global::System.IntPtr meta) {
-    onThermalFrame(new ThermalFrame(thermal, false), new FrameMetadata(meta, false));
+  private void SwigDirectorMethodonConnection(global::System.IntPtr evt) {
+    onConnection(new ConnectionEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonThermalFrameEvent(global::System.IntPtr thermal, global::System.IntPtr energy, global::System.IntPtr meta, global::System.IntPtr events) {
-    onThermalFrameEvent(new ThermalFrame(thermal, false), new Frame(energy, false), new FrameMetadata(meta, false), new SnapshotEventVector(events, false));
+  private void SwigDirectorMethodonFrame(global::System.IntPtr evt) {
+    onFrame(new FrameEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonFlagStateChange(int flagState) {
-    onFlagStateChange((FlagState)flagState);
+  private void SwigDirectorMethodonRawFrame(global::System.IntPtr evt) {
+    onRawFrame(new RawFrameEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonMeasurementField(global::System.IntPtr field) {
-    onMeasurementField(new MeasurementField(field, false));
+  private void SwigDirectorMethodonVideoFormatChanged(global::System.IntPtr evt) {
+    onVideoFormatChanged(new VideoFormatEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonPifUncommittedValue(string name, string unit, float value) {
-    onPifUncommittedValue(name, unit, value);
+  private void SwigDirectorMethodonCompositeAlarm(global::System.IntPtr evt) {
+    onCompositeAlarm(new CompositeAlarmEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonVideoFormatChanged(int width, int height, float framerate, int bitCount) {
-    onVideoFormatChanged(width, height, framerate, bitCount);
+  private void SwigDirectorMethodonAlarm(global::System.IntPtr evt) {
+    onAlarm(new AlarmEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonConnectionLost() {
-    onConnectionLost();
+  private void SwigDirectorMethodonPifUncommittedValue(global::System.IntPtr evt) {
+    onPifUncommittedValue(new UncommittedValueEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonConnectionTimeout() {
-    onConnectionTimeout();
+  private void SwigDirectorMethodonOperationInfo(global::System.IntPtr evt) {
+    onOperationInfo(new OperationInfoEvent(evt, false));
   }
 
-  private void SwigDirectorMethodonProcessExit() {
-    onProcessExit();
-  }
-
-  public delegate void SwigDelegateIRImagerClient_0(global::System.IntPtr thermal, global::System.IntPtr meta);
-  public delegate void SwigDelegateIRImagerClient_1(global::System.IntPtr thermal, global::System.IntPtr energy, global::System.IntPtr meta, global::System.IntPtr events);
-  public delegate void SwigDelegateIRImagerClient_2(int flagState);
-  public delegate void SwigDelegateIRImagerClient_3(global::System.IntPtr field);
-  public delegate void SwigDelegateIRImagerClient_4(string name, string unit, float value);
-  public delegate void SwigDelegateIRImagerClient_5(int width, int height, float framerate, int bitCount);
-  public delegate void SwigDelegateIRImagerClient_6();
-  public delegate void SwigDelegateIRImagerClient_7();
-  public delegate void SwigDelegateIRImagerClient_8();
+  public delegate void SwigDelegateIRImagerClient_0(global::System.IntPtr evt);
+  public delegate void SwigDelegateIRImagerClient_1(global::System.IntPtr evt);
+  public delegate void SwigDelegateIRImagerClient_2(global::System.IntPtr evt);
+  public delegate void SwigDelegateIRImagerClient_3(global::System.IntPtr evt);
+  public delegate void SwigDelegateIRImagerClient_4(global::System.IntPtr evt);
+  public delegate void SwigDelegateIRImagerClient_5(global::System.IntPtr evt);
+  public delegate void SwigDelegateIRImagerClient_6(global::System.IntPtr evt);
+  public delegate void SwigDelegateIRImagerClient_7(global::System.IntPtr evt);
 
   private SwigDelegateIRImagerClient_0 swigDelegate0;
   private SwigDelegateIRImagerClient_1 swigDelegate1;
@@ -287,17 +281,15 @@ public class IRImagerClient : global::System.IDisposable {
   private SwigDelegateIRImagerClient_5 swigDelegate5;
   private SwigDelegateIRImagerClient_6 swigDelegate6;
   private SwigDelegateIRImagerClient_7 swigDelegate7;
-  private SwigDelegateIRImagerClient_8 swigDelegate8;
 
-  private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(ThermalFrame), typeof(FrameMetadata) };
-  private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] { typeof(ThermalFrame), typeof(Frame), typeof(FrameMetadata), typeof(SnapshotEventVector) };
-  private static global::System.Type[] swigMethodTypes2 = new global::System.Type[] { typeof(FlagState) };
-  private static global::System.Type[] swigMethodTypes3 = new global::System.Type[] { typeof(MeasurementField) };
-  private static global::System.Type[] swigMethodTypes4 = new global::System.Type[] { typeof(string), typeof(string), typeof(float) };
-  private static global::System.Type[] swigMethodTypes5 = new global::System.Type[] { typeof(int), typeof(int), typeof(float), typeof(int) };
-  private static global::System.Type[] swigMethodTypes6 = new global::System.Type[] {  };
-  private static global::System.Type[] swigMethodTypes7 = new global::System.Type[] {  };
-  private static global::System.Type[] swigMethodTypes8 = new global::System.Type[] {  };
+  private static global::System.Type[] swigMethodTypes0 = new global::System.Type[] { typeof(ConnectionEvent) };
+  private static global::System.Type[] swigMethodTypes1 = new global::System.Type[] { typeof(FrameEvent) };
+  private static global::System.Type[] swigMethodTypes2 = new global::System.Type[] { typeof(RawFrameEvent) };
+  private static global::System.Type[] swigMethodTypes3 = new global::System.Type[] { typeof(VideoFormatEvent) };
+  private static global::System.Type[] swigMethodTypes4 = new global::System.Type[] { typeof(CompositeAlarmEvent) };
+  private static global::System.Type[] swigMethodTypes5 = new global::System.Type[] { typeof(AlarmEvent) };
+  private static global::System.Type[] swigMethodTypes6 = new global::System.Type[] { typeof(UncommittedValueEvent) };
+  private static global::System.Type[] swigMethodTypes7 = new global::System.Type[] { typeof(OperationInfoEvent) };
 }
 
 }

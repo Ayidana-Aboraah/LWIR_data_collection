@@ -8,11 +8,12 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates the configuration for a PIF fail safe channel.</summary>
 /// For a detailed overview of all available modes and parameters please refer to the corresponding section in the documentation
 /// of the [configuration file](#important-files-configuration-process-interface-fail-safe).
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class PifFsConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -60,8 +61,15 @@ public class PifFsConfig : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public PifFsConfig() : this(otcsdkPINVOKE.new_PifFsConfig(), true) {
+  ///  Mode to be applied to the channel.
+  public PifFsMode mode {
+    set {
+      otcsdkPINVOKE.PifFsConfig_mode_set(swigCPtr, (int)value);
+    } 
+    get {
+      PifFsMode ret = (PifFsMode)otcsdkPINVOKE.PifFsConfig_mode_get(swigCPtr);
+      return ret;
+    } 
   }
 
   /// <summary>Creates a configuration for the PifFsMode::Off.</summary>
@@ -78,15 +86,7 @@ public class PifFsConfig : global::System.IDisposable {
     return ret;
   }
 
-  ///  Mode to be applied to the channel.
-  public PifFsMode mode {
-    set {
-      otcsdkPINVOKE.PifFsConfig_mode_set(swigCPtr, (int)value);
-    } 
-    get {
-      PifFsMode ret = (PifFsMode)otcsdkPINVOKE.PifFsConfig_mode_get(swigCPtr);
-      return ret;
-    } 
+  public PifFsConfig() : this(otcsdkPINVOKE.new_PifFsConfig(), true) {
   }
 
 }

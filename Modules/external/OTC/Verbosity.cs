@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 ///  Represents the different logging verbosity levels.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum Verbosity {
   ///  Off.
   Off = 1,

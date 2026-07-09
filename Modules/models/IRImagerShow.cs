@@ -1,17 +1,9 @@
 ﻿// Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
 using LWIR_app.classes;
-using Optris.OtcSDK;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+using Optris.OtcSdk;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -33,7 +25,7 @@ namespace LWIR_app.models
         public TemperatureRegion MeanRegion { get; private set; }
 
         private ImageBuilder imageBuilder;
-        private ThermalFrame thermalFrame = new();
+        private FrameEvent frameEvent = new();
         private FramerateCounter counter = new();
         private string flagState = "";
         private int regionRadius = 3;
@@ -47,10 +39,10 @@ namespace LWIR_app.models
         public bool IsConnected { get; private set; }
         public bool IsConnectionLost { get; private set; }
 
-        private bool useAutoScaling = true;
+        // private bool useAutoScaling = true;
 
-        private float scaleLow = 0f;
-        private float scaleHigh = 100f;
+        // private float scaleLow = 0f;
+        // private float scaleHigh = 100f;
         private readonly List<int> roiTemperatureIndices = new();
         private int roiWidth;
         private int roiHeight;
@@ -90,8 +82,8 @@ namespace LWIR_app.models
              * information to correctly decode that data.
              */
             imageBuilder = new ImageBuilder(ColorFormat.BGR, WidthAlignment.FourBytes);
-            imageBuilder.setPaletteScalingMethod(PaletteScalingMethod.MinMax);
-            useAutoScaling = true;
+            // imageBuilder.setPaletteScalingMethod(PaletteScalingMethod.MinMax);
+            // useAutoScaling = true;
 
             IsConnected = false;
             IsConnectionLost = false;
@@ -102,18 +94,24 @@ namespace LWIR_app.models
             MeanRegion = new TemperatureRegion();
         }
 
+        public float findTemp(int x, int y)
+        {
+            if (frameEvent.thermalFrame.isEmpty()) return float.NaN;
+            return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
+        }
+
 
         public void UpdateROI(System.Windows.Point start, System.Windows.Point end)
         {
-            lock (thermalFrame)
+            lock (frameEvent.thermalFrame)
             {
-                if (thermalFrame.isEmpty()) return;
+                if (frameEvent.thermalFrame.isEmpty()) return;
             }
 
             roiTemperatureIndices.Clear();
 
-            roiWidth = thermalFrame.getWidth();
-            roiHeight = thermalFrame.getHeight();
+            roiWidth = frameEvent.thermalFrame.getWidth();
+            roiHeight = frameEvent.thermalFrame.getHeight();
 
             if (roiWidth <= 0 || roiHeight <= 0) return;
 
@@ -258,7 +256,7 @@ namespace LWIR_app.models
         /// <return> current frame rate in Hz.</return>
         public double GetFPS()
         {
-            lock (thermalFrame)
+            lock (frameEvent.thermalFrame)
             {
                 return Math.Round(counter.getFps(), 1);
             }
@@ -269,14 +267,11 @@ namespace LWIR_app.models
         /// <return>converted false color image.</return>
         public Bitmap? GetImage()
         {
-            lock (thermalFrame)
+            lock (frameEvent.thermalFrame)
             {
-                if (thermalFrame.isEmpty())
-                {
-                    return null;
-                }
+                if (frameEvent.thermalFrame.isEmpty()) return null;
 
-                imageBuilder.setThermalFrame(thermalFrame);
+                imageBuilder.setThermalFrame(frameEvent.thermalFrame);
             }
 
             // Convert the thermal frame to a false color image
@@ -329,11 +324,11 @@ namespace LWIR_app.models
         /// 
         /// <param name="thermal">thermal frame data.</param>
         /// <param name="meta">data of the thermal frame.</param>
-        public override void onThermalFrame(ThermalFrame thermal, FrameMetadata meta)
+        public override void onFrame(FrameEvent evt)
         {
-            lock (thermalFrame)
+            lock (frameEvent)
             {
-                thermalFrame = thermal.clone();
+                frameEvent = evt.clone();
                 counter.trigger();
             }
 
@@ -341,48 +336,21 @@ namespace LWIR_app.models
             // Sending thermal frame to the recorder if recording is active
             if (recorder.IsRecording)
             {
-                float[] temperatures = new float[thermal.getSize()];
+                float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
 
-                thermal.copyTemperaturesTo(
+                frameEvent.thermalFrame.copyTemperaturesTo(
                     temperatures,
                     temperatures.Length);
 
                 recorder.Enqueue(
                     new RecordedFrame(
-                        thermal.getWidth(),
-                        thermal.getHeight(),
+                        frameEvent.thermalFrame.getWidth(),
+                        frameEvent.thermalFrame.getHeight(),
                         temperatures,
-                        meta.clone(),
+                        frameEvent.meta,
                         saveDataType
                 ));
             }
-        }
-
-        /// <summary>Callback method triggered by imager when the state of the shutter flag changes.</summary>
-        /// 
-        /// <param name="flagState">of the shutter flag.</param>
-        public override void onFlagStateChange(FlagState flagStateIn)
-        {
-            lock (flagState)
-            {
-                flagState = flagStateIn.ToString();
-            }
-        }
-
-        /// <summary>Called when the connection to the camera is lost and can not be recovered.</summary>
-        public override void onConnectionLost()
-        {
-            ShowMessageBox("Lost connection to device.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            IsConnectionLost = true;
-        }
-
-        /// <summary>Called when the SDK has not received frames from the camera for a while.</summary>
-        public override void onConnectionTimeout()
-        {
-            MessageBoxResult dialogResult = ShowMessageBox("Connection to the device timed out. Disconnect?", "Connection Timeout", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            IsConnectionLost = (dialogResult == MessageBoxResult.Yes);
         }
 
         /// <summary>Starts the imager processing loop.</summary>
@@ -429,7 +397,7 @@ namespace LWIR_app.models
             return range;
         }
 
-        public void ChangePalette(ColoringPalette paletteName)
+        public void ChangePalette(string paletteName)
         {
             if (IsConnected)
             {
@@ -440,16 +408,13 @@ namespace LWIR_app.models
                 catch (SDKException ex)
                 {
                     ShowMessageBox(ex.Message, "Failed to change palette", MessageBoxButton.OK, MessageBoxImage.Error);
-                    ColoringPalette palette = imageBuilder.getPalette();
+                    string palette = imageBuilder.getPaletteName();
                 }
             }
         }
 
         // Thermal recording parameter
-        public bool IsRecording
-        {
-            get { return recorder.IsRecording; }
-        }
+        public bool IsRecording{ get { return recorder.IsRecording; } }
 
         public void StartRecording(string directory, SaveDataType saveDataType, bool singleBinary, bool recordROIOnly)
         {
@@ -467,33 +432,24 @@ namespace LWIR_app.models
             );
         }
 
-        public void StopRecording()
-        {
-            recorder.Stop();
-        }
+        public void StopRecording() => recorder.Stop();
 
-        public void SetScaleRange(float low, float high)
-        {
-            scaleLow = low;
-            scaleHigh = high;
+        // public void SetScaleRange(float low, float high)
+        // {
+        //     if (!useAutoScaling && IsConnected) imageBuilder.setTemperatureScaling(low, high);
+        // }
+        // public void SetAutoScaling(bool enabled)
+        // {
+        //     useAutoScaling = enabled;
 
-            if (!useAutoScaling && IsConnected)
-            {
-                imageBuilder.setManualTemperatureRange(low, high);
-            }
-        }
-        public void SetAutoScaling(bool enabled)
-        {
-            useAutoScaling = enabled;
-
-            if (IsConnected)
-            {
-                imageBuilder.setPaletteScalingMethod(
-                    enabled
-                        ? PaletteScalingMethod.MinMax
-                        : PaletteScalingMethod.Manual);
-            }
-        }
+        //     if (IsConnected)
+        //     {
+        //         imageBuilder.setPaletteScalingMethod(
+        //             enabled
+        //                 ? PaletteScalingMethod.MinMax
+        //                 : PaletteScalingMethod.Manual);
+        //     }
+        // }
 
         private static MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton button, MessageBoxImage icon)
         {

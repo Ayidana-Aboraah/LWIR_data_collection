@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 ///  Represents the available modes for PIF digital output channels.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum PifDoMode {
   ///  Off.
   Off,
@@ -21,7 +22,9 @@ public enum PifDoMode {
   ///  A heart beat signal is provided that indicates whether the camera and SDK are working correctly.
   FailSafe,
   ///  The output value can be controlled by clients of the SDK.
-  ExternalCommunication
+  ExternalCommunication,
+  ///  The status of a configured alarm channels are output.
+  Alarm
 }
 
 }

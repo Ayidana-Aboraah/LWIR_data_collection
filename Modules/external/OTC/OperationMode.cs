@@ -8,7 +8,7 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Defines the interface for classes realizing operation modes.</summary>
 /// Each operation mode encapsulates a valid combination of the following configuration settings:
 ///  - Optics
@@ -17,6 +17,7 @@ namespace Optris.OtcSDK {
 /// The available operation modes depend on the device, its optics, its calibrations, the video format
 /// definitions and the type of connection to the device (USB, Ethernet).
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class OperationMode : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnBase;

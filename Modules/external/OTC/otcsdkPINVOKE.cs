@@ -8,8 +8,9 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 class otcsdkPINVOKE {
 
   protected class SWIGExceptionHelper {
@@ -244,2857 +245,4051 @@ class otcsdkPINVOKE {
   static SDKExceptionHelper exceptionHelper = new SDKExceptionHelper();
 
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_isPI___")]
-  public static extern bool isPI(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_isXI___")]
-  public static extern bool isXI(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_isMTDevice___")]
-  public static extern bool isMTDevice(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_isDeviceAnsweringAllCommands___")]
-  public static extern bool isDeviceAnsweringAllCommands(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_isAutonomousDevice___")]
-  public static extern bool isAutonomousDevice(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_isEthernetDevice___")]
-  public static extern bool isEthernetDevice(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_0___")]
   public static extern string toString__SWIG_0(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_1___")]
   public static extern string toString__SWIG_1(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_INVALID_TEMPERATURE_get___")]
-  public static extern float INVALID_TEMPERATURE_get();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_INVALID_VALUE_get___")]
-  public static extern ushort INVALID_VALUE_get();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_2___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_2___")]
   public static extern string toString__SWIG_2(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_TemperatureConverter__SWIG_0___")]
-  public static extern global::System.IntPtr new_TemperatureConverter__SWIG_0();
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_min_set___")]
+  public static extern void FieldStats_min_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_TemperatureConverter__SWIG_1___")]
-  public static extern global::System.IntPtr new_TemperatureConverter__SWIG_1(int jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_min_get___")]
+  public static extern float FieldStats_min_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureConverter_setPrecision___")]
-  public static extern void TemperatureConverter_setPrecision(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_max_set___")]
+  public static extern void FieldStats_max_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureConverter_getPrecision___")]
-  public static extern int TemperatureConverter_getPrecision(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_max_get___")]
+  public static extern float FieldStats_max_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureConverter_toTemperature___")]
-  public static extern float TemperatureConverter_toTemperature(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_mean_set___")]
+  public static extern void FieldStats_mean_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureConverter_toValue___")]
-  public static extern ushort TemperatureConverter_toValue(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_mean_get___")]
+  public static extern float FieldStats_mean_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureConverter_isTemperatureValid___")]
-  public static extern bool TemperatureConverter_isTemperatureValid(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_sampleDeviation_set___")]
+  public static extern void FieldStats_sampleDeviation_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureConverter_isValueValid___")]
-  public static extern bool TemperatureConverter_isValueValid(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_sampleDeviation_get___")]
+  public static extern float FieldStats_sampleDeviation_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_TemperatureConverter___")]
-  public static extern void delete_TemperatureConverter(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_median_set___")]
+  public static extern void FieldStats_median_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ConstFrameIterator___")]
-  public static extern global::System.IntPtr new_ConstFrameIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_median_get___")]
+  public static extern float FieldStats_median_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstFrameIterator_hasNext___")]
-  public static extern bool ConstFrameIterator_hasNext(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_n_set___")]
+  public static extern void FieldStats_n_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstFrameIterator_next___")]
-  public static extern void ConstFrameIterator_next(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStats_n_get___")]
+  public static extern uint FieldStats_n_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstFrameIterator_getValue___")]
-  public static extern ushort ConstFrameIterator_getValue(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FieldStats___")]
+  public static extern global::System.IntPtr new_FieldStats();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstFrameIterator_getIndex___")]
-  public static extern int ConstFrameIterator_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_FieldStats___")]
+  public static extern void delete_FieldStats(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstFrameIterator_getX___")]
-  public static extern int ConstFrameIterator_getX(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_getFieldStat___")]
+  public static extern float getFieldStat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstFrameIterator_getY___")]
-  public static extern int ConstFrameIterator_getY(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ConstFrameIterator___")]
-  public static extern void delete_ConstFrameIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_RadiationParameters___")]
-  public static extern global::System.IntPtr new_RadiationParameters();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_validate___")]
-  public static extern void RadiationParameters_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_toString___")]
-  public static extern string RadiationParameters_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_emissivity_set___")]
-  public static extern void RadiationParameters_emissivity_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_emissivity_get___")]
-  public static extern float RadiationParameters_emissivity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_transmissivity_set___")]
-  public static extern void RadiationParameters_transmissivity_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_transmissivity_get___")]
-  public static extern float RadiationParameters_transmissivity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_ambientTemperature_set___")]
-  public static extern void RadiationParameters_ambientTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_ambientTemperature_get___")]
-  public static extern float RadiationParameters_ambientTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_estimateAmbientTemperature_set___")]
-  public static extern void RadiationParameters_estimateAmbientTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_RadiationParameters_estimateAmbientTemperature_get___")]
-  public static extern bool RadiationParameters_estimateAmbientTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_RadiationParameters___")]
-  public static extern void delete_RadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_3___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_3___")]
   public static extern string toString__SWIG_3(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Frame__SWIG_0___")]
-  public static extern global::System.IntPtr new_Frame__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Frame__SWIG_1___")]
-  public static extern global::System.IntPtr new_Frame__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_Frame___")]
-  public static extern void delete_Frame(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_getValue__SWIG_0___")]
-  public static extern ushort Frame_getValue__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_getValue__SWIG_1___")]
-  public static extern ushort Frame_getValue__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_getConstIterator___")]
-  public static extern global::System.IntPtr Frame_getConstIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_getWidth___")]
-  public static extern int Frame_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_getHeight___")]
-  public static extern int Frame_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_getSize___")]
-  public static extern int Frame_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_isEmpty___")]
-  public static extern bool Frame_isEmpty(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_clear___")]
-  public static extern void Frame_clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_resize___")]
-  public static extern void Frame_resize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_clone___")]
-  public static extern global::System.IntPtr Frame_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Frame_copyDataTo___")]
-  public static extern void Frame_copyDataTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]ushort[] jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ThermalFrame__SWIG_0___")]
-  public static extern global::System.IntPtr new_ThermalFrame__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ThermalFrame__SWIG_1___")]
-  public static extern global::System.IntPtr new_ThermalFrame__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ThermalFrame___")]
-  public static extern void delete_ThermalFrame(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ThermalFrame_getTemperature__SWIG_0___")]
-  public static extern float ThermalFrame_getTemperature__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ThermalFrame_getTemperature__SWIG_1___")]
-  public static extern float ThermalFrame_getTemperature__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ThermalFrame_getTemperaturePrecision___")]
-  public static extern int ThermalFrame_getTemperaturePrecision(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ThermalFrame_copyTemperaturesTo___")]
-  public static extern void ThermalFrame_copyTemperaturesTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]float[] jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ThermalFrame_getConverter___")]
-  public static extern global::System.IntPtr ThermalFrame_getConverter(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ThermalFrame_clone___")]
-  public static extern global::System.IntPtr ThermalFrame_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_FrameMetadata___")]
-  public static extern global::System.IntPtr new_FrameMetadata();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getSize___")]
-  public static extern int FrameMetadata_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setSize___")]
-  public static extern void FrameMetadata_setSize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_isFrameDataReliable___")]
-  public static extern bool FrameMetadata_isFrameDataReliable(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getCounter___")]
-  public static extern uint FrameMetadata_getCounter(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getCounterHardware___")]
-  public static extern uint FrameMetadata_getCounterHardware(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setCounters___")]
-  public static extern void FrameMetadata_setCounters(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getTimestamp___")]
-  public static extern long FrameMetadata_getTimestamp(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getTimestampMedia___")]
-  public static extern long FrameMetadata_getTimestampMedia(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setTimestamps___")]
-  public static extern void FrameMetadata_setTimestamps(global::System.Runtime.InteropServices.HandleRef jarg1, long jarg2, long jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getFlagState___")]
-  public static extern int FrameMetadata_getFlagState(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setFlagState___")]
-  public static extern void FrameMetadata_setFlagState(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getTemperatureFlag___")]
-  public static extern float FrameMetadata_getTemperatureFlag(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getTemperatureBox___")]
-  public static extern float FrameMetadata_getTemperatureBox(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getTemperatureChip___")]
-  public static extern float FrameMetadata_getTemperatureChip(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setProbeTemperatures___")]
-  public static extern void FrameMetadata_setProbeTemperatures(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3, float jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getEmissivitySource___")]
-  public static extern int FrameMetadata_getEmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getTransmissivitySource___")]
-  public static extern int FrameMetadata_getTransmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getAmbientTemperatureSource___")]
-  public static extern int FrameMetadata_getAmbientTemperatureSource(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getRadiationParameters___")]
-  public static extern global::System.IntPtr FrameMetadata_getRadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setRadiationParameterSources___")]
-  public static extern void FrameMetadata_setRadiationParameterSources(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getPifAiValue___")]
-  public static extern float FrameMetadata_getPifAiValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getPifDiValue___")]
-  public static extern bool FrameMetadata_getPifDiValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getPifActualDeviceCount___")]
-  public static extern int FrameMetadata_getPifActualDeviceCount(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getPifConfigurableDeviceCount___")]
-  public static extern int FrameMetadata_getPifConfigurableDeviceCount(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getPifAiCountPerDevice___")]
-  public static extern int FrameMetadata_getPifAiCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_getPifDiCountPerDevice___")]
-  public static extern int FrameMetadata_getPifDiCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setPifCounts___")]
-  public static extern void FrameMetadata_setPifCounts(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, int jarg4, int jarg5);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setPifAiValue___")]
-  public static extern void FrameMetadata_setPifAiValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, float jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_setPifDiValue___")]
-  public static extern void FrameMetadata_setPifDiValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, bool jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FrameMetadata_clone___")]
-  public static extern global::System.IntPtr FrameMetadata_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_FrameMetadata___")]
-  public static extern void delete_FrameMetadata(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_OperationMode___")]
-  public static extern void delete_OperationMode(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getIndex___")]
-  public static extern int OperationMode_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getFieldOfView___")]
-  public static extern int OperationMode_getFieldOfView(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getOpticsText___")]
-  public static extern string OperationMode_getOpticsText(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getOpticsSerialNumber___")]
-  public static extern int OperationMode_getOpticsSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getTemperatureLowerLimit___")]
-  public static extern float OperationMode_getTemperatureLowerLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getTemperatureUpperLimit___")]
-  public static extern float OperationMode_getTemperatureUpperLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getTemperatureNormalLowerLimit___")]
-  public static extern float OperationMode_getTemperatureNormalLowerLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getTemperatureNormalUpperLimit___")]
-  public static extern float OperationMode_getTemperatureNormalUpperLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getTemperatureExtendedLowerLimit___")]
-  public static extern float OperationMode_getTemperatureExtendedLowerLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getTemperatureExtendedUpperLimit___")]
-  public static extern float OperationMode_getTemperatureExtendedUpperLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_isTemperatureRangeExtended___")]
-  public static extern bool OperationMode_isTemperatureRangeExtended(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_isTemperatureRangeExtendable___")]
-  public static extern bool OperationMode_isTemperatureRangeExtendable(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_isTemperatureHighPrecision___")]
-  public static extern bool OperationMode_isTemperatureHighPrecision(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_isTemperatureHighPrecisionAvailable___")]
-  public static extern bool OperationMode_isTemperatureHighPrecisionAvailable(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getFrameWidth___")]
-  public static extern int OperationMode_getFrameWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getFrameHeight___")]
-  public static extern int OperationMode_getFrameHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_getFramerate___")]
-  public static extern int OperationMode_getFramerate(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationMode_toString___")]
-  public static extern string OperationMode_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_OperationModeVector__SWIG_0___")]
-  public static extern global::System.IntPtr new_OperationModeVector__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_OperationModeVector__SWIG_1___")]
-  public static extern global::System.IntPtr new_OperationModeVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_Clear___")]
-  public static extern void OperationModeVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_Add___")]
-  public static extern void OperationModeVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_size___")]
-  public static extern uint OperationModeVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_empty___")]
-  public static extern bool OperationModeVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_capacity___")]
-  public static extern uint OperationModeVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_reserve___")]
-  public static extern void OperationModeVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_OperationModeVector__SWIG_2___")]
-  public static extern global::System.IntPtr new_OperationModeVector__SWIG_2(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_getitemcopy___")]
-  public static extern global::System.IntPtr OperationModeVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_getitem___")]
-  public static extern global::System.IntPtr OperationModeVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_setitem___")]
-  public static extern void OperationModeVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_AddRange___")]
-  public static extern void OperationModeVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_GetRange___")]
-  public static extern global::System.IntPtr OperationModeVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_Insert___")]
-  public static extern void OperationModeVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_InsertRange___")]
-  public static extern void OperationModeVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_RemoveAt___")]
-  public static extern void OperationModeVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_RemoveRange___")]
-  public static extern void OperationModeVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_Repeat___")]
-  public static extern global::System.IntPtr OperationModeVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_Reverse__SWIG_0___")]
-  public static extern void OperationModeVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_Reverse__SWIG_1___")]
-  public static extern void OperationModeVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_OperationModeVector_SetRange___")]
-  public static extern void OperationModeVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_OperationModeVector___")]
-  public static extern void delete_OperationModeVector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Pixel__SWIG_0___")]
-  public static extern global::System.IntPtr new_Pixel__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Pixel__SWIG_1___")]
-  public static extern global::System.IntPtr new_Pixel__SWIG_1(byte jarg1, byte jarg2, byte jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Pixel_getRed___")]
-  public static extern byte Pixel_getRed(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Pixel_getGreen___")]
-  public static extern byte Pixel_getGreen(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Pixel_getBlue___")]
-  public static extern byte Pixel_getBlue(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Pixel_toString___")]
-  public static extern string Pixel_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_Pixel___")]
-  public static extern void delete_Pixel(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ImageInfo___")]
-  public static extern global::System.IntPtr new_ImageInfo(int jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getColorFormat___")]
-  public static extern int ImageInfo_getColorFormat(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getChannels___")]
-  public static extern int ImageInfo_getChannels(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getOffsetRed___")]
-  public static extern int ImageInfo_getOffsetRed(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getOffsetGreen___")]
-  public static extern int ImageInfo_getOffsetGreen(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getOffsetBlue___")]
-  public static extern int ImageInfo_getOffsetBlue(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_resize___")]
-  public static extern int ImageInfo_resize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getWidth___")]
-  public static extern int ImageInfo_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getStride___")]
-  public static extern int ImageInfo_getStride(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getHeight___")]
-  public static extern int ImageInfo_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getSize___")]
-  public static extern int ImageInfo_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getWidthAlignment___")]
-  public static extern int ImageInfo_getWidthAlignment(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageInfo_getWidthPaddingInBytes___")]
-  public static extern int ImageInfo_getWidthPaddingInBytes(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ImageInfo___")]
-  public static extern void delete_ImageInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ImageIterator___")]
-  public static extern global::System.IntPtr new_ImageIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageIterator_hasNext___")]
-  public static extern bool ImageIterator_hasNext(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageIterator_next___")]
-  public static extern void ImageIterator_next(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageIterator_getPixel___")]
-  public static extern global::System.IntPtr ImageIterator_getPixel(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageIterator_setPixel___")]
-  public static extern void ImageIterator_setPixel(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageIterator_getIndex___")]
-  public static extern int ImageIterator_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageIterator_getX___")]
-  public static extern int ImageIterator_getX(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageIterator_getY___")]
-  public static extern int ImageIterator_getY(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ImageIterator___")]
-  public static extern void delete_ImageIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ConstImageIterator___")]
-  public static extern global::System.IntPtr new_ConstImageIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstImageIterator_hasNext___")]
-  public static extern bool ConstImageIterator_hasNext(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstImageIterator_next___")]
-  public static extern void ConstImageIterator_next(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstImageIterator_getPixel___")]
-  public static extern global::System.IntPtr ConstImageIterator_getPixel(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstImageIterator_getIndex___")]
-  public static extern int ConstImageIterator_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstImageIterator_getX___")]
-  public static extern int ConstImageIterator_getX(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstImageIterator_getY___")]
-  public static extern int ConstImageIterator_getY(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ConstImageIterator___")]
-  public static extern void delete_ConstImageIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Image___")]
-  public static extern global::System.IntPtr new_Image(int jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getPixel__SWIG_0___")]
-  public static extern global::System.IntPtr Image_getPixel__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getPixel__SWIG_1___")]
-  public static extern global::System.IntPtr Image_getPixel__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_setPixel__SWIG_0___")]
-  public static extern void Image_setPixel__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_setPixel__SWIG_1___")]
-  public static extern void Image_setPixel__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getIterator___")]
-  public static extern global::System.IntPtr Image_getIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getConstIterator___")]
-  public static extern global::System.IntPtr Image_getConstIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getWidth___")]
-  public static extern int Image_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getStride___")]
-  public static extern int Image_getStride(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getHeight___")]
-  public static extern int Image_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getSize___")]
-  public static extern int Image_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getSizeInBytes___")]
-  public static extern int Image_getSizeInBytes(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_isEmpty___")]
-  public static extern bool Image_isEmpty(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_clear___")]
-  public static extern void Image_clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_resize___")]
-  public static extern void Image_resize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getColorFormat___")]
-  public static extern int Image_getColorFormat(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_getWidthAlignment___")]
-  public static extern int Image_getWidthAlignment(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_clone___")]
-  public static extern global::System.IntPtr Image_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Image_copyDataTo___")]
-  public static extern void Image_copyDataTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]byte[] jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_Image___")]
-  public static extern void delete_Image(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Slope__SWIG_0___")]
-  public static extern global::System.IntPtr new_Slope__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Slope__SWIG_1___")]
-  public static extern global::System.IntPtr new_Slope__SWIG_1(float jarg1, float jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Slope_gain_set___")]
-  public static extern void Slope_gain_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Slope_gain_get___")]
-  public static extern float Slope_gain_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Slope_offset_set___")]
-  public static extern void Slope_offset_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Slope_offset_get___")]
-  public static extern float Slope_offset_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_Slope___")]
-  public static extern void delete_Slope(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_SnapshotEvent__SWIG_0___")]
-  public static extern global::System.IntPtr new_SnapshotEvent__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_SnapshotEvent__SWIG_1___")]
-  public static extern global::System.IntPtr new_SnapshotEvent__SWIG_1(int jarg1, byte jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEvent_trigger_set___")]
-  public static extern void SnapshotEvent_trigger_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEvent_trigger_get___")]
-  public static extern int SnapshotEvent_trigger_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEvent_channel_set___")]
-  public static extern void SnapshotEvent_channel_set(global::System.Runtime.InteropServices.HandleRef jarg1, byte jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEvent_channel_get___")]
-  public static extern byte SnapshotEvent_channel_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEvent_type_set___")]
-  public static extern void SnapshotEvent_type_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEvent_type_get___")]
-  public static extern int SnapshotEvent_type_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_SnapshotEvent___")]
-  public static extern void delete_SnapshotEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_SnapshotEventVector__SWIG_0___")]
-  public static extern global::System.IntPtr new_SnapshotEventVector__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_SnapshotEventVector__SWIG_1___")]
-  public static extern global::System.IntPtr new_SnapshotEventVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_Clear___")]
-  public static extern void SnapshotEventVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_Add___")]
-  public static extern void SnapshotEventVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_size___")]
-  public static extern uint SnapshotEventVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_empty___")]
-  public static extern bool SnapshotEventVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_capacity___")]
-  public static extern uint SnapshotEventVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_reserve___")]
-  public static extern void SnapshotEventVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_SnapshotEventVector__SWIG_2___")]
-  public static extern global::System.IntPtr new_SnapshotEventVector__SWIG_2(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_getitemcopy___")]
-  public static extern global::System.IntPtr SnapshotEventVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_getitem___")]
-  public static extern global::System.IntPtr SnapshotEventVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_setitem___")]
-  public static extern void SnapshotEventVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_AddRange___")]
-  public static extern void SnapshotEventVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_GetRange___")]
-  public static extern global::System.IntPtr SnapshotEventVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_Insert___")]
-  public static extern void SnapshotEventVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_InsertRange___")]
-  public static extern void SnapshotEventVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_RemoveAt___")]
-  public static extern void SnapshotEventVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_RemoveRange___")]
-  public static extern void SnapshotEventVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_Repeat___")]
-  public static extern global::System.IntPtr SnapshotEventVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_Reverse__SWIG_0___")]
-  public static extern void SnapshotEventVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_Reverse__SWIG_1___")]
-  public static extern void SnapshotEventVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_SnapshotEventVector_SetRange___")]
-  public static extern void SnapshotEventVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_SnapshotEventVector___")]
-  public static extern void delete_SnapshotEventVector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_VersionInfo___")]
-  public static extern global::System.IntPtr new_VersionInfo();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getVersionString___")]
-  public static extern string VersionInfo_getVersionString(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getMajorVersion___")]
-  public static extern int VersionInfo_getMajorVersion(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getMinorVersion___")]
-  public static extern int VersionInfo_getMinorVersion(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getPatchVersion___")]
-  public static extern int VersionInfo_getPatchVersion(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_compareVersion___")]
-  public static extern int VersionInfo_compareVersion(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, int jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getBuildType___")]
-  public static extern string VersionInfo_getBuildType(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getBuildDate___")]
-  public static extern string VersionInfo_getBuildDate(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getCommitHash___")]
-  public static extern string VersionInfo_getCommitHash(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getCommitDate___")]
-  public static extern string VersionInfo_getCommitDate(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getCommitBranch___")]
-  public static extern string VersionInfo_getCommitBranch(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getName___")]
-  public static extern string VersionInfo_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getCompany___")]
-  public static extern string VersionInfo_getCompany(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getCopyright___")]
-  public static extern string VersionInfo_getCopyright(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getDescription___")]
-  public static extern string VersionInfo_getDescription(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getBuildOS___")]
-  public static extern string VersionInfo_getBuildOS(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_VersionInfo_getBuildPlatform___")]
-  public static extern string VersionInfo_getBuildPlatform(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_VersionInfo___")]
-  public static extern void delete_VersionInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_IpAddress__SWIG_0___")]
-  public static extern global::System.IntPtr new_IpAddress__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_IpAddress__SWIG_1___")]
-  public static extern global::System.IntPtr new_IpAddress__SWIG_1(uint jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_IpAddress__SWIG_2___")]
-  public static extern global::System.IntPtr new_IpAddress__SWIG_2(string jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_IpAddress__SWIG_3___")]
-  public static extern global::System.IntPtr new_IpAddress__SWIG_3(byte jarg1, byte jarg2, byte jarg3, byte jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_reset___")]
-  public static extern void IpAddress_reset(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_setFromUInt32___")]
-  public static extern void IpAddress_setFromUInt32(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_toUInt32___")]
-  public static extern uint IpAddress_toUInt32(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_setFromString___")]
-  public static extern void IpAddress_setFromString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_setFromCidrString___")]
-  public static extern int IpAddress_setFromCidrString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_toString___")]
-  public static extern string IpAddress_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_toCidrString___")]
-  public static extern string IpAddress_toCidrString(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_setByte___")]
-  public static extern void IpAddress_setByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, byte jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_getByte___")]
-  public static extern byte IpAddress_getByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_getNetworkPortion__SWIG_0___")]
-  public static extern global::System.IntPtr IpAddress_getNetworkPortion__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_getNetworkPortion__SWIG_1___")]
-  public static extern global::System.IntPtr IpAddress_getNetworkPortion__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_getHostPortion__SWIG_0___")]
-  public static extern global::System.IntPtr IpAddress_getHostPortion__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_getHostPortion__SWIG_1___")]
-  public static extern global::System.IntPtr IpAddress_getHostPortion__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_getBroadcastAddress__SWIG_0___")]
-  public static extern global::System.IntPtr IpAddress_getBroadcastAddress__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IpAddress_getBroadcastAddress__SWIG_1___")]
-  public static extern global::System.IntPtr IpAddress_getBroadcastAddress__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_IpAddress___")]
-  public static extern void delete_IpAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MacAddress__SWIG_0___")]
-  public static extern global::System.IntPtr new_MacAddress__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MacAddress__SWIG_1___")]
-  public static extern global::System.IntPtr new_MacAddress__SWIG_1(ulong jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MacAddress__SWIG_2___")]
-  public static extern global::System.IntPtr new_MacAddress__SWIG_2(string jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MacAddress__SWIG_3___")]
-  public static extern global::System.IntPtr new_MacAddress__SWIG_3(byte jarg1, byte jarg2, byte jarg3, byte jarg4, byte jarg5, byte jarg6);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MacAddress_reset___")]
-  public static extern void MacAddress_reset(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MacAddress_setFromUInt64___")]
-  public static extern void MacAddress_setFromUInt64(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MacAddress_toUInt64___")]
-  public static extern ulong MacAddress_toUInt64(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MacAddress_setFromString___")]
-  public static extern void MacAddress_setFromString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MacAddress_toString___")]
-  public static extern string MacAddress_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MacAddress_setByte___")]
-  public static extern void MacAddress_setByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, byte jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MacAddress_getByte___")]
-  public static extern byte MacAddress_getByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_MacAddress___")]
-  public static extern void delete_MacAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Port__SWIG_0___")]
-  public static extern global::System.IntPtr new_Port__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Port__SWIG_1___")]
-  public static extern global::System.IntPtr new_Port__SWIG_1(ushort jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_Port__SWIG_2___")]
-  public static extern global::System.IntPtr new_Port__SWIG_2(string jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Port_reset___")]
-  public static extern void Port_reset(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Port_setNumber___")]
-  public static extern void Port_setNumber(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Port_getNumber___")]
-  public static extern ushort Port_getNumber(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Port_setFromString___")]
-  public static extern void Port_setFromString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Port_toString___")]
-  public static extern string Port_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_Port___")]
-  public static extern void delete_Port(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_DeviceNetworkConfig__SWIG_0___")]
-  public static extern global::System.IntPtr new_DeviceNetworkConfig__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_DeviceNetworkConfig__SWIG_1___")]
-  public static extern global::System.IntPtr new_DeviceNetworkConfig__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_getDeviceIp___")]
-  public static extern global::System.IntPtr DeviceNetworkConfig_getDeviceIp(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_getDestinationIp___")]
-  public static extern global::System.IntPtr DeviceNetworkConfig_getDestinationIp(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_getDestinationPort___")]
-  public static extern global::System.IntPtr DeviceNetworkConfig_getDestinationPort(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_getSubnetMask___")]
-  public static extern global::System.IntPtr DeviceNetworkConfig_getSubnetMask(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_setDeviceIp___")]
-  public static extern void DeviceNetworkConfig_setDeviceIp(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_setDestinationIp___")]
-  public static extern void DeviceNetworkConfig_setDestinationIp(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_setDestinationPort___")]
-  public static extern void DeviceNetworkConfig_setDestinationPort(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceNetworkConfig_setSubnetMask___")]
-  public static extern void DeviceNetworkConfig_setSubnetMask(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_DeviceNetworkConfig___")]
-  public static extern void delete_DeviceNetworkConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_DeviceInfo___")]
-  public static extern global::System.IntPtr new_DeviceInfo();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_determineDeviceType___")]
-  public static extern int DeviceInfo_determineDeviceType(ushort jarg1, ushort jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setSerialNumber___")]
-  public static extern void DeviceInfo_setSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getSerialNumber___")]
-  public static extern uint DeviceInfo_getSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setConnectionInterface___")]
-  public static extern void DeviceInfo_setConnectionInterface(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getConnectionInterface___")]
-  public static extern string DeviceInfo_getConnectionInterface(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setConnectionInterfaceAddress___")]
-  public static extern void DeviceInfo_setConnectionInterfaceAddress(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getConnectionInterfaceAddress___")]
-  public static extern string DeviceInfo_getConnectionInterfaceAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setIpAddress___")]
-  public static extern void DeviceInfo_setIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getIpAddress___")]
-  public static extern global::System.IntPtr DeviceInfo_getIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setTargetIpAddress___")]
-  public static extern void DeviceInfo_setTargetIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getTargetIpAddress___")]
-  public static extern global::System.IntPtr DeviceInfo_getTargetIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setPort___")]
-  public static extern void DeviceInfo_setPort(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getPort___")]
-  public static extern global::System.IntPtr DeviceInfo_getPort(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getDeviceType___")]
-  public static extern int DeviceInfo_getDeviceType(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setRevisions___")]
-  public static extern void DeviceInfo_setRevisions(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2, ushort jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getHardwareRevision___")]
-  public static extern ushort DeviceInfo_getHardwareRevision(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getFirmwareRevision___")]
-  public static extern ushort DeviceInfo_getFirmwareRevision(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setBusy___")]
-  public static extern void DeviceInfo_setBusy(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_isBusy___")]
-  public static extern bool DeviceInfo_isBusy(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_setMacAddress___")]
-  public static extern void DeviceInfo_setMacAddress(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_getMacAddress___")]
-  public static extern global::System.IntPtr DeviceInfo_getMacAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfo_clone___")]
-  public static extern global::System.IntPtr DeviceInfo_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_DeviceInfo___")]
-  public static extern void delete_DeviceInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_DeviceInfoVector__SWIG_0___")]
-  public static extern global::System.IntPtr new_DeviceInfoVector__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_DeviceInfoVector__SWIG_1___")]
-  public static extern global::System.IntPtr new_DeviceInfoVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_Clear___")]
-  public static extern void DeviceInfoVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_Add___")]
-  public static extern void DeviceInfoVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_size___")]
-  public static extern uint DeviceInfoVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_empty___")]
-  public static extern bool DeviceInfoVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_capacity___")]
-  public static extern uint DeviceInfoVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_reserve___")]
-  public static extern void DeviceInfoVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_DeviceInfoVector__SWIG_2___")]
-  public static extern global::System.IntPtr new_DeviceInfoVector__SWIG_2(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_getitemcopy___")]
-  public static extern global::System.IntPtr DeviceInfoVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_getitem___")]
-  public static extern global::System.IntPtr DeviceInfoVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_setitem___")]
-  public static extern void DeviceInfoVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_AddRange___")]
-  public static extern void DeviceInfoVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_GetRange___")]
-  public static extern global::System.IntPtr DeviceInfoVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_Insert___")]
-  public static extern void DeviceInfoVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_InsertRange___")]
-  public static extern void DeviceInfoVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_RemoveAt___")]
-  public static extern void DeviceInfoVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_RemoveRange___")]
-  public static extern void DeviceInfoVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_Repeat___")]
-  public static extern global::System.IntPtr DeviceInfoVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_Reverse__SWIG_0___")]
-  public static extern void DeviceInfoVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_Reverse__SWIG_1___")]
-  public static extern void DeviceInfoVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_DeviceInfoVector_SetRange___")]
-  public static extern void DeviceInfoVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_DeviceInfoVector___")]
-  public static extern void delete_DeviceInfoVector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_EnumerationClient__SWIG_0___")]
-  public static extern global::System.IntPtr new_EnumerationClient__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_EnumerationClient__SWIG_1___")]
-  public static extern global::System.IntPtr new_EnumerationClient__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_EnumerationClient___")]
-  public static extern void delete_EnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationClient_onDeviceDetected___")]
-  public static extern void EnumerationClient_onDeviceDetected(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationClient_onDeviceDetectedSwigExplicitEnumerationClient___")]
-  public static extern void EnumerationClient_onDeviceDetectedSwigExplicitEnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationClient_onDeviceDetectionLost___")]
-  public static extern void EnumerationClient_onDeviceDetectionLost(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationClient_onDeviceDetectionLostSwigExplicitEnumerationClient___")]
-  public static extern void EnumerationClient_onDeviceDetectionLostSwigExplicitEnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationClient_onDeviceDetectionChanged___")]
-  public static extern void EnumerationClient_onDeviceDetectionChanged(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationClient_onDeviceDetectionChangedSwigExplicitEnumerationClient___")]
-  public static extern void EnumerationClient_onDeviceDetectionChangedSwigExplicitEnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationClient_director_connect___")]
-  public static extern void EnumerationClient_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, EnumerationClient.SwigDelegateEnumerationClient_0 delegate0, EnumerationClient.SwigDelegateEnumerationClient_1 delegate1, EnumerationClient.SwigDelegateEnumerationClient_2 delegate2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_StringVector__SWIG_0___")]
-  public static extern global::System.IntPtr new_StringVector__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_StringVector__SWIG_1___")]
-  public static extern global::System.IntPtr new_StringVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Clear___")]
-  public static extern void StringVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Add___")]
-  public static extern void StringVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_size___")]
-  public static extern uint StringVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_empty___")]
-  public static extern bool StringVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_capacity___")]
-  public static extern uint StringVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_reserve___")]
-  public static extern void StringVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_StringVector__SWIG_2___")]
-  public static extern global::System.IntPtr new_StringVector__SWIG_2(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_getitemcopy___")]
-  public static extern string StringVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_getitem___")]
-  public static extern string StringVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_setitem___")]
-  public static extern void StringVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_AddRange___")]
-  public static extern void StringVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_GetRange___")]
-  public static extern global::System.IntPtr StringVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Insert___")]
-  public static extern void StringVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_InsertRange___")]
-  public static extern void StringVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_RemoveAt___")]
-  public static extern void StringVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_RemoveRange___")]
-  public static extern void StringVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Repeat___")]
-  public static extern global::System.IntPtr StringVector_Repeat(string jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Reverse__SWIG_0___")]
-  public static extern void StringVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Reverse__SWIG_1___")]
-  public static extern void StringVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_SetRange___")]
-  public static extern void StringVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Contains___")]
-  public static extern bool StringVector_Contains(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_IndexOf___")]
-  public static extern int StringVector_IndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_LastIndexOf___")]
-  public static extern int StringVector_LastIndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_StringVector_Remove___")]
-  public static extern bool StringVector_Remove(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_StringVector___")]
-  public static extern void delete_StringVector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_EnumerationManager___")]
-  public static extern void delete_EnumerationManager(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_getInstance___")]
-  public static extern global::System.IntPtr EnumerationManager_getInstance();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_getDetectedDevices__SWIG_0___")]
-  public static extern global::System.IntPtr EnumerationManager_getDetectedDevices__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_getDetectedDevices__SWIG_1___")]
-  public static extern global::System.IntPtr EnumerationManager_getDetectedDevices__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_addClient___")]
-  public static extern void EnumerationManager_addClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_removeClient___")]
-  public static extern bool EnumerationManager_removeClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_run___")]
-  public static extern void EnumerationManager_run(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_runAsync___")]
-  public static extern bool EnumerationManager_runAsync(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_stopRunning___")]
-  public static extern void EnumerationManager_stopRunning(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_isRunning___")]
-  public static extern bool EnumerationManager_isRunning(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_setDetectionPeriod___")]
-  public static extern void EnumerationManager_setDetectionPeriod(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_getDetectionPeriod___")]
-  public static extern int EnumerationManager_getDetectionPeriod(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_addUsbDetector___")]
-  public static extern string EnumerationManager_addUsbDetector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_removeUsbDetector___")]
-  public static extern bool EnumerationManager_removeUsbDetector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_addEthernetDetector__SWIG_0___")]
-  public static extern string EnumerationManager_addEthernetDetector__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_removeEthernetDetector__SWIG_0___")]
-  public static extern bool EnumerationManager_removeEthernetDetector__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_addEthernetDetector__SWIG_1___")]
-  public static extern string EnumerationManager_addEthernetDetector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_removeEthernetDetector__SWIG_1___")]
-  public static extern bool EnumerationManager_removeEthernetDetector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_removeDetector___")]
-  public static extern bool EnumerationManager_removeDetector(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_clearDetectors___")]
-  public static extern void EnumerationManager_clearDetectors(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_EnumerationManager_getDetectorNames___")]
-  public static extern global::System.IntPtr EnumerationManager_getDetectorNames(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_4___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_4___")]
   public static extern string toString__SWIG_4(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_5___")]
-  public static extern string toString__SWIG_5(int jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndex_device_set___")]
+  public static extern void PifIndex_device_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MeasurementFieldConfig___")]
-  public static extern global::System.IntPtr new_MeasurementFieldConfig();
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndex_device_get___")]
+  public static extern int PifIndex_device_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_validate___")]
-  public static extern void MeasurementFieldConfig_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndex_pin_set___")]
+  public static extern void PifIndex_pin_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_name_set___")]
-  public static extern void MeasurementFieldConfig_name_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndex_pin_get___")]
+  public static extern int PifIndex_pin_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_name_get___")]
-  public static extern string MeasurementFieldConfig_name_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndex_validate___")]
+  public static extern void PifIndex_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_shape_set___")]
-  public static extern void MeasurementFieldConfig_shape_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifIndex___")]
+  public static extern global::System.IntPtr new_PifIndex();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_shape_get___")]
-  public static extern int MeasurementFieldConfig_shape_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifIndex___")]
+  public static extern void delete_PifIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_mode_set___")]
-  public static extern void MeasurementFieldConfig_mode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_mode_get___")]
-  public static extern int MeasurementFieldConfig_mode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_positionX_set___")]
-  public static extern void MeasurementFieldConfig_positionX_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_positionX_get___")]
-  public static extern int MeasurementFieldConfig_positionX_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_positionY_set___")]
-  public static extern void MeasurementFieldConfig_positionY_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_positionY_get___")]
-  public static extern int MeasurementFieldConfig_positionY_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_width_set___")]
-  public static extern void MeasurementFieldConfig_width_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_width_get___")]
-  public static extern int MeasurementFieldConfig_width_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_height_set___")]
-  public static extern void MeasurementFieldConfig_height_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_height_get___")]
-  public static extern int MeasurementFieldConfig_height_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_radiation_set___")]
-  public static extern void MeasurementFieldConfig_radiation_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfig_radiation_get___")]
-  public static extern global::System.IntPtr MeasurementFieldConfig_radiation_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_MeasurementFieldConfig___")]
-  public static extern void delete_MeasurementFieldConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MeasurementFieldConfigVector__SWIG_0___")]
-  public static extern global::System.IntPtr new_MeasurementFieldConfigVector__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MeasurementFieldConfigVector__SWIG_1___")]
-  public static extern global::System.IntPtr new_MeasurementFieldConfigVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_Clear___")]
-  public static extern void MeasurementFieldConfigVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_Add___")]
-  public static extern void MeasurementFieldConfigVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_size___")]
-  public static extern uint MeasurementFieldConfigVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_empty___")]
-  public static extern bool MeasurementFieldConfigVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_capacity___")]
-  public static extern uint MeasurementFieldConfigVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_reserve___")]
-  public static extern void MeasurementFieldConfigVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MeasurementFieldConfigVector__SWIG_2___")]
-  public static extern global::System.IntPtr new_MeasurementFieldConfigVector__SWIG_2(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_getitemcopy___")]
-  public static extern global::System.IntPtr MeasurementFieldConfigVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_getitem___")]
-  public static extern global::System.IntPtr MeasurementFieldConfigVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_setitem___")]
-  public static extern void MeasurementFieldConfigVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_AddRange___")]
-  public static extern void MeasurementFieldConfigVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_GetRange___")]
-  public static extern global::System.IntPtr MeasurementFieldConfigVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_Insert___")]
-  public static extern void MeasurementFieldConfigVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_InsertRange___")]
-  public static extern void MeasurementFieldConfigVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_RemoveAt___")]
-  public static extern void MeasurementFieldConfigVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_RemoveRange___")]
-  public static extern void MeasurementFieldConfigVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_Repeat___")]
-  public static extern global::System.IntPtr MeasurementFieldConfigVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_Reverse__SWIG_0___")]
-  public static extern void MeasurementFieldConfigVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_Reverse__SWIG_1___")]
-  public static extern void MeasurementFieldConfigVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementFieldConfigVector_SetRange___")]
-  public static extern void MeasurementFieldConfigVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_MeasurementFieldConfigVector___")]
-  public static extern void delete_MeasurementFieldConfigVector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ConstMeasurementFieldIterator___")]
-  public static extern global::System.IntPtr new_ConstMeasurementFieldIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstMeasurementFieldIterator_hasNext___")]
-  public static extern bool ConstMeasurementFieldIterator_hasNext(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstMeasurementFieldIterator_next___")]
-  public static extern void ConstMeasurementFieldIterator_next(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstMeasurementFieldIterator_getValue___")]
-  public static extern ushort ConstMeasurementFieldIterator_getValue(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstMeasurementFieldIterator_getIndex___")]
-  public static extern int ConstMeasurementFieldIterator_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstMeasurementFieldIterator_getX___")]
-  public static extern int ConstMeasurementFieldIterator_getX(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ConstMeasurementFieldIterator_getY___")]
-  public static extern int ConstMeasurementFieldIterator_getY(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ConstMeasurementFieldIterator___")]
-  public static extern void delete_ConstMeasurementFieldIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MeasurementField__SWIG_0___")]
-  public static extern global::System.IntPtr new_MeasurementField__SWIG_0();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MeasurementField__SWIG_1___")]
-  public static extern global::System.IntPtr new_MeasurementField__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, long jarg2, int jarg3, int jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_MeasurementField__SWIG_2___")]
-  public static extern global::System.IntPtr new_MeasurementField__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_MeasurementField___")]
-  public static extern void delete_MeasurementField(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getConfig___")]
-  public static extern global::System.IntPtr MeasurementField_getConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getId___")]
-  public static extern long MeasurementField_getId(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getIndex___")]
-  public static extern int MeasurementField_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_setIndex___")]
-  public static extern void MeasurementField_setIndex(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getName___")]
-  public static extern string MeasurementField_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_setName___")]
-  public static extern void MeasurementField_setName(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getValue__SWIG_0___")]
-  public static extern ushort MeasurementField_getValue__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getTemperature__SWIG_0___")]
-  public static extern float MeasurementField_getTemperature__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getValue__SWIG_1___")]
-  public static extern ushort MeasurementField_getValue__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getTemperature__SWIG_1___")]
-  public static extern float MeasurementField_getTemperature__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getConstIterator___")]
-  public static extern global::System.IntPtr MeasurementField_getConstIterator(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getTemperaturePrecision___")]
-  public static extern int MeasurementField_getTemperaturePrecision(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getX___")]
-  public static extern int MeasurementField_getX(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getY___")]
-  public static extern int MeasurementField_getY(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_setPosition___")]
-  public static extern void MeasurementField_setPosition(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getShape___")]
-  public static extern int MeasurementField_getShape(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getMode___")]
-  public static extern int MeasurementField_getMode(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_setMode___")]
-  public static extern void MeasurementField_setMode(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getWidth___")]
-  public static extern int MeasurementField_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getHeight___")]
-  public static extern int MeasurementField_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getSize___")]
-  public static extern int MeasurementField_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_resize___")]
-  public static extern void MeasurementField_resize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_scale___")]
-  public static extern void MeasurementField_scale(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getEmissivitySource___")]
-  public static extern int MeasurementField_getEmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getTransmissivitySource___")]
-  public static extern int MeasurementField_getTransmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getAmbientTemperatureSource___")]
-  public static extern int MeasurementField_getAmbientTemperatureSource(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getRadiationParameters___")]
-  public static extern global::System.IntPtr MeasurementField_getRadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_setRadiationParameters___")]
-  public static extern void MeasurementField_setRadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_setRadiationParameterSources___")]
-  public static extern void MeasurementField_setRadiationParameterSources(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getMeanTemperature___")]
-  public static extern float MeasurementField_getMeanTemperature(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getMinTemperature___")]
-  public static extern float MeasurementField_getMinTemperature(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getMaxTemperature___")]
-  public static extern float MeasurementField_getMaxTemperature(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getDataPoint___")]
-  public static extern float MeasurementField_getDataPoint(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_setTemperatures___")]
-  public static extern void MeasurementField_setTemperatures(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3, float jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_getConverter___")]
-  public static extern global::System.IntPtr MeasurementField_getConverter(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_clone___")]
-  public static extern global::System.IntPtr MeasurementField_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_copyTemperaturesTo___")]
-  public static extern void MeasurementField_copyTemperaturesTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]float[] jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_MeasurementField_copyDataTo___")]
-  public static extern void MeasurementField_copyDataTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]ushort[] jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_lowerLimit___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_lowerLimit___")]
   public static extern float lowerLimit(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_upperLimit___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_upperLimit___")]
   public static extern float upperLimit(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_clampValue___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_clampValue___")]
   public static extern float clampValue(float jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_6___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_5___")]
+  public static extern string toString__SWIG_5(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_6___")]
   public static extern string toString__SWIG_6(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_7___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_7___")]
   public static extern string toString__SWIG_7(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_8___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_8___")]
   public static extern string toString__SWIG_8(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_9___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_9___")]
   public static extern string toString__SWIG_9(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_10___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_10___")]
   public static extern string toString__SWIG_10(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_11___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_11___")]
   public static extern string toString__SWIG_11(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_toString__SWIG_12___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_12___")]
   public static extern string toString__SWIG_12(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAiConfig___")]
-  public static extern global::System.IntPtr new_PifAiConfig();
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifIndexVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_PifIndexVector__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_createOff___")]
-  public static extern global::System.IntPtr PifAiConfig_createOff(int jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifIndexVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_PifIndexVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_createAmbientTemperature___")]
-  public static extern global::System.IntPtr PifAiConfig_createAmbientTemperature(int jarg1, int jarg2, float jarg3, float jarg4);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_Clear___")]
+  public static extern void PifIndexVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_createEmissivity___")]
-  public static extern global::System.IntPtr PifAiConfig_createEmissivity(int jarg1, int jarg2, float jarg3, float jarg4);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_Add___")]
+  public static extern void PifIndexVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_createFlagControl___")]
-  public static extern global::System.IntPtr PifAiConfig_createFlagControl(int jarg1, int jarg2, float jarg3, bool jarg4);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_size___")]
+  public static extern uint PifIndexVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_createUncommittedValue___")]
-  public static extern global::System.IntPtr PifAiConfig_createUncommittedValue(int jarg1, int jarg2, string jarg3, string jarg4, float jarg5, float jarg6);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_empty___")]
+  public static extern bool PifIndexVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_deviceIndex_set___")]
-  public static extern void PifAiConfig_deviceIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_capacity___")]
+  public static extern uint PifIndexVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_deviceIndex_get___")]
-  public static extern int PifAiConfig_deviceIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_reserve___")]
+  public static extern void PifIndexVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_pinIndex_set___")]
-  public static extern void PifAiConfig_pinIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifIndexVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_PifIndexVector__SWIG_2(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_pinIndex_get___")]
-  public static extern int PifAiConfig_pinIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_getitemcopy___")]
+  public static extern global::System.IntPtr PifIndexVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_mode_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_getitem___")]
+  public static extern global::System.IntPtr PifIndexVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_setitem___")]
+  public static extern void PifIndexVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_AddRange___")]
+  public static extern void PifIndexVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_GetRange___")]
+  public static extern global::System.IntPtr PifIndexVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_Insert___")]
+  public static extern void PifIndexVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_InsertRange___")]
+  public static extern void PifIndexVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_RemoveAt___")]
+  public static extern void PifIndexVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_RemoveRange___")]
+  public static extern void PifIndexVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_Repeat___")]
+  public static extern global::System.IntPtr PifIndexVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_Reverse__SWIG_0___")]
+  public static extern void PifIndexVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_Reverse__SWIG_1___")]
+  public static extern void PifIndexVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifIndexVector_SetRange___")]
+  public static extern void PifIndexVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifIndexVector___")]
+  public static extern void delete_PifIndexVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDeviceTypeVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_PifDeviceTypeVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDeviceTypeVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_PifDeviceTypeVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_Clear___")]
+  public static extern void PifDeviceTypeVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_Add___")]
+  public static extern void PifDeviceTypeVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_size___")]
+  public static extern uint PifDeviceTypeVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_empty___")]
+  public static extern bool PifDeviceTypeVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_capacity___")]
+  public static extern uint PifDeviceTypeVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_reserve___")]
+  public static extern void PifDeviceTypeVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDeviceTypeVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_PifDeviceTypeVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_getitemcopy___")]
+  public static extern int PifDeviceTypeVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_getitem___")]
+  public static extern int PifDeviceTypeVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_setitem___")]
+  public static extern void PifDeviceTypeVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_AddRange___")]
+  public static extern void PifDeviceTypeVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_GetRange___")]
+  public static extern global::System.IntPtr PifDeviceTypeVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_Insert___")]
+  public static extern void PifDeviceTypeVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_InsertRange___")]
+  public static extern void PifDeviceTypeVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_RemoveAt___")]
+  public static extern void PifDeviceTypeVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_RemoveRange___")]
+  public static extern void PifDeviceTypeVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_Repeat___")]
+  public static extern global::System.IntPtr PifDeviceTypeVector_Repeat(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_Reverse__SWIG_0___")]
+  public static extern void PifDeviceTypeVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_Reverse__SWIG_1___")]
+  public static extern void PifDeviceTypeVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDeviceTypeVector_SetRange___")]
+  public static extern void PifDeviceTypeVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifDeviceTypeVector___")]
+  public static extern void delete_PifDeviceTypeVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_13___")]
+  public static extern string toString__SWIG_13(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_14___")]
+  public static extern string toString__SWIG_14(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_isPI___")]
+  public static extern bool isPI(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_isXI___")]
+  public static extern bool isXI(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_isMTDevice___")]
+  public static extern bool isMTDevice(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_isDeviceAnsweringAllCommands___")]
+  public static extern bool isDeviceAnsweringAllCommands(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_isAutonomousDevice___")]
+  public static extern bool isAutonomousDevice(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_isEthernetDevice___")]
+  public static extern bool isEthernetDevice(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_hasFocusMotor___")]
+  public static extern bool hasFocusMotor(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_15___")]
+  public static extern string toString__SWIG_15(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_16___")]
+  public static extern string toString__SWIG_16(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_INVALID_TEMPERATURE_get___")]
+  public static extern float INVALID_TEMPERATURE_get();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_INVALID_VALUE_get___")]
+  public static extern ushort INVALID_VALUE_get();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_17___")]
+  public static extern string toString__SWIG_17(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_TemperatureConverter__SWIG_0___")]
+  public static extern global::System.IntPtr new_TemperatureConverter__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_TemperatureConverter__SWIG_1___")]
+  public static extern global::System.IntPtr new_TemperatureConverter__SWIG_1(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_setPrecision___")]
+  public static extern void TemperatureConverter_setPrecision(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_getPrecision___")]
+  public static extern int TemperatureConverter_getPrecision(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_toTemperature__SWIG_0___")]
+  public static extern float TemperatureConverter_toTemperature__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_toTemperature__SWIG_1___")]
+  public static extern float TemperatureConverter_toTemperature__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_toValue___")]
+  public static extern ushort TemperatureConverter_toValue(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_isTemperatureValid___")]
+  public static extern bool TemperatureConverter_isTemperatureValid(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_isValueValid___")]
+  public static extern bool TemperatureConverter_isValueValid(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_getInvalidTemperature___")]
+  public static extern float TemperatureConverter_getInvalidTemperature(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureConverter_getInvalidValue___")]
+  public static extern ushort TemperatureConverter_getInvalidValue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_TemperatureConverter___")]
+  public static extern void delete_TemperatureConverter(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_emissivity_set___")]
+  public static extern void RadiationParameters_emissivity_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_emissivity_get___")]
+  public static extern float RadiationParameters_emissivity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_transmissivity_set___")]
+  public static extern void RadiationParameters_transmissivity_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_transmissivity_get___")]
+  public static extern float RadiationParameters_transmissivity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_ambientTemperature_set___")]
+  public static extern void RadiationParameters_ambientTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_ambientTemperature_get___")]
+  public static extern float RadiationParameters_ambientTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_estimateAmbientTemperature_set___")]
+  public static extern void RadiationParameters_estimateAmbientTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_estimateAmbientTemperature_get___")]
+  public static extern bool RadiationParameters_estimateAmbientTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RadiationParameters_validate___")]
+  public static extern void RadiationParameters_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RadiationParameters___")]
+  public static extern global::System.IntPtr new_RadiationParameters();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_RadiationParameters___")]
+  public static extern void delete_RadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_18___")]
+  public static extern string toString__SWIG_18(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeF_min_set___")]
+  public static extern void RangeF_min_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeF_min_get___")]
+  public static extern float RangeF_min_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeF_max_set___")]
+  public static extern void RangeF_max_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeF_max_get___")]
+  public static extern float RangeF_max_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeF_validate___")]
+  public static extern void RangeF_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RangeF___")]
+  public static extern global::System.IntPtr new_RangeF();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_RangeF___")]
+  public static extern void delete_RangeF(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeI_min_set___")]
+  public static extern void RangeI_min_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeI_min_get___")]
+  public static extern int RangeI_min_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeI_max_set___")]
+  public static extern void RangeI_max_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeI_max_get___")]
+  public static extern int RangeI_max_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RangeI_validate___")]
+  public static extern void RangeI_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RangeI___")]
+  public static extern global::System.IntPtr new_RangeI();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_RangeI___")]
+  public static extern void delete_RangeI(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_toString__SWIG_19___")]
+  public static extern string toString__SWIG_19(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Frame__SWIG_0___")]
+  public static extern global::System.IntPtr new_Frame__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Frame__SWIG_1___")]
+  public static extern global::System.IntPtr new_Frame__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Frame___")]
+  public static extern void delete_Frame(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_getValue__SWIG_0___")]
+  public static extern ushort Frame_getValue__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_getValue__SWIG_1___")]
+  public static extern ushort Frame_getValue__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_getWidth___")]
+  public static extern int Frame_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_getHeight___")]
+  public static extern int Frame_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_getSize___")]
+  public static extern int Frame_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_isEmpty___")]
+  public static extern bool Frame_isEmpty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_clear___")]
+  public static extern void Frame_clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_resize___")]
+  public static extern void Frame_resize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Frame_copyDataTo___")]
+  public static extern void Frame_copyDataTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]ushort[] jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_ThermalFrame__SWIG_0___")]
+  public static extern global::System.IntPtr new_ThermalFrame__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_ThermalFrame__SWIG_1___")]
+  public static extern global::System.IntPtr new_ThermalFrame__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_ThermalFrame___")]
+  public static extern void delete_ThermalFrame(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ThermalFrame_getTemperature__SWIG_0___")]
+  public static extern float ThermalFrame_getTemperature__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ThermalFrame_getTemperature__SWIG_1___")]
+  public static extern float ThermalFrame_getTemperature__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ThermalFrame_getTemperaturePrecision___")]
+  public static extern int ThermalFrame_getTemperaturePrecision(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ThermalFrame_copyTemperaturesTo___")]
+  public static extern void ThermalFrame_copyTemperaturesTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]float[] jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ThermalFrame_getConverter___")]
+  public static extern global::System.IntPtr ThermalFrame_getConverter(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FrameMetadata___")]
+  public static extern global::System.IntPtr new_FrameMetadata();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_isThermalDataReliable___")]
+  public static extern bool FrameMetadata_isThermalDataReliable(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getCounter___")]
+  public static extern uint FrameMetadata_getCounter(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getCounterHardware___")]
+  public static extern uint FrameMetadata_getCounterHardware(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getTimestamp___")]
+  public static extern long FrameMetadata_getTimestamp(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getTimestampMedia___")]
+  public static extern long FrameMetadata_getTimestampMedia(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getFlagState___")]
+  public static extern int FrameMetadata_getFlagState(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getTemperatureFlag___")]
+  public static extern float FrameMetadata_getTemperatureFlag(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getTemperatureBox___")]
+  public static extern float FrameMetadata_getTemperatureBox(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getTemperatureChip___")]
+  public static extern float FrameMetadata_getTemperatureChip(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getEmissivitySource___")]
+  public static extern int FrameMetadata_getEmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getTransmissivitySource___")]
+  public static extern int FrameMetadata_getTransmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getAmbientTemperatureSource___")]
+  public static extern int FrameMetadata_getAmbientTemperatureSource(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getRadiationParameters___")]
+  public static extern global::System.IntPtr FrameMetadata_getRadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_setRadiationParameters___")]
+  public static extern void FrameMetadata_setRadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getPifAiValue___")]
+  public static extern float FrameMetadata_getPifAiValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getPifDiValue___")]
+  public static extern bool FrameMetadata_getPifDiValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getPifActualDeviceCount___")]
+  public static extern int FrameMetadata_getPifActualDeviceCount(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getPifConfigurableDeviceCount___")]
+  public static extern int FrameMetadata_getPifConfigurableDeviceCount(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getPifAiCountPerDevice___")]
+  public static extern int FrameMetadata_getPifAiCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameMetadata_getPifDiCountPerDevice___")]
+  public static extern int FrameMetadata_getPifDiCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_FrameMetadata___")]
+  public static extern void delete_FrameMetadata(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_OperationMode___")]
+  public static extern void delete_OperationMode(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getIndex___")]
+  public static extern int OperationMode_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getFieldOfView___")]
+  public static extern int OperationMode_getFieldOfView(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getOpticsText___")]
+  public static extern string OperationMode_getOpticsText(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getOpticsSerialNumber___")]
+  public static extern int OperationMode_getOpticsSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getTemperatureLowerLimit___")]
+  public static extern float OperationMode_getTemperatureLowerLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getTemperatureUpperLimit___")]
+  public static extern float OperationMode_getTemperatureUpperLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getTemperatureNormalLowerLimit___")]
+  public static extern float OperationMode_getTemperatureNormalLowerLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getTemperatureNormalUpperLimit___")]
+  public static extern float OperationMode_getTemperatureNormalUpperLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getTemperatureExtendedLowerLimit___")]
+  public static extern float OperationMode_getTemperatureExtendedLowerLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getTemperatureExtendedUpperLimit___")]
+  public static extern float OperationMode_getTemperatureExtendedUpperLimit(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_isTemperatureRangeExtended___")]
+  public static extern bool OperationMode_isTemperatureRangeExtended(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_isTemperatureRangeExtendable___")]
+  public static extern bool OperationMode_isTemperatureRangeExtendable(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_isTemperatureHighPrecision___")]
+  public static extern bool OperationMode_isTemperatureHighPrecision(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_isTemperatureHighPrecisionAvailable___")]
+  public static extern bool OperationMode_isTemperatureHighPrecisionAvailable(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getFrameWidth___")]
+  public static extern int OperationMode_getFrameWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getFrameHeight___")]
+  public static extern int OperationMode_getFrameHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_getFramerate___")]
+  public static extern int OperationMode_getFramerate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationMode_toString___")]
+  public static extern string OperationMode_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationModeVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_OperationModeVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationModeVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_OperationModeVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_Clear___")]
+  public static extern void OperationModeVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_Add___")]
+  public static extern void OperationModeVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_size___")]
+  public static extern uint OperationModeVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_empty___")]
+  public static extern bool OperationModeVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_capacity___")]
+  public static extern uint OperationModeVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_reserve___")]
+  public static extern void OperationModeVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationModeVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_OperationModeVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_getitemcopy___")]
+  public static extern global::System.IntPtr OperationModeVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_getitem___")]
+  public static extern global::System.IntPtr OperationModeVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_setitem___")]
+  public static extern void OperationModeVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_AddRange___")]
+  public static extern void OperationModeVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_GetRange___")]
+  public static extern global::System.IntPtr OperationModeVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_Insert___")]
+  public static extern void OperationModeVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_InsertRange___")]
+  public static extern void OperationModeVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_RemoveAt___")]
+  public static extern void OperationModeVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_RemoveRange___")]
+  public static extern void OperationModeVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_Repeat___")]
+  public static extern global::System.IntPtr OperationModeVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_Reverse__SWIG_0___")]
+  public static extern void OperationModeVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_Reverse__SWIG_1___")]
+  public static extern void OperationModeVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationModeVector_SetRange___")]
+  public static extern void OperationModeVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_OperationModeVector___")]
+  public static extern void delete_OperationModeVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationInfo__SWIG_0___")]
+  public static extern global::System.IntPtr new_OperationInfo__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationInfo__SWIG_1___")]
+  public static extern global::System.IntPtr new_OperationInfo__SWIG_1(int jarg1, int jarg2, string jarg3, float jarg4, short jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfo_getIndex___")]
+  public static extern int OperationInfo_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfo_getPreviousIndex___")]
+  public static extern int OperationInfo_getPreviousIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfo_getName___")]
+  public static extern string OperationInfo_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfo_getProcessingTime___")]
+  public static extern float OperationInfo_getProcessingTime(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfo_getPixelValue___")]
+  public static extern short OperationInfo_getPixelValue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_OperationInfo___")]
+  public static extern void delete_OperationInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationInfoVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_OperationInfoVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationInfoVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_OperationInfoVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_Clear___")]
+  public static extern void OperationInfoVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_Add___")]
+  public static extern void OperationInfoVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_size___")]
+  public static extern uint OperationInfoVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_empty___")]
+  public static extern bool OperationInfoVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_capacity___")]
+  public static extern uint OperationInfoVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_reserve___")]
+  public static extern void OperationInfoVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationInfoVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_OperationInfoVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_getitemcopy___")]
+  public static extern global::System.IntPtr OperationInfoVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_getitem___")]
+  public static extern global::System.IntPtr OperationInfoVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_setitem___")]
+  public static extern void OperationInfoVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_AddRange___")]
+  public static extern void OperationInfoVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_GetRange___")]
+  public static extern global::System.IntPtr OperationInfoVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_Insert___")]
+  public static extern void OperationInfoVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_InsertRange___")]
+  public static extern void OperationInfoVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_RemoveAt___")]
+  public static extern void OperationInfoVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_RemoveRange___")]
+  public static extern void OperationInfoVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_Repeat___")]
+  public static extern global::System.IntPtr OperationInfoVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_Reverse__SWIG_0___")]
+  public static extern void OperationInfoVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_Reverse__SWIG_1___")]
+  public static extern void OperationInfoVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoVector_SetRange___")]
+  public static extern void OperationInfoVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_OperationInfoVector___")]
+  public static extern void delete_OperationInfoVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Pixel__SWIG_0___")]
+  public static extern global::System.IntPtr new_Pixel__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Pixel__SWIG_1___")]
+  public static extern global::System.IntPtr new_Pixel__SWIG_1(byte jarg1, byte jarg2, byte jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Pixel_getRed___")]
+  public static extern byte Pixel_getRed(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Pixel_getGreen___")]
+  public static extern byte Pixel_getGreen(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Pixel_getBlue___")]
+  public static extern byte Pixel_getBlue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Pixel_toString___")]
+  public static extern string Pixel_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Pixel___")]
+  public static extern void delete_Pixel(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessingOutputConfig_rawFrames_set___")]
+  public static extern void ProcessingOutputConfig_rawFrames_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessingOutputConfig_rawFrames_get___")]
+  public static extern bool ProcessingOutputConfig_rawFrames_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessingOutputConfig_thermalFrames_set___")]
+  public static extern void ProcessingOutputConfig_thermalFrames_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessingOutputConfig_thermalFrames_get___")]
+  public static extern bool ProcessingOutputConfig_thermalFrames_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessingOutputConfig_fields_set___")]
+  public static extern void ProcessingOutputConfig_fields_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessingOutputConfig_fields_get___")]
+  public static extern bool ProcessingOutputConfig_fields_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_ProcessingOutputConfig___")]
+  public static extern global::System.IntPtr new_ProcessingOutputConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_ProcessingOutputConfig___")]
+  public static extern void delete_ProcessingOutputConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_ImageInfo___")]
+  public static extern global::System.IntPtr new_ImageInfo(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getColorFormat___")]
+  public static extern int ImageInfo_getColorFormat(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getChannels___")]
+  public static extern int ImageInfo_getChannels(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getOffsetRed___")]
+  public static extern int ImageInfo_getOffsetRed(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getOffsetGreen___")]
+  public static extern int ImageInfo_getOffsetGreen(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getOffsetBlue___")]
+  public static extern int ImageInfo_getOffsetBlue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_resize___")]
+  public static extern int ImageInfo_resize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getWidth___")]
+  public static extern int ImageInfo_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getStride___")]
+  public static extern int ImageInfo_getStride(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getHeight___")]
+  public static extern int ImageInfo_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getSize___")]
+  public static extern int ImageInfo_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getWidthAlignment___")]
+  public static extern int ImageInfo_getWidthAlignment(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageInfo_getWidthPaddingInBytes___")]
+  public static extern int ImageInfo_getWidthPaddingInBytes(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_ImageInfo___")]
+  public static extern void delete_ImageInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Image___")]
+  public static extern global::System.IntPtr new_Image(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getPixel__SWIG_0___")]
+  public static extern global::System.IntPtr Image_getPixel__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getPixel__SWIG_1___")]
+  public static extern global::System.IntPtr Image_getPixel__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_setPixel__SWIG_0___")]
+  public static extern void Image_setPixel__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_setPixel__SWIG_1___")]
+  public static extern void Image_setPixel__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getWidth___")]
+  public static extern int Image_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getStride___")]
+  public static extern int Image_getStride(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getHeight___")]
+  public static extern int Image_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getSize___")]
+  public static extern int Image_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getSizeInBytes___")]
+  public static extern int Image_getSizeInBytes(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_isEmpty___")]
+  public static extern bool Image_isEmpty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_clear___")]
+  public static extern void Image_clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_resize___")]
+  public static extern void Image_resize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getColorFormat___")]
+  public static extern int Image_getColorFormat(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_getWidthAlignment___")]
+  public static extern int Image_getWidthAlignment(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Image_copyDataTo___")]
+  public static extern void Image_copyDataTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]byte[] jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Image___")]
+  public static extern void delete_Image(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Slope_gain_set___")]
+  public static extern void Slope_gain_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Slope_gain_get___")]
+  public static extern float Slope_gain_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Slope_offset_set___")]
+  public static extern void Slope_offset_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Slope_offset_get___")]
+  public static extern float Slope_offset_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Slope___")]
+  public static extern global::System.IntPtr new_Slope();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Slope___")]
+  public static extern void delete_Slope(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2i_x_set___")]
+  public static extern void Vector2i_x_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2i_x_get___")]
+  public static extern int Vector2i_x_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2i_y_set___")]
+  public static extern void Vector2i_y_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2i_y_get___")]
+  public static extern int Vector2i_y_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Vector2i___")]
+  public static extern global::System.IntPtr new_Vector2i();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Vector2i___")]
+  public static extern void delete_Vector2i(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2f_x_set___")]
+  public static extern void Vector2f_x_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2f_x_get___")]
+  public static extern float Vector2f_x_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2f_y_set___")]
+  public static extern void Vector2f_y_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Vector2f_y_get___")]
+  public static extern float Vector2f_y_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Vector2f___")]
+  public static extern global::System.IntPtr new_Vector2f();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Vector2f___")]
+  public static extern void delete_Vector2f(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_VertexVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_VertexVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_VertexVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_VertexVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_Clear___")]
+  public static extern void VertexVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_Add___")]
+  public static extern void VertexVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_size___")]
+  public static extern uint VertexVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_empty___")]
+  public static extern bool VertexVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_capacity___")]
+  public static extern uint VertexVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_reserve___")]
+  public static extern void VertexVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_VertexVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_VertexVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_getitemcopy___")]
+  public static extern global::System.IntPtr VertexVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_getitem___")]
+  public static extern global::System.IntPtr VertexVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_setitem___")]
+  public static extern void VertexVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_AddRange___")]
+  public static extern void VertexVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_GetRange___")]
+  public static extern global::System.IntPtr VertexVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_Insert___")]
+  public static extern void VertexVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_InsertRange___")]
+  public static extern void VertexVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_RemoveAt___")]
+  public static extern void VertexVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_RemoveRange___")]
+  public static extern void VertexVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_Repeat___")]
+  public static extern global::System.IntPtr VertexVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_Reverse__SWIG_0___")]
+  public static extern void VertexVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_Reverse__SWIG_1___")]
+  public static extern void VertexVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VertexVector_SetRange___")]
+  public static extern void VertexVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_VertexVector___")]
+  public static extern void delete_VertexVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Version__SWIG_0___")]
+  public static extern global::System.IntPtr new_Version__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Version__SWIG_1___")]
+  public static extern global::System.IntPtr new_Version__SWIG_1(int jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Version_getMajor___")]
+  public static extern int Version_getMajor(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Version_getMinor___")]
+  public static extern int Version_getMinor(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Version_getPatch___")]
+  public static extern int Version_getPatch(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Version_toString___")]
+  public static extern string Version_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Version_isValid___")]
+  public static extern bool Version_isValid(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Version_compare__SWIG_0___")]
+  public static extern int Version_compare__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Version_compare__SWIG_1___")]
+  public static extern int Version_compare__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, int jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Version___")]
+  public static extern void delete_Version(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_VersionInfo___")]
+  public static extern global::System.IntPtr new_VersionInfo();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getSdkVersion___")]
+  public static extern global::System.IntPtr VersionInfo_getSdkVersion(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getBuildType___")]
+  public static extern string VersionInfo_getBuildType(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getBuildDate___")]
+  public static extern string VersionInfo_getBuildDate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getCommitHash___")]
+  public static extern string VersionInfo_getCommitHash(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getCommitDate___")]
+  public static extern string VersionInfo_getCommitDate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getCommitBranch___")]
+  public static extern string VersionInfo_getCommitBranch(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getName___")]
+  public static extern string VersionInfo_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getCompany___")]
+  public static extern string VersionInfo_getCompany(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getCopyright___")]
+  public static extern string VersionInfo_getCopyright(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getDescription___")]
+  public static extern string VersionInfo_getDescription(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getBuildOS___")]
+  public static extern string VersionInfo_getBuildOS(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getBuildPlatform___")]
+  public static extern string VersionInfo_getBuildPlatform(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VersionInfo_getFormatsVersion___")]
+  public static extern global::System.IntPtr VersionInfo_getFormatsVersion(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_VersionInfo___")]
+  public static extern void delete_VersionInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_IpAddress__SWIG_0___")]
+  public static extern global::System.IntPtr new_IpAddress__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_IpAddress__SWIG_1___")]
+  public static extern global::System.IntPtr new_IpAddress__SWIG_1(uint jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_IpAddress__SWIG_2___")]
+  public static extern global::System.IntPtr new_IpAddress__SWIG_2(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_IpAddress__SWIG_3___")]
+  public static extern global::System.IntPtr new_IpAddress__SWIG_3(byte jarg1, byte jarg2, byte jarg3, byte jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_reset___")]
+  public static extern void IpAddress_reset(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_setFromUInt32___")]
+  public static extern void IpAddress_setFromUInt32(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_toUInt32___")]
+  public static extern uint IpAddress_toUInt32(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_setFromString___")]
+  public static extern void IpAddress_setFromString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_setFromCidrString___")]
+  public static extern int IpAddress_setFromCidrString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_toString___")]
+  public static extern string IpAddress_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_toCidrString___")]
+  public static extern string IpAddress_toCidrString(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_setByte___")]
+  public static extern void IpAddress_setByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, byte jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_getByte___")]
+  public static extern byte IpAddress_getByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_getNetworkPortion__SWIG_0___")]
+  public static extern global::System.IntPtr IpAddress_getNetworkPortion__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_getNetworkPortion__SWIG_1___")]
+  public static extern global::System.IntPtr IpAddress_getNetworkPortion__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_getHostPortion__SWIG_0___")]
+  public static extern global::System.IntPtr IpAddress_getHostPortion__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_getHostPortion__SWIG_1___")]
+  public static extern global::System.IntPtr IpAddress_getHostPortion__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_getBroadcastAddress__SWIG_0___")]
+  public static extern global::System.IntPtr IpAddress_getBroadcastAddress__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IpAddress_getBroadcastAddress__SWIG_1___")]
+  public static extern global::System.IntPtr IpAddress_getBroadcastAddress__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_IpAddress___")]
+  public static extern void delete_IpAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MacAddress__SWIG_0___")]
+  public static extern global::System.IntPtr new_MacAddress__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MacAddress__SWIG_1___")]
+  public static extern global::System.IntPtr new_MacAddress__SWIG_1(ulong jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MacAddress__SWIG_2___")]
+  public static extern global::System.IntPtr new_MacAddress__SWIG_2(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MacAddress__SWIG_3___")]
+  public static extern global::System.IntPtr new_MacAddress__SWIG_3(byte jarg1, byte jarg2, byte jarg3, byte jarg4, byte jarg5, byte jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MacAddress_reset___")]
+  public static extern void MacAddress_reset(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MacAddress_setFromUInt64___")]
+  public static extern void MacAddress_setFromUInt64(global::System.Runtime.InteropServices.HandleRef jarg1, ulong jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MacAddress_toUInt64___")]
+  public static extern ulong MacAddress_toUInt64(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MacAddress_setFromString___")]
+  public static extern void MacAddress_setFromString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MacAddress_toString___")]
+  public static extern string MacAddress_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MacAddress_setByte___")]
+  public static extern void MacAddress_setByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, byte jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MacAddress_getByte___")]
+  public static extern byte MacAddress_getByte(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_MacAddress___")]
+  public static extern void delete_MacAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Port__SWIG_0___")]
+  public static extern global::System.IntPtr new_Port__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Port__SWIG_1___")]
+  public static extern global::System.IntPtr new_Port__SWIG_1(ushort jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_Port__SWIG_2___")]
+  public static extern global::System.IntPtr new_Port__SWIG_2(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Port_reset___")]
+  public static extern void Port_reset(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Port_setNumber___")]
+  public static extern void Port_setNumber(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Port_getNumber___")]
+  public static extern ushort Port_getNumber(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Port_setFromString___")]
+  public static extern void Port_setFromString(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Port_toString___")]
+  public static extern string Port_toString(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Port___")]
+  public static extern void delete_Port(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_DeviceNetworkConfig__SWIG_0___")]
+  public static extern global::System.IntPtr new_DeviceNetworkConfig__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_DeviceNetworkConfig__SWIG_1___")]
+  public static extern global::System.IntPtr new_DeviceNetworkConfig__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_getDeviceIp___")]
+  public static extern global::System.IntPtr DeviceNetworkConfig_getDeviceIp(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_getDestinationIp___")]
+  public static extern global::System.IntPtr DeviceNetworkConfig_getDestinationIp(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_getDestinationPort___")]
+  public static extern global::System.IntPtr DeviceNetworkConfig_getDestinationPort(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_getSubnetMask___")]
+  public static extern global::System.IntPtr DeviceNetworkConfig_getSubnetMask(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_setDeviceIp___")]
+  public static extern void DeviceNetworkConfig_setDeviceIp(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_setDestinationIp___")]
+  public static extern void DeviceNetworkConfig_setDestinationIp(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_setDestinationPort___")]
+  public static extern void DeviceNetworkConfig_setDestinationPort(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceNetworkConfig_setSubnetMask___")]
+  public static extern void DeviceNetworkConfig_setSubnetMask(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_DeviceNetworkConfig___")]
+  public static extern void delete_DeviceNetworkConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_DeviceInfo___")]
+  public static extern global::System.IntPtr new_DeviceInfo();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_determineDeviceType___")]
+  public static extern int DeviceInfo_determineDeviceType(ushort jarg1, ushort jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setSerialNumber___")]
+  public static extern void DeviceInfo_setSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getSerialNumber___")]
+  public static extern uint DeviceInfo_getSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setConnectionInterface___")]
+  public static extern void DeviceInfo_setConnectionInterface(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getConnectionInterface___")]
+  public static extern string DeviceInfo_getConnectionInterface(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setConnectionInterfaceAddress___")]
+  public static extern void DeviceInfo_setConnectionInterfaceAddress(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getConnectionInterfaceAddress___")]
+  public static extern string DeviceInfo_getConnectionInterfaceAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setIpAddress___")]
+  public static extern void DeviceInfo_setIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getIpAddress___")]
+  public static extern global::System.IntPtr DeviceInfo_getIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setTargetIpAddress___")]
+  public static extern void DeviceInfo_setTargetIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getTargetIpAddress___")]
+  public static extern global::System.IntPtr DeviceInfo_getTargetIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setPort___")]
+  public static extern void DeviceInfo_setPort(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getPort___")]
+  public static extern global::System.IntPtr DeviceInfo_getPort(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getDeviceType___")]
+  public static extern int DeviceInfo_getDeviceType(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setRevisions___")]
+  public static extern void DeviceInfo_setRevisions(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2, ushort jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getHardwareRevision___")]
+  public static extern ushort DeviceInfo_getHardwareRevision(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getFirmwareRevision___")]
+  public static extern ushort DeviceInfo_getFirmwareRevision(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setBusy___")]
+  public static extern void DeviceInfo_setBusy(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_isBusy___")]
+  public static extern bool DeviceInfo_isBusy(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_setMacAddress___")]
+  public static extern void DeviceInfo_setMacAddress(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_getMacAddress___")]
+  public static extern global::System.IntPtr DeviceInfo_getMacAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfo_clone___")]
+  public static extern global::System.IntPtr DeviceInfo_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_DeviceInfo___")]
+  public static extern void delete_DeviceInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_DeviceInfoVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_DeviceInfoVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_DeviceInfoVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_DeviceInfoVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_Clear___")]
+  public static extern void DeviceInfoVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_Add___")]
+  public static extern void DeviceInfoVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_size___")]
+  public static extern uint DeviceInfoVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_empty___")]
+  public static extern bool DeviceInfoVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_capacity___")]
+  public static extern uint DeviceInfoVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_reserve___")]
+  public static extern void DeviceInfoVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_DeviceInfoVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_DeviceInfoVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_getitemcopy___")]
+  public static extern global::System.IntPtr DeviceInfoVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_getitem___")]
+  public static extern global::System.IntPtr DeviceInfoVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_setitem___")]
+  public static extern void DeviceInfoVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_AddRange___")]
+  public static extern void DeviceInfoVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_GetRange___")]
+  public static extern global::System.IntPtr DeviceInfoVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_Insert___")]
+  public static extern void DeviceInfoVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_InsertRange___")]
+  public static extern void DeviceInfoVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_RemoveAt___")]
+  public static extern void DeviceInfoVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_RemoveRange___")]
+  public static extern void DeviceInfoVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_Repeat___")]
+  public static extern global::System.IntPtr DeviceInfoVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_Reverse__SWIG_0___")]
+  public static extern void DeviceInfoVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_Reverse__SWIG_1___")]
+  public static extern void DeviceInfoVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_DeviceInfoVector_SetRange___")]
+  public static extern void DeviceInfoVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_DeviceInfoVector___")]
+  public static extern void delete_DeviceInfoVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_EnumerationClient__SWIG_0___")]
+  public static extern global::System.IntPtr new_EnumerationClient__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_EnumerationClient__SWIG_1___")]
+  public static extern global::System.IntPtr new_EnumerationClient__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_EnumerationClient___")]
+  public static extern void delete_EnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationClient_onDeviceDetected___")]
+  public static extern void EnumerationClient_onDeviceDetected(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationClient_onDeviceDetectedSwigExplicitEnumerationClient___")]
+  public static extern void EnumerationClient_onDeviceDetectedSwigExplicitEnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationClient_onDeviceDetectionLost___")]
+  public static extern void EnumerationClient_onDeviceDetectionLost(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationClient_onDeviceDetectionLostSwigExplicitEnumerationClient___")]
+  public static extern void EnumerationClient_onDeviceDetectionLostSwigExplicitEnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationClient_onDeviceDetectionChanged___")]
+  public static extern void EnumerationClient_onDeviceDetectionChanged(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationClient_onDeviceDetectionChangedSwigExplicitEnumerationClient___")]
+  public static extern void EnumerationClient_onDeviceDetectionChangedSwigExplicitEnumerationClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationClient_director_connect___")]
+  public static extern void EnumerationClient_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, EnumerationClient.SwigDelegateEnumerationClient_0 delegate0, EnumerationClient.SwigDelegateEnumerationClient_1 delegate1, EnumerationClient.SwigDelegateEnumerationClient_2 delegate2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_StringVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_StringVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_StringVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_StringVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Clear___")]
+  public static extern void StringVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Add___")]
+  public static extern void StringVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_size___")]
+  public static extern uint StringVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_empty___")]
+  public static extern bool StringVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_capacity___")]
+  public static extern uint StringVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_reserve___")]
+  public static extern void StringVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_StringVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_StringVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_getitemcopy___")]
+  public static extern string StringVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_getitem___")]
+  public static extern string StringVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_setitem___")]
+  public static extern void StringVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_AddRange___")]
+  public static extern void StringVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_GetRange___")]
+  public static extern global::System.IntPtr StringVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Insert___")]
+  public static extern void StringVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_InsertRange___")]
+  public static extern void StringVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_RemoveAt___")]
+  public static extern void StringVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_RemoveRange___")]
+  public static extern void StringVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Repeat___")]
+  public static extern global::System.IntPtr StringVector_Repeat(string jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Reverse__SWIG_0___")]
+  public static extern void StringVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Reverse__SWIG_1___")]
+  public static extern void StringVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_SetRange___")]
+  public static extern void StringVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Contains___")]
+  public static extern bool StringVector_Contains(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_IndexOf___")]
+  public static extern int StringVector_IndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_LastIndexOf___")]
+  public static extern int StringVector_LastIndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_StringVector_Remove___")]
+  public static extern bool StringVector_Remove(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_StringVector___")]
+  public static extern void delete_StringVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_EnumerationManager___")]
+  public static extern void delete_EnumerationManager(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_getInstance___")]
+  public static extern global::System.IntPtr EnumerationManager_getInstance();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_getDetectedDevices__SWIG_0___")]
+  public static extern global::System.IntPtr EnumerationManager_getDetectedDevices__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_getDetectedDevices__SWIG_1___")]
+  public static extern global::System.IntPtr EnumerationManager_getDetectedDevices__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_addClient___")]
+  public static extern void EnumerationManager_addClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_removeClient___")]
+  public static extern bool EnumerationManager_removeClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_run___")]
+  public static extern void EnumerationManager_run(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_runAsync___")]
+  public static extern bool EnumerationManager_runAsync(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_stopRunning___")]
+  public static extern void EnumerationManager_stopRunning(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_isRunning___")]
+  public static extern bool EnumerationManager_isRunning(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_setDetectionPeriod___")]
+  public static extern void EnumerationManager_setDetectionPeriod(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_getDetectionPeriod___")]
+  public static extern int EnumerationManager_getDetectionPeriod(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_addUsbDetector___")]
+  public static extern string EnumerationManager_addUsbDetector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_removeUsbDetector___")]
+  public static extern bool EnumerationManager_removeUsbDetector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_addEthernetDetector__SWIG_0___")]
+  public static extern string EnumerationManager_addEthernetDetector__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_removeEthernetDetector__SWIG_0___")]
+  public static extern bool EnumerationManager_removeEthernetDetector__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_addEthernetDetector__SWIG_1___")]
+  public static extern string EnumerationManager_addEthernetDetector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_removeEthernetDetector__SWIG_1___")]
+  public static extern bool EnumerationManager_removeEthernetDetector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_removeDetector___")]
+  public static extern bool EnumerationManager_removeDetector(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_clearDetectors___")]
+  public static extern void EnumerationManager_clearDetectors(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_EnumerationManager_getDetectorNames___")]
+  public static extern global::System.IntPtr EnumerationManager_getDetectorNames(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_type_set___")]
+  public static extern void FieldShapeConfig_type_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_type_get___")]
+  public static extern int FieldShapeConfig_type_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_position_set___")]
+  public static extern void FieldShapeConfig_position_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_position_get___")]
+  public static extern global::System.IntPtr FieldShapeConfig_position_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_dimension_set___")]
+  public static extern void FieldShapeConfig_dimension_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_dimension_get___")]
+  public static extern global::System.IntPtr FieldShapeConfig_dimension_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_vertices_set___")]
+  public static extern void FieldShapeConfig_vertices_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_vertices_get___")]
+  public static extern global::System.IntPtr FieldShapeConfig_vertices_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_normalized_set___")]
+  public static extern void FieldShapeConfig_normalized_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_normalized_get___")]
+  public static extern bool FieldShapeConfig_normalized_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldShapeConfig_validate___")]
+  public static extern void FieldShapeConfig_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FieldShapeConfig___")]
+  public static extern global::System.IntPtr new_FieldShapeConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_FieldShapeConfig___")]
+  public static extern void delete_FieldShapeConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_name_set___")]
+  public static extern void MeasurementFieldConfig_name_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_name_get___")]
+  public static extern string MeasurementFieldConfig_name_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_shape_set___")]
+  public static extern void MeasurementFieldConfig_shape_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_shape_get___")]
+  public static extern global::System.IntPtr MeasurementFieldConfig_shape_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_emissivity_set___")]
+  public static extern void MeasurementFieldConfig_emissivity_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_emissivity_get___")]
+  public static extern float MeasurementFieldConfig_emissivity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_customEmissivity_set___")]
+  public static extern void MeasurementFieldConfig_customEmissivity_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_customEmissivity_get___")]
+  public static extern bool MeasurementFieldConfig_customEmissivity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfig_validate___")]
+  public static extern void MeasurementFieldConfig_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MeasurementFieldConfig___")]
+  public static extern global::System.IntPtr new_MeasurementFieldConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_MeasurementFieldConfig___")]
+  public static extern void delete_MeasurementFieldConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MeasurementFieldConfigVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_MeasurementFieldConfigVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MeasurementFieldConfigVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_MeasurementFieldConfigVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_Clear___")]
+  public static extern void MeasurementFieldConfigVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_Add___")]
+  public static extern void MeasurementFieldConfigVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_size___")]
+  public static extern uint MeasurementFieldConfigVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_empty___")]
+  public static extern bool MeasurementFieldConfigVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_capacity___")]
+  public static extern uint MeasurementFieldConfigVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_reserve___")]
+  public static extern void MeasurementFieldConfigVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MeasurementFieldConfigVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_MeasurementFieldConfigVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_getitemcopy___")]
+  public static extern global::System.IntPtr MeasurementFieldConfigVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_getitem___")]
+  public static extern global::System.IntPtr MeasurementFieldConfigVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_setitem___")]
+  public static extern void MeasurementFieldConfigVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_AddRange___")]
+  public static extern void MeasurementFieldConfigVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_GetRange___")]
+  public static extern global::System.IntPtr MeasurementFieldConfigVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_Insert___")]
+  public static extern void MeasurementFieldConfigVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_InsertRange___")]
+  public static extern void MeasurementFieldConfigVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_RemoveAt___")]
+  public static extern void MeasurementFieldConfigVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_RemoveRange___")]
+  public static extern void MeasurementFieldConfigVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_Repeat___")]
+  public static extern global::System.IntPtr MeasurementFieldConfigVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_Reverse__SWIG_0___")]
+  public static extern void MeasurementFieldConfigVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_Reverse__SWIG_1___")]
+  public static extern void MeasurementFieldConfigVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldConfigVector_SetRange___")]
+  public static extern void MeasurementFieldConfigVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_MeasurementFieldConfigVector___")]
+  public static extern void delete_MeasurementFieldConfigVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_BoolVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_BoolVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_BoolVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_BoolVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Clear___")]
+  public static extern void BoolVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Add___")]
+  public static extern void BoolVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_size___")]
+  public static extern uint BoolVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_empty___")]
+  public static extern bool BoolVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_capacity___")]
+  public static extern uint BoolVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_reserve___")]
+  public static extern void BoolVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_BoolVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_BoolVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_getitemcopy___")]
+  public static extern bool BoolVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_getitem___")]
+  public static extern bool BoolVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_setitem___")]
+  public static extern void BoolVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, bool jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_AddRange___")]
+  public static extern void BoolVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_GetRange___")]
+  public static extern global::System.IntPtr BoolVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Insert___")]
+  public static extern void BoolVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, bool jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_InsertRange___")]
+  public static extern void BoolVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_RemoveAt___")]
+  public static extern void BoolVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_RemoveRange___")]
+  public static extern void BoolVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Repeat___")]
+  public static extern global::System.IntPtr BoolVector_Repeat(bool jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Reverse__SWIG_0___")]
+  public static extern void BoolVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Reverse__SWIG_1___")]
+  public static extern void BoolVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_SetRange___")]
+  public static extern void BoolVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Contains___")]
+  public static extern bool BoolVector_Contains(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_IndexOf___")]
+  public static extern int BoolVector_IndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_LastIndexOf___")]
+  public static extern int BoolVector_LastIndexOf(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_BoolVector_Remove___")]
+  public static extern bool BoolVector_Remove(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_BoolVector___")]
+  public static extern void delete_BoolVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_MeasurementField___")]
+  public static extern void delete_MeasurementField(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementField_getId___")]
+  public static extern int MeasurementField_getId(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementField_getIndex___")]
+  public static extern uint MeasurementField_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementField_getName___")]
+  public static extern string MeasurementField_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementField_getConfig___")]
+  public static extern global::System.IntPtr MeasurementField_getConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MeasurementFieldVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_MeasurementFieldVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MeasurementFieldVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_MeasurementFieldVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_Clear___")]
+  public static extern void MeasurementFieldVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_Add___")]
+  public static extern void MeasurementFieldVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_size___")]
+  public static extern uint MeasurementFieldVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_empty___")]
+  public static extern bool MeasurementFieldVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_capacity___")]
+  public static extern uint MeasurementFieldVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_reserve___")]
+  public static extern void MeasurementFieldVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_MeasurementFieldVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_MeasurementFieldVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_getitemcopy___")]
+  public static extern global::System.IntPtr MeasurementFieldVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_getitem___")]
+  public static extern global::System.IntPtr MeasurementFieldVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_setitem___")]
+  public static extern void MeasurementFieldVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_AddRange___")]
+  public static extern void MeasurementFieldVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_GetRange___")]
+  public static extern global::System.IntPtr MeasurementFieldVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_Insert___")]
+  public static extern void MeasurementFieldVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_InsertRange___")]
+  public static extern void MeasurementFieldVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_RemoveAt___")]
+  public static extern void MeasurementFieldVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_RemoveRange___")]
+  public static extern void MeasurementFieldVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_Repeat___")]
+  public static extern global::System.IntPtr MeasurementFieldVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_Reverse__SWIG_0___")]
+  public static extern void MeasurementFieldVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_Reverse__SWIG_1___")]
+  public static extern void MeasurementFieldVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_MeasurementFieldVector_SetRange___")]
+  public static extern void MeasurementFieldVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_MeasurementFieldVector___")]
+  public static extern void delete_MeasurementFieldVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FieldStatus___")]
+  public static extern global::System.IntPtr new_FieldStatus();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getName___")]
+  public static extern string FieldStatus_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getId___")]
+  public static extern int FieldStatus_getId(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getIndex___")]
+  public static extern uint FieldStatus_getIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getStats___")]
+  public static extern global::System.IntPtr FieldStatus_getStats(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getRadiation___")]
+  public static extern global::System.IntPtr FieldStatus_getRadiation(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getEmissivitySource___")]
+  public static extern int FieldStatus_getEmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getTransmissivitySource___")]
+  public static extern int FieldStatus_getTransmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatus_getAmbientTemperatureSource___")]
+  public static extern int FieldStatus_getAmbientTemperatureSource(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_FieldStatus___")]
+  public static extern void delete_FieldStatus(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FieldStatusMap__SWIG_0___")]
+  public static extern global::System.IntPtr new_FieldStatusMap__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FieldStatusMap__SWIG_1___")]
+  public static extern global::System.IntPtr new_FieldStatusMap__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_size___")]
+  public static extern uint FieldStatusMap_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_empty___")]
+  public static extern bool FieldStatusMap_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_Clear___")]
+  public static extern void FieldStatusMap_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_getitem___")]
+  public static extern global::System.IntPtr FieldStatusMap_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_setitem___")]
+  public static extern void FieldStatusMap_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_ContainsKey___")]
+  public static extern bool FieldStatusMap_ContainsKey(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_Add___")]
+  public static extern void FieldStatusMap_Add(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_Remove___")]
+  public static extern bool FieldStatusMap_Remove(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_create_iterator_begin___")]
+  public static extern global::System.IntPtr FieldStatusMap_create_iterator_begin(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_get_next_key___")]
+  public static extern int FieldStatusMap_get_next_key(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.IntPtr jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FieldStatusMap_destroy_iterator___")]
+  public static extern void FieldStatusMap_destroy_iterator(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.IntPtr jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_FieldStatusMap___")]
+  public static extern void delete_FieldStatusMap(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_name_set___")]
+  public static extern void AlarmChannelConfig_name_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_name_get___")]
+  public static extern string AlarmChannelConfig_name_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_input_set___")]
+  public static extern void AlarmChannelConfig_input_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_input_get___")]
+  public static extern int AlarmChannelConfig_input_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_fieldIndex_set___")]
+  public static extern void AlarmChannelConfig_fieldIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_fieldIndex_get___")]
+  public static extern int AlarmChannelConfig_fieldIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_fieldStat_set___")]
+  public static extern void AlarmChannelConfig_fieldStat_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_fieldStat_get___")]
+  public static extern int AlarmChannelConfig_fieldStat_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_uncommittedValuePifIndex_set___")]
+  public static extern void AlarmChannelConfig_uncommittedValuePifIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_uncommittedValuePifIndex_get___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_uncommittedValuePifIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_enabled_set___")]
+  public static extern void AlarmChannelConfig_enabled_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_enabled_get___")]
+  public static extern bool AlarmChannelConfig_enabled_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_preAlarmEnabled_set___")]
+  public static extern void AlarmChannelConfig_preAlarmEnabled_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_preAlarmEnabled_get___")]
+  public static extern bool AlarmChannelConfig_preAlarmEnabled_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_preAlarmRange_set___")]
+  public static extern void AlarmChannelConfig_preAlarmRange_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_preAlarmRange_get___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_preAlarmRange_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_alarmRange_set___")]
+  public static extern void AlarmChannelConfig_alarmRange_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_alarmRange_get___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_alarmRange_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_partOfComposite_set___")]
+  public static extern void AlarmChannelConfig_partOfComposite_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_partOfComposite_get___")]
+  public static extern bool AlarmChannelConfig_partOfComposite_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_pifAoIndices_set___")]
+  public static extern void AlarmChannelConfig_pifAoIndices_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_pifAoIndices_get___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_pifAoIndices_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_pifDoIndices_set___")]
+  public static extern void AlarmChannelConfig_pifDoIndices_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_pifDoIndices_get___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_pifDoIndices_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_createInternalTemperature___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_createInternalTemperature(string jarg1, float jarg2, float jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_createChipTemperature___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_createChipTemperature(string jarg1, float jarg2, float jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_createMeasurementField___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_createMeasurementField(string jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, int jarg3, float jarg4, float jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_createUncommittedValue___")]
+  public static extern global::System.IntPtr AlarmChannelConfig_createUncommittedValue(string jarg1, int jarg2, int jarg3, float jarg4, float jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfig_validate___")]
+  public static extern void AlarmChannelConfig_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelConfig___")]
+  public static extern global::System.IntPtr new_AlarmChannelConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmChannelConfig___")]
+  public static extern void delete_AlarmChannelConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelConfigVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_AlarmChannelConfigVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelConfigVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_AlarmChannelConfigVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_Clear___")]
+  public static extern void AlarmChannelConfigVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_Add___")]
+  public static extern void AlarmChannelConfigVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_size___")]
+  public static extern uint AlarmChannelConfigVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_empty___")]
+  public static extern bool AlarmChannelConfigVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_capacity___")]
+  public static extern uint AlarmChannelConfigVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_reserve___")]
+  public static extern void AlarmChannelConfigVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelConfigVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_AlarmChannelConfigVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_getitemcopy___")]
+  public static extern global::System.IntPtr AlarmChannelConfigVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_getitem___")]
+  public static extern global::System.IntPtr AlarmChannelConfigVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_setitem___")]
+  public static extern void AlarmChannelConfigVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_AddRange___")]
+  public static extern void AlarmChannelConfigVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_GetRange___")]
+  public static extern global::System.IntPtr AlarmChannelConfigVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_Insert___")]
+  public static extern void AlarmChannelConfigVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_InsertRange___")]
+  public static extern void AlarmChannelConfigVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_RemoveAt___")]
+  public static extern void AlarmChannelConfigVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_RemoveRange___")]
+  public static extern void AlarmChannelConfigVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_Repeat___")]
+  public static extern global::System.IntPtr AlarmChannelConfigVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_Reverse__SWIG_0___")]
+  public static extern void AlarmChannelConfigVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_Reverse__SWIG_1___")]
+  public static extern void AlarmChannelConfigVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelConfigVector_SetRange___")]
+  public static extern void AlarmChannelConfigVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmChannelConfigVector___")]
+  public static extern void delete_AlarmChannelConfigVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelStatus___")]
+  public static extern global::System.IntPtr new_AlarmChannelStatus();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatus_getId___")]
+  public static extern int AlarmChannelStatus_getId(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatus_getName___")]
+  public static extern string AlarmChannelStatus_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatus_getState___")]
+  public static extern int AlarmChannelStatus_getState(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatus_isActive___")]
+  public static extern bool AlarmChannelStatus_isActive(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatus_getValue___")]
+  public static extern float AlarmChannelStatus_getValue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatus_getAlarmRangeRelation___")]
+  public static extern int AlarmChannelStatus_getAlarmRangeRelation(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmChannelStatus___")]
+  public static extern void delete_AlarmChannelStatus(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelStatusVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_AlarmChannelStatusVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelStatusVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_AlarmChannelStatusVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_Clear___")]
+  public static extern void AlarmChannelStatusVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_Add___")]
+  public static extern void AlarmChannelStatusVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_size___")]
+  public static extern uint AlarmChannelStatusVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_empty___")]
+  public static extern bool AlarmChannelStatusVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_capacity___")]
+  public static extern uint AlarmChannelStatusVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_reserve___")]
+  public static extern void AlarmChannelStatusVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelStatusVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_AlarmChannelStatusVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_getitemcopy___")]
+  public static extern global::System.IntPtr AlarmChannelStatusVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_getitem___")]
+  public static extern global::System.IntPtr AlarmChannelStatusVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_setitem___")]
+  public static extern void AlarmChannelStatusVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_AddRange___")]
+  public static extern void AlarmChannelStatusVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_GetRange___")]
+  public static extern global::System.IntPtr AlarmChannelStatusVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_Insert___")]
+  public static extern void AlarmChannelStatusVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_InsertRange___")]
+  public static extern void AlarmChannelStatusVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_RemoveAt___")]
+  public static extern void AlarmChannelStatusVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_RemoveRange___")]
+  public static extern void AlarmChannelStatusVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_Repeat___")]
+  public static extern global::System.IntPtr AlarmChannelStatusVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_Reverse__SWIG_0___")]
+  public static extern void AlarmChannelStatusVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_Reverse__SWIG_1___")]
+  public static extern void AlarmChannelStatusVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelStatusVector_SetRange___")]
+  public static extern void AlarmChannelStatusVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmChannelStatusVector___")]
+  public static extern void delete_AlarmChannelStatusVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmsConfig_channels_set___")]
+  public static extern void AlarmsConfig_channels_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmsConfig_channels_get___")]
+  public static extern global::System.IntPtr AlarmsConfig_channels_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmsConfig_validate___")]
+  public static extern void AlarmsConfig_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmsConfig___")]
+  public static extern global::System.IntPtr new_AlarmsConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmsConfig___")]
+  public static extern void delete_AlarmsConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmChannel___")]
+  public static extern void delete_AlarmChannel(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannel_getId___")]
+  public static extern int AlarmChannel_getId(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannel_getName___")]
+  public static extern string AlarmChannel_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannel_getConfig___")]
+  public static extern global::System.IntPtr AlarmChannel_getConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_AlarmChannelVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_AlarmChannelVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_Clear___")]
+  public static extern void AlarmChannelVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_Add___")]
+  public static extern void AlarmChannelVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_size___")]
+  public static extern uint AlarmChannelVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_empty___")]
+  public static extern bool AlarmChannelVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_capacity___")]
+  public static extern uint AlarmChannelVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_reserve___")]
+  public static extern void AlarmChannelVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmChannelVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_AlarmChannelVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_getitemcopy___")]
+  public static extern global::System.IntPtr AlarmChannelVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_getitem___")]
+  public static extern global::System.IntPtr AlarmChannelVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_setitem___")]
+  public static extern void AlarmChannelVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_AddRange___")]
+  public static extern void AlarmChannelVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_GetRange___")]
+  public static extern global::System.IntPtr AlarmChannelVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_Insert___")]
+  public static extern void AlarmChannelVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_InsertRange___")]
+  public static extern void AlarmChannelVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_RemoveAt___")]
+  public static extern void AlarmChannelVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_RemoveRange___")]
+  public static extern void AlarmChannelVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_Repeat___")]
+  public static extern global::System.IntPtr AlarmChannelVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_Reverse__SWIG_0___")]
+  public static extern void AlarmChannelVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_Reverse__SWIG_1___")]
+  public static extern void AlarmChannelVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmChannelVector_SetRange___")]
+  public static extern void AlarmChannelVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmChannelVector___")]
+  public static extern void delete_AlarmChannelVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_CompositeAlarmStatus___")]
+  public static extern global::System.IntPtr new_CompositeAlarmStatus();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_CompositeAlarmStatus_isActive___")]
+  public static extern bool CompositeAlarmStatus_isActive(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_CompositeAlarmStatus_getActiveChannelStatuses___")]
+  public static extern global::System.IntPtr CompositeAlarmStatus_getActiveChannelStatuses(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_CompositeAlarmStatus_getActiveChannelCount___")]
+  public static extern int CompositeAlarmStatus_getActiveChannelCount(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_CompositeAlarmStatus_addChannelStatus___")]
+  public static extern void CompositeAlarmStatus_addChannelStatus(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_CompositeAlarmStatus___")]
+  public static extern void delete_CompositeAlarmStatus(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_index_set___")]
+  public static extern void PifAiConfig_index_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_index_get___")]
+  public static extern global::System.IntPtr PifAiConfig_index_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_mode_set___")]
   public static extern void PifAiConfig_mode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_mode_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_mode_get___")]
   public static extern int PifAiConfig_mode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_slope_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_slope_set___")]
   public static extern void PifAiConfig_slope_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_slope_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_slope_get___")]
   public static extern global::System.IntPtr PifAiConfig_slope_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_triggerThreshold_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_triggerThreshold_set___")]
   public static extern void PifAiConfig_triggerThreshold_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_triggerThreshold_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_triggerThreshold_get___")]
   public static extern float PifAiConfig_triggerThreshold_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_triggerLowActive_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_triggerLowActive_set___")]
   public static extern void PifAiConfig_triggerLowActive_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_triggerLowActive_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_triggerLowActive_get___")]
   public static extern bool PifAiConfig_triggerLowActive_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_uncommittedValueName_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_uncommittedValueName_set___")]
   public static extern void PifAiConfig_uncommittedValueName_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_uncommittedValueName_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_uncommittedValueName_get___")]
   public static extern string PifAiConfig_uncommittedValueName_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_uncommittedValueUnit_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_uncommittedValueUnit_set___")]
   public static extern void PifAiConfig_uncommittedValueUnit_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAiConfig_uncommittedValueUnit_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_uncommittedValueUnit_get___")]
   public static extern string PifAiConfig_uncommittedValueUnit_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifAiConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_createOff___")]
+  public static extern global::System.IntPtr PifAiConfig_createOff(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_createAmbientTemperature___")]
+  public static extern global::System.IntPtr PifAiConfig_createAmbientTemperature(int jarg1, int jarg2, float jarg3, float jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_createEmissivity___")]
+  public static extern global::System.IntPtr PifAiConfig_createEmissivity(int jarg1, int jarg2, float jarg3, float jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_createFlagControl___")]
+  public static extern global::System.IntPtr PifAiConfig_createFlagControl(int jarg1, int jarg2, float jarg3, bool jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAiConfig_createUncommittedValue___")]
+  public static extern global::System.IntPtr PifAiConfig_createUncommittedValue(int jarg1, int jarg2, string jarg3, string jarg4, float jarg5, float jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAiConfig___")]
+  public static extern global::System.IntPtr new_PifAiConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifAiConfig___")]
   public static extern void delete_PifAiConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDiConfig___")]
-  public static extern global::System.IntPtr new_PifDiConfig();
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_index_set___")]
+  public static extern void PifDiConfig_index_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_createOff___")]
-  public static extern global::System.IntPtr PifDiConfig_createOff(int jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_index_get___")]
+  public static extern global::System.IntPtr PifDiConfig_index_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_createFlagControl___")]
-  public static extern global::System.IntPtr PifDiConfig_createFlagControl(int jarg1, int jarg2, bool jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_deviceIndex_set___")]
-  public static extern void PifDiConfig_deviceIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_deviceIndex_get___")]
-  public static extern int PifDiConfig_deviceIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_pinIndex_set___")]
-  public static extern void PifDiConfig_pinIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_pinIndex_get___")]
-  public static extern int PifDiConfig_pinIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_mode_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_mode_set___")]
   public static extern void PifDiConfig_mode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_mode_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_mode_get___")]
   public static extern int PifDiConfig_mode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_triggerLowActive_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_triggerLowActive_set___")]
   public static extern void PifDiConfig_triggerLowActive_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDiConfig_triggerLowActive_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_triggerLowActive_get___")]
   public static extern bool PifDiConfig_triggerLowActive_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifDiConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_createOff___")]
+  public static extern global::System.IntPtr PifDiConfig_createOff(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDiConfig_createFlagControl___")]
+  public static extern global::System.IntPtr PifDiConfig_createFlagControl(int jarg1, int jarg2, bool jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDiConfig___")]
+  public static extern global::System.IntPtr new_PifDiConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifDiConfig___")]
   public static extern void delete_PifDiConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAoConfig___")]
-  public static extern global::System.IntPtr new_PifAoConfig();
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_index_set___")]
+  public static extern void PifAoConfig_index_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_createOff___")]
-  public static extern global::System.IntPtr PifAoConfig_createOff(int jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_index_get___")]
+  public static extern global::System.IntPtr PifAoConfig_index_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_createExternalCommunication___")]
-  public static extern global::System.IntPtr PifAoConfig_createExternalCommunication(int jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_createFlagStatus___")]
-  public static extern global::System.IntPtr PifAoConfig_createFlagStatus(int jarg1, int jarg2, int jarg3, float jarg4, float jarg5, float jarg6);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_createFrameSync___")]
-  public static extern global::System.IntPtr PifAoConfig_createFrameSync(int jarg1, int jarg2, int jarg3, float jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_createInternalTemperature___")]
-  public static extern global::System.IntPtr PifAoConfig_createInternalTemperature(int jarg1, int jarg2, int jarg3, float jarg4, float jarg5);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_createMeasurementField___")]
-  public static extern global::System.IntPtr PifAoConfig_createMeasurementField(int jarg1, int jarg2, int jarg3, int jarg4, float jarg5, float jarg6);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_createFailSafe___")]
-  public static extern global::System.IntPtr PifAoConfig_createFailSafe(int jarg1, int jarg2, int jarg3, float jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_deviceIndex_set___")]
-  public static extern void PifAoConfig_deviceIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_deviceIndex_get___")]
-  public static extern int PifAoConfig_deviceIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_pinIndex_set___")]
-  public static extern void PifAoConfig_pinIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_pinIndex_get___")]
-  public static extern int PifAoConfig_pinIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_mode_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_mode_set___")]
   public static extern void PifAoConfig_mode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_mode_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_mode_get___")]
   public static extern int PifAoConfig_mode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputMode_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputMode_set___")]
   public static extern void PifAoConfig_outputMode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputMode_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputMode_get___")]
   public static extern int PifAoConfig_outputMode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_slope_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_slope_set___")]
   public static extern void PifAoConfig_slope_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_slope_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_slope_get___")]
   public static extern global::System.IntPtr PifAoConfig_slope_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_fieldIndex_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_fieldIndex_set___")]
   public static extern void PifAoConfig_fieldIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_fieldIndex_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_fieldIndex_get___")]
   public static extern int PifAoConfig_fieldIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputActive_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_fieldStat_set___")]
+  public static extern void PifAoConfig_fieldStat_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_fieldStat_get___")]
+  public static extern int PifAoConfig_fieldStat_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputActive_set___")]
   public static extern void PifAoConfig_outputActive_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputActive_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputActive_get___")]
   public static extern float PifAoConfig_outputActive_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputIntermediate_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputIntermediate_set___")]
   public static extern void PifAoConfig_outputIntermediate_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputIntermediate_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputIntermediate_get___")]
   public static extern float PifAoConfig_outputIntermediate_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputInactive_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputInactive_set___")]
   public static extern void PifAoConfig_outputInactive_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAoConfig_outputInactive_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_outputInactive_get___")]
   public static extern float PifAoConfig_outputInactive_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifAoConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createOff___")]
+  public static extern global::System.IntPtr PifAoConfig_createOff(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createAlarm___")]
+  public static extern global::System.IntPtr PifAoConfig_createAlarm(int jarg1, int jarg2, int jarg3, float jarg4, float jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createExternalCommunication___")]
+  public static extern global::System.IntPtr PifAoConfig_createExternalCommunication(int jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createFlagStatus___")]
+  public static extern global::System.IntPtr PifAoConfig_createFlagStatus(int jarg1, int jarg2, int jarg3, float jarg4, float jarg5, float jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createFrameSync___")]
+  public static extern global::System.IntPtr PifAoConfig_createFrameSync(int jarg1, int jarg2, int jarg3, float jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createInternalTemperature___")]
+  public static extern global::System.IntPtr PifAoConfig_createInternalTemperature(int jarg1, int jarg2, int jarg3, float jarg4, float jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createMeasurementField___")]
+  public static extern global::System.IntPtr PifAoConfig_createMeasurementField(int jarg1, int jarg2, int jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, int jarg5, float jarg6, float jarg7);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAoConfig_createFailSafe___")]
+  public static extern global::System.IntPtr PifAoConfig_createFailSafe(int jarg1, int jarg2, int jarg3, float jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAoConfig___")]
+  public static extern global::System.IntPtr new_PifAoConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifAoConfig___")]
   public static extern void delete_PifAoConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDoConfig___")]
-  public static extern global::System.IntPtr new_PifDoConfig();
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_index_set___")]
+  public static extern void PifDoConfig_index_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_createOff___")]
-  public static extern global::System.IntPtr PifDoConfig_createOff(int jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_index_get___")]
+  public static extern global::System.IntPtr PifDoConfig_index_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_createFlagStatus___")]
-  public static extern global::System.IntPtr PifDoConfig_createFlagStatus(int jarg1, int jarg2, bool jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_createFrameSync___")]
-  public static extern global::System.IntPtr PifDoConfig_createFrameSync(int jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_createExternalCommunication___")]
-  public static extern global::System.IntPtr PifDoConfig_createExternalCommunication(int jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_createFailSafe___")]
-  public static extern global::System.IntPtr PifDoConfig_createFailSafe(int jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_deviceIndex_set___")]
-  public static extern void PifDoConfig_deviceIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_deviceIndex_get___")]
-  public static extern int PifDoConfig_deviceIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_pinIndex_set___")]
-  public static extern void PifDoConfig_pinIndex_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_pinIndex_get___")]
-  public static extern int PifDoConfig_pinIndex_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_mode_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_mode_set___")]
   public static extern void PifDoConfig_mode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_mode_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_mode_get___")]
   public static extern int PifDoConfig_mode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_outputLowActive_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_outputLowActive_set___")]
   public static extern void PifDoConfig_outputLowActive_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDoConfig_outputLowActive_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_outputLowActive_get___")]
   public static extern bool PifDoConfig_outputLowActive_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifDoConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_createOff___")]
+  public static extern global::System.IntPtr PifDoConfig_createOff(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_createAlarm___")]
+  public static extern global::System.IntPtr PifDoConfig_createAlarm(int jarg1, int jarg2, bool jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_createFlagStatus___")]
+  public static extern global::System.IntPtr PifDoConfig_createFlagStatus(int jarg1, int jarg2, bool jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_createFrameSync___")]
+  public static extern global::System.IntPtr PifDoConfig_createFrameSync(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_createExternalCommunication___")]
+  public static extern global::System.IntPtr PifDoConfig_createExternalCommunication(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDoConfig_createFailSafe___")]
+  public static extern global::System.IntPtr PifDoConfig_createFailSafe(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDoConfig___")]
+  public static extern global::System.IntPtr new_PifDoConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifDoConfig___")]
   public static extern void delete_PifDoConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifFsConfig___")]
-  public static extern global::System.IntPtr new_PifFsConfig();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifFsConfig_createOff___")]
-  public static extern global::System.IntPtr PifFsConfig_createOff();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifFsConfig_createOn___")]
-  public static extern global::System.IntPtr PifFsConfig_createOn();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifFsConfig_mode_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifFsConfig_mode_set___")]
   public static extern void PifFsConfig_mode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifFsConfig_mode_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifFsConfig_mode_get___")]
   public static extern int PifFsConfig_mode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifFsConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifFsConfig_createOff___")]
+  public static extern global::System.IntPtr PifFsConfig_createOff();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifFsConfig_createOn___")]
+  public static extern global::System.IntPtr PifFsConfig_createOn();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifFsConfig___")]
+  public static extern global::System.IntPtr new_PifFsConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifFsConfig___")]
   public static extern void delete_PifFsConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAnalogInputConfigVector__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAnalogInputConfigVector__SWIG_0___")]
   public static extern global::System.IntPtr new_PifAnalogInputConfigVector__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAnalogInputConfigVector__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAnalogInputConfigVector__SWIG_1___")]
   public static extern global::System.IntPtr new_PifAnalogInputConfigVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_Clear___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_Clear___")]
   public static extern void PifAnalogInputConfigVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_Add___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_Add___")]
   public static extern void PifAnalogInputConfigVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_size___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_size___")]
   public static extern uint PifAnalogInputConfigVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_empty___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_empty___")]
   public static extern bool PifAnalogInputConfigVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_capacity___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_capacity___")]
   public static extern uint PifAnalogInputConfigVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_reserve___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_reserve___")]
   public static extern void PifAnalogInputConfigVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAnalogInputConfigVector__SWIG_2___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAnalogInputConfigVector__SWIG_2___")]
   public static extern global::System.IntPtr new_PifAnalogInputConfigVector__SWIG_2(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_getitemcopy___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_getitemcopy___")]
   public static extern global::System.IntPtr PifAnalogInputConfigVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_getitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_getitem___")]
   public static extern global::System.IntPtr PifAnalogInputConfigVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_setitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_setitem___")]
   public static extern void PifAnalogInputConfigVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_AddRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_AddRange___")]
   public static extern void PifAnalogInputConfigVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_GetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_GetRange___")]
   public static extern global::System.IntPtr PifAnalogInputConfigVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_Insert___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_Insert___")]
   public static extern void PifAnalogInputConfigVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_InsertRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_InsertRange___")]
   public static extern void PifAnalogInputConfigVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_RemoveAt___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_RemoveAt___")]
   public static extern void PifAnalogInputConfigVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_RemoveRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_RemoveRange___")]
   public static extern void PifAnalogInputConfigVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_Repeat___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_Repeat___")]
   public static extern global::System.IntPtr PifAnalogInputConfigVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_Reverse__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_Reverse__SWIG_0___")]
   public static extern void PifAnalogInputConfigVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_Reverse__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_Reverse__SWIG_1___")]
   public static extern void PifAnalogInputConfigVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogInputConfigVector_SetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogInputConfigVector_SetRange___")]
   public static extern void PifAnalogInputConfigVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifAnalogInputConfigVector___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifAnalogInputConfigVector___")]
   public static extern void delete_PifAnalogInputConfigVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDigitalInputConfigVector__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDigitalInputConfigVector__SWIG_0___")]
   public static extern global::System.IntPtr new_PifDigitalInputConfigVector__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDigitalInputConfigVector__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDigitalInputConfigVector__SWIG_1___")]
   public static extern global::System.IntPtr new_PifDigitalInputConfigVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_Clear___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_Clear___")]
   public static extern void PifDigitalInputConfigVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_Add___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_Add___")]
   public static extern void PifDigitalInputConfigVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_size___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_size___")]
   public static extern uint PifDigitalInputConfigVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_empty___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_empty___")]
   public static extern bool PifDigitalInputConfigVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_capacity___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_capacity___")]
   public static extern uint PifDigitalInputConfigVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_reserve___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_reserve___")]
   public static extern void PifDigitalInputConfigVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDigitalInputConfigVector__SWIG_2___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDigitalInputConfigVector__SWIG_2___")]
   public static extern global::System.IntPtr new_PifDigitalInputConfigVector__SWIG_2(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_getitemcopy___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_getitemcopy___")]
   public static extern global::System.IntPtr PifDigitalInputConfigVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_getitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_getitem___")]
   public static extern global::System.IntPtr PifDigitalInputConfigVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_setitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_setitem___")]
   public static extern void PifDigitalInputConfigVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_AddRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_AddRange___")]
   public static extern void PifDigitalInputConfigVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_GetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_GetRange___")]
   public static extern global::System.IntPtr PifDigitalInputConfigVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_Insert___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_Insert___")]
   public static extern void PifDigitalInputConfigVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_InsertRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_InsertRange___")]
   public static extern void PifDigitalInputConfigVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_RemoveAt___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_RemoveAt___")]
   public static extern void PifDigitalInputConfigVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_RemoveRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_RemoveRange___")]
   public static extern void PifDigitalInputConfigVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_Repeat___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_Repeat___")]
   public static extern global::System.IntPtr PifDigitalInputConfigVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_Reverse__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_Reverse__SWIG_0___")]
   public static extern void PifDigitalInputConfigVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_Reverse__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_Reverse__SWIG_1___")]
   public static extern void PifDigitalInputConfigVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalInputConfigVector_SetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalInputConfigVector_SetRange___")]
   public static extern void PifDigitalInputConfigVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifDigitalInputConfigVector___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifDigitalInputConfigVector___")]
   public static extern void delete_PifDigitalInputConfigVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAnalogOutputConfigVector__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAnalogOutputConfigVector__SWIG_0___")]
   public static extern global::System.IntPtr new_PifAnalogOutputConfigVector__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAnalogOutputConfigVector__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAnalogOutputConfigVector__SWIG_1___")]
   public static extern global::System.IntPtr new_PifAnalogOutputConfigVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_Clear___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_Clear___")]
   public static extern void PifAnalogOutputConfigVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_Add___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_Add___")]
   public static extern void PifAnalogOutputConfigVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_size___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_size___")]
   public static extern uint PifAnalogOutputConfigVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_empty___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_empty___")]
   public static extern bool PifAnalogOutputConfigVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_capacity___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_capacity___")]
   public static extern uint PifAnalogOutputConfigVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_reserve___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_reserve___")]
   public static extern void PifAnalogOutputConfigVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifAnalogOutputConfigVector__SWIG_2___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifAnalogOutputConfigVector__SWIG_2___")]
   public static extern global::System.IntPtr new_PifAnalogOutputConfigVector__SWIG_2(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_getitemcopy___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_getitemcopy___")]
   public static extern global::System.IntPtr PifAnalogOutputConfigVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_getitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_getitem___")]
   public static extern global::System.IntPtr PifAnalogOutputConfigVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_setitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_setitem___")]
   public static extern void PifAnalogOutputConfigVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_AddRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_AddRange___")]
   public static extern void PifAnalogOutputConfigVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_GetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_GetRange___")]
   public static extern global::System.IntPtr PifAnalogOutputConfigVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_Insert___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_Insert___")]
   public static extern void PifAnalogOutputConfigVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_InsertRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_InsertRange___")]
   public static extern void PifAnalogOutputConfigVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_RemoveAt___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_RemoveAt___")]
   public static extern void PifAnalogOutputConfigVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_RemoveRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_RemoveRange___")]
   public static extern void PifAnalogOutputConfigVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_Repeat___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_Repeat___")]
   public static extern global::System.IntPtr PifAnalogOutputConfigVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_Reverse__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_Reverse__SWIG_0___")]
   public static extern void PifAnalogOutputConfigVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_Reverse__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_Reverse__SWIG_1___")]
   public static extern void PifAnalogOutputConfigVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifAnalogOutputConfigVector_SetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifAnalogOutputConfigVector_SetRange___")]
   public static extern void PifAnalogOutputConfigVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifAnalogOutputConfigVector___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifAnalogOutputConfigVector___")]
   public static extern void delete_PifAnalogOutputConfigVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDigitalOutputConfigVector__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDigitalOutputConfigVector__SWIG_0___")]
   public static extern global::System.IntPtr new_PifDigitalOutputConfigVector__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDigitalOutputConfigVector__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDigitalOutputConfigVector__SWIG_1___")]
   public static extern global::System.IntPtr new_PifDigitalOutputConfigVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_Clear___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_Clear___")]
   public static extern void PifDigitalOutputConfigVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_Add___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_Add___")]
   public static extern void PifDigitalOutputConfigVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_size___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_size___")]
   public static extern uint PifDigitalOutputConfigVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_empty___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_empty___")]
   public static extern bool PifDigitalOutputConfigVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_capacity___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_capacity___")]
   public static extern uint PifDigitalOutputConfigVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_reserve___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_reserve___")]
   public static extern void PifDigitalOutputConfigVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifDigitalOutputConfigVector__SWIG_2___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifDigitalOutputConfigVector__SWIG_2___")]
   public static extern global::System.IntPtr new_PifDigitalOutputConfigVector__SWIG_2(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_getitemcopy___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_getitemcopy___")]
   public static extern global::System.IntPtr PifDigitalOutputConfigVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_getitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_getitem___")]
   public static extern global::System.IntPtr PifDigitalOutputConfigVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_setitem___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_setitem___")]
   public static extern void PifDigitalOutputConfigVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_AddRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_AddRange___")]
   public static extern void PifDigitalOutputConfigVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_GetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_GetRange___")]
   public static extern global::System.IntPtr PifDigitalOutputConfigVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_Insert___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_Insert___")]
   public static extern void PifDigitalOutputConfigVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_InsertRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_InsertRange___")]
   public static extern void PifDigitalOutputConfigVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_RemoveAt___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_RemoveAt___")]
   public static extern void PifDigitalOutputConfigVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_RemoveRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_RemoveRange___")]
   public static extern void PifDigitalOutputConfigVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_Repeat___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_Repeat___")]
   public static extern global::System.IntPtr PifDigitalOutputConfigVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_Reverse__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_Reverse__SWIG_0___")]
   public static extern void PifDigitalOutputConfigVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_Reverse__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_Reverse__SWIG_1___")]
   public static extern void PifDigitalOutputConfigVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifDigitalOutputConfigVector_SetRange___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifDigitalOutputConfigVector_SetRange___")]
   public static extern void PifDigitalOutputConfigVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifDigitalOutputConfigVector___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifDigitalOutputConfigVector___")]
   public static extern void delete_PifDigitalOutputConfigVector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_PifConfig___")]
-  public static extern global::System.IntPtr new_PifConfig();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_deviceType_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_deviceType_set___")]
   public static extern void PifConfig_deviceType_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_deviceType_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_deviceType_get___")]
   public static extern int PifConfig_deviceType_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_deviceCount_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_deviceCount_set___")]
   public static extern void PifConfig_deviceCount_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_deviceCount_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_deviceCount_get___")]
   public static extern int PifConfig_deviceCount_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_analogInputs_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_analogInputs_set___")]
   public static extern void PifConfig_analogInputs_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_analogInputs_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_analogInputs_get___")]
   public static extern global::System.IntPtr PifConfig_analogInputs_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_digitalInputs_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_digitalInputs_set___")]
   public static extern void PifConfig_digitalInputs_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_digitalInputs_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_digitalInputs_get___")]
   public static extern global::System.IntPtr PifConfig_digitalInputs_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_analogOutputs_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_analogOutputs_set___")]
   public static extern void PifConfig_analogOutputs_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_analogOutputs_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_analogOutputs_get___")]
   public static extern global::System.IntPtr PifConfig_analogOutputs_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_digitalOutputs_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_digitalOutputs_set___")]
   public static extern void PifConfig_digitalOutputs_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_digitalOutputs_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_digitalOutputs_get___")]
   public static extern global::System.IntPtr PifConfig_digitalOutputs_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_failSafe_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_failSafe_set___")]
   public static extern void PifConfig_failSafe_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_PifConfig_failSafe_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_PifConfig_failSafe_get___")]
   public static extern global::System.IntPtr PifConfig_failSafe_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_PifConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_PifConfig___")]
+  public static extern global::System.IntPtr new_PifConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_PifConfig___")]
   public static extern void delete_PifConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Sdk_init__SWIG_0___")]
-  public static extern void Sdk_init__SWIG_0(int jarg1, int jarg2, string jarg3);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_UncommittedValueStatus___")]
+  public static extern global::System.IntPtr new_UncommittedValueStatus();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Sdk_init__SWIG_1___")]
-  public static extern void Sdk_init__SWIG_1(int jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_UncommittedValueStatus_getPifIndex___")]
+  public static extern global::System.IntPtr UncommittedValueStatus_getPifIndex(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Sdk_configureLogger__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_UncommittedValueStatus_getName___")]
+  public static extern string UncommittedValueStatus_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_UncommittedValueStatus_getUnit___")]
+  public static extern string UncommittedValueStatus_getUnit(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_UncommittedValueStatus_getValue___")]
+  public static extern float UncommittedValueStatus_getValue(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_UncommittedValueStatus___")]
+  public static extern void delete_UncommittedValueStatus(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmEvent_status_set___")]
+  public static extern void AlarmEvent_status_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmEvent_status_get___")]
+  public static extern global::System.IntPtr AlarmEvent_status_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_AlarmEvent_clone___")]
+  public static extern global::System.IntPtr AlarmEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_AlarmEvent___")]
+  public static extern global::System.IntPtr new_AlarmEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_AlarmEvent___")]
+  public static extern void delete_AlarmEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_CompositeAlarmEvent_status_set___")]
+  public static extern void CompositeAlarmEvent_status_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_CompositeAlarmEvent_status_get___")]
+  public static extern global::System.IntPtr CompositeAlarmEvent_status_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_CompositeAlarmEvent_clone___")]
+  public static extern global::System.IntPtr CompositeAlarmEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_CompositeAlarmEvent___")]
+  public static extern global::System.IntPtr new_CompositeAlarmEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_CompositeAlarmEvent___")]
+  public static extern void delete_CompositeAlarmEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_state_set___")]
+  public static extern void ConnectionEvent_state_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_state_get___")]
+  public static extern int ConnectionEvent_state_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_msg_set___")]
+  public static extern void ConnectionEvent_msg_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_msg_get___")]
+  public static extern string ConnectionEvent_msg_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_accessInternet_set___")]
+  public static extern void ConnectionEvent_accessInternet_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_accessInternet_get___")]
+  public static extern bool ConnectionEvent_accessInternet_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_sourceDirectory_set___")]
+  public static extern void ConnectionEvent_sourceDirectory_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_sourceDirectory_get___")]
+  public static extern string ConnectionEvent_sourceDirectory_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ConnectionEvent_clone___")]
+  public static extern global::System.IntPtr ConnectionEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_ConnectionEvent___")]
+  public static extern global::System.IntPtr new_ConnectionEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_ConnectionEvent___")]
+  public static extern void delete_ConnectionEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameEvent_meta_set___")]
+  public static extern void FrameEvent_meta_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameEvent_meta_get___")]
+  public static extern global::System.IntPtr FrameEvent_meta_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameEvent_thermalFrame_set___")]
+  public static extern void FrameEvent_thermalFrame_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameEvent_thermalFrame_get___")]
+  public static extern global::System.IntPtr FrameEvent_thermalFrame_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameEvent_fields_set___")]
+  public static extern void FrameEvent_fields_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameEvent_fields_get___")]
+  public static extern global::System.IntPtr FrameEvent_fields_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FrameEvent_clone___")]
+  public static extern global::System.IntPtr FrameEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FrameEvent___")]
+  public static extern global::System.IntPtr new_FrameEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_FrameEvent___")]
+  public static extern void delete_FrameEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoEvent_infos_set___")]
+  public static extern void OperationInfoEvent_infos_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoEvent_infos_get___")]
+  public static extern global::System.IntPtr OperationInfoEvent_infos_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_OperationInfoEvent_clone___")]
+  public static extern global::System.IntPtr OperationInfoEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_OperationInfoEvent___")]
+  public static extern global::System.IntPtr new_OperationInfoEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_OperationInfoEvent___")]
+  public static extern void delete_OperationInfoEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RawFrameEvent_meta_set___")]
+  public static extern void RawFrameEvent_meta_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RawFrameEvent_meta_get___")]
+  public static extern global::System.IntPtr RawFrameEvent_meta_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RawFrameEvent_rawFrame_set___")]
+  public static extern void RawFrameEvent_rawFrame_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RawFrameEvent_rawFrame_get___")]
+  public static extern global::System.IntPtr RawFrameEvent_rawFrame_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RawFrameEvent_clone___")]
+  public static extern global::System.IntPtr RawFrameEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RawFrameEvent___")]
+  public static extern global::System.IntPtr new_RawFrameEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_RawFrameEvent___")]
+  public static extern void delete_RawFrameEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_UncommittedValueEvent_status_set___")]
+  public static extern void UncommittedValueEvent_status_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_UncommittedValueEvent_status_get___")]
+  public static extern global::System.IntPtr UncommittedValueEvent_status_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_UncommittedValueEvent_clone___")]
+  public static extern global::System.IntPtr UncommittedValueEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_UncommittedValueEvent___")]
+  public static extern global::System.IntPtr new_UncommittedValueEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_UncommittedValueEvent___")]
+  public static extern void delete_UncommittedValueEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_width_set___")]
+  public static extern void VideoFormatEvent_width_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_width_get___")]
+  public static extern int VideoFormatEvent_width_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_height_set___")]
+  public static extern void VideoFormatEvent_height_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_height_get___")]
+  public static extern int VideoFormatEvent_height_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_framerate_set___")]
+  public static extern void VideoFormatEvent_framerate_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_framerate_get___")]
+  public static extern float VideoFormatEvent_framerate_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_bitsPerPixel_set___")]
+  public static extern void VideoFormatEvent_bitsPerPixel_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_bitsPerPixel_get___")]
+  public static extern int VideoFormatEvent_bitsPerPixel_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_VideoFormatEvent_clone___")]
+  public static extern global::System.IntPtr VideoFormatEvent_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_VideoFormatEvent___")]
+  public static extern global::System.IntPtr new_VideoFormatEvent();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_VideoFormatEvent___")]
+  public static extern void delete_VideoFormatEvent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RgbColor__SWIG_0___")]
+  public static extern global::System.IntPtr new_RgbColor__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RgbColor__SWIG_1___")]
+  public static extern global::System.IntPtr new_RgbColor__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_size___")]
+  public static extern uint RgbColor_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_empty___")]
+  public static extern bool RgbColor_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_Fill___")]
+  public static extern void RgbColor_Fill(global::System.Runtime.InteropServices.HandleRef jarg1, byte jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_Swap___")]
+  public static extern void RgbColor_Swap(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_getitemcopy___")]
+  public static extern byte RgbColor_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_getitem___")]
+  public static extern byte RgbColor_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_setitem___")]
+  public static extern void RgbColor_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, byte jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_Reverse__SWIG_0___")]
+  public static extern void RgbColor_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColor_Reverse__SWIG_1___")]
+  public static extern void RgbColor_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_RgbColor___")]
+  public static extern void delete_RgbColor(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RgbColorVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_RgbColorVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RgbColorVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_RgbColorVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_Clear___")]
+  public static extern void RgbColorVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_Add___")]
+  public static extern void RgbColorVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_size___")]
+  public static extern uint RgbColorVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_empty___")]
+  public static extern bool RgbColorVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_capacity___")]
+  public static extern uint RgbColorVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_reserve___")]
+  public static extern void RgbColorVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_RgbColorVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_RgbColorVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_getitemcopy___")]
+  public static extern global::System.IntPtr RgbColorVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_getitem___")]
+  public static extern global::System.IntPtr RgbColorVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_setitem___")]
+  public static extern void RgbColorVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_AddRange___")]
+  public static extern void RgbColorVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_GetRange___")]
+  public static extern global::System.IntPtr RgbColorVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_Insert___")]
+  public static extern void RgbColorVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_InsertRange___")]
+  public static extern void RgbColorVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_RemoveAt___")]
+  public static extern void RgbColorVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_RemoveRange___")]
+  public static extern void RgbColorVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_Repeat___")]
+  public static extern global::System.IntPtr RgbColorVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_Reverse__SWIG_0___")]
+  public static extern void RgbColorVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_Reverse__SWIG_1___")]
+  public static extern void RgbColorVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_RgbColorVector_SetRange___")]
+  public static extern void RgbColorVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_RgbColorVector___")]
+  public static extern void delete_RgbColorVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_init__SWIG_0___")]
+  public static extern void Sdk_init__SWIG_0(int jarg1, int jarg2, string jarg3, string jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_init__SWIG_1___")]
+  public static extern void Sdk_init__SWIG_1(int jarg1, int jarg2, string jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_init__SWIG_2___")]
+  public static extern void Sdk_init__SWIG_2(int jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_configureLogger__SWIG_0___")]
   public static extern void Sdk_configureLogger__SWIG_0(int jarg1, int jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Sdk_configureLogger__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_configureLogger__SWIG_1___")]
   public static extern void Sdk_configureLogger__SWIG_1(int jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Sdk_setCalibrationFileSources___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_setCustomDataDirectory___")]
+  public static extern void Sdk_setCustomDataDirectory(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_clearCustomDataDirectory___")]
+  public static extern void Sdk_clearCustomDataDirectory();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_setCalibrationFileSources___")]
   public static extern bool Sdk_setCalibrationFileSources(int jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Sdk_setCalibrationFileSourceDirectory___")]
-  public static extern bool Sdk_setCalibrationFileSourceDirectory(string jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_setCalibrationFileSourceDirectory___")]
+  public static extern void Sdk_setCalibrationFileSourceDirectory(string jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_Sdk_getVersionInfo___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_clearCalibrationFileSourceDirectory___")]
+  public static extern void Sdk_clearCalibrationFileSourceDirectory();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_getVersionInfo___")]
   public static extern global::System.IntPtr Sdk_getVersionInfo();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_Sdk___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_loadPalettes__SWIG_0___")]
+  public static extern void Sdk_loadPalettes__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_loadPalettes__SWIG_1___")]
+  public static extern void Sdk_loadPalettes__SWIG_1(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_getPaletteNames___")]
+  public static extern global::System.IntPtr Sdk_getPaletteNames();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_getPaletteColors___")]
+  public static extern global::System.IntPtr Sdk_getPaletteColors(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_registerPalette___")]
+  public static extern void Sdk_registerPalette(string jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_Sdk_savePalette___")]
+  public static extern void Sdk_savePalette(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_Sdk___")]
   public static extern void delete_Sdk(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_IRImagerClient__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_IRImagerClient__SWIG_0___")]
   public static extern global::System.IntPtr new_IRImagerClient__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_IRImagerClient__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_IRImagerClient__SWIG_1___")]
   public static extern global::System.IntPtr new_IRImagerClient__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_IRImagerClient___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_IRImagerClient___")]
   public static extern void delete_IRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onThermalFrame___")]
-  public static extern void IRImagerClient_onThermalFrame(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onConnection___")]
+  public static extern void IRImagerClient_onConnection(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onThermalFrameSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onThermalFrameSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onConnectionSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onConnectionSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onThermalFrameEvent___")]
-  public static extern void IRImagerClient_onThermalFrameEvent(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onFrame___")]
+  public static extern void IRImagerClient_onFrame(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onThermalFrameEventSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onThermalFrameEventSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onFrameSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onFrameSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onFlagStateChange___")]
-  public static extern void IRImagerClient_onFlagStateChange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onRawFrame___")]
+  public static extern void IRImagerClient_onRawFrame(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onFlagStateChangeSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onFlagStateChangeSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onRawFrameSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onRawFrameSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onMeasurementField___")]
-  public static extern void IRImagerClient_onMeasurementField(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onVideoFormatChanged___")]
+  public static extern void IRImagerClient_onVideoFormatChanged(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onMeasurementFieldSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onMeasurementFieldSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onVideoFormatChangedSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onVideoFormatChangedSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onPifUncommittedValue___")]
-  public static extern void IRImagerClient_onPifUncommittedValue(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, string jarg3, float jarg4);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onCompositeAlarm___")]
+  public static extern void IRImagerClient_onCompositeAlarm(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onPifUncommittedValueSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onPifUncommittedValueSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, string jarg3, float jarg4);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onCompositeAlarmSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onCompositeAlarmSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onVideoFormatChanged___")]
-  public static extern void IRImagerClient_onVideoFormatChanged(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, float jarg4, int jarg5);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onAlarm___")]
+  public static extern void IRImagerClient_onAlarm(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onVideoFormatChangedSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onVideoFormatChangedSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, float jarg4, int jarg5);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onAlarmSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onAlarmSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onConnectionLost___")]
-  public static extern void IRImagerClient_onConnectionLost(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onPifUncommittedValue___")]
+  public static extern void IRImagerClient_onPifUncommittedValue(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onConnectionLostSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onConnectionLostSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onPifUncommittedValueSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onPifUncommittedValueSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onConnectionTimeout___")]
-  public static extern void IRImagerClient_onConnectionTimeout(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onOperationInfo___")]
+  public static extern void IRImagerClient_onOperationInfo(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onConnectionTimeoutSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onConnectionTimeoutSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_onOperationInfoSwigExplicitIRImagerClient___")]
+  public static extern void IRImagerClient_onOperationInfoSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onProcessExit___")]
-  public static extern void IRImagerClient_onProcessExit(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerClient_director_connect___")]
+  public static extern void IRImagerClient_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, IRImagerClient.SwigDelegateIRImagerClient_0 delegate0, IRImagerClient.SwigDelegateIRImagerClient_1 delegate1, IRImagerClient.SwigDelegateIRImagerClient_2 delegate2, IRImagerClient.SwigDelegateIRImagerClient_3 delegate3, IRImagerClient.SwigDelegateIRImagerClient_4 delegate4, IRImagerClient.SwigDelegateIRImagerClient_5 delegate5, IRImagerClient.SwigDelegateIRImagerClient_6 delegate6, IRImagerClient.SwigDelegateIRImagerClient_7 delegate7);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_onProcessExitSwigExplicitIRImagerClient___")]
-  public static extern void IRImagerClient_onProcessExitSwigExplicitIRImagerClient(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_CURRENT_VERSION_get___")]
+  public static extern int IRImagerConfig_CURRENT_VERSION_get();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerClient_director_connect___")]
-  public static extern void IRImagerClient_director_connect(global::System.Runtime.InteropServices.HandleRef jarg1, IRImagerClient.SwigDelegateIRImagerClient_0 delegate0, IRImagerClient.SwigDelegateIRImagerClient_1 delegate1, IRImagerClient.SwigDelegateIRImagerClient_2 delegate2, IRImagerClient.SwigDelegateIRImagerClient_3 delegate3, IRImagerClient.SwigDelegateIRImagerClient_4 delegate4, IRImagerClient.SwigDelegateIRImagerClient_5 delegate5, IRImagerClient.SwigDelegateIRImagerClient_6 delegate6, IRImagerClient.SwigDelegateIRImagerClient_7 delegate7, IRImagerClient.SwigDelegateIRImagerClient_8 delegate8);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_IRImagerConfig___")]
-  public static extern global::System.IntPtr new_IRImagerConfig();
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_validate___")]
-  public static extern void IRImagerConfig_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_version_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_version_set___")]
   public static extern void IRImagerConfig_version_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_version_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_version_get___")]
   public static extern int IRImagerConfig_version_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_serialNumber_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_serialNumber_set___")]
   public static extern void IRImagerConfig_serialNumber_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_serialNumber_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_serialNumber_get___")]
   public static extern uint IRImagerConfig_serialNumber_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_connectionInterface_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_connectionInterface_set___")]
   public static extern void IRImagerConfig_connectionInterface_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_connectionInterface_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_connectionInterface_get___")]
   public static extern string IRImagerConfig_connectionInterface_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_ipAddress_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_ipAddress_set___")]
   public static extern void IRImagerConfig_ipAddress_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_ipAddress_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_ipAddress_get___")]
   public static extern global::System.IntPtr IRImagerConfig_ipAddress_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_port_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_port_set___")]
   public static extern void IRImagerConfig_port_set(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_port_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_port_get___")]
   public static extern ushort IRImagerConfig_port_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_checkIp_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_checkIp_set___")]
   public static extern void IRImagerConfig_checkIp_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_checkIp_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_checkIp_get___")]
   public static extern bool IRImagerConfig_checkIp_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_connectionTimeout_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_connectionTimeout_set___")]
   public static extern void IRImagerConfig_connectionTimeout_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_connectionTimeout_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_connectionTimeout_get___")]
   public static extern int IRImagerConfig_connectionTimeout_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_bufferQueueSize_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_bufferQueueSize_set___")]
   public static extern void IRImagerConfig_bufferQueueSize_set(global::System.Runtime.InteropServices.HandleRef jarg1, ushort jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_bufferQueueSize_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_bufferQueueSize_get___")]
   public static extern ushort IRImagerConfig_bufferQueueSize_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_width_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_processingOutputs_set___")]
+  public static extern void IRImagerConfig_processingOutputs_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_processingOutputs_get___")]
+  public static extern global::System.IntPtr IRImagerConfig_processingOutputs_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_processingMaxResultPoolSize_set___")]
+  public static extern void IRImagerConfig_processingMaxResultPoolSize_set(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_processingMaxResultPoolSize_get___")]
+  public static extern uint IRImagerConfig_processingMaxResultPoolSize_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_width_set___")]
   public static extern void IRImagerConfig_width_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_width_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_width_get___")]
   public static extern int IRImagerConfig_width_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_height_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_height_set___")]
   public static extern void IRImagerConfig_height_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_height_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_height_get___")]
   public static extern int IRImagerConfig_height_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_framerate_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_framerate_set___")]
   public static extern void IRImagerConfig_framerate_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_framerate_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_framerate_get___")]
   public static extern int IRImagerConfig_framerate_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_subsampledFramerate_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_subsampledFramerate_set___")]
   public static extern void IRImagerConfig_subsampledFramerate_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_subsampledFramerate_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_subsampledFramerate_get___")]
   public static extern float IRImagerConfig_subsampledFramerate_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_fieldOfView_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_fieldOfView_set___")]
   public static extern void IRImagerConfig_fieldOfView_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_fieldOfView_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_fieldOfView_get___")]
   public static extern int IRImagerConfig_fieldOfView_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_opticsText_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_opticsText_set___")]
   public static extern void IRImagerConfig_opticsText_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_opticsText_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_opticsText_get___")]
   public static extern string IRImagerConfig_opticsText_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableSoSCorrection_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableSoSCorrection_set___")]
   public static extern void IRImagerConfig_enableSoSCorrection_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableSoSCorrection_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableSoSCorrection_get___")]
   public static extern bool IRImagerConfig_enableSoSCorrection_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_minTemperature_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_rdcMode_set___")]
+  public static extern void IRImagerConfig_rdcMode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_rdcMode_get___")]
+  public static extern int IRImagerConfig_rdcMode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_minTemperature_set___")]
   public static extern void IRImagerConfig_minTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_minTemperature_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_minTemperature_get___")]
   public static extern int IRImagerConfig_minTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_maxTemperature_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_maxTemperature_set___")]
   public static extern void IRImagerConfig_maxTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_maxTemperature_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_maxTemperature_get___")]
   public static extern int IRImagerConfig_maxTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableExtendedTemperatureRange_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableExtendedTemperatureRange_set___")]
   public static extern void IRImagerConfig_enableExtendedTemperatureRange_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableExtendedTemperatureRange_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableExtendedTemperatureRange_get___")]
   public static extern bool IRImagerConfig_enableExtendedTemperatureRange_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableHighPrecisionTemperature_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableHighPrecisionTemperature_set___")]
   public static extern void IRImagerConfig_enableHighPrecisionTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableHighPrecisionTemperature_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableHighPrecisionTemperature_get___")]
   public static extern bool IRImagerConfig_enableHighPrecisionTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_autoFlag_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_autoFlag_set___")]
   public static extern void IRImagerConfig_autoFlag_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_autoFlag_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_autoFlag_get___")]
   public static extern bool IRImagerConfig_autoFlag_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_minInterval_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_minInterval_set___")]
   public static extern void IRImagerConfig_minInterval_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_minInterval_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_minInterval_get___")]
   public static extern float IRImagerConfig_minInterval_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_maxInterval_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_maxInterval_set___")]
   public static extern void IRImagerConfig_maxInterval_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_maxInterval_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_maxInterval_get___")]
   public static extern float IRImagerConfig_maxInterval_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_chipHeatingMode_set___")]
-  public static extern void IRImagerConfig_chipHeatingMode_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_chipHeatingMode_set___")]
+  public static extern void IRImagerConfig_chipHeatingMode_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_chipHeatingMode_get___")]
-  public static extern string IRImagerConfig_chipHeatingMode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_chipHeatingMode_get___")]
+  public static extern int IRImagerConfig_chipHeatingMode_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_chipHeatingTemperature_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_chipHeatingTemperature_set___")]
   public static extern void IRImagerConfig_chipHeatingTemperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_chipHeatingTemperature_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_chipHeatingTemperature_get___")]
   public static extern float IRImagerConfig_chipHeatingTemperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_focusMotorPosition_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_focusMotorPosition_set___")]
   public static extern void IRImagerConfig_focusMotorPosition_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_focusMotorPosition_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_focusMotorPosition_get___")]
   public static extern float IRImagerConfig_focusMotorPosition_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_radiation_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_radiation_set___")]
   public static extern void IRImagerConfig_radiation_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_radiation_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_radiation_get___")]
   public static extern global::System.IntPtr IRImagerConfig_radiation_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableMultiThreading_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableMultiThreading_set___")]
   public static extern void IRImagerConfig_enableMultiThreading_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_enableMultiThreading_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_enableMultiThreading_get___")]
   public static extern bool IRImagerConfig_enableMultiThreading_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_failSafeFlagTimeouts_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_failSafeFlagTimeouts_set___")]
   public static extern void IRImagerConfig_failSafeFlagTimeouts_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_failSafeFlagTimeouts_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_failSafeFlagTimeouts_get___")]
   public static extern bool IRImagerConfig_failSafeFlagTimeouts_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_failSafeFlagTimeoutsMaxCycleFailures_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_failSafeFlagTimeoutsMaxCycleFailures_set___")]
   public static extern void IRImagerConfig_failSafeFlagTimeoutsMaxCycleFailures_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_failSafeFlagTimeoutsMaxCycleFailures_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_failSafeFlagTimeoutsMaxCycleFailures_get___")]
   public static extern int IRImagerConfig_failSafeFlagTimeoutsMaxCycleFailures_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_failSafeProcessingChainTimeouts_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_failSafeProcessingChainTimeouts_set___")]
   public static extern void IRImagerConfig_failSafeProcessingChainTimeouts_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_failSafeProcessingChainTimeouts_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_failSafeProcessingChainTimeouts_get___")]
   public static extern bool IRImagerConfig_failSafeProcessingChainTimeouts_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_measurementFields_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_alarms_set___")]
+  public static extern void IRImagerConfig_alarms_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_alarms_get___")]
+  public static extern global::System.IntPtr IRImagerConfig_alarms_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_measurementFields_set___")]
   public static extern void IRImagerConfig_measurementFields_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_measurementFields_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_measurementFields_get___")]
   public static extern global::System.IntPtr IRImagerConfig_measurementFields_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_processInterface_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_processInterface_set___")]
   public static extern void IRImagerConfig_processInterface_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfig_processInterface_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_processInterface_get___")]
   public static extern global::System.IntPtr IRImagerConfig_processInterface_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_IRImagerConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfig_validate___")]
+  public static extern void IRImagerConfig_validate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_IRImagerConfig___")]
+  public static extern global::System.IntPtr new_IRImagerConfig();
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_IRImagerConfig___")]
   public static extern void delete_IRImagerConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerConfigReader_read___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerConfigReader_read___")]
   public static extern global::System.IntPtr IRImagerConfigReader_read(string jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_IRImagerConfigReader___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_IRImagerConfigReader___")]
   public static extern void delete_IRImagerConfigReader(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ProcessInterface___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_ProcessInterface___")]
   public static extern void delete_ProcessInterface(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDeviceType___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDeviceType___")]
   public static extern int ProcessInterface_getDeviceType(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getActualDeviceCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getSupportedDeviceTypes___")]
+  public static extern global::System.IntPtr ProcessInterface_getSupportedDeviceTypes(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getActualDeviceCount___")]
   public static extern int ProcessInterface_getActualDeviceCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getConfigurableDeviceCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getConfigurableDeviceCount___")]
   public static extern int ProcessInterface_getConfigurableDeviceCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_isActualConnected___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_isActualConnected___")]
   public static extern bool ProcessInterface_isActualConnected(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDeviceSerialNumber___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDeviceSerialNumber___")]
   public static extern uint ProcessInterface_getDeviceSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDeviceFirmwareRevision___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDeviceFirmwareRevision___")]
   public static extern ushort ProcessInterface_getDeviceFirmwareRevision(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setConfig___")]
   public static extern void ProcessInterface_setConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getConfig___")]
   public static extern global::System.IntPtr ProcessInterface_getConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getActualAiCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getActualAiCount___")]
   public static extern int ProcessInterface_getActualAiCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getConfigurableAiCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getConfigurableAiCount___")]
   public static extern int ProcessInterface_getConfigurableAiCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getAiCountPerDevice___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getAiCountPerDevice___")]
   public static extern int ProcessInterface_getAiCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setAiConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setAiConfig___")]
   public static extern void ProcessInterface_setAiConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getAiConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getAiConfig___")]
   public static extern global::System.IntPtr ProcessInterface_getAiConfig(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getActualDiCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getActualDiCount___")]
   public static extern int ProcessInterface_getActualDiCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getConfigurableDiCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getConfigurableDiCount___")]
   public static extern int ProcessInterface_getConfigurableDiCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDiCountPerDevice___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDiCountPerDevice___")]
   public static extern int ProcessInterface_getDiCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setDiConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setDiConfig___")]
   public static extern void ProcessInterface_setDiConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDiConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDiConfig___")]
   public static extern global::System.IntPtr ProcessInterface_getDiConfig(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getActualAoCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getActualAoCount___")]
   public static extern int ProcessInterface_getActualAoCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getConfigurableAoCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getConfigurableAoCount___")]
   public static extern int ProcessInterface_getConfigurableAoCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getAoCountPerDevice___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getAoCountPerDevice___")]
   public static extern int ProcessInterface_getAoCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDefaultAoOutputMode___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDefaultAoOutputMode___")]
   public static extern int ProcessInterface_getDefaultAoOutputMode(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setAoConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setAoConfig___")]
   public static extern void ProcessInterface_setAoConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getAoConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getAoConfig___")]
   public static extern global::System.IntPtr ProcessInterface_getAoConfig(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setAoValue___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setAoValue___")]
   public static extern void ProcessInterface_setAoValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, float jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getActualDoCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getActualDoCount___")]
   public static extern int ProcessInterface_getActualDoCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getConfigurableDoCount___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getConfigurableDoCount___")]
   public static extern int ProcessInterface_getConfigurableDoCount(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDoCountPerDevice___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDoCountPerDevice___")]
   public static extern int ProcessInterface_getDoCountPerDevice(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setDoConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setDoConfig___")]
   public static extern void ProcessInterface_setDoConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getDoConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getDoConfig___")]
   public static extern global::System.IntPtr ProcessInterface_getDoConfig(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setDoValue___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setDoValue___")]
   public static extern void ProcessInterface_setDoValue(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, bool jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_hasFs___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_hasFs___")]
   public static extern bool ProcessInterface_hasFs(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_setFsConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_setFsConfig___")]
   public static extern void ProcessInterface_setFsConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ProcessInterface_getFsConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ProcessInterface_getFsConfig___")]
   public static extern global::System.IntPtr ProcessInterface_getFsConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_IRImager___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_IRImager___")]
   public static extern void delete_IRImager(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_connect__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_connect__SWIG_0___")]
   public static extern void IRImager_connect__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_connect__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_connect__SWIG_1___")]
   public static extern void IRImager_connect__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_connect__SWIG_2___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_connect__SWIG_2___")]
   public static extern void IRImager_connect__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_disconnect___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_disconnect___")]
   public static extern void IRImager_disconnect(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isConnected___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isConnected___")]
   public static extern bool IRImager_isConnected(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_addClient___")]
-  public static extern void IRImager_addClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_addClient___")]
+  public static extern bool IRImager_addClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_removeClient___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_removeClient___")]
   public static extern bool IRImager_removeClient(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_run___")]
-  public static extern void IRImager_run(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_run___")]
+  public static extern bool IRImager_run(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_runAsync___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_runAsync___")]
   public static extern bool IRImager_runAsync(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_stopRunning___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_stopRunning___")]
   public static extern void IRImager_stopRunning(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isRunning___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isRunning___")]
   public static extern bool IRImager_isRunning(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getDeviceType___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_skipStartupCalibration___")]
+  public static extern bool IRImager_skipStartupCalibration(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setProcessingOutputs___")]
+  public static extern void IRImager_setProcessingOutputs(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getProcessingOutputs___")]
+  public static extern global::System.IntPtr IRImager_getProcessingOutputs(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setProcessingMaxResultPoolSize___")]
+  public static extern void IRImager_setProcessingMaxResultPoolSize(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getProcessingMaxResultPoolSize___")]
+  public static extern uint IRImager_getProcessingMaxResultPoolSize(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getDeviceType___")]
   public static extern int IRImager_getDeviceType(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getSerialNumber___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getSerialNumber___")]
   public static extern uint IRImager_getSerialNumber(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getHardwareRevision___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getHardwareRevision___")]
   public static extern uint IRImager_getHardwareRevision(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getFirmwareRevision___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getFirmwareRevision___")]
   public static extern uint IRImager_getFirmwareRevision(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getConnectionInterface___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getConfig___")]
+  public static extern global::System.IntPtr IRImager_getConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_saveConfig___")]
+  public static extern void IRImager_saveConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getConnectionInterface___")]
   public static extern string IRImager_getConnectionInterface(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getIpAddress___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getIpAddress___")]
   public static extern global::System.IntPtr IRImager_getIpAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getPort___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getPort___")]
   public static extern global::System.IntPtr IRImager_getPort(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getOperationModes___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getOperationModes___")]
   public static extern global::System.IntPtr IRImager_getOperationModes(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setActiveOperationMode__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setActiveOperationMode__SWIG_0___")]
   public static extern void IRImager_setActiveOperationMode__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setActiveOperationMode__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setActiveOperationMode__SWIG_1___")]
   public static extern void IRImager_setActiveOperationMode__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3, float jarg4, float jarg5, int jarg6, int jarg7, int jarg8);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getActiveOperationMode___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getActiveOperationMode___")]
   public static extern global::System.IntPtr IRImager_getActiveOperationMode(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setSoSCorrectionEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setSoSCorrectionEnabled___")]
   public static extern void IRImager_setSoSCorrectionEnabled(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isSoSCorrectionEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isSoSCorrectionEnabled___")]
   public static extern bool IRImager_isSoSCorrectionEnabled(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setTemperatureRangeExtensionEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setRdcMode___")]
+  public static extern void IRImager_setRdcMode(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getRdcMode___")]
+  public static extern int IRImager_getRdcMode(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setTemperatureRangeExtensionEnabled___")]
   public static extern void IRImager_setTemperatureRangeExtensionEnabled(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isTemperatureRangeExtensionEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isTemperatureRangeExtensionEnabled___")]
   public static extern bool IRImager_isTemperatureRangeExtensionEnabled(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setTemperatureHighPrecisionEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setTemperatureHighPrecisionEnabled___")]
   public static extern void IRImager_setTemperatureHighPrecisionEnabled(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isTemperatureHighPrecisionEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isTemperatureHighPrecisionEnabled___")]
   public static extern bool IRImager_isTemperatureHighPrecisionEnabled(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getWidth___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getWidth___")]
   public static extern int IRImager_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getHeight___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getHeight___")]
   public static extern int IRImager_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_addMeasurementField___")]
-  public static extern int IRImager_addMeasurementField(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getSubsampledFramerate___")]
+  public static extern float IRImager_getSubsampledFramerate(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setAutoFlagEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setSubsampledFramerate___")]
+  public static extern void IRImager_setSubsampledFramerate(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_addMeasurementField___")]
+  public static extern global::System.IntPtr IRImager_addMeasurementField(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_removeMeasurementField___")]
+  public static extern void IRImager_removeMeasurementField(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getMeasurementFields___")]
+  public static extern global::System.IntPtr IRImager_getMeasurementFields(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getMeasurementFieldCount___")]
+  public static extern int IRImager_getMeasurementFieldCount(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_updateMeasurementField___")]
+  public static extern void IRImager_updateMeasurementField(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_swapMeasurementFieldIndices___")]
+  public static extern void IRImager_swapMeasurementFieldIndices(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_addAlarmChannel___")]
+  public static extern global::System.IntPtr IRImager_addAlarmChannel(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_removeAlarmChannel___")]
+  public static extern void IRImager_removeAlarmChannel(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getAlarmChannels___")]
+  public static extern global::System.IntPtr IRImager_getAlarmChannels(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getAlarmChannelStatuses___")]
+  public static extern global::System.IntPtr IRImager_getAlarmChannelStatuses(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getAlarmChannelCount___")]
+  public static extern int IRImager_getAlarmChannelCount(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_updateAlarmChannel___")]
+  public static extern void IRImager_updateAlarmChannel(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setAutoFlagEnabled___")]
   public static extern void IRImager_setAutoFlagEnabled(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isAutoFlagEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isAutoFlagEnabled___")]
   public static extern bool IRImager_isAutoFlagEnabled(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setFlagInterval___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setFlagInterval___")]
   public static extern void IRImager_setFlagInterval(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getFlagMinInterval___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getFlagMinInterval___")]
   public static extern float IRImager_getFlagMinInterval(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getFlagMaxInterval___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getFlagMaxInterval___")]
   public static extern float IRImager_getFlagMaxInterval(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_forceFlagEvent__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_forceFlagEvent__SWIG_0___")]
   public static extern void IRImager_forceFlagEvent__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_forceFlagEvent__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_forceFlagEvent__SWIG_1___")]
   public static extern void IRImager_forceFlagEvent__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isFlagOpen___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isFlagOpen___")]
   public static extern bool IRImager_isFlagOpen(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setFlagForecastEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setFlagForecastEnabled___")]
   public static extern void IRImager_setFlagForecastEnabled(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isFlagForecastEnabled___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_isFlagForecastEnabled___")]
   public static extern bool IRImager_isFlagForecastEnabled(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getTemperatureFlag___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getTemperatureFlag___")]
   public static extern float IRImager_getTemperatureFlag(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getTemperatureBox___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getTemperatureBox___")]
   public static extern float IRImager_getTemperatureBox(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getTemperatureChip___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getTemperatureChip___")]
   public static extern float IRImager_getTemperatureChip(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setChipHeatingEnabled___")]
-  public static extern void IRImager_setChipHeatingEnabled(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setChipHeatingMode__SWIG_0___")]
+  public static extern void IRImager_setChipHeatingMode__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_isChipHeatingEnabled___")]
-  public static extern bool IRImager_isChipHeatingEnabled(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setChipHeatingMode__SWIG_1___")]
+  public static extern void IRImager_setChipHeatingMode__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setTemperatureChipReference___")]
-  public static extern void IRImager_setTemperatureChipReference(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getChipHeatingMode___")]
+  public static extern int IRImager_getChipHeatingMode(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getTemperatureChipReference___")]
-  public static extern float IRImager_getTemperatureChipReference(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getChipHeatingTemperature___")]
+  public static extern float IRImager_getChipHeatingTemperature(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getEmissivitySource___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getEmissivitySource___")]
   public static extern int IRImager_getEmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getTransmissivitySource___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getTransmissivitySource___")]
   public static extern int IRImager_getTransmissivitySource(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getAmbientTemperatureSource___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getAmbientTemperatureSource___")]
   public static extern int IRImager_getAmbientTemperatureSource(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setRadiationParameters___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setRadiationParameters___")]
   public static extern void IRImager_setRadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getRadiationParameters___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getRadiationParameters___")]
   public static extern global::System.IntPtr IRImager_getRadiationParameters(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setFocusMotorPosition___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setFocusMotorPosition___")]
   public static extern void IRImager_setFocusMotorPosition(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getFocusMotorPosition___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getFocusMotorPosition___")]
   public static extern float IRImager_getFocusMotorPosition(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setReferenceTemperature__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setReferenceTemperature__SWIG_0___")]
   public static extern void IRImager_setReferenceTemperature__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3, float jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setReferenceTemperature__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setReferenceTemperature__SWIG_1___")]
   public static extern void IRImager_setReferenceTemperature__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_resetReferenceTemperature___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_resetReferenceTemperature___")]
   public static extern void IRImager_resetReferenceTemperature(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_setDeviceNetworkConfig___")]
-  public static extern void IRImager_setDeviceNetworkConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_setDeviceNetworkConfig___")]
+  public static extern bool IRImager_setDeviceNetworkConfig(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_getDeviceNetworkConfig___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getDeviceNetworkConfig___")]
   public static extern global::System.IntPtr IRImager_getDeviceNetworkConfig(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImager_interruptFailSafe___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_getPif__SWIG_0___")]
+  public static extern global::System.IntPtr IRImager_getPif__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_interruptFailSafe___")]
   public static extern void IRImager_interruptFailSafe(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerFactory_getInstance___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImager_configureOperationInfo___")]
+  public static extern void IRImager_configureOperationInfo(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, int jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerFactory_getInstance___")]
   public static extern global::System.IntPtr IRImagerFactory_getInstance();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_IRImagerFactory_create___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_IRImagerFactory_create___")]
   public static extern global::System.IntPtr IRImagerFactory_create(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_IRImagerFactory___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_IRImagerFactory___")]
   public static extern void delete_IRImagerFactory(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FramerateCounter_DEFAULT_INTERVAL_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FramerateCounter_DEFAULT_INTERVAL_get___")]
   public static extern double FramerateCounter_DEFAULT_INTERVAL_get();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FramerateCounter_DEFAULT_SMOOTH_SIZE_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FramerateCounter_DEFAULT_SMOOTH_SIZE_get___")]
   public static extern uint FramerateCounter_DEFAULT_SMOOTH_SIZE_get();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_FramerateCounter__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FramerateCounter__SWIG_0___")]
   public static extern global::System.IntPtr new_FramerateCounter__SWIG_0(double jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_FramerateCounter__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FramerateCounter__SWIG_1___")]
   public static extern global::System.IntPtr new_FramerateCounter__SWIG_1(double jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_FramerateCounter__SWIG_2___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_FramerateCounter__SWIG_2___")]
   public static extern global::System.IntPtr new_FramerateCounter__SWIG_2();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_FramerateCounter___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_FramerateCounter___")]
   public static extern void delete_FramerateCounter(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FramerateCounter_trigger___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FramerateCounter_trigger___")]
   public static extern bool FramerateCounter_trigger(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_FramerateCounter_getFps___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_FramerateCounter_getFps___")]
   public static extern double FramerateCounter_getFps(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_TemperatureRegion__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_TemperatureRegion__SWIG_0___")]
   public static extern global::System.IntPtr new_TemperatureRegion__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_TemperatureRegion__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_TemperatureRegion__SWIG_1___")]
   public static extern global::System.IntPtr new_TemperatureRegion__SWIG_1(int jarg1, int jarg2, int jarg3, int jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_reset___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_reset___")]
   public static extern void TemperatureRegion_reset(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_fitsInRectangle__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_fitsInRectangle__SWIG_0___")]
   public static extern bool TemperatureRegion_fitsInRectangle__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, int jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_fitsInRectangle__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_fitsInRectangle__SWIG_1___")]
   public static extern bool TemperatureRegion_fitsInRectangle__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_temperature_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_temperature_set___")]
   public static extern void TemperatureRegion_temperature_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_temperature_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_temperature_get___")]
   public static extern float TemperatureRegion_temperature_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_x1_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_x1_set___")]
   public static extern void TemperatureRegion_x1_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_x1_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_x1_get___")]
   public static extern int TemperatureRegion_x1_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_y1_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_y1_set___")]
   public static extern void TemperatureRegion_y1_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_y1_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_y1_get___")]
   public static extern int TemperatureRegion_y1_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_x2_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_x2_set___")]
   public static extern void TemperatureRegion_x2_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_x2_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_x2_get___")]
   public static extern int TemperatureRegion_x2_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_y2_set___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_y2_set___")]
   public static extern void TemperatureRegion_y2_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_TemperatureRegion_y2_get___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_TemperatureRegion_y2_get___")]
   public static extern int TemperatureRegion_y2_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_TemperatureRegion___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_TemperatureRegion___")]
   public static extern void delete_TemperatureRegion(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_new_ImageBuilder___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_new_ImageBuilder___")]
   public static extern global::System.IntPtr new_ImageBuilder(int jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_setThermalFrame___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_setThermalFrame___")]
   public static extern void ImageBuilder_setThermalFrame(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getThermalFrame___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getThermalFrame___")]
   public static extern global::System.IntPtr ImageBuilder_getThermalFrame(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getWidth___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getWidth___")]
   public static extern int ImageBuilder_getWidth(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getHeight___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getHeight___")]
   public static extern int ImageBuilder_getHeight(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getTemperature__SWIG_0___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperature__SWIG_0___")]
   public static extern float ImageBuilder_getTemperature__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getTemperature__SWIG_1___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperature__SWIG_1___")]
   public static extern float ImageBuilder_getTemperature__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getMeanTemperatureInRegion___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getMeanTemperatureInRegion___")]
   public static extern bool ImageBuilder_getMeanTemperatureInRegion(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getMinMaxRegions___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getMinMaxRegions___")]
   public static extern bool ImageBuilder_getMinMaxRegions(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_setManualTemperatureRange___")]
-  public static extern void ImageBuilder_setManualTemperatureRange(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_setTemperatureScaling___")]
+  public static extern void ImageBuilder_setTemperatureScaling(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getIsothermalMin___")]
-  public static extern float ImageBuilder_getIsothermalMin(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperatureScalingMin___")]
+  public static extern float ImageBuilder_getTemperatureScalingMin(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getIsothermalMax___")]
-  public static extern float ImageBuilder_getIsothermalMax(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperatureScalingMax___")]
+  public static extern float ImageBuilder_getTemperatureScalingMax(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_setPaletteScalingMethod___")]
-  public static extern void ImageBuilder_setPaletteScalingMethod(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperatureScalingMinFiltered___")]
+  public static extern float ImageBuilder_getTemperatureScalingMinFiltered(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getPaletteScalingMethod___")]
-  public static extern int ImageBuilder_getPaletteScalingMethod(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperatureScalingMaxFiltered___")]
+  public static extern float ImageBuilder_getTemperatureScalingMaxFiltered(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_setPalette___")]
-  public static extern void ImageBuilder_setPalette(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_setTemperatureScalingFilterFactor___")]
+  public static extern void ImageBuilder_setTemperatureScalingFilterFactor(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getPalette___")]
-  public static extern int ImageBuilder_getPalette(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperatureScalingFilterFactor___")]
+  public static extern float ImageBuilder_getTemperatureScalingFilterFactor(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getImage___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_setTemperatureScalingMode___")]
+  public static extern void ImageBuilder_setTemperatureScalingMode(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getTemperatureScalingMode___")]
+  public static extern int ImageBuilder_getTemperatureScalingMode(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_setPalette___")]
+  public static extern void ImageBuilder_setPalette(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getPaletteName___")]
+  public static extern string ImageBuilder_getPaletteName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getImage___")]
   public static extern global::System.IntPtr ImageBuilder_getImage(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getImageSizeInBytes___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getImageSizeInBytes___")]
   public static extern int ImageBuilder_getImageSizeInBytes(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_getImageStride___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_getImageStride___")]
   public static extern int ImageBuilder_getImageStride(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_copyImageDataTo___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_copyImageDataTo___")]
   public static extern void ImageBuilder_copyImageDataTo(global::System.Runtime.InteropServices.HandleRef jarg1, [global::System.Runtime.InteropServices.Out, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]byte[] jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ImageBuilder_convertTemperatureToPaletteImage___")]
-  public static extern void ImageBuilder_convertTemperatureToPaletteImage(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_convertTemperatureToPaletteImage__SWIG_0___")]
+  public static extern void ImageBuilder_convertTemperatureToPaletteImage__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_delete_ImageBuilder___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ImageBuilder_convertTemperatureToPaletteImage__SWIG_1___")]
+  public static extern void ImageBuilder_convertTemperatureToPaletteImage__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.IntPtr jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_delete_ImageBuilder___")]
   public static extern void delete_ImageBuilder(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSDK_ThermalFrame_SWIGUpcast___")]
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="CSharp_OptrisfOtcSdk_ThermalFrame_SWIGUpcast___")]
   public static extern global::System.IntPtr ThermalFrame_SWIGUpcast(global::System.IntPtr jarg1);
 }
 

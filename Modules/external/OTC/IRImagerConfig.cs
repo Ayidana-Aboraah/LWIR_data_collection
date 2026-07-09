@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 ///  Holds the SDK settings found in the configuration file.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class IRImagerConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -56,19 +57,6 @@ public class IRImagerConfig : global::System.IDisposable {
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
-  }
-
-  ///  Constructor.
-  public IRImagerConfig() : this(otcsdkPINVOKE.new_IRImagerConfig(), true) {
-  }
-
-  /// <summary>Validates the configuration settings.</summary>
-  /// If a faulty setting can be replaced by a valid default this method will do so automatically and
-  /// print a log warning message. If no valid default is available a SDKException is throws instead.
-  /// <exception cref="SDKException"> if configuration contains uncorrectable invalid settings.</exception>
-  public void validate() {
-    otcsdkPINVOKE.IRImagerConfig_validate(swigCPtr);
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   ///  Version of the configuration file.
@@ -155,7 +143,7 @@ public class IRImagerConfig : global::System.IDisposable {
     } 
   }
 
-  /// <summary>Internal queue size for buffers holding received frames.</summary>
+  /// <summary>Specifies the number of buffers that the subsystems receiving the raw frame data should use       (DirectShow, V4L2, etc.).</summary>
   /// This setting has no influence on the size of the buffers. Their size is determined by the used video
   /// format.
   public ushort bufferQueueSize {
@@ -164,6 +152,35 @@ public class IRImagerConfig : global::System.IDisposable {
     } 
     get {
       ushort ret = otcsdkPINVOKE.IRImagerConfig_bufferQueueSize_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  ///  Specifies which outputs should be computed and provided by the SDK.
+  public ProcessingOutputConfig processingOutputs {
+    set {
+      otcsdkPINVOKE.IRImagerConfig_processingOutputs_set(swigCPtr, ProcessingOutputConfig.getCPtr(value));
+    } 
+    get {
+      global::System.IntPtr cPtr = otcsdkPINVOKE.IRImagerConfig_processingOutputs_get(swigCPtr);
+      ProcessingOutputConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new ProcessingOutputConfig(cPtr, false);
+      return ret;
+    } 
+  }
+
+  /// <summary>Sets the maximum number of processing results that are pooled for reuse to avoid unnecessary       allocations.</summary>
+  /// The processing pipeline reuses the same objects to store its results. This setting specifies the maximum
+  /// number of these objects that are can exist at the same time. If the client callbacks handling the processing
+  /// results are too slow, the SDK will start to override already existing results. This effectively results in
+  /// frame drops.
+  /// Buffers are only added as needed.
+  /// If set to 0, the maximum pool size will be set to 1.
+  public uint processingMaxResultPoolSize {
+    set {
+      otcsdkPINVOKE.IRImagerConfig_processingMaxResultPoolSize_set(swigCPtr, value);
+    } 
+    get {
+      uint ret = otcsdkPINVOKE.IRImagerConfig_processingMaxResultPoolSize_get(swigCPtr);
       return ret;
     } 
   }
@@ -253,6 +270,22 @@ public class IRImagerConfig : global::System.IDisposable {
     } 
     get {
       bool ret = otcsdkPINVOKE.IRImagerConfig_enableSoSCorrection_get(swigCPtr);
+      return ret;
+    } 
+  }
+
+  /// <summary>Mode of radial distortion correction (RDC).</summary>
+  /// The following modes are available:
+  ///  - Off   : Radial distortion correction will be deactivated.
+  ///  - Normal: Radial distortion correction will be done in normal mode.
+  ///  - Wide  : Radial distortion correction will be done in wide mode.
+  /// This has only an impact if the required parameters are provided by the calibration.
+  public RdcMode rdcMode {
+    set {
+      otcsdkPINVOKE.IRImagerConfig_rdcMode_set(swigCPtr, (int)value);
+    } 
+    get {
+      RdcMode ret = (RdcMode)otcsdkPINVOKE.IRImagerConfig_rdcMode_get(swigCPtr);
       return ret;
     } 
   }
@@ -347,25 +380,18 @@ public class IRImagerConfig : global::System.IDisposable {
     } 
   }
 
-  /// <summary>Specified how and if the sensor chip is beeing heated.</summary>
-  /// The following modes are available:
-  ///  - floating: The sensor chip will not be heated.
-  ///  - auto    : The sensor chip will be heated to the temperature specified in the calibrations.
-  ///  - fixed   : The sensor chip will be heated to the temperature specified by the chipHeatingTemperature settings.
-  /// Case insensitive.
-  public string chipHeatingMode {
+  ///  Specified how and if the sensor chip is beeing heated.
+  public ChipHeatingMode chipHeatingMode {
     set {
-      otcsdkPINVOKE.IRImagerConfig_chipHeatingMode_set(swigCPtr, value);
-      if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+      otcsdkPINVOKE.IRImagerConfig_chipHeatingMode_set(swigCPtr, (int)value);
     } 
     get {
-      string ret = otcsdkPINVOKE.IRImagerConfig_chipHeatingMode_get(swigCPtr);
-      if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+      ChipHeatingMode ret = (ChipHeatingMode)otcsdkPINVOKE.IRImagerConfig_chipHeatingMode_get(swigCPtr);
       return ret;
     } 
   }
 
-  ///  Temperature in °C for the fixed chipHeatingMode.
+  ///  Temperature in °C for the fixed chipHeatingMode. The provided value is clamped to [20, 55] °C.
   public float chipHeatingTemperature {
     set {
       otcsdkPINVOKE.IRImagerConfig_chipHeatingTemperature_set(swigCPtr, value);
@@ -450,6 +476,18 @@ public class IRImagerConfig : global::System.IDisposable {
     } 
   }
 
+  ///  Alarms configuration.
+  public AlarmsConfig alarms {
+    set {
+      otcsdkPINVOKE.IRImagerConfig_alarms_set(swigCPtr, AlarmsConfig.getCPtr(value));
+    } 
+    get {
+      global::System.IntPtr cPtr = otcsdkPINVOKE.IRImagerConfig_alarms_get(swigCPtr);
+      AlarmsConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new AlarmsConfig(cPtr, false);
+      return ret;
+    } 
+  }
+
   ///  Measurement field configuration.
   public MeasurementFieldConfigVector measurementFields {
     set {
@@ -474,6 +512,21 @@ public class IRImagerConfig : global::System.IDisposable {
     } 
   }
 
+  /// <summary>Validates the configuration settings.</summary>
+  /// If a faulty setting can be replaced by a valid default this method will do so automatically and
+  /// print a log warning message. If no valid default is available a SDKException is throws instead.
+  /// <param name="config"> to validate.</param> 
+  /// <exception cref="SDKException"> if configuration contains uncorrectable invalid settings.</exception>
+  public static void validate(IRImagerConfig config) {
+    otcsdkPINVOKE.IRImagerConfig_validate(IRImagerConfig.getCPtr(config));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public IRImagerConfig() : this(otcsdkPINVOKE.new_IRImagerConfig(), true) {
+  }
+
+  ///  Current version of the configuration file.
+  public static readonly int CURRENT_VERSION = otcsdkPINVOKE.IRImagerConfig_CURRENT_VERSION_get();
 }
 
 }

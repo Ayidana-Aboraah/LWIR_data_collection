@@ -8,11 +8,12 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Holds important information about a device.</summary>
 /// Instances of this class are provided by the EnumerationManager and can be used to establish an connection
 /// through an IRImager implementation.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class DeviceInfo : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -220,10 +221,9 @@ public class DeviceInfo : global::System.IDisposable {
     return ret;
   }
 
-  /// <summary>Returns a complete copy of this informatin.</summary>
-  /// <returns>a complete copy of this information.</returns>
   public DeviceInfo clone() {
-    DeviceInfo ret = new DeviceInfo(otcsdkPINVOKE.DeviceInfo_clone(swigCPtr), true);
+    global::System.IntPtr cPtr = otcsdkPINVOKE.DeviceInfo_clone(swigCPtr);
+    DeviceInfo ret = (cPtr == global::System.IntPtr.Zero) ? null : new DeviceInfo(cPtr, false);
     return ret;
   }
 

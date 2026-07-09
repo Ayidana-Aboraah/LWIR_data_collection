@@ -8,7 +8,7 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates false color images with 8-bit color depth.</summary>
 /// The individual pixel values, like red, green or blue, are stored in a one-dimensional array.
 /// Depending on the width alignment additional bytes may be added at the end of each row to ensure
@@ -17,6 +17,7 @@ namespace Optris.OtcSDK {
 /// The origin of coordinates is located in the upper left corner with the x-axis pointing right and
 /// the y-axis pointing down.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class Image : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -118,22 +119,6 @@ public class Image : global::System.IDisposable {
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  /// <summary>Returns an iterator with read and write access.</summary>
-  /// The iterator traverses the image in a row major fashion and skips potential width padding.
-  /// <returns>iterator with read and write access.</returns>
-  public ImageIterator getIterator() {
-    ImageIterator ret = new ImageIterator(otcsdkPINVOKE.Image_getIterator(swigCPtr), true);
-    return ret;
-  }
-
-  /// <summary>Returns an iterator with read access.</summary>
-  /// The iterator traverses the image in a row major fashion and skips potential width padding.
-  /// <returns>iterator with read access.</returns>
-  public ConstImageIterator getConstIterator() {
-    ConstImageIterator ret = new ConstImageIterator(otcsdkPINVOKE.Image_getConstIterator(swigCPtr), true);
-    return ret;
-  }
-
   /// <summary>Returns the width of the image in pixels.</summary>
   /// <returns>image width in pixels.</returns>
   public int getWidth() {
@@ -201,13 +186,6 @@ public class Image : global::System.IDisposable {
   /// <returns>width alignment.</returns>
   public WidthAlignment getWidthAlignment() {
     WidthAlignment ret = (WidthAlignment)otcsdkPINVOKE.Image_getWidthAlignment(swigCPtr);
-    return ret;
-  }
-
-  /// <summary>Returns a complete copy of this image.</summary>
-  /// <returns>complete copy of this image.</returns>
-  public Image clone() {
-    Image ret = new Image(otcsdkPINVOKE.Image_clone(swigCPtr), true);
     return ret;
   }
 

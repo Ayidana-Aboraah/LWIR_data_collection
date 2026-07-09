@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
-/// <summary>Defines the interface for classes that want to be updated about the detection of       available devices.</summary>
+namespace Optris.OtcSdk {
+///  Base class for all clients observing the EnumerationManager.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class EnumerationClient : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;

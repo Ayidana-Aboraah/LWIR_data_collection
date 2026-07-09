@@ -8,16 +8,19 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
-///  Represents the different triggers of an event.
-public enum SnapshotTrigger {
-  ///  Triggered by digital input.
-  DigitalInput,
-  ///  Triggered by analog input.
-  AnalogInput,
-  ///  Triggered by software.
-  Software
+///  Represents the different field statistics that can be used by other components (PIF, alarms).
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
+public enum FieldStat {
+  ///  Minimum field temperature.
+  Minimum,
+  ///  Maximum field temperature.
+  Maximum,
+  ///  Mean field temperature.
+  Mean,
+  ///  Median field temperature.
+  Median
 }
 
 }

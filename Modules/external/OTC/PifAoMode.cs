@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 ///  Represents the available modes for PIF analog output channels.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum PifAoMode {
   ///  Off.
   Off,
@@ -25,7 +26,9 @@ public enum PifAoMode {
   ///  The set data point of a measurement field is output.
   MeasurementField,
   ///  The internal camera temperature is output.
-  InternalTemperature
+  InternalTemperature,
+  ///  The status of a configured alarm channels are output.
+  Alarm
 }
 
 }

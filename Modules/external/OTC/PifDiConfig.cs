@@ -8,11 +8,12 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates the configuration for a PIF digital input channel.</summary>
 /// For a detailed overview of all available modes and parameters please refer to the corresponding section in the documentation
 /// of the [configuration file](#important-files-configuration-process-interface-digital-inputs).
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class PifDiConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -60,48 +61,14 @@ public class PifDiConfig : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public PifDiConfig() : this(otcsdkPINVOKE.new_PifDiConfig(), true) {
-  }
-
-  /// <summary>Creates a configuration for the mode PifDiMode::Off.</summary>
-  /// <param name="deviceIndex"> identifying the channel.</param> 
-  /// <param name="pinIndex">    identifying the channel.</param> 
-  /// <returns>configuration for the mode PifDiMode::Off.</returns>
-  public static PifDiConfig createOff(int deviceIndex, int pinIndex) {
-    PifDiConfig ret = new PifDiConfig(otcsdkPINVOKE.PifDiConfig_createOff(deviceIndex, pinIndex), true);
-    return ret;
-  }
-
-  /// <summary>Create a configuration for the mode PifDiMode::FlagControl.</summary>
-  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
-  /// <param name="deviceIndex"> identifying the channel.</param> 
-  /// <param name="pinIndex">    identifying the channel.</param> 
-  /// <param name="openIfLow">   if true, the shutter flag will be opend, if the input signal is low.</param> 
-  /// <returns>configuration for the mode PifDiMode::FlagControl.</returns>
-  public static PifDiConfig createFlagControl(int deviceIndex, int pinIndex, bool openIfLow) {
-    PifDiConfig ret = new PifDiConfig(otcsdkPINVOKE.PifDiConfig_createFlagControl(deviceIndex, pinIndex, openIfLow), true);
-    return ret;
-  }
-
-  ///  Identifies the channel by specifying the PIF device on which its pins are located.
-  public int deviceIndex {
+  ///  Identifies the channel by the indices of its pin and the PIF device on which it is located.
+  public PifIndex index {
     set {
-      otcsdkPINVOKE.PifDiConfig_deviceIndex_set(swigCPtr, value);
+      otcsdkPINVOKE.PifDiConfig_index_set(swigCPtr, PifIndex.getCPtr(value));
     } 
     get {
-      int ret = otcsdkPINVOKE.PifDiConfig_deviceIndex_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Identifies the channel by locating its pins on the specified PIF device.
-  public int pinIndex {
-    set {
-      otcsdkPINVOKE.PifDiConfig_pinIndex_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.PifDiConfig_pinIndex_get(swigCPtr);
+      global::System.IntPtr cPtr = otcsdkPINVOKE.PifDiConfig_index_get(swigCPtr);
+      PifIndex ret = (cPtr == global::System.IntPtr.Zero) ? null : new PifIndex(cPtr, false);
       return ret;
     } 
   }
@@ -126,6 +93,29 @@ public class PifDiConfig : global::System.IDisposable {
       bool ret = otcsdkPINVOKE.PifDiConfig_triggerLowActive_get(swigCPtr);
       return ret;
     } 
+  }
+
+  /// <summary>Creates a configuration for the mode PifDiMode::Off.</summary>
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <returns>configuration for the mode PifDiMode::Off.</returns>
+  public static PifDiConfig createOff(int deviceIndex, int pinIndex) {
+    PifDiConfig ret = new PifDiConfig(otcsdkPINVOKE.PifDiConfig_createOff(deviceIndex, pinIndex), true);
+    return ret;
+  }
+
+  /// <summary>Create a configuration for the mode PifDiMode::FlagControl.</summary>
+  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <param name="openIfLow">   if true, the shutter flag will be opend, if the input signal is low.</param> 
+  /// <returns>configuration for the mode PifDiMode::FlagControl.</returns>
+  public static PifDiConfig createFlagControl(int deviceIndex, int pinIndex, bool openIfLow) {
+    PifDiConfig ret = new PifDiConfig(otcsdkPINVOKE.PifDiConfig_createFlagControl(deviceIndex, pinIndex, openIfLow), true);
+    return ret;
+  }
+
+  public PifDiConfig() : this(otcsdkPINVOKE.new_PifDiConfig(), true) {
   }
 
 }

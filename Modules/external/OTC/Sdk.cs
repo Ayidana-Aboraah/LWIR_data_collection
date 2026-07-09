@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 ///  Static class granting access to SDK wide configuration and utility functions.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class Sdk : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -58,24 +59,57 @@ public class Sdk : global::System.IDisposable {
     }
   }
 
+  /// <summary>Delegate for receiving SDK log messages.</summary>
+  /// <param name="verbosityLevel">0=Error, 1=Warning, 2=Info, 3=Debug, 4=Trace.</param>
+  /// <param name="message">The log message.</param>
+  public delegate void LogCallback(int verbosityLevel, string message);
+
+  private static LogCallback _logCallbackRef;
+
+  [global::System.Runtime.InteropServices.DllImport("otcsdk_csharp", EntryPoint="SdkSetLogCallback")]
+  private static extern void SdkSetLogCallback(LogCallback callback, bool exclusive);
+
+  /// <summary>
+  /// Sets a callback that receives SDK log messages.
+  /// When <paramref name="exclusive"/> is true, the SDK stops writing to its own log file and screen.
+  /// Pass null to remove the callback.
+  /// </summary>
+  public static void setLogCallback(LogCallback callback, bool exclusive = false) {
+    _logCallbackRef = callback;
+    SdkSetLogCallback(callback, exclusive);
+  }
+
   /// <summary>Initializes the SDK.</summary>
-  /// It sets the verbosity levels of the internal logger of the SDK and starts the EnumerationManager in a dedicated thread
-  /// to monitor the availability of devices.
-  /// <param name="logScreen">         defines the minimum verbosity level of log messages displayed on the standard output and error.</param> 
-  /// <param name="logFile">           defines the minimum verbosity level of log messages out to the logfile.</param> 
-  /// <param name="logFilenamePrefix"> for the log file (logFilenamePrefix_YYYY_MM_DD-hh-mm-ss.log). If empty, it defaults to "OtcSDK".</param>
-  public static void init(Verbosity logScreen, Verbosity logFile, string logFilenamePrefix) {
-    otcsdkPINVOKE.Sdk_init__SWIG_0((int)logScreen, (int)logFile, logFilenamePrefix);
+  /// It sets the verbosity levels of the internal logger of the SDK, starts the EnumerationManager in a dedicated thread
+  /// to monitor the availability of devices, and loads color palettes from the SDK, working, and user palette directories.
+  /// <param name="logScreen">           defines the minimum verbosity level of log messages displayed on the standard output and error.</param> 
+  /// <param name="logFile">             defines the minimum verbosity level of log messages out to the logfile.</param> 
+  /// <param name="logFilenamePrefix">   for the log file `<logFilenamePrefix>_<YYYY_MM_DDThh-mm-ss>.log`. If empty, it defaults to "OtcSDK".</param> 
+  /// <param name="customDataDirectory"> for the SDK to use. An empty string will have no effect. The SDK requires read and write access
+  ///                                    to this directory. For detail on how specify it see Sdk::setCustomDataDirectory().</param>
+  public static void init(Verbosity logScreen, Verbosity logFile, string logFilenamePrefix, string customDataDirectory) {
+    otcsdkPINVOKE.Sdk_init__SWIG_0((int)logScreen, (int)logFile, logFilenamePrefix, customDataDirectory);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   /// <summary>Initializes the SDK.</summary>
-  /// It sets the verbosity levels of the internal logger of the SDK and starts the EnumerationManager in a dedicated thread
-  /// to monitor the availability of devices.
-  /// <param name="logScreen">         defines the minimum verbosity level of log messages displayed on the standard output and error.</param> 
-  /// <param name="logFile">           defines the minimum verbosity level of log messages out to the logfile.</param>
+  /// It sets the verbosity levels of the internal logger of the SDK, starts the EnumerationManager in a dedicated thread
+  /// to monitor the availability of devices, and loads color palettes from the SDK, working, and user palette directories.
+  /// <param name="logScreen">           defines the minimum verbosity level of log messages displayed on the standard output and error.</param> 
+  /// <param name="logFile">             defines the minimum verbosity level of log messages out to the logfile.</param> 
+  /// <param name="logFilenamePrefix">   for the log file `<logFilenamePrefix>_<YYYY_MM_DDThh-mm-ss>.log`. If empty, it defaults to "OtcSDK".</param>
+  public static void init(Verbosity logScreen, Verbosity logFile, string logFilenamePrefix) {
+    otcsdkPINVOKE.Sdk_init__SWIG_1((int)logScreen, (int)logFile, logFilenamePrefix);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Initializes the SDK.</summary>
+  /// It sets the verbosity levels of the internal logger of the SDK, starts the EnumerationManager in a dedicated thread
+  /// to monitor the availability of devices, and loads color palettes from the SDK, working, and user palette directories.
+  /// <param name="logScreen">           defines the minimum verbosity level of log messages displayed on the standard output and error.</param> 
+  /// <param name="logFile">             defines the minimum verbosity level of log messages out to the logfile.</param>
   public static void init(Verbosity logScreen, Verbosity logFile) {
-    otcsdkPINVOKE.Sdk_init__SWIG_1((int)logScreen, (int)logFile);
+    otcsdkPINVOKE.Sdk_init__SWIG_2((int)logScreen, (int)logFile);
   }
 
   /// <summary>Configures the SDK internal logger.</summary>
@@ -83,7 +117,7 @@ public class Sdk : global::System.IDisposable {
   /// log file will be closed and new one will be created.
   /// <param name="logScreen">         defines the minimum verbosity level of log messages displayed on the standard output and error.</param> 
   /// <param name="logFile">           defines the minimum verbosity level of log messages out to the logfile.</param> 
-  /// <param name="logFilenamePrefix"> for the log file (logFilenamePrefix_YYYY_MM_DD-hh-mm-ss.log). If empty, it defaults to "OtcSDK".</param>
+  /// <param name="logFilenamePrefix"> for the log file `<logFilenamePrefix>_<YYYY_MM_DDThh-mm-ss>.log`. If empty, it defaults to "OtcSDK".</param>
   public static void configureLogger(Verbosity logScreen, Verbosity logFile, string logFilenamePrefix) {
     otcsdkPINVOKE.Sdk_configureLogger__SWIG_0((int)logScreen, (int)logFile, logFilenamePrefix);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
@@ -96,6 +130,37 @@ public class Sdk : global::System.IDisposable {
   /// <param name="logFile">           defines the minimum verbosity level of log messages out to the logfile.</param>
   public static void configureLogger(Verbosity logScreen, Verbosity logFile) {
     otcsdkPINVOKE.Sdk_configureLogger__SWIG_1((int)logScreen, (int)logFile);
+  }
+
+  /// <summary>Sets a custom data directory for the SDK to use.</summary>
+  /// <remarks>A custom data directory can only be set when there are no active device connections.</remarks>
+  /// If the given directory does not exist, the SDK will try to create it (recursively).
+  /// When specifying the directory path the following symbols/variables are supported:
+  /// - `~`, `%%USERPROFILE%` refer to `~/` on __Linux__ and `&lt;User Home&gt;/` on __Windows__.
+  /// - `%%APPDATA%` refers to `~/.config/` on __Linux__ and `&lt;User AppData&gt;/Roaming/` on __Windows__.
+  /// Relative paths are not supported. You can either use `/` as system independet directory separator or utilize
+  /// system dependent ones like `/` for __Linux__ and `` on __Windows__.
+  /// <param name="customDataDirectory"> for the SDK to use. An empty string will have no effect. The SDK requires
+  ///                                    read and write permission to this directory.</param> 
+  /// <exception cref="SDKException"> if
+  ///            - there is an active device connection.
+  ///            - the given path is not a directory.
+  ///            - the SDK can not access the directory
+  ///            - the SDK failed to create the directory.</exception>
+  public static void setCustomDataDirectory(string customDataDirectory) {
+    otcsdkPINVOKE.Sdk_setCustomDataDirectory(customDataDirectory);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Clears a previously set custom data directory for the SDK.</summary>
+  /// Once cleared the SDK reverts to the default user data directory:
+  /// - __Linux__ `~/.config/optris/`
+  /// - __Windows__ `&lt;User AppData&gt;/Roaming/Imager/`
+  /// <exception cref="SDKException"> if there is an active device connection or if the default user data directory path
+  ///            could not be determined.</exception>
+  public static void clearCustomDataDirectory() {
+    otcsdkPINVOKE.Sdk_clearCustomDataDirectory();
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   /// <summary>Sets the priority of the calibration file sources.</summary>
@@ -117,13 +182,22 @@ public class Sdk : global::System.IDisposable {
   }
 
   /// <summary>Sets the source directory from which calibration files can be copied.</summary>
-  /// If set to an empty string, the SDK will skip this option of acquiring calibration files.
-  /// <param name="sourceDirectoryPath"> from which calibration files can be copied.</param> 
-  /// <returns>true, if the source directory was set successfully. False, otherwise.</returns>
-  public static bool setCalibrationFileSourceDirectory(string sourceDirectoryPath) {
-    bool ret = otcsdkPINVOKE.Sdk_setCalibrationFileSourceDirectory(sourceDirectoryPath);
+  /// When specifying the directory path the following symbols/variables are supported:
+  /// - `~`, `%%USERPROFILE%` refer to `~/` on __Linux__ and `&lt;User Home&gt;/` on __Windows__.
+  /// - `%%APPDATA%` refers to `~/.config/` on __Linux__ and `&lt;User AppData&gt;/Roaming/` on __Windows__.
+  /// Relative paths are not supported. You can either use `/` as system independet directory separator or utilize
+  /// system dependent ones like `/` for __Linux__ and `` on __Windows__.
+  /// <param name="sourceDirectory"> from which calibration files can be copied. An empty string will have no effect.</param> 
+  /// <exception cref="SDKException"> if the given path does not exist or is not a directory.</exception>
+  public static void setCalibrationFileSourceDirectory(string sourceDirectory) {
+    otcsdkPINVOKE.Sdk_setCalibrationFileSourceDirectory(sourceDirectory);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  }
+
+  /// <summary>Clears a previously set source directory for calibration files.</summary>
+  /// When cleared, the SDK will skip the CalibrationFileSource::Filesystem option when acquiring calibration files.
+  public static void clearCalibrationFileSourceDirectory() {
+    otcsdkPINVOKE.Sdk_clearCalibrationFileSourceDirectory();
   }
 
   /// <summary>Returns an object holding version and build information about the SDK.</summary>
@@ -131,6 +205,69 @@ public class Sdk : global::System.IDisposable {
   public static VersionInfo getVersionInfo() {
     VersionInfo ret = new VersionInfo(otcsdkPINVOKE.Sdk_getVersionInfo(), true);
     return ret;
+  }
+
+  /// <summary>Loads palettes from the SDK and user palette directories.</summary>
+  /// Scans the SDK data directory first, then the user data directory so that
+  /// user-supplied palettes with the same name override the built-in ones.
+  /// Missing directories are silently skipped.
+  /// This method is idempotent — calling it more than once reloads all palettes
+  /// from disk, replacing any previously registered entries.
+  public static void loadPalettes() {
+    otcsdkPINVOKE.Sdk_loadPalettes__SWIG_0();
+  }
+
+  /// <summary>Loads palettes from a custom directory.</summary>
+  /// Adds or overwrites palette entries in the registry without clearing
+  /// previously loaded palettes.
+  /// When specifying the directory path the following symbols/variables are supported:
+  /// - `~`, `%%USERPROFILE%` refer to `~/` on __Linux__ and `&lt;User Home&gt;/` on __Windows__.
+  /// - `%%APPDATA%` refers to `~/.config/` on __Linux__ and `&lt;User AppData&gt;/Roaming/` on __Windows__.
+  /// Relative paths are not supported. You can either use `/` as system independet directory separator or utilize
+  /// system dependent ones like `/` for __Linux__ and `` on __Windows__.
+  /// <param name="directory"> path to scan for `.csv` palette files.</param> 
+  /// <exception cref="SDKException"> if ``directory`` does not exist or is not a directory.</exception>
+  public static void loadPalettes(string directory) {
+    otcsdkPINVOKE.Sdk_loadPalettes__SWIG_1(directory);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns the names of all currently loaded palettes in sorted order.</summary>
+  /// <returns>sorted list of palette name strings.</returns>
+  public static StringVector getPaletteNames() {
+    StringVector ret = new StringVector(otcsdkPINVOKE.Sdk_getPaletteNames(), true);
+    return ret;
+  }
+
+  /// <summary>Returns the 240 RGB color entries of the named palette.</summary>
+  /// Each entry is an array of three bytes: `{ R, G, B }`.
+  /// <param name="name"> palette name (case-sensitive).</param> 
+  /// <returns>vector of 240 RGB triples.</returns> 
+  /// <exception cref="SDKException"> if the palette is not found.</exception>
+  public static RgbColorVector getPaletteColors(string name) {
+    RgbColorVector ret = new RgbColorVector(otcsdkPINVOKE.Sdk_getPaletteColors(name), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Registers a palette at runtime without persisting it to disk.</summary>
+  /// An existing palette with the same name is overwritten.
+  /// <param name="name">   unique palette name.</param> 
+  /// <param name="colors"> exactly 240 RGB triples `{ R, G, B }`.</param> 
+  /// <exception cref="SDKException"> if ``colors`` does not contain exactly 240 entries.</exception>
+  public static void registerPalette(string name, RgbColorVector colors) {
+    otcsdkPINVOKE.Sdk_registerPalette(name, RgbColorVector.getCPtr(colors));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Saves a registered palette as a CSV file in the user palette directory.</summary>
+  /// The output filename is `&lt;name&gt;.csv`. The user palette directory is created
+  /// automatically if it does not exist.
+  /// <param name="name"> palette name to save (case-sensitive).</param> 
+  /// <exception cref="SDKException"> if the palette is not found or the file cannot be written.</exception>
+  public static void savePalette(string name) {
+    otcsdkPINVOKE.Sdk_savePalette(name);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

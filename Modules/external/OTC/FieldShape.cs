@@ -8,12 +8,19 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
-///  Represents the different available shapes of fields.
+///  Represents the different available field shapes.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum FieldShape {
   ///  Rectangular field.
-  Rectangle
+  Rectangle,
+  ///  Elliptical field.
+  Ellipse,
+  ///  Polygonal field defined by a set of vertices.
+  Polygon,
+  ///  Spline based field defined by a set of vertices.
+  Splines
 }
 
 }

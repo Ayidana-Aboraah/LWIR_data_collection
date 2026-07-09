@@ -1,6 +1,6 @@
 // Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
-using Optris.OtcSDK;
+using Optris.OtcSdk;
 using System.IO;
 using System.Runtime.ExceptionServices;
 using System.Windows;

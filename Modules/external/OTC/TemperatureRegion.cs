@@ -8,7 +8,7 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Characterizes a rectangular region by the indexes of the upper left and the lower right corners       along with an associated temperature.</summary>
 /// Note that the origin of coordinates is located in upper left corner with the x-axis pointing right and
 /// the y-axis pointing downwards.
@@ -20,6 +20,7 @@ namespace Optris.OtcSDK {
 ///        +-----------2
 ///  =&gt; x1 &lt;= x2 &amp; y1 &lt;= y2
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class TemperatureRegion : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;

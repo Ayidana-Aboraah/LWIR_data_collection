@@ -8,7 +8,7 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 /// <summary>Represents the different available color formats.</summary>
 /// The format defines the storage __sequence__ of the pixel color values. Therefore, the color value of the first letter will come
@@ -16,6 +16,7 @@ namespace Optris.OtcSDK {
 /// Some systems refer to the __significance__ of the color values as color format. Here the color value of the first letter is the most
 /// significant byte. On big-endian machines this byte comes first. On little-endian machines it will come last.
 /// faulty_color_format.jpg"False color image with Iron color palette: Left correct color format, right wrong color format."
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum ColorFormat {
   ///  Pixel colors values are stored in the sequence: (red, green, blue).
   RGB,

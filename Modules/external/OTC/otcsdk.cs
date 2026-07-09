@@ -8,104 +8,44 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class otcsdk {
-  /// <summary>Returns whether the given device is PI.</summary>
-  /// <param name="type"> imager device type to check.</param> 
-  /// <returns>true if the given device is a PI. False otherwise.</returns>
-  public static bool isPI(DeviceType type) {
-    bool ret = otcsdkPINVOKE.isPI((int)type);
+  /// <summary>Returns a string representation of the given alarm input.</summary>
+  /// Use `alarmInputToString()` in Python instead.
+  /// <param name="alarmInput"> for which a string representation is desired.</param> 
+  /// <returns>string respresentation of the given alarm input.</returns>
+  public static string toString(AlarmInput alarmInput) {
+    string ret = otcsdkPINVOKE.toString__SWIG_0((int)alarmInput);
     return ret;
   }
 
-  /// <summary>Returns whether the given device is a Xi.</summary>
-  /// <param name="type"> imager device type to check.</param> 
-  /// <returns>true if the given device is a Xi. False otherwise.</returns>
-  public static bool isXI(DeviceType type) {
-    bool ret = otcsdkPINVOKE.isXI((int)type);
+  /// <summary>Returns a string representation of the given alarm state.</summary>
+  /// Use `alarmStateToString()` in Python instead.
+  /// <param name="alarmState"> for which a string representation is desired.</param> 
+  /// <returns>string respresentation of the given alarm state.</returns>
+  public static string toString(AlarmState alarmState) {
+    string ret = otcsdkPINVOKE.toString__SWIG_1((int)alarmState);
     return ret;
   }
 
-  /// <summary>Returns whether the given device is an MT device.</summary>
-  /// <param name="type"> imager device type to check.</param> 
-  /// <returns>true if the given device is of the MT variety. False otherwise.</returns>
-  public static bool isMTDevice(DeviceType type) {
-    bool ret = otcsdkPINVOKE.isMTDevice((int)type);
+  /// <summary>Returns a string representation of the given alarm range relation.</summary>
+  /// Use `alarmRangeRelationToString()` in Python instead.
+  /// <param name="alarmRangeRelation"> for which a string representation is desired.</param> 
+  /// <returns>string respresentation of the given alarm range relation.</returns>
+  public static string toString(AlarmRangeRelation alarmRangeRelation) {
+    string ret = otcsdkPINVOKE.toString__SWIG_2((int)alarmRangeRelation);
     return ret;
   }
 
-  /// <summary>Returns whether the given device will answer on all commands, also on commands with no answer needed (such as set commands).</summary>
-  /// <param name="type"> imager device type to check.</param> 
-  /// <returns>true if the given device answers on all commands. False otherwise.</returns>
-  public static bool isDeviceAnsweringAllCommands(DeviceType type) {
-    bool ret = otcsdkPINVOKE.isDeviceAnsweringAllCommands((int)type);
-    return ret;
-  }
-
-  /// <summary>Returns whether the given device supports the autonomous mode.</summary>
-  /// <param name="type"> imager device type to check.</param> 
-  /// <returns>true if the given device supports the autonomous mode. False otherwise.</returns>
-  public static bool isAutonomousDevice(DeviceType type) {
-    bool ret = otcsdkPINVOKE.isAutonomousDevice((int)type);
-    return ret;
-  }
-
-  /// <summary>Returns whether the given device supports Ethernet.</summary>
-  /// <param name="type"> imager device type to check.</param> 
-  /// <returns>true if the given device supports Ethernet. False otherwise.</returns>
-  public static bool isEthernetDevice(DeviceType type) {
-    bool ret = otcsdkPINVOKE.isEthernetDevice((int)type);
-    return ret;
-  }
-
-  /// <summary>Returns a string representation of the given device type.</summary>
-  /// Use `deviceTypeToString()` in Python instead.
-  /// <param name="deviceType"> for which a string representation is desired.</param> 
-  /// <returns>string respresentation of the given device type.</returns>
-  public static string toString(DeviceType deviceType) {
-    string ret = otcsdkPINVOKE.toString__SWIG_0((int)deviceType);
-    return ret;
-  }
-
-  /// <summary>Returns a string representation of the given flag state.</summary>
-  /// Use `flagStateToString()` in Python instead.
-  /// <param name="flagState"> for which a string representation is desired.</param> 
-  /// <returns>string representation of the given flag state.</returns>
-  public static string toString(FlagState flagState) {
-    string ret = otcsdkPINVOKE.toString__SWIG_1((int)flagState);
-    return ret;
-  }
-
-  public static float INVALID_TEMPERATURE {
-    get {
-      float ret = otcsdkPINVOKE.INVALID_TEMPERATURE_get();
-      return ret;
-    } 
-  }
-
-  public static ushort INVALID_VALUE {
-    get {
-      ushort ret = otcsdkPINVOKE.INVALID_VALUE_get();
-      return ret;
-    } 
-  }
-
-  /// <summary>Returns a string representation of the given temperature precision.</summary>
-  /// Use `temperaturePrecisionToString()` in Python instead.
-  /// <param name="precision"> for which a string representation is desired.</param> 
-  /// <returns>string respresentation of the given temperature precision.</returns>
-  public static string toString(TemperaturePrecision precision) {
-    string ret = otcsdkPINVOKE.toString__SWIG_2((int)precision);
-    return ret;
-  }
-
-  /// <summary>Returns a string representation of the given radiation parameter source.</summary>
-  /// Use `radiationParameterSourceToString()` in Python instead.
-  /// <param name="source"> for which a string representation is desired.</param> 
-  /// <returns>string representation of the given radiation parameter source.</returns>
-  public static string toString(RadiationParameterSource source) {
-    string ret = otcsdkPINVOKE.toString__SWIG_3((int)source);
+  /// <summary>Returns the value of the given field statistic.</summary>
+  /// <param name="stats"> field statistics.</param> 
+  /// <param name="stat">  to retrieve from the field statistics.</param> 
+  /// <returns>value of the given field statistic.</returns>
+  public static float getFieldStat(FieldStats stats, FieldStat stat) {
+    float ret = otcsdkPINVOKE.getFieldStat(FieldStats.getCPtr(stats), (int)stat);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -114,16 +54,16 @@ public class otcsdk {
   /// <param name="shape"> for which a string representation is desired.</param> 
   /// <returns>string representation of the given field shape.</returns>
   public static string toString(FieldShape shape) {
-    string ret = otcsdkPINVOKE.toString__SWIG_4((int)shape);
+    string ret = otcsdkPINVOKE.toString__SWIG_3((int)shape);
     return ret;
   }
 
-  /// <summary>Returns a string representation of the given field mode.</summary>
-  /// Use `fieldModeToString()` in Python instead.
-  /// <param name="fieldMode"> for which a string representation is desired.</param> 
-  /// <returns>string representation of the given field mode.</returns>
-  public static string toString(FieldMode fieldMode) {
-    string ret = otcsdkPINVOKE.toString__SWIG_5((int)fieldMode);
+  /// <summary>Returns a string representation of the given field statistic.</summary>
+  /// Use `fieldStatToString()` in Python instead.
+  /// <param name="stat"> for which a string representation is desired.</param> 
+  /// <returns>string representation of the given field statistic.</returns>
+  public static string toString(FieldStat stat) {
+    string ret = otcsdkPINVOKE.toString__SWIG_4((int)stat);
     return ret;
   }
 
@@ -149,6 +89,16 @@ public class otcsdk {
   /// <returns>the given value to the limits of the specified PIF analog output mode.</returns>
   public static float clampValue(float value, PifAoOutputMode outputMode) {
     float ret = otcsdkPINVOKE.clampValue(value, (int)outputMode);
+    return ret;
+  }
+
+  /// <summary>Returns a string representation of the given PIF index.</summary>
+  /// Use `pifIndexToString()` in Python instead.
+  /// <param name="index"> for which a string representation is desired.</param> 
+  /// <returns>string representation of the given PIF index.</returns>
+  public static string toString(PifIndex index) {
+    string ret = otcsdkPINVOKE.toString__SWIG_5(PifIndex.getCPtr(index));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
@@ -212,6 +162,139 @@ public class otcsdk {
   /// <returns>string respresentation of the given PIF analog output mode.</returns>
   public static string toString(PifAoOutputMode outputMode) {
     string ret = otcsdkPINVOKE.toString__SWIG_12((int)outputMode);
+    return ret;
+  }
+
+  /// <summary>Returns a string representation of the given chip heating mode.</summary>
+  /// Use `chipHeatingModeToString()` in Python instead.
+  /// <param name="mode"> for which a string representation is desired.</param> 
+  /// <returns>string representation of the given chip heating mode.</returns>
+  public static string toString(ChipHeatingMode mode) {
+    string ret = otcsdkPINVOKE.toString__SWIG_13((int)mode);
+    return ret;
+  }
+
+  /// <summary>Returns a string representation of the given connection state.</summary>
+  /// Use `connectionStateToString()` in Python instead.
+  /// <param name="state"> for which a string representation is desired.</param> 
+  /// <returns>string representation of the given connection state.</returns>
+  public static string toString(ConnectionState state) {
+    string ret = otcsdkPINVOKE.toString__SWIG_14((int)state);
+    return ret;
+  }
+
+  /// <summary>Returns whether the given device is PI.</summary>
+  /// <param name="type"> imager device type to check.</param> 
+  /// <returns>true if the given device is a PI. False otherwise.</returns>
+  public static bool isPI(DeviceType type) {
+    bool ret = otcsdkPINVOKE.isPI((int)type);
+    return ret;
+  }
+
+  /// <summary>Returns whether the given device is a Xi.</summary>
+  /// <param name="type"> imager device type to check.</param> 
+  /// <returns>true if the given device is a Xi. False otherwise.</returns>
+  public static bool isXI(DeviceType type) {
+    bool ret = otcsdkPINVOKE.isXI((int)type);
+    return ret;
+  }
+
+  /// <summary>Returns whether the given device is an MT device.</summary>
+  /// <param name="type"> imager device type to check.</param> 
+  /// <returns>true if the given device is of the MT variety. False otherwise.</returns>
+  public static bool isMTDevice(DeviceType type) {
+    bool ret = otcsdkPINVOKE.isMTDevice((int)type);
+    return ret;
+  }
+
+  /// <summary>Returns whether the given device will answer on all commands, also on commands with no answer needed (such as set commands).</summary>
+  /// <param name="type"> imager device type to check.</param> 
+  /// <returns>true if the given device answers on all commands. False otherwise.</returns>
+  public static bool isDeviceAnsweringAllCommands(DeviceType type) {
+    bool ret = otcsdkPINVOKE.isDeviceAnsweringAllCommands((int)type);
+    return ret;
+  }
+
+  /// <summary>Returns whether the given device supports the autonomous mode.</summary>
+  /// <param name="type"> imager device type to check.</param> 
+  /// <returns>true if the given device supports the autonomous mode. False otherwise.</returns>
+  public static bool isAutonomousDevice(DeviceType type) {
+    bool ret = otcsdkPINVOKE.isAutonomousDevice((int)type);
+    return ret;
+  }
+
+  /// <summary>Returns whether the given device supports Ethernet.</summary>
+  /// <param name="type"> imager device type to check.</param> 
+  /// <returns>true if the given device supports Ethernet. False otherwise.</returns>
+  public static bool isEthernetDevice(DeviceType type) {
+    bool ret = otcsdkPINVOKE.isEthernetDevice((int)type);
+    return ret;
+  }
+
+  /// <summary>Returns whether the given device has a focus motor.</summary>
+  /// <param name="type"> imager device type to check.</param> 
+  /// <returns>true if the given device has a focus motor. False otherwise.</returns>
+  public static bool hasFocusMotor(DeviceType type) {
+    bool ret = otcsdkPINVOKE.hasFocusMotor((int)type);
+    return ret;
+  }
+
+  /// <summary>Returns a string representation of the given device type.</summary>
+  /// Use `deviceTypeToString()` in Python instead.
+  /// <param name="deviceType"> for which a string representation is desired.</param> 
+  /// <returns>string respresentation of the given device type.</returns>
+  public static string toString(DeviceType deviceType) {
+    string ret = otcsdkPINVOKE.toString__SWIG_15((int)deviceType);
+    return ret;
+  }
+
+  /// <summary>Returns a string representation of the given flag state.</summary>
+  /// Use `flagStateToString()` in Python instead.
+  /// <param name="flagState"> for which a string representation is desired.</param> 
+  /// <returns>string representation of the given flag state.</returns>
+  public static string toString(FlagState flagState) {
+    string ret = otcsdkPINVOKE.toString__SWIG_16((int)flagState);
+    return ret;
+  }
+
+  public static float INVALID_TEMPERATURE {
+    get {
+      float ret = otcsdkPINVOKE.INVALID_TEMPERATURE_get();
+      return ret;
+    } 
+  }
+
+  public static ushort INVALID_VALUE {
+    get {
+      ushort ret = otcsdkPINVOKE.INVALID_VALUE_get();
+      return ret;
+    } 
+  }
+
+  /// <summary>Returns a string representation of the given temperature precision.</summary>
+  /// Use `temperaturePrecisionToString()` in Python instead.
+  /// <param name="precision"> for which a string representation is desired.</param> 
+  /// <returns>string respresentation of the given temperature precision.</returns>
+  public static string toString(TemperaturePrecision precision) {
+    string ret = otcsdkPINVOKE.toString__SWIG_17((int)precision);
+    return ret;
+  }
+
+  /// <summary>Returns a string representation of the given radiation parameter source.</summary>
+  /// Use `radiationParameterSourceToString()` in Python instead.
+  /// <param name="source"> for which a string representation is desired.</param> 
+  /// <returns>string representation of the given radiation parameter source.</returns>
+  public static string toString(RadiationParameterSource source) {
+    string ret = otcsdkPINVOKE.toString__SWIG_18((int)source);
+    return ret;
+  }
+
+  /// <summary>Returns a string representation of the given radial distortion correction mode.</summary>
+  /// Use `rdcModeToString()` in Python instead.
+  /// <param name="mode"> for which a string representation is desired.</param> 
+  /// <returns>string representation of the given radial distortion correction mode.</returns>
+  public static string toString(RdcMode mode) {
+    string ret = otcsdkPINVOKE.toString__SWIG_19((int)mode);
     return ret;
   }
 

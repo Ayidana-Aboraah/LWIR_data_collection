@@ -8,13 +8,14 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
 /// <summary>Represents the different available width alignments.</summary>
 /// Depending on the chosen alignment additional bytes will be added to the end of each row in an image so that its size in bytes adheres
 /// to that alignment. This enables some frame works like OpenGL to read the image data in bigger chunks than one byte at a time which
 /// can result in significant performance benefits.
 /// faulty_width_alignment.jpg"Example false color image with faulty width alignment."
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public enum WidthAlignment {
   ///  The row size is aligned to one byte.
   OneByte = 1,

@@ -8,11 +8,12 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Encapsulates the configuration for a PIF analog input channel.</summary>
 /// For a detailed overview of all available modes and parameters please refer to the corresponding section in the documentation
 /// of the [configuration file](#important-files-configuration-process-interface-analog-inputs).
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class PifAiConfig : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -60,94 +61,14 @@ public class PifAiConfig : global::System.IDisposable {
     }
   }
 
-  ///  Constructor.
-  public PifAiConfig() : this(otcsdkPINVOKE.new_PifAiConfig(), true) {
-  }
-
-  /// <summary>Creates a configuration for the mode PifAiMode::Off.</summary>
-  /// <param name="deviceIndex"> identifying the channel.</param> 
-  /// <param name="pinIndex">    identifying the channel.</param> 
-  /// <returns>configuration for the mode PifAiMode::Off.</returns>
-  public static PifAiConfig createOff(int deviceIndex, int pinIndex) {
-    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createOff(deviceIndex, pinIndex), true);
-    return ret;
-  }
-
-  /// <summary>Creates a configuration for the mode PifAiMode::AmbientTemperature.</summary>
-  /// The input voltage U_in is converted to the ambient temperature t_ambient as follows:
-  /// `t_ambient = (U_in - offset) / gain`
-  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
-  /// <param name="deviceIndex"> identifying the channel.</param> 
-  /// <param name="pinIndex">    identifying the channel.</param> 
-  /// <param name="gain">        for converting the input voltage into the ambient temperature.</param> 
-  /// <param name="offset">      for converting the input voltage into the ambient temperature.</param> 
-  /// <returns>configuration for the mode PifAiMode::AmbientTemperature.</returns>
-  public static PifAiConfig createAmbientTemperature(int deviceIndex, int pinIndex, float gain, float offset) {
-    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createAmbientTemperature(deviceIndex, pinIndex, gain, offset), true);
-    return ret;
-  }
-
-  /// <summary>Creates a configuration for the mode PifAiMode::Emissivity.</summary>
-  /// The input voltage U_in is converted to the emissivity e as follows:
-  /// `e = (U_in - offset) / gain`
-  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
-  /// <param name="deviceIndex"> identifying the channel.</param> 
-  /// <param name="pinIndex">    identifying the channel.</param> 
-  /// <param name="gain">        for converting the input voltage into the emissivity.</param> 
-  /// <param name="offset">      for converting the input voltage into the emissivity.</param> 
-  /// <returns>configuration for the mode PifAiMode::Emissivity.</returns>
-  public static PifAiConfig createEmissivity(int deviceIndex, int pinIndex, float gain, float offset) {
-    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createEmissivity(deviceIndex, pinIndex, gain, offset), true);
-    return ret;
-  }
-
-  /// <summary>Creates a configuration for the mode PifAiMode::FlagControl.</summary>
-  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
-  /// <param name="deviceIndex"> identifying the channel.</param> 
-  /// <param name="pinIndex">    identifying the channel.</param> 
-  /// <param name="threshold">   voltage level.</param> 
-  /// <param name="openIfLow">   if true, the shutter flag will be opened, if the input voltage is lower than the threshold.</param> 
-  /// <returns>configuration for the mode PifAiMode::FlagControl.</returns>
-  public static PifAiConfig createFlagControl(int deviceIndex, int pinIndex, float threshold, bool openIfLow) {
-    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createFlagControl(deviceIndex, pinIndex, threshold, openIfLow), true);
-    return ret;
-  }
-
-  /// <summary>Creates a configuration for the mode PifAiMode::UncommittedValue.</summary>
-  /// The input voltage U_in is converted to the uncommitted value x as follows:
-  /// `x = (U_in - offset) / gain`
-  /// When ever U_in changes the SDK will trigger the callback IRImagerClient::onPifUncommittedValue().
-  /// <param name="deviceIndex"> identifying the channel.</param> 
-  /// <param name="pinIndex">    identifying the channel.</param> 
-  /// <param name="name">        of the uncommitted value.</param> 
-  /// <param name="unit">        of the uncommitted value.</param> 
-  /// <param name="gain">        for converting the input voltage into the emissivity.</param> 
-  /// <param name="offset">      for converting the input voltage into the emissivity.</param> 
-  /// <returns>configuration for the mode PifAiMode::UncommittedValue.</returns>
-  public static PifAiConfig createUncommittedValue(int deviceIndex, int pinIndex, string name, string unit, float gain, float offset) {
-    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createUncommittedValue(deviceIndex, pinIndex, name, unit, gain, offset), true);
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  ///  Identifies the channel by specifying the PIF device on which its pins are located.
-  public int deviceIndex {
+  ///  Identifies the channel by the indices of its pin and the PIF device on which it is located.
+  public PifIndex index {
     set {
-      otcsdkPINVOKE.PifAiConfig_deviceIndex_set(swigCPtr, value);
+      otcsdkPINVOKE.PifAiConfig_index_set(swigCPtr, PifIndex.getCPtr(value));
     } 
     get {
-      int ret = otcsdkPINVOKE.PifAiConfig_deviceIndex_get(swigCPtr);
-      return ret;
-    } 
-  }
-
-  ///  Identifies the channel by locating its pins on the specified PIF device.
-  public int pinIndex {
-    set {
-      otcsdkPINVOKE.PifAiConfig_pinIndex_set(swigCPtr, value);
-    } 
-    get {
-      int ret = otcsdkPINVOKE.PifAiConfig_pinIndex_get(swigCPtr);
+      global::System.IntPtr cPtr = otcsdkPINVOKE.PifAiConfig_index_get(swigCPtr);
+      PifIndex ret = (cPtr == global::System.IntPtr.Zero) ? null : new PifIndex(cPtr, false);
       return ret;
     } 
   }
@@ -221,6 +142,75 @@ public class PifAiConfig : global::System.IDisposable {
       if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
+  }
+
+  /// <summary>Creates a configuration for the mode PifAiMode::Off.</summary>
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <returns>configuration for the mode PifAiMode::Off.</returns>
+  public static PifAiConfig createOff(int deviceIndex, int pinIndex) {
+    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createOff(deviceIndex, pinIndex), true);
+    return ret;
+  }
+
+  /// <summary>Creates a configuration for the mode PifAiMode::AmbientTemperature.</summary>
+  /// The input voltage U_in is converted to the ambient temperature t_ambient as follows:
+  /// `t_ambient = (U_in - offset) / gain`
+  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <param name="gain">        for converting the input voltage into the ambient temperature.</param> 
+  /// <param name="offset">      for converting the input voltage into the ambient temperature.</param> 
+  /// <returns>configuration for the mode PifAiMode::AmbientTemperature.</returns>
+  public static PifAiConfig createAmbientTemperature(int deviceIndex, int pinIndex, float gain, float offset) {
+    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createAmbientTemperature(deviceIndex, pinIndex, gain, offset), true);
+    return ret;
+  }
+
+  /// <summary>Creates a configuration for the mode PifAiMode::Emissivity.</summary>
+  /// The input voltage U_in is converted to the emissivity e as follows:
+  /// `e = (U_in - offset) / gain`
+  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <param name="gain">        for converting the input voltage into the emissivity.</param> 
+  /// <param name="offset">      for converting the input voltage into the emissivity.</param> 
+  /// <returns>configuration for the mode PifAiMode::Emissivity.</returns>
+  public static PifAiConfig createEmissivity(int deviceIndex, int pinIndex, float gain, float offset) {
+    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createEmissivity(deviceIndex, pinIndex, gain, offset), true);
+    return ret;
+  }
+
+  /// <summary>Creates a configuration for the mode PifAiMode::FlagControl.</summary>
+  /// <remarks>This mode is __unique__ and can only be applied once for __all__ channels.</remarks>
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <param name="threshold">   voltage level.</param> 
+  /// <param name="openIfLow">   if true, the shutter flag will be opened, if the input voltage is lower than the threshold.</param> 
+  /// <returns>configuration for the mode PifAiMode::FlagControl.</returns>
+  public static PifAiConfig createFlagControl(int deviceIndex, int pinIndex, float threshold, bool openIfLow) {
+    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createFlagControl(deviceIndex, pinIndex, threshold, openIfLow), true);
+    return ret;
+  }
+
+  /// <summary>Creates a configuration for the mode PifAiMode::UncommittedValue.</summary>
+  /// The input voltage U_in is converted to the uncommitted value x as follows:
+  /// `x = (U_in - offset) / gain`
+  /// When ever U_in changes the SDK will trigger the callback IRImagerClient::onPifUncommittedValue().
+  /// <param name="deviceIndex"> identifying the channel.</param> 
+  /// <param name="pinIndex">    identifying the channel.</param> 
+  /// <param name="name">        of the uncommitted value.</param> 
+  /// <param name="unit">        of the uncommitted value.</param> 
+  /// <param name="gain">        for converting the input voltage into the emissivity.</param> 
+  /// <param name="offset">      for converting the input voltage into the emissivity.</param> 
+  /// <returns>configuration for the mode PifAiMode::UncommittedValue.</returns>
+  public static PifAiConfig createUncommittedValue(int deviceIndex, int pinIndex, string name, string unit, float gain, float offset) {
+    PifAiConfig ret = new PifAiConfig(otcsdkPINVOKE.PifAiConfig_createUncommittedValue(deviceIndex, pinIndex, name, unit, gain, offset), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public PifAiConfig() : this(otcsdkPINVOKE.new_PifAiConfig(), true) {
   }
 
 }

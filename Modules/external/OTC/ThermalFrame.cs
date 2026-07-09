@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
-///  Encapsulates thermal frame data received from a device.
+namespace Optris.OtcSdk {
+///  Encapsulates processed thermal frame data.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class ThermalFrame : Frame {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
@@ -103,13 +104,6 @@ public class ThermalFrame : Frame {
   /// <returns>temperature converter.</returns>
   public TemperatureConverter getConverter() {
     TemperatureConverter ret = new TemperatureConverter(otcsdkPINVOKE.ThermalFrame_getConverter(swigCPtr), true);
-    return ret;
-  }
-
-  /// <summary>Returns a complete copy of this frame.</summary>
-  /// <returns>a complete copy of this frame.</returns>
-  public new ThermalFrame clone() {
-    ThermalFrame ret = new ThermalFrame(otcsdkPINVOKE.ThermalFrame_clone(swigCPtr), true);
     return ret;
   }
 

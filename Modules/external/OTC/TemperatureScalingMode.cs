@@ -8,10 +8,11 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 
-///  Represents the false color conversion strategies.
-public enum PaletteScalingMethod {
+///  Represents the different mode to scale temperatures when generating a false color image.
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
+public enum TemperatureScalingMode {
   ///  User-defined upper and lower limit (fixed values).
   Manual,
   ///  Dynamic determination of minimum and maximum temperature as upper and lower limit.

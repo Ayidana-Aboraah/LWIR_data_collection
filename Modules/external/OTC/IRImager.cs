@@ -8,9 +8,10 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 ///  Interface defining the API for interacting with Optris thermal cameras.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class IRImager : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnBase;
@@ -90,10 +91,12 @@ public class IRImager : global::System.IDisposable {
   }
 
   /// <summary>Adds an observer/client that will be updated when new data arrives.</summary>
-  /// <param name="client"> callback client.</param>
-  public virtual void addClient(IRImagerClient client) {
-    otcsdkPINVOKE.IRImager_addClient(swigCPtr, IRImagerClient.getCPtr(client));
+  /// <param name="client"> callback client.</param> 
+  /// <returns>true, if the client was added. False otherwise.</returns>
+  public virtual bool addClient(IRImagerClient client) {
+    bool ret = otcsdkPINVOKE.IRImager_addClient(swigCPtr, IRImagerClient.getCPtr(client));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
   /// <summary>Removes the given observer/client.</summary>
@@ -106,19 +109,24 @@ public class IRImager : global::System.IDisposable {
   }
 
   /// <summary>Runs the processing loop continuously.</summary>
-  /// Blocks until stopRunning() or disconnect() is called from another thread or until the application
-  /// terminates.
+  /// Blocks until stopRunning() or disconnect() is called from another thread or until the IRImager
+  /// instance is destroyed.
+  /// After invoking run() it can take a very brief amount of time until isRunning() changes to true.
+  /// <returns>true, if the processing loop ran successfully. False, if the processing loop is already
+  ///             running (e.g. in another thread) or if not connected.</returns> 
   /// <seealso cref="stopRunning"/>
-  public virtual void run() {
-    otcsdkPINVOKE.IRImager_run(swigCPtr);
+  public virtual bool run() {
+    bool ret = otcsdkPINVOKE.IRImager_run(swigCPtr);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
   /// <summary>Runs the processing loop continuously in a dedicated thread.</summary>
-  /// Runs until stopRunning() or disconnect() is called from another thread or until the application
-  /// terminates.
+  /// Runs until stopRunning() or disconnect() is called from another thread or until the IRImager
+  /// instance is destroyed.
   /// All callback methods of a registered client now are called from this processing thread.
-  /// <returns>true if the thread started within a second. False otherwise.</returns> 
+  /// <returns>true, if the thread started within five seconds. False, if the thread did not start in time
+  ///             or if the processing loop is already running or if not connected.</returns> 
   /// <seealso cref="stopRunning"/>
   public virtual bool runAsync() {
     bool ret = otcsdkPINVOKE.IRImager_runAsync(swigCPtr);
@@ -136,6 +144,54 @@ public class IRImager : global::System.IDisposable {
   /// <returns>true if the processing loop is running. False otherwise.</returns>
   public virtual bool isRunning() {
     bool ret = otcsdkPINVOKE.IRImager_isRunning(swigCPtr);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Skips an active startup (re)calibration that is performed every time the processing loop is run.</summary>
+  /// Will have not effect if a startup (re)calibration is not active.
+  /// <remarks>Skipping the startup calibration may lead to inaccurate temperature measurements and           should only be used for testing and debugging purposes.</remarks>
+  /// <returns>true if a startup (re)calibration was skipped. False otherwise.</returns>
+  public virtual bool skipStartupCalibration() {
+    bool ret = otcsdkPINVOKE.IRImager_skipStartupCalibration(swigCPtr);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Sets which outputs should be computed and provided by the SDK.</summary>
+  /// <param name="outputs"> configuration specifying which outputs should be computed and provided.</param> 
+  /// <exception cref="SDKException"> if not connected.</exception>
+  public virtual void setProcessingOutputs(ProcessingOutputConfig outputs) {
+    otcsdkPINVOKE.IRImager_setProcessingOutputs(swigCPtr, ProcessingOutputConfig.getCPtr(outputs));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns which outputs are currently configured to be computed and provided by the SDK.</summary>
+  /// <returns>configuration specifying which outputs are currently configured to be computed and provided by the
+  ///             SDK or a default configuration if not connected.</returns>
+  public virtual ProcessingOutputConfig getProcessingOutputs() {
+    ProcessingOutputConfig ret = new ProcessingOutputConfig(otcsdkPINVOKE.IRImager_getProcessingOutputs(swigCPtr), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Sets the maximum number of processing results that are pooled for reuse to avoid unnecessary       allocations.</summary>
+  /// Buffers for processing results are added as needed but will not exceed the specified maximum pool size.
+  /// An insufficient pool size may lead to overriding of already existing results or to waits that will slow
+  /// down processing. Keep your callback implementations concise and fast to avoid such situation.
+  /// <param name="maxPoolSize"> maximum number of processing results that are pooled for reuse. If set to 0, the
+  ///                            pool size will be set to 1.</param> 
+  /// <exception cref="SDKException"> if not connected.</exception>
+  public virtual void setProcessingMaxResultPoolSize(uint maxPoolSize) {
+    otcsdkPINVOKE.IRImager_setProcessingMaxResultPoolSize(swigCPtr, maxPoolSize);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns the maximum number of processing results that are pooled for reuse to avoid unnecessary       allocations.</summary>
+  /// This only returns the maximum pool size but not the actual number of currently pooled processing results.
+  /// <returns>maximum number of processing results that are pooled for reuse.</returns>
+  public virtual uint getProcessingMaxResultPoolSize() {
+    uint ret = otcsdkPINVOKE.IRImager_getProcessingMaxResultPoolSize(swigCPtr);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -170,6 +226,23 @@ public class IRImager : global::System.IDisposable {
     uint ret = otcsdkPINVOKE.IRImager_getFirmwareRevision(swigCPtr);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
+  }
+
+  /// <summary>Returns the current configuration.</summary>
+  /// <returns>current configuration.</returns> 
+  /// <exception cref="SDKException"> if not connected.</exception>
+  public virtual IRImagerConfig getConfig() {
+    IRImagerConfig ret = new IRImagerConfig(otcsdkPINVOKE.IRImager_getConfig(swigCPtr), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Saves the current configuration.</summary>
+  /// The configuration is saved to the default location on the filesystem.
+  /// <exception cref="SDKException"> if not connected or if saving the configuration fails.</exception>
+  public virtual void saveConfig() {
+    otcsdkPINVOKE.IRImager_saveConfig(swigCPtr);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
   /// <summary>Returns the name of the connection interface used to communication with the device.</summary>
@@ -267,10 +340,28 @@ public class IRImager : global::System.IDisposable {
   }
 
   /// <summary>Checks if the Size of Source Correction is enabled.</summary>
-  /// <returns>true if the Size of Source Correction is enabled, false otherwise.</returns> 
-  /// <exception cref="SDKException"> if not connected.</exception>
+  /// <returns>true if the Size of Source Correction is enabled. False if disabled or if not connected.</returns>
   public virtual bool isSoSCorrectionEnabled() {
     bool ret = otcsdkPINVOKE.IRImager_isSoSCorrectionEnabled(swigCPtr);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Sets the mode of radial distortion correction (RDC).</summary>
+  /// This method is only relevant for devices and operation modes that feature a significant radial distortion and support RDC.
+  /// <param name="rdcMode"> the RDC mode to set.</param> 
+  /// <exception cref="SDKException"> if not connected or if setting the RDC mode fails.</exception>
+  public virtual void setRdcMode(RdcMode rdcMode) {
+    otcsdkPINVOKE.IRImager_setRdcMode(swigCPtr, (int)rdcMode);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns the mode of radial distortion correction (RDC).</summary>
+  /// This method is only relevant for devices and operation modes that feature a significant radial distortion and support RDC.
+  /// <returns>the current RDC mode.</returns> 
+  /// <exception cref="SDKException"> if not connected or if retrieving the RDC mode fails.</exception>
+  public virtual RdcMode getRdcMode() {
+    RdcMode ret = (RdcMode)otcsdkPINVOKE.IRImager_getRdcMode(swigCPtr);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -278,7 +369,8 @@ public class IRImager : global::System.IDisposable {
   /// <summary>Die-/Enables temperature range extension.</summary>
   /// <remarks>Extended temperature ranges feature poor precision and should not be used for measurements.           The main purpose of this feature is to give users an easier time to physically align the           field of view of the device when a temperature range has a high lower limit.</remarks>
   /// Not all temperature ranges can be extended.
-  /// <param name="enabled"> if true temperature range extension is enabled.</param>
+  /// <param name="enabled"> if true temperature range extension is enabled.</param> 
+  /// <exception cref="SDKException"> if setting enabled failed or if not connected.</exception>
   public virtual void setTemperatureRangeExtensionEnabled(bool enabled) {
     otcsdkPINVOKE.IRImager_setTemperatureRangeExtensionEnabled(swigCPtr, enabled);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
@@ -330,20 +422,154 @@ public class IRImager : global::System.IDisposable {
     return ret;
   }
 
-  /// <summary>Adds a measurement field that is processed for every new thermal frame.</summary>
-  /// The resulting data can be accessed via the IRImagerClient::onMeasurementField() callback.
-  /// <param name="config"> of the measurement field to add.</param> 
-  /// <returns>the index of the added measurement field.</returns> 
-  /// <exception cref="SDKException"> if not connected or if the measurement field is not completely within the
-  ///                         thermal frame or if adding it failed.</exception>
-  public virtual int addMeasurementField(MeasurementFieldConfig config) {
-    int ret = otcsdkPINVOKE.IRImager_addMeasurementField(swigCPtr, MeasurementFieldConfig.getCPtr(config));
+  /// <summary>Returns the subsampled framerate.</summary>
+  /// <returns>the subsampled framerate or a value <= 0 if not connected or if no subsampling is
+  ///             performed.</returns>
+  public virtual float getSubsampledFramerate() {
+    float ret = otcsdkPINVOKE.IRImager_getSubsampledFramerate(swigCPtr);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
+  /// <summary>Sets the subsampled framerate.</summary>
+  /// The subsampling is performed by the SDK. The subsampled framerate has no effect on the
+  ///       framerate with which the devices send frame data.
+  /// <param name="subsampledFramerate"> to set. Provide a value less or equal to 0 to deactivate
+  ///                                    subsampling. If the value is higher than the framerate
+  ///                                    of the currently active operation mode, no subsampling will
+  ///                                    occur.</param> 
+  /// <exception cref="SDKException"> if not connected.</exception>
+  public virtual void setSubsampledFramerate(float subsampledFramerate) {
+    otcsdkPINVOKE.IRImager_setSubsampledFramerate(swigCPtr, subsampledFramerate);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Adds a measurement field that is processed for every new thermal frame.</summary>
+  /// The newly added measurement field will always be drawn on top of the already existing measurement fields.
+  /// The thermal frame will remain in the background. IRImagerClient::onMeasurementFieldAdded() is called when
+  /// the field was updated with new thermal data.
+  /// <param name="config"> of the measurement field to add.</param> 
+  /// <returns>smart pointer to the added measurement field.</returns> 
+  /// <exception cref="SDKException"> if not connected or if the measurement field is not completely within the
+  ///                         thermal frame or if adding it failed.</exception>
+  public virtual MeasurementField addMeasurementField(MeasurementFieldConfig config) {
+    global::System.IntPtr cPtr = otcsdkPINVOKE.IRImager_addMeasurementField(swigCPtr, MeasurementFieldConfig.getCPtr(config));
+    MeasurementField ret = (cPtr == global::System.IntPtr.Zero) ? null : new MeasurementField(cPtr, true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Removes the given measurement field.</summary>
+  /// The measurement field instance is only destroyed when the smart pointer field is released.
+  /// The ID of the removed measurement field is set to the invalid value of `-1` to indicate its
+  /// successful removal.
+  /// <remarks>Removing a measurement field can have the following consequences:           - PIF analog output channels using the field turn themselves off automatically.           - Alarm channel using the field turn orphaned and are subsequently removed.</remarks>
+  /// <param name="field"> to remove.</param> 
+  /// <exception cref="SDKException"> if not connected or if the measurement field does not exist for this imager
+  ///                         instance.</exception>
+  public virtual void removeMeasurementField(MeasurementField field) {
+    otcsdkPINVOKE.IRImager_removeMeasurementField(swigCPtr, MeasurementField.getCPtr(field));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns all active measurement fields ordered by their index.</summary>
+  /// The measurement fields are ordered by their render tier. Fields with a higher index are drawn on top
+  /// of fields with a lower index.
+  /// <returns>All active measurement fields ordered by their index or an empty container if not connected.</returns>
+  public virtual MeasurementFieldVector getMeasurementFields() {
+    MeasurementFieldVector ret = new MeasurementFieldVector(otcsdkPINVOKE.IRImager_getMeasurementFields(swigCPtr), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Returns the number of active measurement fields.</summary>
+  /// <returns>number of active measurement fields or 0 if not connected.</returns>
+  public virtual int getMeasurementFieldCount() {
+    int ret = otcsdkPINVOKE.IRImager_getMeasurementFieldCount(swigCPtr);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Updated the configuration of a measurement field.</summary>
+  /// <param name="field">  to update.</param> 
+  /// <param name="config"> to update the measurement field with.</param> 
+  /// <exception cref="SDKException"> if not connected, if the measurement field does not exist for this imager or the configuration
+  ///                         cannot be applied.</exception>
+  public virtual void updateMeasurementField(MeasurementField field, MeasurementFieldConfig config) {
+    otcsdkPINVOKE.IRImager_updateMeasurementField(swigCPtr, MeasurementField.getCPtr(field), MeasurementFieldConfig.getCPtr(config));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Swaps the indices of two measurement fields.</summary>
+  /// The measurement field indices determine the render tier of the measurement fields. Fields with a higher index are
+  /// drawn on top of fields with a lower index. The thermal frame is always in the background.
+  /// <param name="index1"> first index to swap.</param> 
+  /// <param name="index2"> second index to swap.</param> 
+  /// <exception cref="SDKException"> if not connected, if the indices do not exist or if the provided indices are identical.</exception>
+  public virtual void swapMeasurementFieldIndices(uint index1, uint index2) {
+    otcsdkPINVOKE.IRImager_swapMeasurementFieldIndices(swigCPtr, index1, index2);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Adds a new alarm channel.</summary>
+  /// <param name="config"> of the new alarm channel to add.</param> 
+  /// <returns>smart pointer to the added alarm channel.</returns> 
+  /// <exception cref="SDKException"> if not connected or if adding the channel failed.</exception>
+  public virtual AlarmChannel addAlarmChannel(AlarmChannelConfig config) {
+    global::System.IntPtr cPtr = otcsdkPINVOKE.IRImager_addAlarmChannel(swigCPtr, AlarmChannelConfig.getCPtr(config));
+    AlarmChannel ret = (cPtr == global::System.IntPtr.Zero) ? null : new AlarmChannel(cPtr, true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Removes the given alarm channel.</summary>
+  /// The alarm channel instance is only destroyed when the smart pointer alarm is released.
+  /// The ID of the removed alarm channel is set to the invalid value of `-1` to indicate its
+  /// successful removal.
+  /// <param name="channel"> to remove.</param> 
+  /// <exception cref="SDKException"> if not connected or if the given alarm channel does not exist for this imager instance.</exception>
+  public virtual void removeAlarmChannel(AlarmChannel channel) {
+    otcsdkPINVOKE.IRImager_removeAlarmChannel(swigCPtr, AlarmChannel.getCPtr(channel));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns all current alarm channels.</summary>
+  /// They are sorted based on their IDs.
+  /// <returns>all current alarm channels or an empty container if not connected.</returns>
+  public virtual AlarmChannelVector getAlarmChannels() {
+    AlarmChannelVector ret = new AlarmChannelVector(otcsdkPINVOKE.IRImager_getAlarmChannels(swigCPtr), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Returns the status of all current alarm channels.</summary>
+  /// They are sorted based on the ID of the corresponding alarm channel.
+  /// <returns>status of all current alarm channels or an empty container if not connected.</returns>
+  public virtual AlarmChannelStatusVector getAlarmChannelStatuses() {
+    AlarmChannelStatusVector ret = new AlarmChannelStatusVector(otcsdkPINVOKE.IRImager_getAlarmChannelStatuses(swigCPtr), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Returns the count of all current alarm channels.</summary>
+  /// <returns>count of all current alarm channels.</returns>
+  public virtual int getAlarmChannelCount() {
+    int ret = otcsdkPINVOKE.IRImager_getAlarmChannelCount(swigCPtr);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Updates the configuration of an alarm channel.</summary>
+  /// <param name="channel"> to update.</param> 
+  /// <param name="config">  to update the alarm channel with.</param>
+  public virtual void updateAlarmChannel(AlarmChannel channel, AlarmChannelConfig config) {
+    otcsdkPINVOKE.IRImager_updateAlarmChannel(swigCPtr, AlarmChannel.getCPtr(channel), AlarmChannelConfig.getCPtr(config));
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   /// <summary>Sets the automatic triggering of flag cycles en-/disabled.</summary>
-  /// <param name="enable"> or disable automatic triggering of flag cycles.</param>
+  /// <param name="enable"> or disable automatic triggering of flag cycles.</param> 
+  /// <exception cref="SDKException"> if not connected.</exception>
   public virtual void setAutoFlagEnabled(bool enable) {
     otcsdkPINVOKE.IRImager_setAutoFlagEnabled(swigCPtr, enable);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
@@ -361,7 +587,7 @@ public class IRImager : global::System.IDisposable {
   /// <param name="minInterval"> minimal time in seconds that has to elapse before a new flag cycle is triggered.</param> 
   /// <param name="maxInterval"> maximum time in seconds that can elapse until a new flag cycle is triggered. Set to 0 to
   ///                            deactivate.</param> 
-  /// <exception cref="SDKException"> if provided intervals are negative.</exception>
+  /// <exception cref="SDKException"> if provided intervals are negative or not connected.</exception>
   public virtual void setFlagInterval(float minInterval, float maxInterval) {
     otcsdkPINVOKE.IRImager_setFlagInterval(swigCPtr, minInterval, maxInterval);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
@@ -453,36 +679,38 @@ public class IRImager : global::System.IDisposable {
     return ret;
   }
 
-  /// <summary>Enables the heating of the sensor chip.</summary>
-  /// <param name="enable"> indicates whether to enable heating.</param> 
+  /// <summary>Sets the provide mode for heating the sensor chip.</summary>
+  /// <param name="mode">        indicating the heating mode.</param> 
+  /// <param name="temperature"> target temperature for fixed mode in °C. Its value is automatically clamped
+  ///                            to [20., 55.] °C.</param> 
   /// <exception cref="SDKException"> if not connected.</exception>
-  public virtual void setChipHeatingEnabled(bool enable) {
-    otcsdkPINVOKE.IRImager_setChipHeatingEnabled(swigCPtr, enable);
+  public virtual void setChipHeatingMode(ChipHeatingMode mode, float temperature) {
+    otcsdkPINVOKE.IRImager_setChipHeatingMode__SWIG_0(swigCPtr, (int)mode, temperature);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  /// <summary>Return whether the sensor chip heating is enabled.</summary>
-  /// <returns>true, if the sensor chip heating is enabled. False if heating is disabled of if not connected.</returns>
-  public virtual bool isChipHeatingEnabled() {
-    bool ret = otcsdkPINVOKE.IRImager_isChipHeatingEnabled(swigCPtr);
+  /// <summary>Sets the provide mode for heating the sensor chip.</summary>
+  /// <param name="mode">        indicating the heating mode.</param> 
+  /// <exception cref="SDKException"> if not connected.</exception>
+  public virtual void setChipHeatingMode(ChipHeatingMode mode) {
+    otcsdkPINVOKE.IRImager_setChipHeatingMode__SWIG_1(swigCPtr, (int)mode);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Returns the current sensor chip heating mode.</summary>
+  /// <returns>current sensor chip heating mode or ChipHeatingMode::Floating if not connected.</returns>
+  public virtual ChipHeatingMode getChipHeatingMode() {
+    ChipHeatingMode ret = (ChipHeatingMode)otcsdkPINVOKE.IRImager_getChipHeatingMode(swigCPtr);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  /// <summary>Sets the reference temperature in °C for the sensor chip heating.</summary>
-  /// The specified temperature should be in [20, 55] °C. If not, the temperature will automatically be clipped.
-  /// The current chip temperature can be monitored with getTemperatureChip().
-  /// <param name="temperature"> to set in °C.</param> 
-  /// <exception cref="SDKException"> if not connected.</exception>
-  public virtual void setTemperatureChipReference(float temperature) {
-    otcsdkPINVOKE.IRImager_setTemperatureChipReference(swigCPtr, temperature);
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  /// <summary>Returns the reference temperature in °C of the sensor chip heating.</summary>
-  /// <returns>temperature of the sensor chip in °C or INVALID_TEMPERATURE if not connected.</returns>
-  public virtual float getTemperatureChipReference() {
-    float ret = otcsdkPINVOKE.IRImager_getTemperatureChipReference(swigCPtr);
+  /// <summary>Returns the the target temperature in °C for the sensor chip heating.</summary>
+  /// The actual sensor chip temperature can be accessed with IRImager::getTemperatureChip().
+  /// <returns>target temperature in °C for the sensor chip heating or INVALID_TEMPERATURE if not connected or
+  ///             if the heating mode is not fixed.</returns>
+  public virtual float getChipHeatingTemperature() {
+    float ret = otcsdkPINVOKE.IRImager_getChipHeatingTemperature(swigCPtr);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -578,20 +806,38 @@ public class IRImager : global::System.IDisposable {
   }
 
   /// <summary>Sets the network configuration of the device.</summary>
+  /// The SDK tries to retain an active Ethernet connection. This, however, is only possible if the following
+  /// settings were changed:
+  /// - device IP address
+  /// - destination port
+  /// In any other case the SDK considers the connection lost and triggers the IRImagerClient::onConnectionLost()
+  /// callback which a client should use to call disconnect().
   /// <param name="networkConfig"> to set.</param> 
-  /// <exception cref="SDKException"> if not connect via USB or if device does not support Ethernet or if setting the device network configuration
-  ///                         failed.</exception>
-  public virtual void setDeviceNetworkConfig(DeviceNetworkConfig networkConfig) {
-    otcsdkPINVOKE.IRImager_setDeviceNetworkConfig(swigCPtr, DeviceNetworkConfig.getCPtr(networkConfig));
+  /// <exception cref="SDKException"> if not connected of if the device does not support Ethernet or if setting the device network
+  ///                         configuration failed.</exception> 
+  /// <returns>true, if the device connection was retained. False otherwise.</returns> 
+  /// <seealso cref="IRImagerClient.onConnectionLost"/>
+  public virtual bool setDeviceNetworkConfig(DeviceNetworkConfig networkConfig) {
+    bool ret = otcsdkPINVOKE.IRImager_setDeviceNetworkConfig(swigCPtr, DeviceNetworkConfig.getCPtr(networkConfig));
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
   /// <summary>Returns the network configuration of the device.</summary>
   /// <returns>network configuration of the device.</returns> 
-  /// <exception cref="SDKException"> if not connect via USB or if device does not support Ethernet or if getting the device network configuration
-  ///                         failed.</exception>
+  /// <exception cref="SDKException"> if not connected of if the device does not support Ethernet or if getting the device network
+  ///                         configuration failed.</exception>
   public virtual DeviceNetworkConfig getDeviceNetworkConfig() {
     DeviceNetworkConfig ret = new DeviceNetworkConfig(otcsdkPINVOKE.IRImager_getDeviceNetworkConfig(swigCPtr), true);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  /// <summary>Grants access to the process interface.</summary>
+  /// <remarks>The reference becomes invalid on disconnects.</remarks><returns>reference to the process interface.</returns> 
+  /// <exception cref="SDKException"> if not connected.</exception>
+  public virtual ProcessInterface getPif() {
+    ProcessInterface ret = new ProcessInterface(otcsdkPINVOKE.IRImager_getPif__SWIG_0(swigCPtr), false);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -605,6 +851,17 @@ public class IRImager : global::System.IDisposable {
   /// <exception cref="SDKException"> if not connected.</exception>
   public virtual void interruptFailSafe(bool active, string reason) {
     otcsdkPINVOKE.IRImager_interruptFailSafe(swigCPtr, active, reason);
+    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  /// <summary>Configure the tracing of the operation modules that comprise the processing pipeline.</summary>
+  /// <param name="interval"> desired time in ms between subsequent updates. Set to 0 to deactivate tracing.</param> 
+  /// <param name="x">        coordinate of a pixel whose value should be traced through processing.</param> 
+  /// <param name="y">        coordinate of a pixel whose value should be traced through processing.</param> 
+  /// <exception cref="SDKException"> if not connected or if the pixel coordinates lie outside the frame.</exception> 
+  /// <seealso cref="IRImagerClient.onOperationInfo"/>
+  public virtual void configureOperationInfo(int interval, int x, int y) {
+    otcsdkPINVOKE.IRImager_configureOperationInfo(swigCPtr, interval, x, y);
     if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
   }
 

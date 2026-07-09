@@ -8,13 +8,14 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
-namespace Optris.OtcSDK {
+namespace Optris.OtcSdk {
 /// <summary>Represents a data frame received from a device.</summary>
 /// The encapsulated data may represent thermal or energy measurements in an internal format. See the
 /// specialized child classes like ThermalFrame for more details.
 /// The origin of coordinates is located in the upper left corner with the x-axis pointing right and
 /// the y-axis pointing down.
 
+[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
 public class Frame : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -92,14 +93,6 @@ public class Frame : global::System.IDisposable {
     return ret;
   }
 
-  /// <summary>Returns an iterator with read access.</summary>
-  /// The iterator traverses the frame in a row major fashion.
-  /// <returns>iterator with read access.</returns>
-  public ConstFrameIterator getConstIterator() {
-    ConstFrameIterator ret = new ConstFrameIterator(otcsdkPINVOKE.Frame_getConstIterator(swigCPtr), true);
-    return ret;
-  }
-
   /// <summary>Returns the width in pixels of the frame.</summary>
   /// <returns>width in pixel of the frame.</returns>
   public int getWidth() {
@@ -138,13 +131,6 @@ public class Frame : global::System.IDisposable {
   /// <param name="height"> of the resized frame in pixels.</param>
   public void resize(int width, int height) {
     otcsdkPINVOKE.Frame_resize(swigCPtr, width, height);
-  }
-
-  /// <summary>Returns a complete copy of this frame.</summary>
-  /// <returns>a complete copy of this frame.</returns>
-  public Frame clone() {
-    Frame ret = new Frame(otcsdkPINVOKE.Frame_clone(swigCPtr), true);
-    return ret;
   }
 
   /// <summary>Copies the internal data to a one-dimensional array or vector.</summary>
