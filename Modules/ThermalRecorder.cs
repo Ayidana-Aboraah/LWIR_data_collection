@@ -1,8 +1,6 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
-using System.Windows.Controls;
 
 namespace LWIR_app.classes
 {
@@ -10,9 +8,7 @@ namespace LWIR_app.classes
     {
         private BlockingCollection<RecordedFrame>? queue;
         private Task? writerTask;
-
         private bool isRecording;
-
         private string sessionDirectory = "";
         private string frameDirectory = "";
 
@@ -20,9 +16,7 @@ namespace LWIR_app.classes
         private BinaryWriter? singleFileWriter;
         private int frameIndex = 0;
         public bool IsRecording => isRecording;
-
         private RecorderSettings settings;
-
         public List<int> roi = new();
 
         public void Start(RecorderSettings settings)

@@ -1,0 +1,67 @@
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Windows.Media;
+using Microsoft.VisualBasic.FileIO;
+using Optris.OtcSdk;
+
+namespace LWIR_app.models
+{
+    public class CustomImageBuilder : ImageBuilder
+    {
+        private Dictionary<string, Color[]>  palettes;
+        public Color[] current_palette;
+        public CustomImageBuilder(ColorFormat colorFormat, WidthAlignment widthAlignment) : base(colorFormat, widthAlignment)
+        {
+            palettes = LoadDefaultPalettes();
+            // palettes.TryGetValue("Iron", out current_palette);
+        }
+
+        public string builtinPaletteDir = @"C:\Program Files\Optris\otcsdk\palettes";
+
+        public string[] LoadDefaultPaletteNames()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(builtinPaletteDir);
+            FileInfo[] files =  dirInfo.GetFiles();
+            string[] result = new string[files.Length];
+            for (int i = 0; i < files.Length; i++) result[i] = Path.GetFileNameWithoutExtension(files[i].Name);
+            return result;
+        }
+
+        public Dictionary<string, Color[]> LoadDefaultPalettes()
+        {
+            string[] names = LoadDefaultPaletteNames();
+            Dictionary<string, Color[]> colors = new Dictionary<string, Color[]>();
+            foreach(string name in names) colors[name] = ParsePaletteCSV(builtinPaletteDir + "/" + name + ".csv");
+            return palettes;
+        }
+
+        public Color[] ParsePaletteCSV(string path)
+        {
+            TextFieldParser parser = new TextFieldParser(path);
+            parser.SetDelimiters(",");
+
+            List<Color> colors = new List<Color>();
+        
+            while (!parser.EndOfData)
+            {
+                string[] fields = parser.ReadFields();
+                byte[] pixel = new byte[3];
+                for (int i = 0; i < fields.Length; i++) pixel[i] = Byte.Parse(fields[i]);
+                colors.Append(Color.FromArgb(255, pixel[0],pixel[1],pixel[2]));
+            }
+            return colors.ToArray();
+        }
+
+        public (byte R, byte G, byte B) MapTemperatureToColor(float temperature, float scaleMin, float scaleMax)
+        {
+            if (palettes.Count == 0) return (0,0,0);
+
+            float normalised = (temperature - scaleMin) / (scaleMax - scaleMin);
+            normalised = Math.Clamp(normalised, 0.0f, 1.0f);
+
+            var p = current_palette[(int)Math.Floor(normalised * current_palette.Count())];
+            return (p.R, p.G, p.B);
+        }
+    }
+}

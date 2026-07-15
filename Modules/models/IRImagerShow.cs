@@ -24,7 +24,7 @@ namespace LWIR_app.models
         public TemperatureRegion MaxRegion { get; private set; }
         public TemperatureRegion MeanRegion { get; private set; }
 
-        private ImageBuilder imageBuilder;
+        public CustomImageBuilder imageBuilder;
         private FrameEvent frameEvent = new();
         private FramerateCounter counter = new();
         private string flagState = "";
@@ -39,10 +39,10 @@ namespace LWIR_app.models
         public bool IsConnected { get; private set; }
         public bool IsConnectionLost { get; private set; }
 
-        // private bool useAutoScaling = true;
+        private bool useAutoScaling = true;
 
-        // private float scaleLow = 0f;
-        // private float scaleHigh = 100f;
+        private float scaleLow = 0f;
+        private float scaleHigh = 100f;
         private readonly List<int> roiTemperatureIndices = new();
         private int roiWidth;
         private int roiHeight;
@@ -81,7 +81,7 @@ namespace LWIR_app.models
              * The temperature range decimal indicates the precision of the thermal data. The ImageBuilder requires this
              * information to correctly decode that data.
              */
-            imageBuilder = new ImageBuilder(ColorFormat.BGR, WidthAlignment.FourBytes);
+            imageBuilder = new CustomImageBuilder(ColorFormat.BGR, WidthAlignment.FourBytes);
             // imageBuilder.setPaletteScalingMethod(PaletteScalingMethod.MinMax);
             // useAutoScaling = true;
 
@@ -93,6 +93,8 @@ namespace LWIR_app.models
             MaxRegion = new TemperatureRegion();
             MeanRegion = new TemperatureRegion();
         }
+
+        public string[] LoadDefaultPaletteNames => imageBuilder.LoadDefaultPaletteNames();
 
         public float findTemp(int x, int y)
         {
@@ -434,22 +436,11 @@ namespace LWIR_app.models
 
         public void StopRecording() => recorder.Stop();
 
-        // public void SetScaleRange(float low, float high)
-        // {
-        //     if (!useAutoScaling && IsConnected) imageBuilder.setTemperatureScaling(low, high);
-        // }
-        // public void SetAutoScaling(bool enabled)
-        // {
-        //     useAutoScaling = enabled;
-
-        //     if (IsConnected)
-        //     {
-        //         imageBuilder.setPaletteScalingMethod(
-        //             enabled
-        //                 ? PaletteScalingMethod.MinMax
-        //                 : PaletteScalingMethod.Manual);
-        //     }
-        // }
+        public void SetScaleRange(float low, float high)
+        {
+            if (!useAutoScaling && IsConnected) imageBuilder.setTemperatureScaling(low, high);
+        }
+        public void SetAutoScaling(bool enabled) => useAutoScaling = enabled;
 
         private static MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton button, MessageBoxImage icon)
         {

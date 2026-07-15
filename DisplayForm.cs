@@ -26,6 +26,7 @@ namespace LWIR_app
     public sealed class DisplayForm : Window
     {
         private readonly IRImagerShow imagerShow = new();
+        private PlaybackTool playback;
         private readonly DispatcherTimer uiUpdateTimer = new();
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
@@ -38,6 +39,8 @@ namespace LWIR_app
         private System.Drawing.Rectangle selectedRoi;
         private int currentImageWidth;
         private int currentImageHeight;
+
+        public bool replay = false;
 
         private System.Windows.Controls.Image thermalImage = null!;
         private TextBlock sbOperationMode = new TextBlock
@@ -76,14 +79,7 @@ namespace LWIR_app
             Margin = new Thickness(0, 0, 0, 10)
         };
 
-        private string save_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-        // private TextBox saveDirectoryPath = new TextBox
-        // {
-        //     Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-        //     Margin = new Thickness(0, 0, 0, 8)
-        // };
-
+        private string save_path = @"D:\works\data_in\";
         private CheckBox singleBinaryToggle = new CheckBox
         {
             Content = "Single Binary File",
@@ -98,24 +94,21 @@ namespace LWIR_app
             Margin = new Thickness(0, 0, 0, 10)
         };
 
-        // private CheckBox autoTempScale = new CheckBox
-        // {
-        //     Content = "Automatic Temperature Scale",
-        //     IsChecked = true,
-        //     Margin = new Thickness(0, 16, 0, 0)
-        // };
+        private CheckBox autoTempScale = new CheckBox
+        {
+            Content = "Automatic Temperature Scale",
+            IsChecked = true,
+            Margin = new Thickness(0, 16, 0, 0)
+        };
 
-        // private TextBox imageScaleLow = null!;
-        // private TextBox imageScaleHigh = null!;
+        private TextBox imageScaleLow = null!;
+        private TextBox imageScaleHigh = null!;
         private TextBlock minTemp = null!;
         private TextBlock maxTemp = null!;
         private System.Windows.Controls.Image roiPreviewImage = null!;
         private TextBlock roiPreviewInfo = null!;
 
         private RadioButton[] opModes = null!;
-        // private RadioButton opMode1;
-        // private RadioButton opMode2;
-        // private RadioButton opMode3;
 
         private RadioButton[] saveTypes = new RadioButton[3]{
             new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
@@ -123,10 +116,14 @@ namespace LWIR_app
             new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
         };
 
-        private MenuItem miDeviceQuickConnect = new MenuItem { Header = "Quick Connect" };
-        private MenuItem miDeviceConnect = new MenuItem { Header = "Connect With Configuration..." };
-        private MenuItem miDeviceDisconnect = new MenuItem { Header = "Disconnect", IsEnabled = false };
-        private MenuItem miDeviceRefreshFlag = new MenuItem { Header = "Refresh Flag", IsEnabled = false };
+        private MenuItem[] DeviceInteractonsOptions = [
+            new MenuItem { Header = "Quick Connect" },
+            new MenuItem { Header = "Connect With Configuration..."},
+            new MenuItem { Header = "Disconnect", IsEnabled = false },
+            new MenuItem { Header = "Refresh Flag", IsEnabled = false },
+        ];
+        private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[4];
+
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
         private GroupBox saveDataTypeBox = new GroupBox
@@ -138,6 +135,7 @@ namespace LWIR_app
         /// <summary>Constructor.</summary>
         public DisplayForm()
         {
+            playback = new PlaybackTool(imagerShow.imageBuilder);
             InitializeComponent();
 
             uiUpdateTimer.Interval = TimeSpan.FromMilliseconds(33);
@@ -156,6 +154,13 @@ namespace LWIR_app
             MinHeight = 515;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Background = WpfBrushes.Black;
+
+            DeviceInteractions = [
+                (_,_) => QuickConnect(),
+                (_,_) => ConnectWithConfigSelection(),
+                (_,_) => Disconnect(),
+                (_,_) => imagerShow.RefreshFlag(),
+            ];
 
             var root = new DockPanel();
             Content = root;
@@ -228,7 +233,21 @@ namespace LWIR_app
             var menuStrip = new Menu();
 
             var fileMenu = new MenuItem { Header = "File" };
+            var LoadFrame = new MenuItem { Header = "Load Frame" };
             var quitMenu = new MenuItem { Header = "Quit" };
+            LoadFrame.Click += (_,_) =>
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                if (dialog.ShowDialog() == true)
+                {
+                    var frame = BinaryLoader.LoadRecordedFrameBinary(dialog.FileName);
+                    playback.LoadFrames(frame);
+                    replay = true;
+                    UpdateUiOnConnectionStatus();
+                }
+            };
+            fileMenu.Items.Add(LoadFrame);
+
             quitMenu.Click += (_, _) =>
             {
                 Disconnect();
@@ -238,19 +257,11 @@ namespace LWIR_app
 
             var deviceMenu = new MenuItem { Header = "Device" };
 
-            miDeviceQuickConnect.Click += (_, _) => QuickConnect();
-
-            miDeviceConnect.Click += (_, _) => ConnectWithConfigSelection();
-
-            miDeviceDisconnect.Click += (_, _) => Disconnect();
-
-            miDeviceRefreshFlag.Click += (_, _) => imagerShow.RefreshFlag();
-
-            deviceMenu.Items.Add(miDeviceQuickConnect);
-            deviceMenu.Items.Add(miDeviceConnect);
-            deviceMenu.Items.Add(miDeviceDisconnect);
-            deviceMenu.Items.Add(new Separator());
-            deviceMenu.Items.Add(miDeviceRefreshFlag);
+            for (int i = 0; i < DeviceInteractonsOptions.Length; i++)
+            {
+                deviceMenu.Items.Add(DeviceInteractonsOptions[i]);
+                DeviceInteractonsOptions[i].Click += DeviceInteractions[i];
+            }
 
             imageConfigurationMenu.Items.Add(colorPaletteMenu);
 
@@ -293,37 +304,37 @@ namespace LWIR_app
             return panelBorder;
         }
 
-        // private GroupBox BuildScaleGroup()
-        // {
-        //     var group = new GroupBox
-        //     {
-        //         Header = "Scale",
-        //         Margin = new Thickness(0, 0, 0, 12)
-        //     };
+        private GroupBox BuildScaleGroup()
+        {
+            var group = new GroupBox
+            {
+                Header = "Scale",
+                Margin = new Thickness(0, 0, 0, 12)
+            };
 
-        //     Grid panel = new Grid { Margin = new Thickness(8) };
-        //     panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        //     panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        //     panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        //     panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            Grid panel = new Grid { Margin = new Thickness(8) };
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-        //     FrameworkElement[] s = {
-        //         BuildScaleRow("High:", out imageScaleHigh),
-        //         BuildScaleRow("Low:", out imageScaleLow)
-        //     };
+            FrameworkElement[] s = {
+                BuildScaleRow("High:", out imageScaleHigh),
+                BuildScaleRow("Low:", out imageScaleLow)
+            };
 
-        //     // TODO: Create a space between the elements
+            // TODO: Create a space between the elements
 
-        //     for (int i = 0; i < s.Length; i++)
-        //     {
-        //         Grid.SetRow(s[i], 0);
-        //         Grid.SetColumn(s[i], i);
-        //         panel.Children.Add(s[i]);
-        //     }
+            for (int i = 0; i < s.Length; i++)
+            {
+                Grid.SetRow(s[i], 0);
+                Grid.SetColumn(s[i], i);
+                panel.Children.Add(s[i]);
+            }
 
-        //     group.Content = panel;
-        //     return group;
-        // }
+            group.Content = panel;
+            return group;
+        }
 
         private GroupBox BuildTemperatureGroup()
         {
@@ -546,10 +557,7 @@ namespace LWIR_app
 
         private void QuickConnect()
         {
-            if (imagerShow.IsConnected)
-            {
-                return;
-            }
+            if (imagerShow.IsConnected) return;
 
             try
             {
@@ -590,7 +598,7 @@ namespace LWIR_app
 
         private void UpdateUI()
         {
-            if (!imagerShow.IsConnected || imagerShow.IsConnectionLost)
+            if ((!imagerShow.IsConnected || imagerShow.IsConnectionLost) && replay == false)
             {
                 Disconnect();
                 return;
@@ -600,6 +608,7 @@ namespace LWIR_app
             sbFlag.Text = imagerShow.GetFlagState();
             sbFPS.Text = imagerShow.GetFPS().ToString("N1", CultureInfo.CurrentCulture) + " Hz";
 
+            // Bitmap? image = (replay) ? playback.RenderFrame(playback.GetCurrentFrame()).Bitmap : imagerShow.GetImage();
             Bitmap? image = imagerShow.GetImage();
             if (image == null) return;
 
@@ -622,7 +631,7 @@ namespace LWIR_app
                 minTemp.Text = imagerShow.MinRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
                 maxTemp.Text = imagerShow.MaxRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
 
-                // if (autoTempScale.IsChecked == true) SetAutoScalingRange();
+                if (autoTempScale.IsChecked == true) SetAutoScalingRange();
             }
 
             UpdateRoiPreview(image);
@@ -748,10 +757,7 @@ namespace LWIR_app
             int top = Math.Min(startPixel.Y, endPixel.Y);
             int bottom = Math.Max(startPixel.Y, endPixel.Y);
 
-            if (right - left < 2 || bottom - top < 2)
-            {
-                return false;
-            }
+            if (right - left < 2 || bottom - top < 2) return false;
 
             rectangle = new System.Drawing.Rectangle(left, top, right - left + 1, bottom - top + 1);
             return true;
@@ -759,10 +765,7 @@ namespace LWIR_app
 
         private static System.Windows.Point ClampToRect(System.Windows.Point point, Rect rect)
         {
-            if (rect.IsEmpty)
-            {
-                return point;
-            }
+            if (rect.IsEmpty) return point;
 
             double clampedX = Math.Max(rect.Left, Math.Min(point.X, rect.Right));
             double clampedY = Math.Max(rect.Top, Math.Min(point.Y, rect.Bottom));
@@ -878,7 +881,6 @@ namespace LWIR_app
                 sbOperationMode.Text = imagerShow.OperationModeString;
                 sbFlag.Text = imagerShow.GetFlagState();
                 uiUpdateTimer.Start();
-                // SetAutoScalingRange();
             }
             else
             {
@@ -897,13 +899,11 @@ namespace LWIR_app
                 SetRecordingUiState(false);
             }
 
-            miDeviceQuickConnect.IsEnabled = !connected;
-            miDeviceConnect.IsEnabled = !connected;
-            miDeviceDisconnect.IsEnabled = connected;
-            miDeviceRefreshFlag.IsEnabled = connected;
+            int optionsLength = DeviceInteractonsOptions.Length;
+            for (int i = 0; i < optionsLength; i++) DeviceInteractonsOptions[i].IsEnabled = (i < optionsLength/2) ? !connected : connected;
+
             imageConfigurationMenu.IsEnabled = connected;
             saveDirectory.IsEnabled = connected;
-            // saveDirectoryPath.IsEnabled = connected;
             saveDataTypeBox.IsEnabled = connected;
             singleBinaryToggle.IsEnabled = connected;
             recordROIOnlyToggle.IsEnabled = connected;
@@ -912,23 +912,23 @@ namespace LWIR_app
             SetOperationModeSelection(imagerShow.ActiveModeIndex);
         }
 
-        // private void SetAutoScalingRange()
-        // {
-        //     if (!imagerShow.IsConnected || autoTempScale.IsChecked != true) return;
+        private void SetAutoScalingRange()
+        {
+            if (!imagerShow.IsConnected || autoTempScale.IsChecked != true) return;
 
-        //     var range = imagerShow.GetTemperatureRange();
+            var range = imagerShow.GetTemperatureRange();
 
-        //     suppressScaleTextEvents = true;
-        //     try
-        //     {
-        //         imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
-        //         imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
-        //     }
-        //     finally
-        //     {
-        //         suppressScaleTextEvents = false;
-        //     }
-        // }
+            suppressScaleTextEvents = true;
+            try
+            {
+                imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
+                imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
+            }
+            finally
+            {
+                suppressScaleTextEvents = false;
+            }
+        }
 
         private void SetOperationModeSelection(int modeIndex)
         {
@@ -942,21 +942,8 @@ namespace LWIR_app
             paletteMenuItems.Clear();
 
             // TODO: have the palette options be generated by reading all palette file names from the default directory
-            string[] builtinPalettes = [
-                "AlarmBlue",
-                "AlarmBlueHi",
-                "AlarmGreen",
-                "AlarmRed",
-                "GrayBW",
-                "GrayWB",
-                "Iron",
-                "IronHi",
-                "Medical",
-                "Rainbow",
-                "RainbowHi",
-            ];
 
-            foreach (string palette in builtinPalettes)
+            foreach (string palette in imagerShow.LoadDefaultPaletteNames)
             {
                 var item = new MenuItem
                 {
@@ -980,10 +967,7 @@ namespace LWIR_app
 
         private void SetSelectedPalette(string palette)
         {
-            foreach (var pair in paletteMenuItems)
-            {
-                pair.Value.IsChecked = pair.Key == palette;
-            }
+            foreach (var pair in paletteMenuItems) pair.Value.IsChecked = pair.Key == palette;
         }
 
         private void saveDirectory_Click()
@@ -1025,10 +1009,11 @@ namespace LWIR_app
                     return;
                 }
 
-            if (recordROIOnlyToggle.IsChecked == true && !hasRoi) {
-                MessageBox.Show("Create ROI");
-                return;
-            }
+                if (recordROIOnlyToggle.IsChecked == true && !hasRoi)
+                {
+                    MessageBox.Show("Create ROI");
+                    return;
+                }
 
                 imagerShow.StartRecording(
                     directory,
@@ -1067,73 +1052,73 @@ namespace LWIR_app
             return SaveDataType.Float;
         }
 
-        // private void AutoTempScale_CheckedChanged()
-        // {
-        //     bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
-        //     imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
-        //     imageScaleLow.IsReadOnly = autoTempScaleEnabled;
-        //     // imagerShow.SetAutoScaling(autoTempScaleEnabled);
+        private void AutoTempScale_CheckedChanged()
+        {
+            bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
+            imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
+            imageScaleLow.IsReadOnly = autoTempScaleEnabled;
+            // imagerShow.SetAutoScaling(autoTempScaleEnabled);
 
-        //     if (autoTempScaleEnabled) SetAutoScalingRange();
-        //     else ApplyManualScaleRangeFromInputs();
-        // }
+            if (autoTempScaleEnabled) SetAutoScalingRange();
+            else ApplyManualScaleRangeFromInputs();
+        }
 
-        // private FrameworkElement BuildScaleRow(string labelText, out TextBox textBox, double topMargin = 0)
-        // {
-        //     var row = new DockPanel { Margin = new Thickness(0, topMargin, 0, 0) };
+        private FrameworkElement BuildScaleRow(string labelText, out TextBox textBox, double topMargin = 0)
+        {
+            var row = new DockPanel { Margin = new Thickness(0, topMargin, 0, 0) };
 
-        //     textBox = new TextBox
-        //     {
-        //         Width = 72,
-        //         Text = "0",
-        //         HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right,
-        //         IsReadOnly = true,
-        //         Margin = new Thickness(0, 0, 6, 0)
-        //     };
-        //     textBox.TextChanged += imageScale_TextChanged;
+            textBox = new TextBox
+            {
+                Width = 72,
+                Text = "0",
+                HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right,
+                IsReadOnly = true,
+                Margin = new Thickness(0, 0, 6, 0)
+            };
+            textBox.TextChanged += imageScale_TextChanged;
 
-        //     var label = new TextBlock
-        //     {
-        //         Text = labelText,
-        //         Width = 48,
-        //         VerticalAlignment = VerticalAlignment.Center
-        //     };
+            var label = new TextBlock
+            {
+                Text = labelText,
+                Width = 48,
+                VerticalAlignment = VerticalAlignment.Center
+            };
 
-        //     var unit = new TextBlock
-        //     {
-        //         Text = "°C",
-        //         VerticalAlignment = VerticalAlignment.Center
-        //     };
+            var unit = new TextBlock
+            {
+                Text = "°C",
+                VerticalAlignment = VerticalAlignment.Center
+            };
 
-        //     DockPanel.SetDock(label, Dock.Left);
-        //     DockPanel.SetDock(unit, Dock.Right);
+            DockPanel.SetDock(label, Dock.Left);
+            DockPanel.SetDock(unit, Dock.Right);
 
-        //     row.Children.Add(label);
-        //     row.Children.Add(textBox);
-        //     row.Children.Add(unit);
-        //     return row;
-        // }
+            row.Children.Add(label);
+            row.Children.Add(textBox);
+            row.Children.Add(unit);
+            return row;
+        }
 
-        // private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
-        // {
-        //     if (suppressScaleTextEvents || autoTempScale.IsChecked == true)
-        //     {
-        //         return;
-        //     }
+        private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (suppressScaleTextEvents || autoTempScale.IsChecked == true)
+            {
+                return;
+            }
 
-        //     ApplyManualScaleRangeFromInputs();
-        // }
+            ApplyManualScaleRangeFromInputs();
+        }
 
-        // private void ApplyManualScaleRangeFromInputs()
-        // {
-        //     if (!TryReadScaleValue(imageScaleLow.Text, out float low)) return;
+        private void ApplyManualScaleRangeFromInputs()
+        {
+            if (!TryReadScaleValue(imageScaleLow.Text, out float low)) return;
 
-        //     if (!TryReadScaleValue(imageScaleHigh.Text, out float high)) return;
+            if (!TryReadScaleValue(imageScaleHigh.Text, out float high)) return;
 
-        //     if (low > high) (low, high) = (high, low);
+            if (low > high) (low, high) = (high, low);
 
-        //     imagerShow.SetScaleRange(low, high);
-        // }
+            imagerShow.SetScaleRange(low, high);
+        }
 
         private static bool TryReadScaleValue(string? text, out float value)
         {
@@ -1151,7 +1136,7 @@ namespace LWIR_app
             if (radioButton.Tag is not int modeIndex) return;
 
             imagerShow.SetOperationMode(modeIndex);
-            // SetAutoScalingRange();
+            SetAutoScalingRange();
         }
 
 
