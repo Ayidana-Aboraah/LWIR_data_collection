@@ -14,7 +14,7 @@ namespace LWIR_app.models
         public CustomImageBuilder(ColorFormat colorFormat, WidthAlignment widthAlignment) : base(colorFormat, widthAlignment)
         {
             palettes = LoadDefaultPalettes();
-            // palettes.TryGetValue("Iron", out current_palette);
+            palettes.TryGetValue("Iron", out current_palette);
         }
 
         public string builtinPaletteDir = @"C:\Program Files\Optris\otcsdk\palettes";
@@ -32,8 +32,8 @@ namespace LWIR_app.models
         {
             string[] names = LoadDefaultPaletteNames();
             Dictionary<string, Color[]> colors = new Dictionary<string, Color[]>();
-            foreach(string name in names) colors[name] = ParsePaletteCSV(builtinPaletteDir + "/" + name + ".csv");
-            return palettes;
+            foreach(string name in names) colors[name] = ParsePaletteCSV(builtinPaletteDir + "\\" + name + ".csv");
+            return colors;
         }
 
         public Color[] ParsePaletteCSV(string path)
@@ -48,19 +48,23 @@ namespace LWIR_app.models
                 string[] fields = parser.ReadFields();
                 byte[] pixel = new byte[3];
                 for (int i = 0; i < fields.Length; i++) pixel[i] = Byte.Parse(fields[i]);
-                colors.Append(Color.FromArgb(255, pixel[0],pixel[1],pixel[2]));
+                colors.Add(Color.FromArgb(255, pixel[0],pixel[1],pixel[2]));
             }
             return colors.ToArray();
         }
 
         public (byte R, byte G, byte B) MapTemperatureToColor(float temperature, float scaleMin, float scaleMax)
         {
-            if (palettes.Count == 0) return (0,0,0);
+            if (palettes == null || palettes.Count == 0) return (0,0,0);
 
             float normalised = (temperature - scaleMin) / (scaleMax - scaleMin);
             normalised = Math.Clamp(normalised, 0.0f, 1.0f);
+            int len = current_palette.Length;
 
-            var p = current_palette[(int)Math.Floor(normalised * current_palette.Count())];
+
+            int i = Math.Clamp(((int)Math.Floor(normalised * current_palette.Count())), 0, len-1);
+
+            var p = current_palette[i];
             return (p.R, p.G, p.B);
         }
     }

@@ -71,13 +71,10 @@ namespace LWIR_app.classes
 
         public RecordedFrame? GetCurrentFrame()
         {
-            lock (gate)
-            {
                 if (frames.Count == 0) return null;
 
                 currentIndex = Math.Clamp(currentIndex, 0, frames.Count - 1);
                 return frames[currentIndex];
-            }
         }
 
         public void SetPlaybackRate(double framesPerSecond) => FramesPerSecond = framesPerSecond;

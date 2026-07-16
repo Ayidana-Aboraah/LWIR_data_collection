@@ -134,6 +134,6 @@ namespace LWIR_app.classes{
             return SaveDataType.Float;
         }
 
-        private static bool IsPerFrameBinary(string path) => Path.GetFileName(path).EndsWith("_base.bin", StringComparison.OrdinalIgnoreCase);
+        private static bool IsPerFrameBinary(string path) => Path.GetFileName(path).EndsWith(".bin", StringComparison.OrdinalIgnoreCase);
     }
 }

@@ -19,6 +19,7 @@ using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
 using System.Windows.Controls.Primitives;
 using System.Net.Http.Headers;
+using System.Diagnostics;
 
 namespace LWIR_app
 {
@@ -608,8 +609,8 @@ namespace LWIR_app
             sbFlag.Text = imagerShow.GetFlagState();
             sbFPS.Text = imagerShow.GetFPS().ToString("N1", CultureInfo.CurrentCulture) + " Hz";
 
-            // Bitmap? image = (replay) ? playback.RenderFrame(playback.GetCurrentFrame()).Bitmap : imagerShow.GetImage();
-            Bitmap? image = imagerShow.GetImage();
+            Bitmap? image = replay ? playback.RenderFrame(playback.GetCurrentFrame()).Bitmap : imagerShow.GetImage();
+            // Bitmap? image = imagerShow.GetImage();
             if (image == null) return;
 
             currentImageWidth = image.Width;
@@ -875,7 +876,7 @@ namespace LWIR_app
         {
             bool connected = imagerShow.IsConnected;
 
-            if (connected)
+            if (connected || replay)
             {
                 Title = "Optris Imager - " + imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
                 sbOperationMode.Text = imagerShow.OperationModeString;
