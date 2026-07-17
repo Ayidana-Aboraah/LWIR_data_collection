@@ -17,9 +17,6 @@ using LWIR_app.classes;
 using LWIR_app.models;
 using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
-using System.Windows.Controls.Primitives;
-using System.Net.Http.Headers;
-using System.Diagnostics;
 
 namespace LWIR_app
 {
@@ -35,11 +32,9 @@ namespace LWIR_app
         private bool isDraggingRoi;
         private bool hasRoi;
         private System.Windows.Point mouse_position;
-        private System.Windows.Point roiDragStart;
-        private System.Windows.Point roiDragCurrent;
-        private System.Drawing.Rectangle selectedRoi;
-        private int currentImageWidth;
-        private int currentImageHeight;
+        private System.Windows.Point roiDragStart, roiDragCurrent;
+        private Rectangle selectedRoi;
+        private int currentImageWidth, currentImageHeight;
 
         public bool replay = false;
 
@@ -599,7 +594,7 @@ namespace LWIR_app
 
         private void UpdateUI()
         {
-            if ((!imagerShow.IsConnected || imagerShow.IsConnectionLost) && replay == false)
+            if ((!imagerShow.IsConnected) && replay == false)
             {
                 Disconnect();
                 return;
@@ -610,22 +605,19 @@ namespace LWIR_app
             sbFPS.Text = imagerShow.GetFPS().ToString("N1", CultureInfo.CurrentCulture) + " Hz";
 
             Bitmap? image = replay ? playback.RenderFrame(playback.GetCurrentFrame()).Bitmap : imagerShow.GetImage();
-            // Bitmap? image = imagerShow.GetImage();
             if (image == null) return;
 
             currentImageWidth = image.Width;
             currentImageHeight = image.Height;
 
             if (TryGetMouseImagePixel(out System.Drawing.Point cursorPixel))
-            {
                 DrawMeasurement(
                     image,
                     cursorPixel.X,
                     cursorPixel.Y,
-                    imagerShow.findTemp(cursorPixel.X, cursorPixel.Y),
+                    replay ? playback.findTemp(cursorPixel.X, cursorPixel.Y): imagerShow.findTemp(cursorPixel.X, cursorPixel.Y),
                     System.Drawing.Color.Red,
                     System.Drawing.Color.White);
-            }
 
             if (imagerShow.CalculateMinMaxTemperatureRegions())
             {
@@ -645,7 +637,7 @@ namespace LWIR_app
 
         private void ThermalImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!imagerShow.IsConnected || currentImageWidth <= 0 || currentImageHeight <= 0 || imagerShow.IsRecording) return;
+            if ((!imagerShow.IsConnected && !replay)|| currentImageWidth <= 0 || currentImageHeight <= 0 || imagerShow.IsRecording) return;
 
             System.Windows.Point cursor = e.GetPosition(thermalImage);
             if (!IsPointInsideImageViewport(cursor)) return;
@@ -675,10 +667,11 @@ namespace LWIR_app
             if (TryBuildImageRectangle(roiDragStart, roiDragCurrent, out System.Drawing.Rectangle rectangle))
             {
                 selectedRoi = rectangle;
+                System.Windows.Point start = new System.Windows.Point(rectangle.Left, rectangle.Top);
+                System.Windows.Point end =  new System.Windows.Point(rectangle.Right - 1, rectangle.Bottom - 1);
                 hasRoi = true;
-                imagerShow.UpdateROI(
-                    new System.Windows.Point(rectangle.Left, rectangle.Top),
-                    new System.Windows.Point(rectangle.Right - 1, rectangle.Bottom - 1));
+                if (replay) playback.UpdateROI(start, end);
+                else imagerShow.UpdateROI(start, end);
             }
             else
             {
@@ -742,7 +735,7 @@ namespace LWIR_app
 
         private bool TryBuildImageRectangle(System.Windows.Point start, System.Windows.Point end, out System.Drawing.Rectangle rectangle)
         {
-            rectangle = System.Drawing.Rectangle.Empty;
+            rectangle = Rectangle.Empty;
 
             Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
             if (viewport.IsEmpty) return false;
@@ -760,7 +753,7 @@ namespace LWIR_app
 
             if (right - left < 2 || bottom - top < 2) return false;
 
-            rectangle = new System.Drawing.Rectangle(left, top, right - left + 1, bottom - top + 1);
+            rectangle = new Rectangle(left, top, right - left + 1, bottom - top + 1);
             return true;
         }
 
@@ -792,7 +785,7 @@ namespace LWIR_app
         {
             if (hasRoi) DrawRectangleOverlay(bitmap, selectedRoi, System.Drawing.Color.Lime, 2f);
 
-            if (isDraggingRoi && TryBuildImageRectangle(roiDragStart, roiDragCurrent, out System.Drawing.Rectangle preview))
+            if (isDraggingRoi && TryBuildImageRectangle(roiDragStart, roiDragCurrent, out Rectangle preview))
                 DrawRectangleOverlay(bitmap, preview, System.Drawing.Color.Yellow, 1.5f);
         }
 
@@ -805,8 +798,8 @@ namespace LWIR_app
                 return;
             }
 
-            System.Drawing.Rectangle imageBounds = new System.Drawing.Rectangle(0, 0, sourceImage.Width, sourceImage.Height);
-            System.Drawing.Rectangle roi = System.Drawing.Rectangle.Intersect(selectedRoi, imageBounds);
+            Rectangle imageBounds = new Rectangle(0, 0, sourceImage.Width, sourceImage.Height);
+            Rectangle roi = Rectangle.Intersect(selectedRoi, imageBounds);
 
             if (roi.Width < 2 || roi.Height < 2)
             {
@@ -820,19 +813,16 @@ namespace LWIR_app
             roiPreviewInfo.Text = string.Format(CultureInfo.CurrentCulture, "{0} x {1} px", roi.Width, roi.Height);
         }
 
-        private static void DrawRectangleOverlay(Bitmap bitmap, System.Drawing.Rectangle rectangle, System.Drawing.Color color, float thickness)
+        private static void DrawRectangleOverlay(Bitmap bitmap, Rectangle rectangle, System.Drawing.Color color, float thickness)
         {
-            if (rectangle.Width < 2 || rectangle.Height < 2)
-            {
-                return;
-            }
+            if (rectangle.Width < 2 || rectangle.Height < 2) return;
 
             using Graphics graphics = Graphics.FromImage(bitmap);
             using System.Drawing.Pen borderPen = new System.Drawing.Pen(color, thickness)
             {
                 DashStyle = System.Drawing.Drawing2D.DashStyle.Dash
             };
-            using System.Drawing.Brush fillBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(45, color));
+            using System.Drawing.Brush fillBrush = new SolidBrush(System.Drawing.Color.FromArgb(45, color));
 
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.FillRectangle(fillBrush, rectangle);
@@ -933,8 +923,8 @@ namespace LWIR_app
 
         private void SetOperationModeSelection(int modeIndex)
         {
-            opModes[modeIndex].IsChecked = true;
-            // for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
+            // opModes[modeIndex].IsChecked = true;
+            for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
         }
 
         private void BuildPaletteMenu()

@@ -48,6 +48,8 @@ namespace LWIR_app.classes
         public int CurrentIndex => currentIndex;
         public int FrameCount => frames.Count;
 
+        private RegionOfInterest roi;
+
         public Action<PlaybackFrame>? FrameRendered;
 
         CustomImageBuilder imageBuilder;
@@ -56,6 +58,8 @@ namespace LWIR_app.classes
         {
             imageBuilder = imager;
         }
+
+        public void UpdateROI(System.Windows.Point s, System.Windows.Point e) => roi = new RegionOfInterest(s,e, frames[currentIndex].width);
 
         public void Load(string path) => LoadFrames(BinaryLoader.LoadFrameSet(path));
 
@@ -75,6 +79,12 @@ namespace LWIR_app.classes
 
                 currentIndex = Math.Clamp(currentIndex, 0, frames.Count - 1);
                 return frames[currentIndex];
+        }
+
+        public float findTemp(int x, int y)
+        {
+            if (frames.Count() == 0) return float.NaN;
+            return frames[currentIndex].temperatures[(y *  frames[currentIndex].width) + x];
         }
 
         public void SetPlaybackRate(double framesPerSecond) => FramesPerSecond = framesPerSecond;

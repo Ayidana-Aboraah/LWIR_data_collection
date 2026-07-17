@@ -37,11 +37,10 @@ namespace LWIR_app.classes
 
                 if (saveType == SaveDataType.U16) continue;
 
-                // Run-Length Encoding
-                if (RLE[current_pair].value == temperature_Ints[i])
-                    RLE[current_pair].length++;
-                else
+                if (RLE[current_pair].value != temperature_Ints[i] || RLE[current_pair].length >= ushort.MaxValue)
                     RLE[++current_pair] = new RLE_Pair { value = temperature_Ints[i], length = 1 };
+                else 
+                    RLE[current_pair].length++;
             }
             Array.Resize(ref RLE, current_pair+1);
         }
@@ -50,6 +49,6 @@ namespace LWIR_app.classes
     public struct RLE_Pair
     {
         public ushort value;
-        public uint length;
+        public ushort length;
     }
 }

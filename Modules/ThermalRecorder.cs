@@ -17,7 +17,7 @@ namespace LWIR_app.classes
         private int frameIndex = 0;
         public bool IsRecording => isRecording;
         private RecorderSettings settings;
-        public List<int> roi = new();
+        public RegionOfInterest roi;
 
         public void Start(RecorderSettings settings)
         {
@@ -169,7 +169,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for(int i = 0; i < roi.Count; i++) writer.Write(frame.temperatures[roi[i]]);
+                for(int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperatures[roi.indexes[i]]);
             }
             else foreach (float value in frame.temperatures) writer.Write(value);
         }
@@ -178,7 +178,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for(int i = 0; i < roi.Count; i++) writer.Write(frame.temperature_Ints[roi[i]]);
+                for(int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperature_Ints[roi.indexes[i]]);
             }
             else foreach (ushort value in frame.temperature_Ints) writer.Write(value);
         }
@@ -187,9 +187,9 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for(int i = 0; i < roi.Count; i++) {
-                    writer.Write(frame.RLE[roi[i]].value);
-                    writer.Write(frame.RLE[roi[i]].length);
+                for(int i = 0; i < roi.indexes.Length; i++) {
+                    writer.Write(frame.RLE[roi.indexes[i]].value);
+                    writer.Write(frame.RLE[roi.indexes[i]].length);
                 }
             }
             else

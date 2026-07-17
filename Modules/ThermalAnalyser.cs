@@ -64,18 +64,25 @@
 //         double mean_temperature;
 //     }
 
-//     public struct RegionOfInterest
-//     {
-//         public uint starting_idx, width, height;
+using System.Windows;
 
-//         public uint[] Indexes(uint frame_width)
-//         {
-//             uint[] idxes = new uint[height * width];
+public class RegionOfInterest
+{
+    public int[] indexes;
+    public int width, height;
+    public bool active;
 
-//             for (int i = 0; i < idxes.Length; i++)
-//                 idxes[i] = (uint)(starting_idx + (i % width) + ((i / width) * frame_width));
+    public RegionOfInterest(Point start, Point end, int frameWidth)
+    {
+        height = (int)Math.Floor(start.Y - end.Y);
+        width = (int)Math.Floor(end.X - start.X);
+        indexes = new int[width * height];
+        int count = 0;
 
-//             return idxes;
-//         }
-//     }
-// }
+        for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++) 
+                indexes[count++] = ((((int)Math.Floor(start.Y)) + y) * frameWidth) +  ((int)Math.Floor(start.X)) + x; 
+        
+        active = true;
+    }
+}

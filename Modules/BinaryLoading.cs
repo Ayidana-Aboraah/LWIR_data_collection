@@ -2,8 +2,9 @@
 using System.IO;
 using Optris.OtcSdk;
 
-namespace LWIR_app.classes{
-   public static class BinaryLoader
+namespace LWIR_app.classes
+{
+    public static class BinaryLoader
     {
         public static RecordedFrame[] LoadFromBinary(string path)
         {
@@ -78,47 +79,40 @@ namespace LWIR_app.classes{
 
             return saveType switch
             {
-                SaveDataType.Float => ReadFloatTemperatures(reader, pixelCount),
-                SaveDataType.U16 => ReadU16Temperatures(reader, pixelCount),
-                SaveDataType.RLE => ReadRleTemperatures(reader, pixelCount),
-                SaveDataType.All => ReadFloatTemperatures(reader, pixelCount),
-                _ => ReadFloatTemperatures(reader, pixelCount)
+                SaveDataType.Float => ReadTemperatures<float>(reader, pixelCount),
+                SaveDataType.U16 => ReadTemperatures<ushort>(reader, pixelCount),
+                SaveDataType.RLE => ReadTemperatures<RLE_Pair>(reader, pixelCount),
+                _ => ReadTemperatures<float>(reader, pixelCount)
             };
         }
 
-        private static float[] ReadFloatTemperatures(BinaryReader reader, int pixelCount)
+        private static float[] ReadTemperatures<T>(BinaryReader reader, int pixelCount)
         {
             var temperatures = new float[pixelCount];
-            for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadSingle();
-            return temperatures;
-        }
 
-        private static float[] ReadU16Temperatures(BinaryReader reader, int pixelCount)
-        {
-            var temperatures = new float[pixelCount];
-            for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadUInt16() / 100.0f;
-            return temperatures;
-        }
-
-        private static float[] ReadRleTemperatures(BinaryReader reader, int pixelCount)
-        {
-            var temperatures = new List<float>(pixelCount);
-
-            while (temperatures.Count < pixelCount)
+            if (typeof(T) == typeof(float))
             {
-                ushort value = reader.ReadUInt16();
-                uint length = reader.ReadUInt32();
+                for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadSingle();
+            }
+            else if (typeof(T) == typeof(ushort))
+            {
+                for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadUInt16();
+            }
+            else if (typeof(T) == typeof(RLE_Pair))
+            {
+                for (int count = 0; temperatures.Length < pixelCount;)
+                {
+                    ushort value = reader.ReadUInt16();
+                    ushort length = reader.ReadUInt16();
 
-                if (length == 0) throw new InvalidDataException("Encountered an RLE pair with zero length.");
+                    if (length == 0) throw new InvalidDataException("Encountered an RLE pair with zero length.");
 
-                float temperature = value / 100.0f;
-                uint remaining = (uint)(pixelCount - temperatures.Count);
-                uint copyCount = Math.Min(length, remaining);
-
-                for (uint i = 0; i < copyCount; i++) temperatures.Add(temperature);
+                    float temperature = value / 100.0f;
+                    for (uint i = 0; i < length; i++) temperatures[count++] = temperature;
+                }
             }
 
-            return temperatures.ToArray();
+            return temperatures;
         }
 
         private static SaveDataType InferSaveType(string path)
