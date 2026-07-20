@@ -116,7 +116,7 @@ namespace LWIR_app.classes
                 string suffix = settings.dataType.ToString() + ((settings.recordROIOnly) ? "_ROI" : "");
                 string filename = Path.Combine(
                     frameDirectory,
-                    $"frame_{suffix}.bin");
+                    $"frame_{frameIndex}_{suffix}.bin");
 
                 using var writer =
                     new BinaryWriter(

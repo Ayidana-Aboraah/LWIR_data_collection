@@ -75,7 +75,7 @@ namespace LWIR_app
             Margin = new Thickness(0, 0, 0, 10)
         };
 
-        private string save_path = @"D:\works\data_in\";
+        private string savePath = @"D:\works\data_in\";
         private CheckBox singleBinaryToggle = new CheckBox
         {
             Content = "Single Binary File",
@@ -157,6 +157,8 @@ namespace LWIR_app
                 (_,_) => Disconnect(),
                 (_,_) => imagerShow.RefreshFlag(),
             ];
+
+            saveDirectory.Content = savePath;
 
             var root = new DockPanel();
             Content = root;
@@ -901,7 +903,7 @@ namespace LWIR_app
             saveDataTypeBox.IsEnabled = connected;
             singleBinaryToggle.IsEnabled = connected;
             recordROIOnlyToggle.IsEnabled = connected;
-            recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(save_path);
+            recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(savePath);
 
             SetOperationModeSelection(imagerShow.ActiveModeIndex);
         }
@@ -980,8 +982,8 @@ namespace LWIR_app
                 try
                 {
                     System.IO.Directory.CreateDirectory(path);
-                    save_path = System.IO.Path.GetFullPath(path);
-                    saveDirectory.Content = save_path;
+                    savePath = System.IO.Path.GetFullPath(path);
+                    saveDirectory.Content = savePath;
                     recordEnable.IsEnabled = true;
                 }
                 catch (Exception ex)
@@ -996,7 +998,7 @@ namespace LWIR_app
         {
             if (!imagerShow.IsRecording)
             {
-                string directory = save_path;
+                string directory = savePath;
                 if (string.IsNullOrWhiteSpace(directory))
                 {
                     MessageBox.Show("Please set a save directory first.", "Recording", MessageBoxButton.OK, MessageBoxImage.Information);
