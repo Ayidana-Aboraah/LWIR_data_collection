@@ -362,7 +362,7 @@ namespace LWIR_app.models
 
         public void SetScaleRange(float low, float high)
         {
-            if (!useAutoScaling && IsConnected) imageBuilder.setTemperatureScaling(low, high);
+            if (IsConnected) imageBuilder.setTemperatureScaling(low, high);
         }
         public void SetAutoScaling(bool enabled) => useAutoScaling = enabled;
 
