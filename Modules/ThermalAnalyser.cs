@@ -75,7 +75,7 @@ public class RegionOfInterest
     public RegionOfInterest(Point start, Point end, int frameWidth)
     {
         height = (int)Math.Floor(start.Y - end.Y);
-        width = (int)Math.Floor(end.X - start.X);
+        width = (int)Math.Floor(start.X - end.X);
         indexes = new int[width * height];
         int count = 0;
 

@@ -621,10 +621,13 @@ namespace LWIR_app
 
             if (imagerShow.CalculateMinMaxTemperatureRegions())
             {
-                minTemp.Text = imagerShow.MinRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
-                maxTemp.Text = imagerShow.MaxRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
+                float min = imagerShow.MinRegion.temperature;
+                float max = imagerShow.MaxRegion.temperature;
+                minTemp.Text = min.ToString("N2", CultureInfo.CurrentCulture);
+                maxTemp.Text = max.ToString("N2", CultureInfo.CurrentCulture);
 
-                if (autoTempScale.IsChecked == true) SetAutoScalingRange();
+                // if (autoTempScale.IsChecked == true) SetAutoScalingRange();
+                if (autoTempScale.IsChecked == true) imagerShow.SetScaleRange(min, max);
             }
 
             UpdateRoiPreview(image);
@@ -912,8 +915,8 @@ namespace LWIR_app
             suppressScaleTextEvents = true;
             try
             {
-                imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
-                imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
+                // imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
+                // imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
             }
             finally
             {
@@ -1048,7 +1051,7 @@ namespace LWIR_app
             bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
             imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
             imageScaleLow.IsReadOnly = autoTempScaleEnabled;
-            // imagerShow.SetAutoScaling(autoTempScaleEnabled);
+            imagerShow.SetAutoScaling(autoTempScaleEnabled);
 
             if (autoTempScaleEnabled) SetAutoScalingRange();
             else ApplyManualScaleRangeFromInputs();
