@@ -501,14 +501,6 @@ namespace LWIR_app
 
             var stack = new StackPanel { Margin = new Thickness(8) };
 
-            roiPreviewImage = new System.Windows.Controls.Image
-            {
-                Height = 170,
-                Stretch = Stretch.Uniform,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Center,
-                SnapsToDevicePixels = true
-            };
             RenderOptions.SetBitmapScalingMode(roiPreviewImage, BitmapScalingMode.HighQuality);
 
             var imageHost = new Border
@@ -536,10 +528,7 @@ namespace LWIR_app
 
         private void Connect(string filename)
         {
-            if (imagerShow.IsConnected)
-            {
-                return;
-            }
+            if (imagerShow.IsConnected) return;
 
             try
             {
@@ -718,8 +707,7 @@ namespace LWIR_app
 
         private Rect GetImageViewport(int imageWidth, int imageHeight)
         {
-            double controlWidth = thermalImage.ActualWidth;
-            double controlHeight = thermalImage.ActualHeight;
+            (double controlWidth, double controlHeight) = (thermalImage.ActualWidth, thermalImage.ActualHeight);
 
             if (controlWidth <= 0 || controlHeight <= 0 || imageWidth <= 0 || imageHeight <= 0) return Rect.Empty;
 
@@ -738,7 +726,7 @@ namespace LWIR_app
             return new Rect(0, offsetY, controlWidth, scaledHeight);
         }
 
-        private bool TryBuildImageRectangle(System.Windows.Point start, System.Windows.Point end, out System.Drawing.Rectangle rectangle)
+        private bool TryBuildImageRectangle(System.Windows.Point start, System.Windows.Point end, out Rectangle rectangle)
         {
             rectangle = Rectangle.Empty;
 

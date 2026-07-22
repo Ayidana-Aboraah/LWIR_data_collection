@@ -68,8 +68,7 @@ namespace LWIR_app.classes
 
         public void Stop()
         {
-            if (!isRecording)
-                return;
+            if (!isRecording) return;
 
             queue!.CompleteAdding();
 
@@ -85,10 +84,7 @@ namespace LWIR_app.classes
         {
             try
             {
-                if (queue != null && !queue.IsAddingCompleted)
-                {
-                    queue.Add(frame);
-                }
+                if (queue != null && !queue.IsAddingCompleted) queue.Add(frame);
             }
             catch (InvalidOperationException)
             {
@@ -104,10 +100,7 @@ namespace LWIR_app.classes
             return queue.ToArray()[(len - 20)..len];
         }
 
-        public void Dispose()
-        {
-            Stop();
-        }
+        public void Dispose() => Stop();
 
         private void WriterLoop()
         {
@@ -220,24 +213,18 @@ namespace LWIR_app.classes
 
         private void WriteMetadataRow(RecordedFrame frame)
         {
-            float min = float.MaxValue;
-            float max = float.MinValue;
+            (float min, float max) = (float.MaxValue, float.MinValue);
 
             double sum = 0;
 
             foreach (float temp in frame.temperatures)
             {
-                if (temp < min)
-                    min = temp;
-
-                if (temp > max)
-                    max = temp;
-
+                if (temp < min) min = temp;
+                if (temp > max) max = temp;
                 sum += temp;
             }
 
-            double mean =
-                sum / frame.temperatures.Length;
+            double mean = sum / frame.temperatures.Length;
 
             metadataWriter!.WriteLine(
                 string.Join(",",
