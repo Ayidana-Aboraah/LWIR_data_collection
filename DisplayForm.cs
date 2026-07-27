@@ -38,7 +38,13 @@ namespace LWIR_app
 
         public bool replay = false;
 
-        private System.Windows.Controls.Image thermalImage = null!;
+        private System.Windows.Controls.Image thermalImage = new System.Windows.Controls.Image
+            {
+                Stretch = Stretch.Uniform,
+                SnapsToDevicePixels = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch
+            };
         private TextBlock sbOperationMode = new TextBlock
         {
             Text = string.Empty,
@@ -101,7 +107,15 @@ namespace LWIR_app
         private TextBox imageScaleHigh = null!;
         private TextBlock minTemp = null!;
         private TextBlock maxTemp = null!;
-        private System.Windows.Controls.Image roiPreviewImage = null!;
+        private System.Windows.Controls.Image roiPreviewImage = new System.Windows.Controls.Image
+            {
+                Height = 170,
+                Stretch = Stretch.Uniform,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Center,
+                SnapsToDevicePixels = true
+            };
+
         private TextBlock roiPreviewInfo = null!;
 
         private RadioButton[] opModes = null!;
@@ -175,13 +189,6 @@ namespace LWIR_app
             DockPanel.SetDock(controlPanelBorder, Dock.Right);
             root.Children.Add(controlPanelBorder);
 
-            thermalImage = new System.Windows.Controls.Image
-            {
-                Stretch = Stretch.Uniform,
-                SnapsToDevicePixels = true,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch
-            };
             RenderOptions.SetBitmapScalingMode(thermalImage, BitmapScalingMode.HighQuality);
             thermalImage.MouseLeftButtonDown += ThermalImage_MouseLeftButtonDown;
             thermalImage.MouseMove += ThermalImage_MouseMove;
@@ -618,7 +625,7 @@ namespace LWIR_app
                 maxTemp.Text = max.ToString("N2", CultureInfo.CurrentCulture);
 
                 // if (autoTempScale.IsChecked == true) SetAutoScalingRange();
-                imagerShow.SetScaleRange(min, max);
+                // imagerShow.SetScaleRange(min, max);
             }
 
             UpdateRoiPreview(image);
@@ -1085,10 +1092,7 @@ namespace LWIR_app
 
         private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (suppressScaleTextEvents || autoTempScale.IsChecked == true)
-            {
-                return;
-            }
+            if (suppressScaleTextEvents || autoTempScale.IsChecked == true) return;
 
             ApplyManualScaleRangeFromInputs();
         }

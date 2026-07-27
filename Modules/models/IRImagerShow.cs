@@ -74,7 +74,7 @@ namespace LWIR_app.models
              * information to correctly decode that data.
              */
             imageBuilder = new CustomImageBuilder(ColorFormat.BGR, WidthAlignment.FourBytes);
-            // imageBuilder.setPaletteScalingMethod(PaletteScalingMethod.MinMax);
+            imageBuilder.setTemperatureScalingMode(TemperatureScalingMode.MinMax);
             // useAutoScaling = true;
 
             IsConnected = false;
