@@ -1,11 +1,8 @@
 
-// using System.Drawing;
-// using System.Net.Http.Headers;
-// using System.Security.Cryptography.X509Certificates;
-// using System.Windows.Controls;
+using System.Windows;
 
-// namespace LWIR_app.classes
-// {
+namespace LWIR_app.classes
+{
 //     public class ThermalAnalyser
 //     {
 //         ThermalRecorder recorder;
@@ -32,7 +29,7 @@
 //             // foreach (RecordedFrame frame in frameset)
 //             for (int i = 0; i < frameset.Length; i++)
 //             {
-//                 indexes = roi.Indexes((uint)frameset[i].width);
+//                 indexes = roi.indexes((uint)frameset[i].width);
 
 //                 for (int x = 0; i < indexes.Length; i++) temps[i][x] = frameset[x].temperatures[x];
 
@@ -64,25 +61,25 @@
 //         double mean_temperature;
 //     }
 
-using System.Windows;
 
-public class RegionOfInterest
-{
-    public int[] indexes;
-    public int width, height;
-    public bool active;
-
-    public RegionOfInterest(Point start, Point end, int frameWidth)
+    public class RegionOfInterest
     {
-        height = (int)Math.Floor(start.Y - end.Y);
-        width = (int)Math.Floor(start.X - end.X);
-        indexes = new int[width * height];
-        int count = 0;
+        public int[] indexes;
+        public int width, height;
+        public bool active;
 
-        for (int y = 0; y < height; y++)
-            for (int x = 0; x < width; x++) 
-                indexes[count++] = ((((int)Math.Floor(start.Y)) + y) * frameWidth) +  ((int)Math.Floor(start.X)) + x; 
-        
-        active = true;
+        public RegionOfInterest(Point start, Point end, int frameWidth)
+        {
+            height  = (int) Math.Floor(start.Y - end.Y);
+            width   = (int) Math.Floor(start.X - end.X);
+            indexes = new int[width * height];
+            int count = 0;
+
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                    indexes[count++] = ((((int)Math.Floor(start.Y)) + y) * frameWidth) + ((int)Math.Floor(start.X)) + x;
+
+            active = true;
+        }
     }
 }
