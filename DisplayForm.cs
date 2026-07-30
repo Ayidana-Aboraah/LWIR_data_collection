@@ -671,8 +671,9 @@ namespace LWIR_app
                 minTemp.Text = min.ToString("N2", CultureInfo.CurrentCulture);
                 maxTemp.Text = max.ToString("N2", CultureInfo.CurrentCulture);
 
-                // if (autoTempScale.IsChecked == true) SetAutoScalingRange();
-                // imagerShow.SetScaleRange(min, max);
+                if (max - min < 1) min -= 1;
+                imagerShow.SetScaleRange(min, max);
+                
             }
 
             UpdateRoiPreview(image);
