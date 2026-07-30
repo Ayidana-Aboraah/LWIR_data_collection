@@ -239,6 +239,7 @@ namespace LWIR_app
 
             var fileMenu = new MenuItem { Header = "File" };
             var LoadFrame = new MenuItem { Header = "Load Frame" };
+            var LoadBin = new MenuItem { Header = "Load Bin" };
             var quitMenu = new MenuItem { Header = "Quit" };
             LoadFrame.Click += (_,_) =>
             {
@@ -252,6 +253,19 @@ namespace LWIR_app
                 }
             };
             fileMenu.Items.Add(LoadFrame);
+
+            LoadBin.Click += (_,_) =>
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                if (dialog.ShowDialog() == true)
+                {
+                    var frame = BinaryLoader.LoadFromBinary(dialog.FileName);
+                    playback.LoadFrames(frame);
+                    replay = true;
+                    UpdateUiOnConnectionStatus();
+                }
+            };
+            fileMenu.Items.Add(LoadBin);
 
             quitMenu.Click += (_, _) =>
             {
@@ -493,6 +507,39 @@ namespace LWIR_app
             stack.Children.Add(singleBinaryToggle);
             stack.Children.Add(recordROIOnlyToggle);
             stack.Children.Add(recordEnable);
+            
+            double focus = imagerShow.Imager.getFocusMotorPosition();
+
+            GroupBox fs = new GroupBox{ Header = "Focus Settings"};
+            StackPanel st = new StackPanel {};
+            Slider FocusSlider = new Slider
+            {
+                Maximum = 100,
+                TickFrequency = 1,
+                Width = 200,
+                IsSnapToTickEnabled = true,
+                Value = focus
+            };
+
+            TextBlock FocusText = new TextBlock
+            {
+                Text = focus.ToString(),
+                VerticalAlignment = VerticalAlignment.Center,
+                Padding = new Thickness(5, 0, 5, 0)
+            };
+
+            st.Children.Add(FocusText);
+            st.Children.Add(FocusSlider);
+
+            FocusSlider.ValueChanged += (_, _) =>
+            {
+                focus = FocusSlider.Value;
+                FocusText.Text = focus.ToString();
+                imagerShow.Imager.setFocusMotorPosition((float) focus);
+            };
+            
+            fs.Content = st;
+            stack.Children.Add(fs);
 
             group.Content = stack;
             return group;
