@@ -42,7 +42,7 @@ namespace LWIR_app.classes
 
             if (settings.singleBinary)
             {
-                string suffix = settings.dataType.ToString() + ((settings.recordROIOnly) ? "_ROI" : "");
+                string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
                 string filename = Path.Combine(
                     sessionDirectory,
                     $"frame_{suffix}.bin");
@@ -134,16 +134,13 @@ namespace LWIR_app.classes
 
             switch (frame.saveType)
             {
-                case SaveDataType.Float:
-                    WriteBaseDataFrame(frame, writer);
+                case SaveDataType.Float: WriteBaseDataFrame(frame, writer);
                     break;
 
-                case SaveDataType.U16:
-                    WriteIntFrame(frame, writer);
+                case SaveDataType.U16: WriteIntFrame(frame, writer);
                     break;
 
-                case SaveDataType.RLE:
-                    WriteRleFrame(frame, writer);
+                case SaveDataType.RLE: WriteRleFrame(frame, writer);
                     break;
 
                 default:
@@ -162,7 +159,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for(int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperatures[roi.indexes[i]]);
+                for (int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperatures[roi.indexes[i]]);
             }
             else foreach (float value in frame.temperatures) writer.Write(value);
         }
@@ -171,7 +168,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for(int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperature_Ints[roi.indexes[i]]);
+                for (int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperature_Ints[roi.indexes[i]]);
             }
             else foreach (ushort value in frame.temperature_Ints) writer.Write(value);
         }
@@ -180,7 +177,8 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for(int i = 0; i < roi.indexes.Length; i++) {
+                for (int i = 0; i < roi.indexes.Length; i++)
+                {
                     writer.Write(frame.RLE[roi.indexes[i]].value);
                     writer.Write(frame.RLE[roi.indexes[i]].length);
                 }

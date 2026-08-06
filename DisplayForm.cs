@@ -508,7 +508,7 @@ namespace LWIR_app
             stack.Children.Add(recordROIOnlyToggle);
             stack.Children.Add(recordEnable);
             
-            double focus = imagerShow.Imager.getFocusMotorPosition();
+            float focus = imagerShow.Imager.getFocusMotorPosition();
 
             GroupBox fs = new GroupBox{ Header = "Focus Settings"};
             StackPanel st = new StackPanel {};
@@ -533,11 +533,11 @@ namespace LWIR_app
 
             FocusSlider.ValueChanged += (_, _) =>
             {
-                focus = FocusSlider.Value;
+                focus = (float) FocusSlider.Value;
                 FocusText.Text = focus.ToString();
-                imagerShow.Imager.setFocusMotorPosition((float) focus);
+                imagerShow.Imager.setFocusMotorPosition(focus);
             };
-            
+
             fs.Content = st;
             stack.Children.Add(fs);
 

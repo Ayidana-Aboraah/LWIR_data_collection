@@ -32,7 +32,6 @@ namespace LWIR_app.classes
             int current_pair = 0;
             for (int i = 0; i < temperatures.Length; i++)
             {
-                // Int Compression
                 temperature_Ints[i] = (ushort)(temperatures[i] * 100.0f);
 
                 if (saveType == SaveDataType.U16) continue;
