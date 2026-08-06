@@ -48,8 +48,6 @@ namespace LWIR_app.classes
 
         public static void UpdateROI(System.Windows.Point s, System.Windows.Point e) => roi = new RegionOfInterest(s,e, frames[currentIndex].width);
 
-        public static void Load(string path) => LoadFrames(BinaryLoader.LoadFrameSet(path));
-
         public static void LoadFrames(IEnumerable<RecordedFrame> newFrames)
         {
             lock (gate)

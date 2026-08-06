@@ -237,33 +237,31 @@ namespace LWIR_app
 
             var fileMenu = new MenuItem { Header = "File" };
             var LoadFrame = new MenuItem { Header = "Load Frame" };
-            var LoadBin = new MenuItem { Header = "Load Bin" };
+            var LoadFrameSet = new MenuItem { Header = "Load Frame Set" };
             var quitMenu = new MenuItem { Header = "Quit" };
             LoadFrame.Click += (_,_) =>
             {
                 OpenFileDialog dialog = new OpenFileDialog();
                 if (dialog.ShowDialog() == true)
                 {
-                    var frame = BinaryLoader.LoadRecordedFrameBinary(dialog.FileName);
-                    PlaybackTool.LoadFrames(frame);
+                    PlaybackTool.LoadFrames(BinaryLoader.LoadFrames(dialog.FileName));
                     replay = true;
                     UpdateUiOnConnectionStatus();
                 }
             };
             fileMenu.Items.Add(LoadFrame);
 
-            LoadBin.Click += (_,_) =>
+            LoadFrameSet.Click += (_,_) =>
             {
-                OpenFileDialog dialog = new OpenFileDialog();
+                OpenFolderDialog dialog = new OpenFolderDialog();
                 if (dialog.ShowDialog() == true)
                 {
-                    var frame = BinaryLoader.LoadFromBinary(dialog.FileName);
-                    PlaybackTool.LoadFrames(frame);
+                    PlaybackTool.LoadFrames(BinaryLoader.LoadFrameSet(dialog.FolderName));
                     replay = true;
                     UpdateUiOnConnectionStatus();
                 }
             };
-            fileMenu.Items.Add(LoadBin);
+            fileMenu.Items.Add(LoadFrameSet);
 
             quitMenu.Click += (_, _) =>
             {

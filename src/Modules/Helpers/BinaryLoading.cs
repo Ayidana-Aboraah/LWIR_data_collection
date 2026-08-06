@@ -6,9 +6,9 @@ namespace LWIR_app.classes
 {
     public static class BinaryLoader
     {
-        public static RecordedFrame[] LoadFromBinary(string path)
+        public static RecordedFrame[] LoadFrames(string path)
         {
-            if (!File.Exists(path)) throw new FileNotFoundException("Binary file not found.", path);
+            if (!File.Exists(path)) return null;
 
             SaveDataType saveType = InferSaveType(path);
 
@@ -17,6 +17,12 @@ namespace LWIR_app.classes
 
             int width = reader.ReadInt32();
             int height = reader.ReadInt32();
+            if (IsPerFrameBinary(path))
+            {
+                long timestamp = reader.ReadInt64();
+                uint counter = reader.ReadUInt32();
+                uint hardwareCounter = reader.ReadUInt32();
+            }
 
             if (width <= 0 || height <= 0) throw new InvalidDataException($"Invalid frame dimensions in '{path}'.");
 
@@ -29,8 +35,6 @@ namespace LWIR_app.classes
 
         public static RecordedFrame[] LoadFrameSet(string path)
         {
-            if (File.Exists(path)) return IsPerFrameBinary(path) ? LoadRecordedFrameBinary(path) : LoadFromBinary(path);
-
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException($"Playback path not found: {path}");
 
             string[] binaryFiles = Directory
@@ -41,45 +45,10 @@ namespace LWIR_app.classes
             if (binaryFiles.Length == 0) return Array.Empty<RecordedFrame>();
 
             var frames = new List<RecordedFrame>();
-            foreach (string binaryFile in binaryFiles) frames.AddRange(IsPerFrameBinary(binaryFile) ? LoadRecordedFrameBinary(binaryFile) : LoadFromBinary(binaryFile));
+            foreach (string binaryFile in binaryFiles) frames.AddRange(LoadFrames(binaryFile));
 
             return frames.ToArray();
         }
-
-        public static RecordedFrame[] LoadRecordedFrameBinary(string path)
-        {
-            SaveDataType saveType = InferSaveType(path);
-
-            using FileStream stream = File.OpenRead(path);
-            using BinaryReader reader = new BinaryReader(stream);
-
-            int width = reader.ReadInt32();
-            int height = reader.ReadInt32();
-            long timestamp = reader.ReadInt64();
-            uint counter = reader.ReadUInt32();
-            uint hardwareCounter = reader.ReadUInt32();
-
-            if (width <= 0 || height <= 0) throw new InvalidDataException($"Invalid frame dimensions in '{path}'.");
-
-            float[] temperatures = ReadFrameTemperatures(reader, width, height, saveType);
-            FrameMetadata metadata = new FrameMetadata();
-
-            // The current SWIG wrapper exposes read access to metadata but not direct setters for all fields.
-            // Keep the deserialized frame content while preserving a valid metadata object for playback.
-            _ = timestamp;
-            _ = counter;
-            _ = hardwareCounter;
-
-            return new[] { new RecordedFrame(width, height, temperatures, metadata, saveType) };
-        }
-
-        // public static RecordedFrame[] LoadFrames()
-        // {
-        //     // TODO: Check if there is a frames folder & if it's empty
-        //     // TODO: Check if there is a frames binary]
-        //     // TODO: Infer the data based on the post-fix
-        // }
-
         private static float[] ReadFrameTemperatures(BinaryReader reader, int width, int height, SaveDataType saveType)
         {
             int pixelCount = checked(width * height);
@@ -135,6 +104,6 @@ namespace LWIR_app.classes
             return SaveDataType.Float;
         }
 
-        private static bool IsPerFrameBinary(string path) => Path.GetFileName(path).EndsWith(".bin", StringComparison.OrdinalIgnoreCase);
+        private static bool IsPerFrameBinary(string path) => Path.GetFileName(path).StartsWith("frame", StringComparison.OrdinalIgnoreCase);
     }
 }
