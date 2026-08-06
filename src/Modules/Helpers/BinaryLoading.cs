@@ -73,6 +73,13 @@ namespace LWIR_app.classes
             return new[] { new RecordedFrame(width, height, temperatures, metadata, saveType) };
         }
 
+        // public static RecordedFrame[] LoadFrames()
+        // {
+        //     // TODO: Check if there is a frames folder & if it's empty
+        //     // TODO: Check if there is a frames binary]
+        //     // TODO: Infer the data based on the post-fix
+        // }
+
         private static float[] ReadFrameTemperatures(BinaryReader reader, int width, int height, SaveDataType saveType)
         {
             int pixelCount = checked(width * height);
