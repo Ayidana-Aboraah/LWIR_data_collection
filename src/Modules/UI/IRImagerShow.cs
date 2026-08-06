@@ -24,7 +24,7 @@ namespace LWIR_app.models
         public TemperatureRegion MaxRegion { get; private set; }
         public TemperatureRegion MeanRegion { get; private set; }
 
-        public CustomImageBuilder imageBuilder;
+        public ImageBuilder imageBuilder;
         private FrameEvent frameEvent = new();
         private FramerateCounter counter = new();
         private string flagState = "";
@@ -73,7 +73,7 @@ namespace LWIR_app.models
              * The temperature range decimal indicates the precision of the thermal data. The ImageBuilder requires this
              * information to correctly decode that data.
              */
-            imageBuilder = new CustomImageBuilder(ColorFormat.BGR, WidthAlignment.FourBytes);
+            imageBuilder = new ImageBuilder(ColorFormat.BGR, WidthAlignment.FourBytes);
             imageBuilder.setTemperatureScalingMode(TemperatureScalingMode.Manual);
             // useAutoScaling = true;
 
@@ -84,8 +84,6 @@ namespace LWIR_app.models
             MaxRegion = new TemperatureRegion();
             MeanRegion = new TemperatureRegion();
         }
-
-        public string[] LoadDefaultPaletteNames => imageBuilder.LoadDefaultPaletteNames();
 
         public float findTemp(int x, int y)
         {

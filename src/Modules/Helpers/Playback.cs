@@ -1,13 +1,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Globalization;
 using System.IO;
-using System.IO.Compression;
-using System.Windows;
-using System.Windows.Media.Imaging;
-using System.Xml.Linq;
 using LWIR_app.models;
-using Optris.OtcSdk;
 
 namespace LWIR_app.classes
 {
@@ -36,34 +30,27 @@ namespace LWIR_app.classes
         public void Dispose() => Bitmap.Dispose();
     }
 
-    public sealed class PlaybackTool
+    public static class PlaybackTool
     {
-        private readonly List<RecordedFrame> frames = new();
-        private readonly object gate = new();
-        private CancellationTokenSource? playbackCancellation;
-        private int currentIndex;
+        private static readonly List<RecordedFrame> frames = new();
+        private static readonly object gate = new();
+        private static CancellationTokenSource? playbackCancellation;
+        private static int currentIndex;
 
-        public double FramesPerSecond { get; set; } = 10.0;
-        public bool IsPlaying { get; private set; }
-        public int CurrentIndex => currentIndex;
-        public int FrameCount => frames.Count;
+        public static double FramesPerSecond { get; set; } = 10.0;
+        public static bool IsPlaying { get; private set; }
+        public static int CurrentIndex => currentIndex;
+        public static int FrameCount => frames.Count;
 
-        private RegionOfInterest roi;
+        private static RegionOfInterest roi;
 
-        public Action<PlaybackFrame>? FrameRendered;
+        public static Action<PlaybackFrame>? FrameRendered;
 
-        CustomImageBuilder imageBuilder;
+        public static void UpdateROI(System.Windows.Point s, System.Windows.Point e) => roi = new RegionOfInterest(s,e, frames[currentIndex].width);
 
-        public PlaybackTool(CustomImageBuilder imager)
-        {
-            imageBuilder = imager;
-        }
+        public static void Load(string path) => LoadFrames(BinaryLoader.LoadFrameSet(path));
 
-        public void UpdateROI(System.Windows.Point s, System.Windows.Point e) => roi = new RegionOfInterest(s,e, frames[currentIndex].width);
-
-        public void Load(string path) => LoadFrames(BinaryLoader.LoadFrameSet(path));
-
-        public void LoadFrames(IEnumerable<RecordedFrame> newFrames)
+        public static void LoadFrames(IEnumerable<RecordedFrame> newFrames)
         {
             lock (gate)
             {
@@ -73,7 +60,7 @@ namespace LWIR_app.classes
             }
         }
 
-        public RecordedFrame? GetCurrentFrame()
+        public static RecordedFrame? GetCurrentFrame()
         {
                 if (frames.Count == 0) return null;
 
@@ -81,21 +68,21 @@ namespace LWIR_app.classes
                 return frames[currentIndex];
         }
 
-        public float findTemp(int x, int y)
+        public static float findTemp(int x, int y)
         {
             if (frames.Count() == 0) return float.NaN;
             return frames[currentIndex].temperatures[(y *  frames[currentIndex].width) + x];
         }
 
-        public void SetPlaybackRate(double framesPerSecond) => FramesPerSecond = framesPerSecond;
+        public static void SetPlaybackRate(double framesPerSecond) => FramesPerSecond = framesPerSecond;
 
-        public PlaybackFrame? RenderCurrentFrame()
+        public static PlaybackFrame? RenderCurrentFrame()
         {
             RecordedFrame? frame = GetCurrentFrame();
             return frame == null ? null : RenderFrame(frame);
         }
 
-        public PlaybackFrame RenderFrame(RecordedFrame frame)
+        public static PlaybackFrame RenderFrame(RecordedFrame frame)
         {
             float[] temperatures = frame.temperatures;
             if (temperatures == null || temperatures.Length == 0) throw new InvalidDataException("The playback frame does not contain any temperature data.");
@@ -109,9 +96,9 @@ namespace LWIR_app.classes
             return new PlaybackFrame(frame, bitmap, scaleMin, scaleMax, frameMin, frameMax, frameMean);
         }
 
-        public async Task PlayAsync(CancellationToken cancellationToken = default) => await PlayAsync(null, cancellationToken).ConfigureAwait(false);
+        public static async Task PlayAsync(CancellationToken cancellationToken = default) => await PlayAsync(null, cancellationToken).ConfigureAwait(false);
 
-        public async Task PlayAsync(Action<PlaybackFrame>? frameHandler, CancellationToken cancellationToken = default)
+        public static async Task PlayAsync(Action<PlaybackFrame>? frameHandler, CancellationToken cancellationToken = default)
         {
             if (frameHandler != null) FrameRendered += frameHandler;
 
@@ -125,14 +112,14 @@ namespace LWIR_app.classes
             }
         }
 
-        public void Stop() => playbackCancellation?.Cancel();
+        public static void Stop() => playbackCancellation?.Cancel();
 
-        public void Reset()
+        public static void Reset()
         {
             lock (gate) currentIndex = 0;
         }
 
-        private async Task PlayInternalAsync(CancellationToken cancellationToken)
+        private static async Task PlayInternalAsync(CancellationToken cancellationToken)
         {
             CancellationTokenSource linkedCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             playbackCancellation = linkedCancellation;
@@ -195,7 +182,7 @@ namespace LWIR_app.classes
             return (min, max, (float)(sum / temperatures.Length));
         }
 
-        private Bitmap RenderBitmap(int width, int height, float[] temperatures, float scaleMin, float scaleMax)
+        private static Bitmap RenderBitmap(int width, int height, float[] temperatures, float scaleMin, float scaleMax)
         {
             if (width <= 0 || height <= 0) throw new InvalidDataException("Cannot render a frame with empty dimensions.");
 
@@ -219,7 +206,7 @@ namespace LWIR_app.classes
 
                     for (int x = 0; x < width; x++)
                     {
-                        (byte R, byte G, byte B) = imageBuilder.MapTemperatureToColor(temperatures[sourceRowOffset + x], scaleMin, scaleMax);
+                        (byte R, byte G, byte B) = PaletteTool.MapTemperatureToColor(temperatures[sourceRowOffset + x], scaleMin, scaleMax);
                         int pixelOffset = destinationRowOffset + (x * 3);
 
                         pixels[pixelOffset] = B;
