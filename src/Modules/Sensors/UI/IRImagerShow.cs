@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
 using LWIR_app.classes;
+using LWIR_app.Sensor;
 using Optris.OtcSdk;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -16,7 +17,7 @@ namespace LWIR_app.models
     /// 
     /// An IRImager acts as an observer to an IRImager implementation that retrieves and processes thermal data from
     /// Optris thermal cameras.
-    public class IRImagerShow : IRImagerClient
+    public class IRImagerShow : IRImagerClient, SensorBase
     {
         public IRImager Imager { get; private set; }
 
@@ -37,6 +38,7 @@ namespace LWIR_app.models
         private int activeModeIndex = 0;
 
         public bool IsConnected { get; private set; }
+        public bool Connected() => IsConnected;
         private bool useAutoScaling = true;
 
         public int ActiveModeIndex { get { return activeModeIndex; } }
@@ -85,7 +87,10 @@ namespace LWIR_app.models
             MeanRegion = new TemperatureRegion();
         }
 
-        public float findTemp(int x, int y)
+        // TODO: Implement
+        public void UpdateUI(){}
+
+        public float findValue(int x, int y)
         {
             if (frameEvent.thermalFrame.isEmpty()) return float.NaN;
             return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
@@ -199,7 +204,7 @@ namespace LWIR_app.models
         /// <summary>Converts the latest thermal frame into a false color image and returns it.</summary>
         /// 
         /// <return>converted false color image.</return>
-        public Bitmap? GetImage()
+        public Bitmap? Render()
         {
             lock (frameEvent.thermalFrame)
             {

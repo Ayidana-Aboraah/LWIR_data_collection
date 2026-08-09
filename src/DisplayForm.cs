@@ -1,22 +1,17 @@
 // Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using Microsoft.Win32;
 using LWIR_app.classes;
 using LWIR_app.models;
 using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
+using LWIR_app.UI;
+using LWIR_app.Sensor;
 
 namespace LWIR_app
 {
@@ -28,22 +23,7 @@ namespace LWIR_app
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
         private bool suppressScaleTextEvents;
-        private bool isDraggingRoi;
-        private bool hasRoi;
-        private System.Windows.Point mouse_position;
-        private System.Windows.Point roiDragStart, roiDragCurrent;
-        private Rectangle selectedRoi;
-        private int currentImageWidth, currentImageHeight;
 
-        public bool replay = false;
-
-        private System.Windows.Controls.Image thermalImage = new System.Windows.Controls.Image
-            {
-                Stretch = Stretch.Uniform,
-                SnapsToDevicePixels = true,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch
-            };
         private TextBlock sbOperationMode = new TextBlock
         {
             Text = string.Empty,
@@ -66,35 +46,6 @@ namespace LWIR_app
             TextAlignment = TextAlignment.Right
         };
 
-        private Button recordEnable = new Button
-        {
-            Content = "Record",
-            IsEnabled = false,
-            Height = 30
-        };
-
-        private Button saveDirectory = new Button
-        {
-            Content = "Set Save Directory",
-            Height = 30,
-            Margin = new Thickness(0, 0, 0, 10)
-        };
-
-        private string savePath = @"D:\works\data_in\";
-        private CheckBox singleBinaryToggle = new CheckBox
-        {
-            Content = "Single Binary File",
-            IsChecked = true,
-            Margin = new Thickness(0, 0, 0, 10)
-        };
-
-        private CheckBox recordROIOnlyToggle = new CheckBox
-        {
-            Content = "Record Only ROI",
-            IsChecked = false,
-            Margin = new Thickness(0, 0, 0, 10)
-        };
-
         private CheckBox autoTempScale = new CheckBox
         {
             Content = "Automatic Temperature Scale",
@@ -106,24 +57,9 @@ namespace LWIR_app
         private TextBox imageScaleHigh = null!;
         private TextBlock minTemp = null!;
         private TextBlock maxTemp = null!;
-        private System.Windows.Controls.Image roiPreviewImage = new System.Windows.Controls.Image
-            {
-                Height = 170,
-                Stretch = Stretch.Uniform,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Center,
-                SnapsToDevicePixels = true
-            };
-
-        private TextBlock roiPreviewInfo = null!;
+        
 
         private RadioButton[] opModes = null!;
-
-        private RadioButton[] saveTypes = [
-            new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
-            new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
-            new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
-        ];
 
         private MenuItem[] DeviceInteractonsOptions = [
             new MenuItem { Header = "Quick Connect" },
@@ -135,15 +71,17 @@ namespace LWIR_app
 
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
-        private GroupBox saveDataTypeBox = new GroupBox
-        {
-            Header = "Save Data Type",
-            Margin = new Thickness(0, 0, 0, 10)
-        };
+
+        private Display display;
+        private RecordingGroup recordingGroup;
+        private RecorderBase recorder;
 
         /// <summary>Constructor.</summary>
         public DisplayForm()
         {
+            recorder = new RecorderBase(imagerShow);
+            recordingGroup = new RecordingGroup(recorder);
+            display = new Display(recorder);
             InitializeComponent();
 
             uiUpdateTimer.Interval = TimeSpan.FromMilliseconds(33);
@@ -170,7 +108,6 @@ namespace LWIR_app
                 (_,_) => imagerShow.RefreshFlag(),
             ];
 
-            saveDirectory.Content = savePath;
 
             var root = new DockPanel();
             Content = root;
@@ -187,21 +124,11 @@ namespace LWIR_app
             DockPanel.SetDock(controlPanelBorder, Dock.Right);
             root.Children.Add(controlPanelBorder);
 
-            RenderOptions.SetBitmapScalingMode(thermalImage, BitmapScalingMode.HighQuality);
-            thermalImage.MouseLeftButtonDown += ThermalImage_MouseLeftButtonDown;
-            thermalImage.MouseMove += ThermalImage_MouseMove;
-            thermalImage.MouseLeftButtonUp += ThermalImage_MouseLeftButtonUp;
-            thermalImage.MouseRightButtonDown += ThermalImage_MouseRightButtonDown;
-
             // TODO: Add Camera B-Side Settings and disable during vieo playback
 
-            var thermalBorder = new Border
-            {
-                Background = WpfBrushes.DimGray,
-                Child = thermalImage
-            };
-            root.Children.Add(thermalBorder);
+            root.Children.Add(display.thermalBorder);
 
+            // TODO: Call Sensor.Disoconnect & maybe free memory from thermal recorder
             Closing += (_, _) => Disconnect();
         }
 
@@ -245,7 +172,8 @@ namespace LWIR_app
                 if (dialog.ShowDialog() == true)
                 {
                     PlaybackTool.LoadFrames(BinaryLoader.LoadFrames(dialog.FileName));
-                    replay = true;
+                    PlaybackTool.Active = true;
+                    imagerShow.Disconnect();
                     UpdateUiOnConnectionStatus();
                 }
             };
@@ -257,7 +185,8 @@ namespace LWIR_app
                 if (dialog.ShowDialog() == true)
                 {
                     PlaybackTool.LoadFrames(BinaryLoader.LoadFrameSet(dialog.FolderName));
-                    replay = true;
+                    PlaybackTool.Active = true;
+                    imagerShow.Disconnect();
                     UpdateUiOnConnectionStatus();
                 }
             };
@@ -311,8 +240,8 @@ namespace LWIR_app
 
             // stack.Children.Add(BuildScaleGroup());
             stack.Children.Add(BuildTemperatureGroup());
-            stack.Children.Add(BuildRoiPreviewGroup());
-            stack.Children.Add(BuildRecordingGroup());
+            stack.Children.Add(display.BuildRoiPreviewGroup());
+            stack.Children.Add(recordingGroup);
 
             scrollViewer.Content = stack;
             panelBorder.Child = scrollViewer;
@@ -464,125 +393,15 @@ namespace LWIR_app
 
             return group;
         }
-
-        private GroupBox BuildRecordingGroup()
-        {
-            var group = new GroupBox { Header = "Recording" };
-
-            var stack = new StackPanel { Margin = new Thickness(8) };
-
-            saveDirectory.Click += (_, _) => saveDirectory_Click();
-
-            Grid radioGrid = new Grid { Margin = new Thickness(8) };
-            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            radioGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-            // TODO: Create a space between the elements
-
-            for (int i = 0; i < saveTypes.Length; i++)
-            {
-                Grid.SetRow(saveTypes[i], 0);
-                Grid.SetColumn(saveTypes[i], i);
-                radioGrid.Children.Add(saveTypes[i]);
-            }
-
-            saveDataTypeBox.Content = radioGrid;
-
-            recordEnable.Click += recordEnable_Click;
-
-            stack.Children.Add(new TextBlock
-            {
-                Text = "Save Directory",
-                Margin = new Thickness(0, 0, 0, 4)
-            });
-            // stack.Children.Add(saveDirectoryPath);
-            stack.Children.Add(saveDirectory);
-            stack.Children.Add(saveDataTypeBox);
-            stack.Children.Add(singleBinaryToggle);
-            stack.Children.Add(recordROIOnlyToggle);
-            stack.Children.Add(recordEnable);
-            
-            float focus = imagerShow.Imager.getFocusMotorPosition();
-
-            GroupBox fs = new GroupBox{ Header = "Focus Settings"};
-            StackPanel st = new StackPanel {};
-            Slider FocusSlider = new Slider
-            {
-                Maximum = 100,
-                TickFrequency = 1,
-                Width = 200,
-                IsSnapToTickEnabled = true,
-                Value = focus
-            };
-
-            TextBlock FocusText = new TextBlock
-            {
-                Text = focus.ToString(),
-                VerticalAlignment = VerticalAlignment.Center,
-                Padding = new Thickness(5, 0, 5, 0)
-            };
-
-            st.Children.Add(FocusText);
-            st.Children.Add(FocusSlider);
-
-            FocusSlider.ValueChanged += (_, _) =>
-            {
-                focus = (float) FocusSlider.Value;
-                FocusText.Text = focus.ToString();
-                imagerShow.Imager.setFocusMotorPosition(focus);
-            };
-
-            fs.Content = st;
-            stack.Children.Add(fs);
-
-            group.Content = stack;
-            return group;
-        }
-
-        private GroupBox BuildRoiPreviewGroup()
-        {
-            var group = new GroupBox
-            {
-                Header = "Region Of Interest",
-                Margin = new Thickness(0, 0, 0, 12)
-            };
-
-            var stack = new StackPanel { Margin = new Thickness(8) };
-
-            RenderOptions.SetBitmapScalingMode(roiPreviewImage, BitmapScalingMode.HighQuality);
-
-            var imageHost = new Border
-            {
-                Background = WpfBrushes.Black,
-                BorderBrush = WpfBrushes.Gray,
-                BorderThickness = new Thickness(1),
-                Padding = new Thickness(4),
-                Child = roiPreviewImage
-            };
-
-            roiPreviewInfo = new TextBlock
-            {
-                Text = "No ROI selected",
-                Margin = new Thickness(0, 8, 0, 0),
-                Foreground = WpfBrushes.DimGray
-            };
-
-            stack.Children.Add(imageHost);
-            stack.Children.Add(roiPreviewInfo);
-
-            group.Content = stack;
-            return group;
-        }
-
         private void Connect(string filename)
         {
             if (imagerShow.IsConnected) return;
+            
 
             try
             {
                 imagerShow.Connect(filename);
+                PlaybackTool.Active = false;
             }
             catch (SDKException ex)
             {
@@ -599,6 +418,7 @@ namespace LWIR_app
             try
             {
                 imagerShow.QuickConnect();
+                PlaybackTool.Active = false;
             }
             catch (SDKException ex)
             {
@@ -635,7 +455,7 @@ namespace LWIR_app
 
         private void UpdateUI()
         {
-            if ((!imagerShow.IsConnected) && replay == false)
+            if ((!imagerShow.IsConnected) && PlaybackTool.Active == false)
             {
                 Disconnect();
                 return;
@@ -645,272 +465,29 @@ namespace LWIR_app
             sbFlag.Text = imagerShow.GetFlagState();
             sbFPS.Text = imagerShow.GetFPS().ToString("N1", CultureInfo.CurrentCulture) + " Hz";
 
-            Bitmap? image = replay ? PlaybackTool.RenderFrame(PlaybackTool.GetCurrentFrame()).Bitmap : imagerShow.GetImage();
-            if (image == null) return;
 
-            currentImageWidth = image.Width;
-            currentImageHeight = image.Height;
-
-            if (TryGetMouseImagePixel(out System.Drawing.Point cursorPixel))
-                DrawMeasurement(
-                    image,
-                    cursorPixel.X,
-                    cursorPixel.Y,
-                    replay ? PlaybackTool.findTemp(cursorPixel.X, cursorPixel.Y): imagerShow.findTemp(cursorPixel.X, cursorPixel.Y),
-                    System.Drawing.Color.Red,
-                    System.Drawing.Color.White);
-
-            if (imagerShow.CalculateMinMaxTemperatureRegions())
-            {
-                float min = imagerShow.MinRegion.temperature;
-                float max = imagerShow.MaxRegion.temperature;
-                minTemp.Text = min.ToString("N2", CultureInfo.CurrentCulture);
-                maxTemp.Text = max.ToString("N2", CultureInfo.CurrentCulture);
-
-                if (max - min < 1) min -= 1;
-                imagerShow.SetScaleRange(min, max);
-                
-            }
-
-            UpdateRoiPreview(image);
-
-            DrawRoiOverlay(image);
-
-            thermalImage.Source = ConvertBitmapToSource(image);
-            image.Dispose();
-        }
-
-        private void ThermalImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        if (imagerShow.CalculateMinMaxTemperatureRegions())
         {
-            if ((!imagerShow.IsConnected && !replay)|| currentImageWidth <= 0 || currentImageHeight <= 0 || imagerShow.IsRecording) return;
+            float min = imagerShow.MinRegion.temperature;
+            float max = imagerShow.MaxRegion.temperature;
+            minTemp.Text = min.ToString("N2", CultureInfo.CurrentCulture);
+            maxTemp.Text = max.ToString("N2", CultureInfo.CurrentCulture);
 
-            System.Windows.Point cursor = e.GetPosition(thermalImage);
-            if (!IsPointInsideImageViewport(cursor)) return;
+            if (max - min < 1) min -= 1;
+            imagerShow.SetScaleRange(min, max);
 
-            isDraggingRoi = true;
-            roiDragStart = cursor;
-            roiDragCurrent = cursor;
-            thermalImage.CaptureMouse();
-            e.Handled = true;
+        }
+        display.UpdateUI();
+
+
         }
 
-        private void ThermalImage_MouseMove(object sender, MouseEventArgs e)
-        {
-            mouse_position = e.GetPosition(thermalImage);
-            if (!isDraggingRoi) return;
-            roiDragCurrent = e.GetPosition(thermalImage);
-        }
-
-        private void ThermalImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (!isDraggingRoi) return;
-
-            roiDragCurrent = e.GetPosition(thermalImage);
-            isDraggingRoi = false;
-            thermalImage.ReleaseMouseCapture();
-
-            if (TryBuildImageRectangle(roiDragStart, roiDragCurrent, out System.Drawing.Rectangle rectangle))
-            {
-                selectedRoi = rectangle;
-                System.Windows.Point start = new System.Windows.Point(rectangle.Left, rectangle.Top);
-                System.Windows.Point end =  new System.Windows.Point(rectangle.Right - 1, rectangle.Bottom - 1);
-                hasRoi = true;
-                if (replay) PlaybackTool.UpdateROI(start, end);
-                else imagerShow.UpdateROI(start, end);
-            }
-            else
-            {
-                hasRoi = false;
-                imagerShow.ClearROI();
-            }
-
-            e.Handled = true;
-        }
-
-        private void ThermalImage_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-            hasRoi = false;
-            isDraggingRoi = false;
-            imagerShow.ClearROI();
-            thermalImage.ReleaseMouseCapture();
-            e.Handled = true;
-        }
-
-        private bool IsPointInsideImageViewport(System.Windows.Point point)
-        {
-            Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
-            return viewport.Contains(point);
-        }
-
-        private bool TryGetMouseImagePixel(out System.Drawing.Point imagePixel)
-        {
-            imagePixel = default;
-
-            if (currentImageWidth <= 0 || currentImageHeight <= 0) return false;
-
-            Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
-            if (viewport.IsEmpty || !viewport.Contains(mouse_position)) return false;
-
-            imagePixel = MapDisplayToImagePixel(mouse_position, viewport);
-            return true;
-        }
-
-        private Rect GetImageViewport(int imageWidth, int imageHeight)
-        {
-            (double controlWidth, double controlHeight) = (thermalImage.ActualWidth, thermalImage.ActualHeight);
-
-            if (controlWidth <= 0 || controlHeight <= 0 || imageWidth <= 0 || imageHeight <= 0) return Rect.Empty;
-
-            double imageAspect = (double)imageWidth / imageHeight;
-            double controlAspect = controlWidth / controlHeight;
-
-            if (controlAspect > imageAspect)
-            {
-                double scaledWidth = controlHeight * imageAspect;
-                double offsetX = (controlWidth - scaledWidth) / 2.0;
-                return new Rect(offsetX, 0, scaledWidth, controlHeight);
-            }
-
-            double scaledHeight = controlWidth / imageAspect;
-            double offsetY = (controlHeight - scaledHeight) / 2.0;
-            return new Rect(0, offsetY, controlWidth, scaledHeight);
-        }
-
-        private bool TryBuildImageRectangle(System.Windows.Point start, System.Windows.Point end, out Rectangle rectangle)
-        {
-            rectangle = Rectangle.Empty;
-
-            Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
-            if (viewport.IsEmpty) return false;
-
-            System.Windows.Point startClamped = ClampToRect(start, viewport);
-            System.Windows.Point endClamped = ClampToRect(end, viewport);
-
-            System.Drawing.Point startPixel = MapDisplayToImagePixel(startClamped, viewport);
-            System.Drawing.Point endPixel = MapDisplayToImagePixel(endClamped, viewport);
-
-            int left = Math.Min(startPixel.X, endPixel.X);
-            int right = Math.Max(startPixel.X, endPixel.X);
-            int top = Math.Min(startPixel.Y, endPixel.Y);
-            int bottom = Math.Max(startPixel.Y, endPixel.Y);
-
-            if (right - left < 2 || bottom - top < 2) return false;
-
-            rectangle = new Rectangle(left, top, right - left + 1, bottom - top + 1);
-            return true;
-        }
-
-        private static System.Windows.Point ClampToRect(System.Windows.Point point, Rect rect)
-        {
-            if (rect.IsEmpty) return point;
-
-            double clampedX = Math.Max(rect.Left, Math.Min(point.X, rect.Right));
-            double clampedY = Math.Max(rect.Top, Math.Min(point.Y, rect.Bottom));
-
-            return new System.Windows.Point(clampedX, clampedY);
-        }
-
-        private System.Drawing.Point MapDisplayToImagePixel(System.Windows.Point point, Rect viewport)
-        {
-            double normalizedX = (point.X - viewport.X) / viewport.Width;
-            double normalizedY = (point.Y - viewport.Y) / viewport.Height;
-
-            normalizedX = Math.Max(0.0, Math.Min(1.0, normalizedX));
-            normalizedY = Math.Max(0.0, Math.Min(1.0, normalizedY));
-
-            int pixelX = (int)Math.Round(normalizedX * (currentImageWidth - 1));
-            int pixelY = (int)Math.Round(normalizedY * (currentImageHeight - 1));
-
-            return new System.Drawing.Point(pixelX, pixelY);
-        }
-
-        private void DrawRoiOverlay(Bitmap bitmap)
-        {
-            if (hasRoi) DrawRectangleOverlay(bitmap, selectedRoi, System.Drawing.Color.Lime, 2f);
-
-            if (isDraggingRoi && TryBuildImageRectangle(roiDragStart, roiDragCurrent, out Rectangle preview))
-                DrawRectangleOverlay(bitmap, preview, System.Drawing.Color.Yellow, 1.5f);
-        }
-
-        private void UpdateRoiPreview(Bitmap sourceImage)
-        {
-            if (!hasRoi)
-            {
-                roiPreviewImage.Source = null;
-                roiPreviewInfo.Text = "No ROI selected";
-                return;
-            }
-
-            Rectangle imageBounds = new Rectangle(0, 0, sourceImage.Width, sourceImage.Height);
-            Rectangle roi = Rectangle.Intersect(selectedRoi, imageBounds);
-
-            if (roi.Width < 2 || roi.Height < 2)
-            {
-                roiPreviewImage.Source = null;
-                roiPreviewInfo.Text = "No ROI selected";
-                return;
-            }
-
-            using Bitmap roiBitmap = sourceImage.Clone(roi, sourceImage.PixelFormat);
-            roiPreviewImage.Source = ConvertBitmapToSource(roiBitmap);
-            roiPreviewInfo.Text = string.Format(CultureInfo.CurrentCulture, "{0} x {1} px", roi.Width, roi.Height);
-        }
-
-        private static void DrawRectangleOverlay(Bitmap bitmap, Rectangle rectangle, System.Drawing.Color color, float thickness)
-        {
-            if (rectangle.Width < 2 || rectangle.Height < 2) return;
-
-            using Graphics graphics = Graphics.FromImage(bitmap);
-            using System.Drawing.Pen borderPen = new System.Drawing.Pen(color, thickness)
-            {
-                DashStyle = System.Drawing.Drawing2D.DashStyle.Dash
-            };
-            using System.Drawing.Brush fillBrush = new SolidBrush(System.Drawing.Color.FromArgb(45, color));
-
-            graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.FillRectangle(fillBrush, rectangle);
-            graphics.DrawRectangle(borderPen, rectangle);
-        }
-
-        private void DrawMeasurement(Bitmap bitmap, int x, int y, float value, System.Drawing.Color fgColor, System.Drawing.Color bgColor)
-        {
-            int markerSize = 20;
-            int markerSizeHalf = markerSize / 2;
-
-            using Graphics graphics = Graphics.FromImage(bitmap);
-            using GraphicsPath path = new GraphicsPath(FillMode.Winding);
-            using System.Drawing.Brush fgBrush = new System.Drawing.SolidBrush(fgColor);
-            using System.Drawing.Pen fgPen = new System.Drawing.Pen(fgBrush, 1);
-            using System.Drawing.Pen bgPen = new System.Drawing.Pen(bgColor, 3);
-
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
-            graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-
-            graphics.DrawLine(bgPen, x - markerSizeHalf, y, x + markerSizeHalf, y);
-            graphics.DrawLine(bgPen, x, y - markerSizeHalf, x, y + markerSizeHalf);
-
-            graphics.DrawLine(fgPen, x - markerSizeHalf, y, x + markerSizeHalf, y);
-            graphics.DrawLine(fgPen, x, y - markerSizeHalf, x, y + markerSizeHalf);
-
-            path.AddString(
-                string.Format(CultureInfo.CurrentCulture, "{0:N1}", value),
-                System.Drawing.SystemFonts.DefaultFont.FontFamily,
-                (int)System.Drawing.FontStyle.Regular,
-                12,
-                new System.Drawing.Point(x + markerSizeHalf / 2, y - markerSizeHalf * 2),
-                StringFormat.GenericDefault);
-
-            graphics.DrawPath(bgPen, path);
-            graphics.FillPath(fgBrush, path);
-        }
 
         private void UpdateUiOnConnectionStatus()
         {
             bool connected = imagerShow.IsConnected;
 
-            if (connected || replay)
+            if (connected || PlaybackTool.Active)
             {
                 Title = "Optris Imager - " + imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
                 sbOperationMode.Text = imagerShow.OperationModeString;
@@ -923,26 +500,16 @@ namespace LWIR_app
                 sbOperationMode.Text = string.Empty;
                 sbFlag.Text = string.Format(CultureInfo.CurrentCulture, "{0, 18}", " ");
                 sbFPS.Text = string.Format(CultureInfo.CurrentCulture, "{0, 11}", " ");
-                thermalImage.Source = null;
-                roiPreviewImage.Source = null;
-                roiPreviewInfo.Text = "No ROI selected";
-                hasRoi = false;
-                isDraggingRoi = false;
-                currentImageWidth = 0;
-                currentImageHeight = 0;
+
                 uiUpdateTimer.Stop();
-                SetRecordingUiState(false);
+                recordingGroup.Update(false, false);
             }
 
             int optionsLength = DeviceInteractonsOptions.Length;
             for (int i = 0; i < optionsLength; i++) DeviceInteractonsOptions[i].IsEnabled = (i < optionsLength/2) ? !connected : connected;
 
             imageConfigurationMenu.IsEnabled = connected;
-            saveDirectory.IsEnabled = connected;
-            saveDataTypeBox.IsEnabled = connected;
-            singleBinaryToggle.IsEnabled = connected;
-            recordROIOnlyToggle.IsEnabled = connected;
-            recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(savePath);
+            recordingGroup.Update(false, true);
 
             SetOperationModeSelection(imagerShow.ActiveModeIndex);
         }
@@ -1005,87 +572,6 @@ namespace LWIR_app
             foreach (var pair in paletteMenuItems) pair.Value.IsChecked = pair.Key == palette;
         }
 
-        private void saveDirectory_Click()
-        {
-            OpenFolderDialog folderDialog = new OpenFolderDialog();
-
-            if (folderDialog.ShowDialog() == true)
-            {
-                string path = folderDialog.FolderName;
-                if (string.IsNullOrWhiteSpace(path))
-                {
-                    MessageBox.Show("Please enter a directory path first.", "Save Directory", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-
-                try
-                {
-                    System.IO.Directory.CreateDirectory(path);
-                    savePath = System.IO.Path.GetFullPath(path);
-                    saveDirectory.Content = savePath;
-                    recordEnable.IsEnabled = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Invalid Directory", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-
-        }
-
-        private void recordEnable_Click(object sender, RoutedEventArgs e)
-        {
-            if (!imagerShow.IsRecording)
-            {
-                string directory = savePath;
-                if (string.IsNullOrWhiteSpace(directory))
-                {
-                    MessageBox.Show("Please set a save directory first.", "Recording", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-
-                if (recordROIOnlyToggle.IsChecked == true && !hasRoi)
-                {
-                    MessageBox.Show("Create ROI");
-                    return;
-                }
-
-                imagerShow.StartRecording(
-                    directory,
-                    GetSelectedSaveDataType(),
-                    singleBinaryToggle.IsChecked == true,
-                    recordROIOnlyToggle.IsChecked == true);
-
-                recordEnable.Background = WpfBrushes.LimeGreen;
-                recordEnable.Content = "Stop Recording";
-                SetRecordingUiState(true);
-            }
-            else
-            {
-                imagerShow.StopRecording();
-                recordEnable.ClearValue(BackgroundProperty);
-                recordEnable.Content = "Record";
-                SetRecordingUiState(false);
-            }
-        }
-
-        private void SetRecordingUiState(bool recording)
-        {
-            saveDirectory.IsEnabled = !recording && imagerShow.IsConnected;
-            saveDataTypeBox.IsEnabled = !recording && imagerShow.IsConnected;
-            singleBinaryToggle.IsEnabled = !recording && imagerShow.IsConnected;
-            recordROIOnlyToggle.IsEnabled = !recording && imagerShow.IsConnected;
-        }
-
-        private SaveDataType GetSelectedSaveDataType()
-        {
-            for (int i = 0; i < saveTypes.Length; i++)
-            {
-                if (saveTypes[i].IsChecked == true) return (SaveDataType)i;
-            }
-
-            return SaveDataType.Float;
-        }
 
         private void AutoTempScale_CheckedChanged()
         {
@@ -1169,30 +655,6 @@ namespace LWIR_app
 
             imagerShow.SetOperationMode(modeIndex);
             SetAutoScalingRange();
-        }
-
-
-        [DllImport("gdi32.dll")]
-        private static extern bool DeleteObject(IntPtr hObject);
-
-        private static BitmapSource ConvertBitmapToSource(Bitmap bitmap)
-        {
-            IntPtr hBitmap = bitmap.GetHbitmap();
-            try
-            {
-                BitmapSource source = Imaging.CreateBitmapSourceFromHBitmap(
-                    hBitmap,
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
-
-                source.Freeze();
-                return source;
-            }
-            finally
-            {
-                DeleteObject(hBitmap);
-            }
         }
     }
 }

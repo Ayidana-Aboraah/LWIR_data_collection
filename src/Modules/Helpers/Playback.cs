@@ -38,6 +38,7 @@ namespace LWIR_app.classes
 
         public static double FramesPerSecond { get; set; } = 10.0;
         public static bool IsPlaying { get; private set; }
+        public static bool Active = false;
         public static int CurrentIndex => currentIndex;
         public static int FrameCount => frames.Count;
 
