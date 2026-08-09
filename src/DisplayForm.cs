@@ -478,8 +478,6 @@ namespace LWIR_app
 
         }
         display.UpdateUI();
-
-
         }
 
 
@@ -500,7 +498,7 @@ namespace LWIR_app
                 sbOperationMode.Text = string.Empty;
                 sbFlag.Text = string.Format(CultureInfo.CurrentCulture, "{0, 18}", " ");
                 sbFPS.Text = string.Format(CultureInfo.CurrentCulture, "{0, 11}", " ");
-
+                display.InActive();
                 uiUpdateTimer.Stop();
                 recordingGroup.Update(false, false);
             }

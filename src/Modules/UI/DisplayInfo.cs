@@ -39,7 +39,7 @@ public class Display
 
     private TextBlock roiPreviewInfo = null!;
 
-    System.Windows.Controls.Image thermalImage = new System.Windows.Controls.Image
+    System.Windows.Controls.Image displayImage = new System.Windows.Controls.Image
     {
         Stretch = Stretch.Uniform,
         SnapsToDevicePixels = true,
@@ -50,22 +50,22 @@ public class Display
     public Display(RecorderBase recorder)
     {
         this.recorder = recorder;
-        RenderOptions.SetBitmapScalingMode(thermalImage, BitmapScalingMode.HighQuality);
-        thermalImage.MouseLeftButtonDown += ThermalImage_MouseLeftButtonDown;
-        thermalImage.MouseMove += ThermalImage_MouseMove;
-        thermalImage.MouseLeftButtonUp += ThermalImage_MouseLeftButtonUp;
-        thermalImage.MouseRightButtonDown += ThermalImage_MouseRightButtonDown;
+        RenderOptions.SetBitmapScalingMode(displayImage, BitmapScalingMode.HighQuality);
+        displayImage.MouseLeftButtonDown += ThermalImage_MouseLeftButtonDown;
+        displayImage.MouseMove += ThermalImage_MouseMove;
+        displayImage.MouseLeftButtonUp += ThermalImage_MouseLeftButtonUp;
+        displayImage.MouseRightButtonDown += ThermalImage_MouseRightButtonDown;
 
         thermalBorder = new Border
         {
             Background = WpfBrushes.DimGray,
-            Child = thermalImage,
+            Child = displayImage,
         };
     }
 
     public void InActive()
     {
-        thermalImage.Source = null;
+        displayImage.Source = null;
         roiPreviewImage.Source = null;
         roiPreviewInfo.Text = "No ROI selected";
         hasRoi = false;
@@ -96,7 +96,7 @@ public class Display
 
         DrawRoiOverlay(image);
 
-        thermalImage.Source = ConvertBitmapToSource(image);
+        displayImage.Source = ConvertBitmapToSource(image);
         image.Dispose();
 
     }
@@ -105,30 +105,30 @@ public class Display
     {
         if ((!recorder.Connected() && !PlaybackTool.Active) || currentImageWidth <= 0 || currentImageHeight <= 0 || recorder.recording) return;
 
-        System.Windows.Point cursor = e.GetPosition(thermalImage);
+        System.Windows.Point cursor = e.GetPosition(displayImage);
         if (!IsPointInsideImageViewport(cursor)) return;
 
         isDraggingRoi = true;
         roiDragStart = cursor;
         roiDragCurrent = cursor;
-        thermalImage.CaptureMouse();
+        displayImage.CaptureMouse();
         e.Handled = true;
     }
 
     private void ThermalImage_MouseMove(object sender, MouseEventArgs e)
     {
-        mouse_position = e.GetPosition(thermalImage);
+        mouse_position = e.GetPosition(displayImage);
         if (!isDraggingRoi) return;
-        roiDragCurrent = e.GetPosition(thermalImage);
+        roiDragCurrent = e.GetPosition(displayImage);
     }
 
     private void ThermalImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (!isDraggingRoi) return;
 
-        roiDragCurrent = e.GetPosition(thermalImage);
+        roiDragCurrent = e.GetPosition(displayImage);
         isDraggingRoi = false;
-        thermalImage.ReleaseMouseCapture();
+        displayImage.ReleaseMouseCapture();
 
         if (TryBuildImageRectangle(roiDragStart, roiDragCurrent, out Rectangle rectangle))
         {
@@ -153,7 +153,7 @@ public class Display
         hasRoi = false;
         isDraggingRoi = false;
         recorder.sensor.ClearROI();
-        thermalImage.ReleaseMouseCapture();
+        displayImage.ReleaseMouseCapture();
         e.Handled = true;
     }
 
@@ -178,7 +178,7 @@ public class Display
 
     private Rect GetImageViewport(int imageWidth, int imageHeight)
     {
-        (double controlWidth, double controlHeight) = (thermalImage.ActualWidth, thermalImage.ActualHeight);
+        (double controlWidth, double controlHeight) = (displayImage.ActualWidth, displayImage.ActualHeight);
 
         if (controlWidth <= 0 || controlHeight <= 0 || imageWidth <= 0 || imageHeight <= 0) return Rect.Empty;
 
