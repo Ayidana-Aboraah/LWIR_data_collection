@@ -70,7 +70,6 @@ public class TemperatureScalingGroup : GroupBox
         minTemp.Text = imagerShow.MinRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
         maxTemp.Text = imagerShow.MaxRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
 
-        
         // if (autoTempScale.IsChecked == true) SetAutoScalingRange();
     }
 

@@ -119,11 +119,11 @@ namespace LWIR_app
 
         private RadioButton[] opModes = null!;
 
-        private RadioButton[] saveTypes = new RadioButton[3]{
+        private RadioButton[] saveTypes = [
             new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
             new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
             new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
-        };
+        ];
 
         private MenuItem[] DeviceInteractonsOptions = [
             new MenuItem { Header = "Quick Connect" },

@@ -6,7 +6,7 @@ namespace LWIR_app.classes
 {
     public class ThermalRecorder : IDisposable
     {
-        private BlockingCollection<RecordedFrame>? queue;
+        private BlockingCollection<RecordedFrame> queue = [];
         private Task? writerTask;
         private bool isRecording;
         private string sessionDirectory = "";
@@ -17,7 +17,7 @@ namespace LWIR_app.classes
         private int frameIndex = 0;
         public bool IsRecording => isRecording;
         private RecorderSettings settings;
-        public RegionOfInterest roi;
+        public RegionOfInterest? roi;
 
         public void Start(RecorderSettings settings)
         {

@@ -8,7 +8,7 @@ namespace LWIR_app.classes
     {
         public static RecordedFrame[] LoadFrames(string path)
         {
-            if (!File.Exists(path)) return null;
+            if (!File.Exists(path)) return [];
 
             SaveDataType saveType = InferSaveType(path);
 

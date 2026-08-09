@@ -5,7 +5,6 @@ using LWIR_app.models;
 
 namespace LWIR_app.classes
 {
- 
     public sealed class PlaybackFrame : IDisposable
     {
         public PlaybackFrame(RecordedFrame sourceFrame, Bitmap bitmap, float scaleMin, float scaleMax, float frameMin, float frameMax, float frameMean)
@@ -42,11 +41,11 @@ namespace LWIR_app.classes
         public static int CurrentIndex => currentIndex;
         public static int FrameCount => frames.Count;
 
-        private static RegionOfInterest roi;
+        private static RegionOfInterest? roi;
 
         public static Action<PlaybackFrame>? FrameRendered;
 
-        public static void UpdateROI(System.Windows.Point s, System.Windows.Point e) => roi = new RegionOfInterest(s,e, frames[currentIndex].width);
+        public static void UpdateROI(System.Windows.Point s, System.Windows.Point e) => roi = new RegionOfInterest(s, e, frames[currentIndex].width);
 
         public static void LoadFrames(IEnumerable<RecordedFrame> newFrames)
         {
@@ -60,16 +59,16 @@ namespace LWIR_app.classes
 
         public static RecordedFrame? GetCurrentFrame()
         {
-                if (frames.Count == 0) return null;
+            if (frames.Count == 0) return null;
 
-                currentIndex = Math.Clamp(currentIndex, 0, frames.Count - 1);
-                return frames[currentIndex];
+            currentIndex = Math.Clamp(currentIndex, 0, frames.Count - 1);
+            return frames[currentIndex];
         }
 
         public static float findTemp(int x, int y)
         {
             if (frames.Count() == 0) return float.NaN;
-            return frames[currentIndex].temperatures[(y *  frames[currentIndex].width) + x];
+            return frames[currentIndex].temperatures[(y * frames[currentIndex].width) + x];
         }
 
         public static void SetPlaybackRate(double framesPerSecond) => FramesPerSecond = framesPerSecond;
@@ -86,7 +85,7 @@ namespace LWIR_app.classes
             if (temperatures == null || temperatures.Length == 0) throw new InvalidDataException("The playback frame does not contain any temperature data.");
 
             (float frameMin, float frameMax, float frameMean) = CalculateStatistics(temperatures);
-            (float scaleMin, float scaleMax) =  (frameMin, frameMax);
+            (float scaleMin, float scaleMax) = (frameMin, frameMax);
 
             if (Math.Abs(scaleMax - scaleMin) < float.Epsilon) scaleMax = scaleMin + 0.0001f;
 
@@ -156,7 +155,7 @@ namespace LWIR_app.classes
                     }
                 }
             }
-            catch (OperationCanceledException){}
+            catch (OperationCanceledException) { }
             finally
             {
                 IsPlaying = false;
@@ -173,7 +172,7 @@ namespace LWIR_app.classes
             foreach (float temperature in temperatures)
             {
                 min = (temperature < min) ? temperature : min;
-                max = (temperature > max) ? temperature: max;
+                max = (temperature > max) ? temperature : max;
                 sum += temperature;
             }
 
