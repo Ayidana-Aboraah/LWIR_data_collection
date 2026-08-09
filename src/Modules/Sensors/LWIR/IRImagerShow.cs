@@ -2,10 +2,12 @@
 
 using LWIR_app.classes;
 using LWIR_app.Sensor;
+using LWIR_app.Sensor.LWIR.UI;
 using Optris.OtcSdk;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace LWIR_app.models
@@ -46,6 +48,9 @@ namespace LWIR_app.models
 
         private SaveDataType saveDataType;
 
+        private TemperatureScalingGroup temperatureScaling;
+
+
         /// <summary>Constructor</summary>
         public IRImagerShow()
         {
@@ -85,10 +90,22 @@ namespace LWIR_app.models
             MinRegion = new TemperatureRegion();
             MaxRegion = new TemperatureRegion();
             MeanRegion = new TemperatureRegion();
+
+            temperatureScaling = new TemperatureScalingGroup(this);
+        }
+
+        public StackPanel UI()
+        {
+            var stack =  new StackPanel{};
+            stack.Children.Add(temperatureScaling);
+            return stack;
         }
 
         // TODO: Implement
-        public void UpdateUI(){}
+        public void UpdateUI()
+        {
+            temperatureScaling.UpdateUI();
+        }
 
         public float findValue(int x, int y)
         {

@@ -12,7 +12,7 @@ public class RecorderBase
 
     public RecorderBase(SensorBase sensor)
     {
-        Bind(sensor);
+        this.sensor = sensor;
     }
 
     public void Bind(SensorBase sensor)

@@ -1,39 +1,43 @@
-using System.Windows.Controls;
-using System.Windows;
 using System.Globalization;
+using System.Windows;
+using System.Windows.Controls;
 using LWIR_app.models;
+
+namespace LWIR_app.Sensor.LWIR.UI;
 
 public class TemperatureScalingGroup : GroupBox
 {
-    private IRImagerShow imagerShow;
-    // private CheckBox autoTempScale = new CheckBox
-    // {
-    //     Content = "Automatic Temperature Scale",
-    //     IsChecked = true,
-    //     Margin = new Thickness(0, 16, 0, 0)
-    // };
+    IRImagerShow LWIR;
 
     private bool suppressScaleTextEvents;
+
+    private CheckBox autoTempScale = new CheckBox
+    {
+        Content = "Automatic Temperature Scale",
+        IsChecked = true,
+        Margin = new Thickness(0, 16, 0, 0)
+    };
 
     private TextBox imageScaleLow = null!;
     private TextBox imageScaleHigh = null!;
     private TextBlock minTemp = null!;
     private TextBlock maxTemp = null!;
-
     private RadioButton[] opModes = null!;
 
-    public TemperatureScalingGroup(IRImagerShow imagerShow)
+    public TemperatureScalingGroup(IRImagerShow LWIR)
     {
+        this.LWIR = LWIR;
+        Header = "Temperature";
+        Margin = new Thickness(0, 0, 0, 12);
+
         var layout = new Grid { Margin = new Thickness(8) };
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
         var valueStack = new StackPanel { Orientation = Orientation.Vertical };
         valueStack.Children.Add(BuildTemperatureValueRow("Max:", out maxTemp));
         valueStack.Children.Add(BuildTemperatureValueRow("Min:", out minTemp, 10));
 
-        this.imagerShow = imagerShow;
 
         // autoTempScale.Checked += (_, _) => AutoTempScale_CheckedChanged();
         // autoTempScale.Unchecked += (_, _) => AutoTempScale_CheckedChanged();
@@ -59,56 +63,37 @@ public class TemperatureScalingGroup : GroupBox
         foreach (RadioButton opMode in opModes) opStack.Children.Add(opMode);
         opGroup.Content = opStack;
 
-        Grid.SetColumn(opGroup, 1);
-        layout.Children.Add(opGroup);
+        var scaleGroup = BuildScaleGroup();
 
-        this.Content = layout;
+        Grid.SetColumn(opGroup, 1);
+        // Grid.SetRow(scaleGroup, 2);
+        layout.Children.Add(opGroup);
+        // layout.Children.Add(scaleGroup);
+
+        Content = layout;
     }
 
     public void UpdateUI()
     {
-        minTemp.Text = imagerShow.MinRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
-        maxTemp.Text = imagerShow.MaxRegion.temperature.ToString("N2", CultureInfo.CurrentCulture);
-
-        // if (autoTempScale.IsChecked == true) SetAutoScalingRange();
-    }
-
-
-    private GroupBox BuildScaleGroup()
-    {
-        var group = new GroupBox
+        SetOperationModeSelection(LWIR.ActiveModeIndex);
+        if (LWIR.CalculateMinMaxTemperatureRegions())
         {
-            Header = "Scale",
-            Margin = new Thickness(0, 0, 0, 12)
-        };
+            float min = LWIR.MinRegion.temperature;
+            float max = LWIR.MaxRegion.temperature;
+            minTemp.Text = min.ToString("N2", CultureInfo.CurrentCulture);
+            maxTemp.Text = max.ToString("N2", CultureInfo.CurrentCulture);
 
-        Grid panel = new Grid { Margin = new Thickness(8) };
-        panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-        FrameworkElement[] s = {
-                BuildScaleRow("High:", out imageScaleHigh),
-                BuildScaleRow("Low:", out imageScaleLow)
-            };
-
-        // TODO: Create a space between the elements
-
-        for (int i = 0; i < s.Length; i++)
-        {
-            Grid.SetRow(s[i], 0);
-            Grid.SetColumn(s[i], i);
-            panel.Children.Add(s[i]);
+            if (max - min < 1) min -= 1;
+            LWIR.SetScaleRange(min, max);
         }
-
-        group.Content = panel;
-        return group;
     }
 
     private FrameworkElement BuildTemperatureValueRow(string labelText, out TextBlock valueText, double topMargin = 0)
     {
-        var row = new DockPanel { Margin = new Thickness(0, topMargin, 0, 0) };
+        var row = new DockPanel
+        {
+            Margin = new Thickness(0, topMargin, 0, 0)
+        };
 
         var label = new TextBlock
         {
@@ -153,18 +138,58 @@ public class TemperatureScalingGroup : GroupBox
         return radio;
     }
 
-    // TODO: Finish this ting
+            private GroupBox BuildScaleGroup()
+        {
+            var group = new GroupBox
+            {
+                Header = "Scale",
+                Margin = new Thickness(0, 0, 0, 12)
+            };
 
-    // private void AutoTempScale_CheckedChanged()
-    // {
-    //     bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
-    //     imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
-    //     imageScaleLow.IsReadOnly = autoTempScaleEnabled;
-    //     imagerShow.SetAutoScaling(autoTempScaleEnabled);
+            Grid panel = new Grid { Margin = new Thickness(8) };
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-    //     if (autoTempScaleEnabled) SetAutoScalingRange();
-    //     else ApplyManualScaleRangeFromInputs();
-    // }
+            FrameworkElement[] s = {
+                BuildScaleRow("High:", out imageScaleHigh),
+                BuildScaleRow("Low:", out imageScaleLow)
+            };
+
+            // TODO: Create a space between the elements
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                Grid.SetRow(s[i], 0);
+                Grid.SetColumn(s[i], i);
+                panel.Children.Add(s[i]);
+            }
+
+            group.Content = panel;
+            return group;
+        }
+
+    private void OperationMode_CheckedChanged(object sender, RoutedEventArgs e)
+    {
+        if (sender is not RadioButton radioButton || radioButton.IsChecked != true) return;
+
+        if (radioButton.Tag is not int modeIndex) return;
+
+        LWIR.SetOperationMode(modeIndex);
+        SetAutoScalingRange();
+    }
+
+    private void AutoTempScale_CheckedChanged()
+    {
+        bool autoTempScaleEnabled = autoTempScale.IsChecked == true;
+        imageScaleHigh.IsReadOnly = autoTempScaleEnabled;
+        imageScaleLow.IsReadOnly = autoTempScaleEnabled;
+        LWIR.SetAutoScaling(autoTempScaleEnabled);
+
+        if (autoTempScaleEnabled) SetAutoScalingRange();
+        else ApplyManualScaleRangeFromInputs();
+    }
 
     private FrameworkElement BuildScaleRow(string labelText, out TextBox textBox, double topMargin = 0)
     {
@@ -202,11 +227,35 @@ public class TemperatureScalingGroup : GroupBox
         return row;
     }
 
+    private void SetAutoScalingRange()
+    {
+        if (!LWIR.IsConnected || autoTempScale.IsChecked != true) return;
+
+        var range = LWIR.GetTemperatureRange();
+
+        suppressScaleTextEvents = true;
+        try
+        {
+            // imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
+            // imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
+        }
+        finally
+        {
+            suppressScaleTextEvents = false;
+        }
+    }
+
+    private void SetOperationModeSelection(int modeIndex)
+    {
+        // opModes[modeIndex].IsChecked = true;
+        for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
+    }
+
+
 
     private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
     {
-        // if (suppressScaleTextEvents || autoTempScale.IsChecked == true) return;
-        if (suppressScaleTextEvents) return;
+        if (suppressScaleTextEvents || autoTempScale.IsChecked == true) return;
 
         ApplyManualScaleRangeFromInputs();
     }
@@ -219,7 +268,7 @@ public class TemperatureScalingGroup : GroupBox
 
         if (low > high) (low, high) = (high, low);
 
-        imagerShow.SetScaleRange(low, high);
+        LWIR.SetScaleRange(low, high);
     }
 
     private static bool TryReadScaleValue(string? text, out float value)
@@ -229,39 +278,5 @@ public class TemperatureScalingGroup : GroupBox
             NumberStyles.Float,
             CultureInfo.CurrentCulture,
             out value);
-    }
-
-    private void OperationMode_CheckedChanged(object sender, RoutedEventArgs e)
-    {
-        if (sender is not RadioButton radioButton || radioButton.IsChecked != true) return;
-
-        if (radioButton.Tag is not int modeIndex) return;
-
-        imagerShow.SetOperationMode(modeIndex);
-        // SetAutoScalingRange();
-    }
-
-    // private void SetAutoScalingRange()
-    // {
-    //     if (!imagerShow.IsConnected || autoTempScale.IsChecked != true) return;
-
-    //     var range = imagerShow.GetTemperatureRange();
-
-    //     suppressScaleTextEvents = true;
-    //     try
-    //     {
-    //         imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
-    //         imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
-    //     }
-    //     finally
-    //     {
-    //         suppressScaleTextEvents = false;
-    //     }
-    // }
-
-    private void SetOperationModeSelection(int modeIndex)
-    {
-        // opModes[modeIndex].IsChecked = true;
-        for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
     }
 }

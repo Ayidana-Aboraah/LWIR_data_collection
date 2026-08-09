@@ -23,7 +23,6 @@ public class Display
     System.Windows.Point roiDragStart, roiDragCurrent;
     Rectangle selectedRoi;
     int currentImageWidth, currentImageHeight;
-    // SensorBase sensor;
     RecorderBase recorder;
     public Border thermalBorder;
 
@@ -329,12 +328,6 @@ public class Display
 
     public GroupBox BuildRoiPreviewGroup()
     {
-        var group = new GroupBox
-        {
-            Header = "Region Of Interest",
-            Margin = new Thickness(0, 0, 0, 12)
-        };
-
         var stack = new StackPanel { Margin = new Thickness(8) };
 
         RenderOptions.SetBitmapScalingMode(roiPreviewImage, BitmapScalingMode.HighQuality);
@@ -358,8 +351,12 @@ public class Display
         stack.Children.Add(imageHost);
         stack.Children.Add(roiPreviewInfo);
 
-        group.Content = stack;
-        return group;
+        return new GroupBox
+        {
+            Header = "Region Of Interest",
+            Margin = new Thickness(0, 0, 0, 12),
+            Content = stack
+        };
     }
 
 
