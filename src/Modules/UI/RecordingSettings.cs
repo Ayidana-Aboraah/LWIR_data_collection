@@ -90,6 +90,7 @@ public class RecordingGroup : GroupBox
             Text = "Save Directory",
             Margin = new Thickness(0, 0, 0, 4)
         });
+
         // stack.Children.Add(saveDirectoryPath);
         stack.Children.Add(saveDirectory);
         stack.Children.Add(saveDataTypeBox);
@@ -97,6 +98,8 @@ public class RecordingGroup : GroupBox
         stack.Children.Add(recordROIOnlyToggle);
         stack.Children.Add(recordEnable);
 
+        // stack.IsEnabled = false;
+        Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
         Content = stack;
     }
 
@@ -107,6 +110,7 @@ public class RecordingGroup : GroupBox
         singleBinaryToggle.IsEnabled = connected;
         recordROIOnlyToggle.IsEnabled = connected;
         recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(savePath);
+        Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
     }
 
     public void Update(bool recording, bool sensorConnected)

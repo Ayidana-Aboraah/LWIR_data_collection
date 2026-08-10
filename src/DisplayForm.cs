@@ -22,11 +22,11 @@ namespace LWIR_app
         private readonly DispatcherTimer uiUpdateTimer = new();
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
-        private Display display;
         private SensorBase current_sensor;
-        private RecordingGroup recordingGroup;
         private ThermalRecorder recorder;
-
+        private Display display;
+        private RecordingGroup recordingGroup;
+        private PlaybackGroup playback;
 
         private MenuItem[] DeviceInteractonsOptions = [
             new MenuItem { Header = "Quick Connect" },
@@ -35,7 +35,6 @@ namespace LWIR_app
             new MenuItem { Header = "Refresh Flag", IsEnabled = false },
         ];
         private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[4];
-
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 
@@ -46,6 +45,7 @@ namespace LWIR_app
             current_sensor = imagerShow;
             recorder = new ThermalRecorder(current_sensor);
             recordingGroup = new RecordingGroup(recorder);
+            playback = new PlaybackGroup();
             display = new Display(recorder);
             InitializeComponent();
 
@@ -53,6 +53,7 @@ namespace LWIR_app
             uiUpdateTimer.Tick += (_, _) => UpdateUI();
 
             BuildPaletteMenu();
+            UpdateUI();
             UpdateUiOnConnectionStatus();
         }
 
@@ -73,7 +74,6 @@ namespace LWIR_app
                 (_,_) => imagerShow.RefreshFlag(),
             ];
 
-
             var root = new DockPanel();
             Content = root;
 
@@ -84,12 +84,7 @@ namespace LWIR_app
             var controlPanelBorder = BuildControlPanel();
             DockPanel.SetDock(controlPanelBorder, Dock.Right);
             root.Children.Add(controlPanelBorder);
-
-            // TODO: Add Camera B-Side Settings and disable during vieo playback
-
             root.Children.Add(display.baseDisplay);
-
-            // TODO: Call Sensor.Disoconnect & maybe free memory from thermal recorder
             Closing += (_, _) => Disconnect();
         }
 
@@ -173,9 +168,9 @@ namespace LWIR_app
                 Orientation = Orientation.Vertical
             };
 
-            // stack.Children.Add(BuildScaleGroup());
             stack.Children.Add(display.BuildRoiPreviewGroup());
             stack.Children.Add(recordingGroup);
+            stack.Children.Add(playback);
             stack.Children.Add(current_sensor.UI());
 
             scrollViewer.Content = stack;
@@ -183,25 +178,9 @@ namespace LWIR_app
             return panelBorder;
         }
 
-        // TODO: Finish this ting
-        private GroupBox BuildCameraSettingsGroup()
-        {
-            GroupBox group = new GroupBox { Header = "Playback" };
-            StackPanel stack = new StackPanel { Margin = new Thickness(8) };
-
-            Slider playback_speed = new Slider { };
-            Slider playback = new Slider { };
-
-            playback_speed.ValueChanged += (_, _) => { };
-
-            playback.ValueChanged += (_, _) => { };
-
-            return group;
-        }
         private void Connect(string filename)
         {
             if (imagerShow.IsConnected) return;
-
 
             try
             {
@@ -242,10 +221,7 @@ namespace LWIR_app
                 Multiselect = false
             };
 
-            if (openFileDialog.ShowDialog() == true)
-            {
-                Connect(openFileDialog.FileName);
-            }
+            if (openFileDialog.ShowDialog() == true) Connect(openFileDialog.FileName);
         }
 
         private void Disconnect()
@@ -259,16 +235,12 @@ namespace LWIR_app
 
         private void UpdateUI()
         {
-            if ((!imagerShow.IsConnected) && PlaybackTool.Active == false)
-            {
-                Disconnect();
-                return;
-            }
-           
+            current_sensor.UI().Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
+            recordingGroup.Update(current_sensor.Connected());
             current_sensor.UpdateUI();
+            playback.UpdateUI();
             display.UpdateUI();
         }
-
 
         private void UpdateUiOnConnectionStatus()
         {
@@ -279,7 +251,7 @@ namespace LWIR_app
                 // TODO: replace "S/N" portion with some status string
                 Title = "Optris Imager - " + imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
                 display.UpdateUI();
-
+                recordingGroup.Update(true && !PlaybackTool.Active);
                 uiUpdateTimer.Start();
             }
             else

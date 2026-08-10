@@ -55,8 +55,10 @@ namespace LWIR_app.models
 
         private SaveDataType saveDataType;
 
+        StackPanel UI_Panel = new StackPanel { };
         private TemperatureScalingGroup temperatureScaling;
         private LWIR_Footer footer;
+        
 
         RegionOfInterest roi;
 
@@ -103,14 +105,11 @@ namespace LWIR_app.models
 
             temperatureScaling = new TemperatureScalingGroup(this);
             footer = new LWIR_Footer(this);
+
+            UI_Panel.Children.Add(temperatureScaling);
         }
 
-        public StackPanel UI()
-        {
-            var stack = new StackPanel { };
-            stack.Children.Add(temperatureScaling);
-            return stack;
-        }
+        public StackPanel UI() => UI_Panel;
 
         public FrameworkElement Footer() => footer;
 

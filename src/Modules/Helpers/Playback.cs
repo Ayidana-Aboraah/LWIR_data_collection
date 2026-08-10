@@ -34,12 +34,11 @@ namespace LWIR_app.classes
         private static readonly List<RecordedFrame> frames = new();
         private static readonly object gate = new();
         private static CancellationTokenSource? playbackCancellation;
-        private static int currentIndex;
+        public static int currentIndex;
 
         public static double FramesPerSecond { get; set; } = 10.0;
         public static bool IsPlaying { get; private set; }
         public static bool Active = false;
-        public static int CurrentIndex => currentIndex;
         public static int FrameCount => frames.Count;
 
         private static RegionOfInterest? roi;
@@ -57,6 +56,9 @@ namespace LWIR_app.classes
                 currentIndex = 0;
             }
         }
+        public static void Resume() => IsPlaying = true;
+
+        public static void Pause() => IsPlaying = false;
 
         public static RecordedFrame? GetCurrentFrame()
         {
@@ -135,7 +137,7 @@ namespace LWIR_app.classes
                         if (frames.Count == 0 || currentIndex >= frames.Count) break;
 
                         playbackFrame = RenderFrame(frames[currentIndex]);
-                        currentIndex++;
+                        Math.Max(++currentIndex, FrameCount-1);
                     }
 
                     if (playbackFrame == null) break;

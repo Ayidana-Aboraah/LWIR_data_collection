@@ -1,7 +1,5 @@
-using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
-using System.Threading.Channels;
 using LWIR_app.classes;
 using Optris.OtcSdk;
 
@@ -66,8 +64,6 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         if (!recording) return;
 
-        // queue!.CompleteAdding();
-
         writerTask!.Wait();
 
         metadataWriter?.Flush();
@@ -79,7 +75,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     public void Dispose() => Stop();
 
-    private async void WriterLoop()
+    private async Task WriterLoop()
     {
         await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync())
         {

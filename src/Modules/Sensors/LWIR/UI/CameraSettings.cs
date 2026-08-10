@@ -1,42 +1,51 @@
-// namespace LWIR_app.Sensor.LWIR;
+using System.Windows;
+using System.Windows.Controls;
+using LWIR_app.models;
 
-// public class CameraSettingsGroup
-// {
-//     public CameraSettingsGroup()
-//     {
-        
-//         float focus = imagerShow.Imager.getFocusMotorPosition();
+namespace LWIR_app.Sensor.LWIR;
 
-//         GroupBox fs = new GroupBox { Header = "Focus Settings" };
-//         StackPanel st = new StackPanel { };
-//         Slider FocusSlider = new Slider
-//         {
-//             Maximum = 100,
-//             TickFrequency = 1,
-//             Width = 200,
-//             IsSnapToTickEnabled = true,
-//             Value = focus
-//         };
+public class CameraSettingsGroup
+{
+    IRImagerShow LWIR;
+    
+    public CameraSettingsGroup(IRImagerShow LWIR)
+    {
+        this.LWIR = LWIR;
+    }
 
-//         TextBlock FocusText = new TextBlock
-//         {
-//             Text = focus.ToString(),
-//             VerticalAlignment = VerticalAlignment.Center,
-//             Padding = new Thickness(5, 0, 5, 0)
-//         };
+    GroupBox foucsGroup()
+    {
+        float focus = LWIR.Imager.getFocusMotorPosition();
 
-//         st.Children.Add(FocusText);
-//         st.Children.Add(FocusSlider);
+        GroupBox fs = new GroupBox { Header = "Focus Settings" };
+        StackPanel st = new StackPanel { };
+        Slider FocusSlider = new Slider
+        {
+            Maximum = 100,
+            TickFrequency = 1,
+            Width = 200,
+            IsSnapToTickEnabled = true,
+            Value = focus
+        };
 
-//         FocusSlider.ValueChanged += (_, _) =>
-//         {
-//             focus = (float)FocusSlider.Value;
-//             FocusText.Text = focus.ToString();
-//             imagerShow.Imager.setFocusMotorPosition(focus);
-//         };
+        TextBlock FocusText = new TextBlock
+        {
+            Text = focus.ToString(),
+            VerticalAlignment = VerticalAlignment.Center,
+            Padding = new Thickness(5, 0, 5, 0)
+        };
 
-//         fs.Content = st;
-//         stack.Children.Add(fs);
+        st.Children.Add(FocusText);
+        st.Children.Add(FocusSlider);
 
-//     }
-// }
+        FocusSlider.ValueChanged += (_, _) =>
+        {
+            focus = (float)FocusSlider.Value;
+            FocusText.Text = focus.ToString();
+            LWIR.Imager.setFocusMotorPosition(focus);
+        };
+
+        fs.Content = st;
+        return fs;
+    }
+}
