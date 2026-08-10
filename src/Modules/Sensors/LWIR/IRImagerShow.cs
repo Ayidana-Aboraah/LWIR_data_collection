@@ -203,8 +203,7 @@ namespace LWIR_app.models
 
             try
             {
-                Imager.setActiveOperationMode(
-                    operationModes[modeIndex]);
+                Imager.setActiveOperationMode(operationModes[modeIndex]);
             }
             catch (SDKException ex)
             {
@@ -350,7 +349,7 @@ namespace LWIR_app.models
              */
             operationModes = Imager.getOperationModes();
             activeModeIndex = Imager.getActiveOperationMode().getIndex();
-            Imager.setActiveOperationMode(operationModes.Last());
+            // Imager.setActiveOperationMode(operationModes.Last());
 
             UpdateOperationModeString();
 
