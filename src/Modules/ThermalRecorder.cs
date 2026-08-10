@@ -152,7 +152,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for (int i = 0; i < sensor.roi().indexes.Length; i++) writer.Write(frame.temperatures[sensor.roi().indexes[i]]);
+                for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.temperatures[sensor.ROI()[i]]);
             }
             else foreach (float value in frame.temperatures) writer.Write(value);
         }
@@ -161,7 +161,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for (int i = 0; i < sensor.roi().indexes.Length; i++) writer.Write(frame.temperature_Ints[sensor.roi().indexes[i]]);
+                for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.temperature_Ints[sensor.ROI() [i]]);
             }
             else foreach (ushort value in frame.temperature_Ints) writer.Write(value);
         }
@@ -170,10 +170,10 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for (int i = 0; i < sensor.roi().indexes.Length; i++)
+                for (int i = 0; i < sensor.ROI().Length; i++)
                 {
-                    writer.Write(frame.RLE[sensor.roi().indexes[i]].value);
-                    writer.Write(frame.RLE[sensor.roi().indexes[i]].length);
+                    writer.Write(frame.RLE[sensor.ROI()[i]].value);
+                    writer.Write(frame.RLE[sensor.ROI()[i]].length);
                 }
             }
             else

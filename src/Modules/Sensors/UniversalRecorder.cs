@@ -1,242 +1,207 @@
-// using System.Collections.Concurrent;
-// using System.Globalization;
-// using System.IO;
-// using System.Threading.Channels;
-// using LWIR_app.classes;
+using System.Collections.Concurrent;
+using System.Globalization;
+using System.IO;
+using System.Threading.Channels;
+using LWIR_app.classes;
+using Optris.OtcSdk;
 
-// namespace LWIR_app.Sensor;
+namespace LWIR_app.Sensor;
 
-// public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
-// {
-//     readonly Channel<FrameRecord> channel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(60 * 60 * 15)
-//     {
-//         SingleReader = true,
-//         SingleWriter = true,
-//         FullMode = BoundedChannelFullMode.DropOldest
-//     });
+public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
+{
+    Task? writerTask;
+    StreamWriter? metadataWriter;
+    BinaryWriter? singleFileWriter;
 
-//     Task? writerTask;
-//     StreamWriter? metadataWriter;
-//     BinaryWriter? singleFileWriter;
+    string sessionDirectory = "";
+    string frameDirectory = "";
+    int frameIndex = 0;
+    RecorderSettings settings;
 
-//     string sessionDirectory = "";
-//     string frameDirectory = "";
-//     int frameIndex = 0;
-//     RecorderSettings settings;
+    public void Start(RecorderSettings settings)
+    {
+        this.settings = settings;
+        if (recording) return;
 
-//     public void Start(RecorderSettings settings)
-//     {
-//         this.settings = settings;
-//         if (recording) return;
+        frameIndex = 0;
 
-//         frameIndex = 0;
+        string sessionName = $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
 
-//         string sessionName = $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
+        sessionDirectory = Path.Combine(settings.baseDirectory, sessionName);
 
-//         sessionDirectory = Path.Combine(settings.baseDirectory, sessionName);
+        Directory.CreateDirectory(sessionDirectory);
 
-//         Directory.CreateDirectory(sessionDirectory);
+        metadataWriter = new StreamWriter(Path.Combine(sessionDirectory, "metadata.csv"));
 
-//         metadataWriter = new StreamWriter(Path.Combine(sessionDirectory, "metadata.csv"));
+        metadataWriter.WriteLine("Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
 
-//         metadataWriter.WriteLine("Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
+        recording = true;
 
-//         recording = true;
+        if (settings.singleBinary)
+        {
+            string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
+            string filename = Path.Combine(
+                sessionDirectory,
+                $"frame_{suffix}.bin");
+            singleFileWriter = new BinaryWriter(
+                File.Open(
+                    filename,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None));
 
-//         if (settings.singleBinary)
-//         {
-//             string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
-//             string filename = Path.Combine(
-//                 sessionDirectory,
-//                 $"frame_{suffix}.bin");
-//             singleFileWriter = new BinaryWriter(
-//                 File.Open(
-//                     filename,
-//                     FileMode.Create,
-//                     FileAccess.Write,
-//                     FileShare.None));
+            // Don't worry about the queue warning since start can only be called after getting camera feed
+            WriteBinHeader(singleFileWriter);
 
-//             // Don't worry about the queue warning since start can only be called after getting camera feed
-//             WriteBinHeader(singleFileWriter);
+            writerTask = Task.Run(SingleWriterLoop);
+        }
+        else
+        {
+            frameDirectory = Path.Combine(sessionDirectory, "frames");
+            Directory.CreateDirectory(frameDirectory);
+            writerTask = Task.Run(WriterLoop);
+        }
+    }
 
-//             writerTask = Task.Run(SingleWriterLoop);
-//         }
-//         else
-//         {
-//             frameDirectory = Path.Combine(sessionDirectory, "frames");
-//             Directory.CreateDirectory(frameDirectory);
-//             writerTask = Task.Run(WriterLoop);
-//         }
-//     }
+    public void Stop()
+    {
+        if (!recording) return;
 
-//     public void Stop()
-//     {
-//         if (!recording) return;
+        // queue!.CompleteAdding();
 
-//         // queue!.CompleteAdding();
+        writerTask!.Wait();
 
-//         writerTask!.Wait();
+        metadataWriter?.Flush();
+        metadataWriter?.Close();
+        singleFileWriter?.Close();
 
-//         metadataWriter?.Flush();
-//         metadataWriter?.Close();
-//         singleFileWriter?.Close();
+        recording = false;
+    }
 
-//         recording = false;
-//     }
+    public void Dispose() => Stop();
 
-//     public void Enqueue(FrameRecord frame)
-//     {
-//         // channel.Writer.WriteAsync(frame)
-//         try
-//         {
-//             if (queue != null && !queue.IsAddingCompleted) queue.Add(frame);
-//         }
-//         catch (InvalidOperationException)
-//         {
-//             // Queue completed between check and Add().
-//         }
-//     }
+    private async void WriterLoop()
+    {
+        await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync())
+        {
+            string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
+            string filename = Path.Combine(
+                frameDirectory,
+                $"frame_{frameIndex}_{suffix}.bin");
 
-//     public RecordedFrame[] ReadFrames()
-//     {
-//         if (!recording) return [];
+            using var writer =
+                new BinaryWriter(
+                    File.Open(
+                        filename,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None));
 
-//         var len = queue.Count;
-//         return queue.ToArray()[(len - 20)..len];
-//     }
+            WriteFrameHeader(frame, writer);
+            WriteFrame(frame, writer);
+        }
+    }
 
-//     public void Dispose() => Stop();
+    private async Task SingleWriterLoop()
+    {
+        await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter);
+    }
 
-//     private void WriterLoop()
-//     {
-//         foreach (var frame in queue!.GetConsumingEnumerable())
-//         {
-//             string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
-//             string filename = Path.Combine(
-//                 frameDirectory,
-//                 $"frame_{frameIndex}_{suffix}.bin");
+    private void WriteFrame(FrameRecord frame, BinaryWriter writer)
+    {
+        WriteRecordedFrame(frame, writer);
+        WriteMetadataRow(frame);
 
-//             using var writer =
-//                 new BinaryWriter(
-//                     File.Open(
-//                         filename,
-//                         FileMode.Create,
-//                         FileAccess.Write,
-//                         FileShare.None));
+        frameIndex++;
+    }
 
-//             WriteFrameHeader(frame, writer);
-//             WriteFrame(frame, writer);
-//         }
-//     }
+    private void WriteRecordedFrame(FrameRecord frame, BinaryWriter writer)
+    {
+        if (settings.recordROIOnly)
+        {
+            switch (frame.saveType)
+            {
+                case SaveDataType.Float:
+                    for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.fValue[sensor.ROI()[i]]);
+                    break;
+                case SaveDataType.U16:
+                    for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.iValue[sensor.ROI()[i]]);
+                    break;
+                case SaveDataType.RLE:
+                    for (int i = 0; i < sensor.ROI().Length; i++)
+                    {
+                        writer.Write(frame.data.rleValue[sensor.ROI()[i]].value);
+                        writer.Write(frame.data.rleValue[sensor.ROI()[i]].length);
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            switch (frame.saveType)
+            {
+                case SaveDataType.Float:
+                    foreach (float value in frame.data.fValue) writer.Write(value);
+                    break;
+                case SaveDataType.U16:
+                    foreach (ushort value in frame.data.iValue) writer.Write(value);
+                    break;
+                case SaveDataType.RLE:
+                    for (int i = 0; i < frame.data.rleValue.Length; i++)
+                    {
+                        writer.Write(frame.data.rleValue[i].value);
+                        writer.Write(frame.data.rleValue[i].length);
+                    }
+                    break;
+            }
+        }
+    }
 
-//     private void SingleWriterLoop()
-//     {
-//         foreach (var frame in queue!.GetConsumingEnumerable()) WriteFrame(frame, singleFileWriter);
-//     }
+    private void WriteBinHeader(BinaryWriter writer)
+    {
+        writer.Write(settings.camera_width);
+        writer.Write(settings.camera_height);
+    }
 
-//     private void WriteFrame(RecordedFrame frame, BinaryWriter writer)
-//     {
+    private void WriteFrameHeader(FrameRecord frame, BinaryWriter writer)
+    {
+        writer.Write(settings.camera_width);
+        writer.Write(settings.camera_height);
+        writer.Write(((FrameMetadata)frame.metadata).getTimestamp());
+        writer.Write(((FrameMetadata)frame.metadata).getCounter());
+        writer.Write(((FrameMetadata)frame.metadata).getCounterHardware());
+    }
 
-//         switch (frame.saveType)
-//         {
-//             case SaveDataType.U16:
-//                 WriteIntFrame(frame, writer);
-//                 break;
+    private void WriteMetadataRow(FrameRecord frame)
+    {
+        (float min, float max) = (float.MaxValue, float.MinValue);
 
-//             case SaveDataType.RLE:
-//                 WriteRleFrame(frame, writer);
-//                 break;
 
-//             default:
-//                 WriteBaseDataFrame(frame, writer);
-//                 break;
-//         }
+        // TODO: Maybe just pass the analyser's statics tings into it
+        // double sum = 0;
 
-//         WriteMetadataRow(frame);
+        // foreach (float temp in frame.temperatures)
+        // {
+        //     if (temp < min) min = temp;
+        //     if (temp > max) max = temp;
+        //     sum += temp;
+        // }
 
-//         frameIndex++;
-//     }
+        // double mean = sum / frame.temperatures.Length;
 
-//     private void WriteBaseDataFrame(RecordedFrame frame, BinaryWriter writer)
-//     {
-//         if (settings.recordROIOnly)
-//         {
-//             for (int i = 0; i < sensor.roi().indexes.Length; i++) writer.Write(frame.temperatures[sensor.roi().indexes[i]]);
-//         }
-//         else foreach (float value in frame.temperatures) writer.Write(value);
-//     }
+        metadataWriter!.WriteLine(
+            string.Join(",",
+                frameIndex,
+                ((FrameMetadata)frame.metadata).getTimestamp(),
+                ((FrameMetadata)frame.metadata).getCounter(),
+                ((FrameMetadata)frame.metadata).getCounterHardware(),
+                min.ToString(CultureInfo.InvariantCulture),
+                max.ToString(CultureInfo.InvariantCulture),
+                // mean.ToString(CultureInfo.InvariantCulture),
+                "",
+                ((FrameMetadata)frame.metadata).getTemperatureBox().ToString(CultureInfo.InvariantCulture),
+                ((FrameMetadata)frame.metadata).getTemperatureChip().ToString(CultureInfo.InvariantCulture)));
 
-//     private void WriteIntFrame(RecordedFrame frame, BinaryWriter writer)
-//     {
-//         if (settings.recordROIOnly)
-//         {
-//             for (int i = 0; i < sensor.roi().indexes.Length; i++) writer.Write(frame.temperature_Ints[sensor.roi().indexes[i]]);
-//         }
-//         else foreach (ushort value in frame.temperature_Ints) writer.Write(value);
-//     }
-
-//     private void WriteRleFrame(RecordedFrame frame, BinaryWriter writer)
-//     {
-//         if (settings.recordROIOnly)
-//         {
-//             for (int i = 0; i < sensor.roi().indexes.Length; i++)
-//             {
-//                 writer.Write(frame.RLE[sensor.roi().indexes[i]].value);
-//                 writer.Write(frame.RLE[sensor.roi().indexes[i]].length);
-//             }
-//         }
-//         else
-//         {
-//             for (int i = 0; i < frame.RLE.Length; i++)
-//             {
-//                 writer.Write(frame.RLE[i].value);
-//                 writer.Write(frame.RLE[i].length);
-//             }
-//         }
-//     }
-
-//     private void WriteBinHeader(BinaryWriter writer)
-//     {
-//         writer.Write(settings.camera_width);
-//         writer.Write(settings.camera_height);
-//     }
-
-//     private void WriteFrameHeader(RecordedFrame frame, BinaryWriter writer)
-//     {
-//         writer.Write(settings.camera_width);
-//         writer.Write(settings.camera_height);
-//         writer.Write(frame.metadata.getTimestamp());
-//         writer.Write(frame.metadata.getCounter());
-//         writer.Write(frame.metadata.getCounterHardware());
-//     }
-
-//     private void WriteMetadataRow(RecordedFrame frame)
-//     {
-//         (float min, float max) = (float.MaxValue, float.MinValue);
-
-//         double sum = 0;
-
-//         foreach (float temp in frame.temperatures)
-//         {
-//             if (temp < min) min = temp;
-//             if (temp > max) max = temp;
-//             sum += temp;
-//         }
-
-//         double mean = sum / frame.temperatures.Length;
-
-//         metadataWriter!.WriteLine(
-//             string.Join(",",
-//                 frameIndex,
-//                 frame.metadata.getTimestamp(),
-//                 frame.metadata.getCounter(),
-//                 frame.metadata.getCounterHardware(),
-//                 min.ToString(CultureInfo.InvariantCulture),
-//                 max.ToString(CultureInfo.InvariantCulture),
-//                 mean.ToString(CultureInfo.InvariantCulture),
-//                 frame.metadata.getTemperatureBox().ToString(CultureInfo.InvariantCulture),
-//                 frame.metadata.getTemperatureChip().ToString(CultureInfo.InvariantCulture)));
-
-//         metadataWriter.Flush();
-//     }
-// }
+        metadataWriter.Flush();
+    }
+}

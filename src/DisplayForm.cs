@@ -27,27 +27,6 @@ namespace LWIR_app
         private RecordingGroup recordingGroup;
         private ThermalRecorder recorder;
 
-        private TextBlock sbOperationMode = new TextBlock
-        {
-            Text = string.Empty,
-            VerticalAlignment = VerticalAlignment.Center,
-            Padding = new Thickness(5, 0, 5, 0)
-        };
-
-        private TextBlock sbFlag = new TextBlock
-        {
-            Text = "                  ",
-            VerticalAlignment = VerticalAlignment.Center,
-            Padding = new Thickness(5, 0, 5, 0)
-        };
-
-        private TextBlock sbFPS = new TextBlock
-        {
-            Text = "                  ",
-            VerticalAlignment = VerticalAlignment.Center,
-            Padding = new Thickness(5, 0, 5, 0),
-            TextAlignment = TextAlignment.Right
-        };
 
         private MenuItem[] DeviceInteractonsOptions = [
             new MenuItem { Header = "Quick Connect" },
@@ -102,46 +81,16 @@ namespace LWIR_app
             DockPanel.SetDock(menuStrip, Dock.Top);
             root.Children.Add(menuStrip);
 
-            var footer = BuildFooter();
-            DockPanel.SetDock(footer, Dock.Bottom);
-            root.Children.Add(footer);
-
             var controlPanelBorder = BuildControlPanel();
             DockPanel.SetDock(controlPanelBorder, Dock.Right);
             root.Children.Add(controlPanelBorder);
 
             // TODO: Add Camera B-Side Settings and disable during vieo playback
 
-            root.Children.Add(display.thermalBorder);
+            root.Children.Add(display.baseDisplay);
 
             // TODO: Call Sensor.Disoconnect & maybe free memory from thermal recorder
             Closing += (_, _) => Disconnect();
-        }
-
-        private FrameworkElement BuildFooter()
-        {
-            var footer = new Border
-            {
-                Background = WpfBrushes.Gainsboro,
-                BorderBrush = WpfBrushes.Gray,
-                BorderThickness = new Thickness(1, 1, 0, 0),
-                Padding = new Thickness(6, 4, 6, 4)
-            };
-
-            var footerGrid = new Grid();
-            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-
-            Grid.SetColumn(sbOperationMode, 0);
-            Grid.SetColumn(sbFlag, 1);
-            Grid.SetColumn(sbFPS, 2);
-            footerGrid.Children.Add(sbOperationMode);
-            footerGrid.Children.Add(sbFlag);
-            footerGrid.Children.Add(sbFPS);
-
-            footer.Child = footerGrid;
-            return footer;
         }
 
         private Menu BuildMenu()
@@ -303,8 +252,7 @@ namespace LWIR_app
         {
             if (!imagerShow.IsConnected) return;
 
-            if (imagerShow.IsRecording) imagerShow.StopRecording();
-
+            recorder.Stop();
             imagerShow.Disconnect();
             UpdateUiOnConnectionStatus();
         }
@@ -316,10 +264,6 @@ namespace LWIR_app
                 Disconnect();
                 return;
             }
-
-            sbOperationMode.Text = imagerShow.OperationModeString;
-            sbFlag.Text = imagerShow.GetFlagState();
-            sbFPS.Text = imagerShow.GetFPS().ToString("N1", CultureInfo.CurrentCulture) + " Hz";
            
             current_sensor.UpdateUI();
             display.UpdateUI();
@@ -332,18 +276,16 @@ namespace LWIR_app
 
             if (connected || PlaybackTool.Active)
             {
+                // TODO: replace "S/N" portion with some status string
                 Title = "Optris Imager - " + imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
-                sbOperationMode.Text = imagerShow.OperationModeString;
-                sbFlag.Text = imagerShow.GetFlagState();
+                display.UpdateUI();
+
                 uiUpdateTimer.Start();
             }
             else
             {
                 Title = "Optris Imager";
-                sbOperationMode.Text = string.Empty;
-                sbFlag.Text = string.Format(CultureInfo.CurrentCulture, "{0, 18}", " ");
-                sbFPS.Text = string.Format(CultureInfo.CurrentCulture, "{0, 11}", " ");
-                display.InActive();
+                display.Disable();
                 uiUpdateTimer.Stop();
                 recordingGroup.Update(false, false);
             }

@@ -26,6 +26,8 @@ public class Display
     RecorderBase recorder;
     public Border thermalBorder;
 
+    public DockPanel baseDisplay = new DockPanel();
+
 
     private System.Windows.Controls.Image roiPreviewImage = new System.Windows.Controls.Image
     {
@@ -60,9 +62,12 @@ public class Display
             Background = WpfBrushes.DimGray,
             Child = displayImage,
         };
+
+        DockPanel.SetDock(recorder.sensor.Footer(), Dock.Bottom);
+        baseDisplay.Children.Add(thermalBorder);
     }
 
-    public void InActive()
+    public void Disable()
     {
         displayImage.Source = null;
         roiPreviewImage.Source = null;

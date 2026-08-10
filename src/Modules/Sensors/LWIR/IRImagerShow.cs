@@ -6,9 +6,11 @@ using LWIR_app.Sensor.LWIR.UI;
 using Optris.OtcSdk;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using WpfBrushes = System.Windows.Media.Brushes;
 
 namespace LWIR_app.models
 {
@@ -34,21 +36,30 @@ namespace LWIR_app.models
         private int regionRadius = 3;
         public string OperationModeString { get; private set; } = string.Empty;
 
-        private ThermalRecorder recorder = new();
-
         private OperationModeVector operationModes = new();
         private int activeModeIndex = 0;
+        public bool useAutoScaling;
 
         public bool IsConnected { get; private set; }
         public bool Connected() => IsConnected;
-        private bool useAutoScaling = true;
 
         public int ActiveModeIndex { get { return activeModeIndex; } }
-        public bool HasROI { get { return recorder.roi != null; } }
+        public bool HasROI { get { return ROI() != null; } }
+
+
+        Channel<FrameRecord> channel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(60 * 60 * 15)
+        {
+            SingleReader = false,
+            SingleWriter = true,
+            FullMode = BoundedChannelFullMode.DropOldest
+        });
 
         private SaveDataType saveDataType;
 
         private TemperatureScalingGroup temperatureScaling;
+        private LWIR_Footer footer;
+
+        RegionOfInterest roi;
 
 
         /// <summary>Constructor</summary>
@@ -92,20 +103,26 @@ namespace LWIR_app.models
             MeanRegion = new TemperatureRegion();
 
             temperatureScaling = new TemperatureScalingGroup(this);
+            footer = new LWIR_Footer(this);
         }
 
         public StackPanel UI()
         {
-            var stack =  new StackPanel{};
+            var stack = new StackPanel { };
             stack.Children.Add(temperatureScaling);
             return stack;
         }
+
+        public FrameworkElement Footer() => footer;
 
         // TODO: Implement
         public void UpdateUI()
         {
             temperatureScaling.UpdateUI();
+            footer.UpdateUI();
         }
+
+        public int[] ROI() => roi.indexes;
 
         public float findValue(int x, int y)
         {
@@ -113,17 +130,16 @@ namespace LWIR_app.models
             return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
         }
 
-
         public void UpdateROI(System.Windows.Point start, System.Windows.Point end)
         {
             lock (frameEvent.thermalFrame)
             {
                 if (frameEvent.thermalFrame.isEmpty()) return;
             }
-            recorder.roi = new RegionOfInterest(start, end, frameEvent.thermalFrame.getWidth());
+            roi = new RegionOfInterest(start, end, frameEvent.thermalFrame.getWidth());
         }
 
-        public void ClearROI() => recorder.roi = null;
+        public void ClearROI() => roi = null;
 
         /// <summary>Connects to the device specified in the configuration file.</summary>
         /// 
@@ -284,25 +300,40 @@ namespace LWIR_app.models
                 counter.trigger();
             }
 
-            // Sending thermal frame to the recorder if recording is active
-            if (recorder.IsRecording)
-            {
-                float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
+            float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
 
-                frameEvent.thermalFrame.copyTemperaturesTo(
-                    temperatures,
-                    temperatures.Length);
+            frameEvent.thermalFrame.copyTemperaturesTo(
+                temperatures,
+                temperatures.Length);
 
-                recorder.Enqueue(
-                    new RecordedFrame(
+            channel.Writer.WriteAsync(new FrameRecord(
                         frameEvent.thermalFrame.getWidth(),
                         frameEvent.thermalFrame.getHeight(),
                         temperatures,
                         frameEvent.meta,
-                        saveDataType
-                ));
-            }
+                        saveDataType));
+
+            // Sending thermal frame to the recorder if recording is active
+            // if (recorder.IsRecording)
+            // {
+            //     float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
+
+            //     frameEvent.thermalFrame.copyTemperaturesTo(
+            //         temperatures,
+            //         temperatures.Length);
+
+            //     recorder.Enqueue(
+            //         new RecordedFrame(
+            //             frameEvent.thermalFrame.getWidth(),
+            //             frameEvent.thermalFrame.getHeight(),
+            //             temperatures,
+            //             frameEvent.meta,
+            //             saveDataType
+            //     ));
+            // }
         }
+
+        public ChannelReader<FrameRecord> Reader() =>  channel.Reader;
 
         /// <summary>Starts the imager processing loop.</summary>
         private void StartProcessing()
@@ -327,7 +358,7 @@ namespace LWIR_app.models
         {
             OperationMode mode = Imager.getActiveOperationMode();
 
-            string opticsText = (mode.getOpticsText().Length > 0) ? string.Format(" {},", mode.getOpticsText()) : "";
+            // string opticsText = (mode.getOpticsText().Length > 0) ? string.Format(" {},", mode.getOpticsText()) : "";
 
             OperationModeString = string.Format("{0}°, {1}x{2} @ {3} Hz",
                                                  mode.getFieldOfView(),
@@ -358,27 +389,6 @@ namespace LWIR_app.models
                 }
             }
         }
-
-        // Thermal recording parameter
-        public bool IsRecording { get { return recorder.IsRecording; } }
-
-        public void StartRecording(string directory, SaveDataType saveDataType, bool singleBinary, bool recordROIOnly)
-        {
-            this.saveDataType = saveDataType;
-            recorder.Start(
-                new RecorderSettings
-                {
-                    camera_width = HasROI ? recorder.roi.width : Imager.getWidth(),
-                    camera_height = HasROI ? recorder.roi.height : Imager.getHeight(),
-                    baseDirectory = directory,
-                    dataType = saveDataType,
-                    singleBinary = singleBinary,
-                    recordROIOnly = recordROIOnly
-                }
-            );
-        }
-
-        public void StopRecording() => recorder.Stop();
 
         public void SetScaleRange(float low, float high)
         {

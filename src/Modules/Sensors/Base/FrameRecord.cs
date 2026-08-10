@@ -1,33 +1,33 @@
+using System.Runtime.InteropServices;
 using LWIR_app.classes;
 
 namespace LWIR_app.Sensor;
 
-public abstract record FrameData;
-public record FloatFrame(float[] data) : FrameData;
-public record IntFrame(ushort[] data) : FrameData;
-public record RLEFrame(RLE_Pair[] data) : FrameData;
-public struct FrameRecord
+[StructLayout(LayoutKind.Explicit)]
+public struct FrameData
+{
+    [FieldOffset(0)] public ushort[] iValue;
+    [FieldOffset(0)] public float[] fValue;
+    [FieldOffset(0)] public RLE_Pair[] rleValue;
+}
+
+public class FrameRecord
 {
     public int width, height;
     public FrameData data;
     public BaseMetadata metadata;
 
-    public FrameRecord(int width, int height, FrameData data, BaseMetadata metadata)
-    {
-        this.width = width;
-        this.height = height;
-        this.metadata = metadata;
-        this.data = data;
-    }
+    public SaveDataType saveType;
 
     public FrameRecord(int width, int height, float[] data, BaseMetadata metadata, SaveDataType saveType)
     {
         this.width = width;
         this.height = height;
         this.metadata = metadata;
+        this.saveType = saveType;
 
         if (saveType == SaveDataType.Float) {
-            this.data = new FloatFrame(data);
+            this.data.fValue = data;
             return;
         }
 
@@ -48,7 +48,7 @@ public struct FrameRecord
         }
         Array.Resize(ref RLE, current_pair + 1);
 
-        if (saveType == SaveDataType.U16) this.data = new IntFrame(temperature_Ints);
-        else this.data = new RLEFrame(RLE);
+        if (saveType == SaveDataType.U16) this.data.iValue = temperature_Ints;
+        else this.data.rleValue = RLE;
     }
 }

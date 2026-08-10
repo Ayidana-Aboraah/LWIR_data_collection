@@ -99,8 +99,6 @@ namespace LWIR_app.classes
 
             if (fileName.Contains("RLE", StringComparison.OrdinalIgnoreCase)) return SaveDataType.RLE;
 
-            if (fileName.Contains("All", StringComparison.OrdinalIgnoreCase)) return SaveDataType.All;
-
             return SaveDataType.Float;
         }
 
