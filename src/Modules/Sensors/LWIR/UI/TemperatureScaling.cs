@@ -38,7 +38,6 @@ public class TemperatureScalingGroup : GroupBox
         valueStack.Children.Add(BuildTemperatureValueRow("Max:", out maxTemp));
         valueStack.Children.Add(BuildTemperatureValueRow("Min:", out minTemp, 10));
 
-
         // autoTempScale.Checked += (_, _) => AutoTempScale_CheckedChanged();
         // autoTempScale.Unchecked += (_, _) => AutoTempScale_CheckedChanged();
         // valueStack.Children.Add(autoTempScale);
@@ -258,8 +257,6 @@ public class TemperatureScalingGroup : GroupBox
         // opModes[modeIndex].IsChecked = true;
         for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
     }
-
-
 
     private void imageScale_TextChanged(object sender, TextChangedEventArgs e)
     {

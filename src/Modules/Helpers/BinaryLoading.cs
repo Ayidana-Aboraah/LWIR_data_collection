@@ -1,6 +1,7 @@
 
 using System.IO;
 using Optris.OtcSdk;
+using RLE;
 
 namespace LWIR_app.classes
 {
@@ -57,7 +58,7 @@ namespace LWIR_app.classes
             {
                 SaveDataType.Float => ReadTemperatures<float>(reader, pixelCount),
                 SaveDataType.U16 => ReadTemperatures<ushort>(reader, pixelCount),
-                SaveDataType.RLE => ReadTemperatures<RLE_Pair>(reader, pixelCount),
+                SaveDataType.RLE => ReadTemperatures<RunLengthPair>(reader, pixelCount),
                 _ => ReadTemperatures<float>(reader, pixelCount)
             };
         }
@@ -74,7 +75,7 @@ namespace LWIR_app.classes
             {
                 for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadUInt16();
             }
-            else if (typeof(T) == typeof(RLE_Pair))
+            else if (typeof(T) == typeof(RunLengthPair))
             {
                 for (int count = 0; temperatures.Length < pixelCount;)
                 {

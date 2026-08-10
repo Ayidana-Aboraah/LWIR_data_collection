@@ -1,4 +1,5 @@
 ﻿using Optris.OtcSdk;
+using RLE;
 
 namespace LWIR_app.classes
 {
@@ -14,7 +15,7 @@ namespace LWIR_app.classes
         public SaveDataType saveType;
 
         public ushort[] temperature_Ints;
-        public RLE_Pair[] RLE;
+        public RunLengthPair[] RLE;
 
         public RecordedFrame(int width, int height, float[] temperatures, FrameMetadata metadata, SaveDataType saveType)
         {
@@ -27,7 +28,7 @@ namespace LWIR_app.classes
             if (saveType == SaveDataType.Float) return;
 
             temperature_Ints = new ushort[temperatures.Length];
-            RLE = new RLE_Pair[temperatures.Length];
+            RLE = new RunLengthPair[temperatures.Length];
 
             int current_pair = 0;
             for (int i = 0; i < temperatures.Length; i++)
@@ -36,18 +37,12 @@ namespace LWIR_app.classes
 
                 if (saveType == SaveDataType.U16) continue;
 
-                if (RLE[current_pair].value != temperature_Ints[i] || RLE[current_pair].length >= ushort.MaxValue)
-                    RLE[++current_pair] = new RLE_Pair { value = temperature_Ints[i], length = 1 };
+                if (RLE[current_pair].value != temperature_Ints[i] || RLE[current_pair].run >= ushort.MaxValue)
+                    RLE[++current_pair] = new RunLengthPair(temperature_Ints[i]);
                 else 
-                    RLE[current_pair].length++;
+                    RLE[current_pair].run++;
             }
             Array.Resize(ref RLE, current_pair+1);
         }
-    }
-
-    public struct RLE_Pair
-    {
-        public ushort value;
-        public ushort length;
     }
 }

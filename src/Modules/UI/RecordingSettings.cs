@@ -78,9 +78,6 @@ public class RecordingGroup : GroupBox
             radioGrid.Children.Add(saveTypes[i]);
         }
 
-        saveTypes[2].IsChecked = true;
-        saveTypes[1].IsChecked = false;
-
         saveDataTypeBox.Content = radioGrid;
 
         recordEnable.Click += recordEnable_Click;
@@ -191,9 +188,7 @@ public class RecordingGroup : GroupBox
     private SaveDataType GetSelectedSaveDataType()
     {
         for (int i = 0; i < saveTypes.Length; i++)
-        {
             if (saveTypes[i].IsChecked == true) return (SaveDataType)i;
-        }
 
         return SaveDataType.Float;
     }

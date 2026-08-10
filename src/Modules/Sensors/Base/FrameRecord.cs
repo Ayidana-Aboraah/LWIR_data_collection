@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using LWIR_app.classes;
+using RLE;
 
 namespace LWIR_app.Sensor;
 
@@ -8,7 +9,7 @@ public struct FrameData
 {
     [FieldOffset(0)] public ushort[] iValue;
     [FieldOffset(0)] public float[] fValue;
-    [FieldOffset(0)] public RLE_Pair[] rleValue;
+    [FieldOffset(0)] public RunLengthPair[] rleValue;
 }
 
 public class FrameRecord
@@ -32,7 +33,7 @@ public class FrameRecord
         }
 
         var temperature_Ints = new ushort[data.Length];
-        var RLE = new RLE_Pair[data.Length];
+        var RLE = new RunLengthPair[data.Length];
 
         int current_pair = 0;
         for (int i = 0; i < data.Length; i++)
@@ -41,10 +42,10 @@ public class FrameRecord
 
             if (saveType == SaveDataType.U16) continue;
 
-            if (RLE[current_pair].value != temperature_Ints[i] || RLE[current_pair].length >= ushort.MaxValue)
-                RLE[++current_pair] = new RLE_Pair { value = temperature_Ints[i], length = 1 };
+            if (RLE[current_pair].value != temperature_Ints[i] || RLE[current_pair].run >= ushort.MaxValue)
+                RLE[++current_pair] = new RunLengthPair(temperature_Ints[i]);
             else
-                RLE[current_pair].length++;
+                RLE[current_pair].run++;
         }
         Array.Resize(ref RLE, current_pair + 1);
 

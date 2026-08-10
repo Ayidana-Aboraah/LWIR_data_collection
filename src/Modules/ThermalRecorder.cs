@@ -173,7 +173,7 @@ namespace LWIR_app.classes
                 for (int i = 0; i < sensor.ROI().Length; i++)
                 {
                     writer.Write(frame.RLE[sensor.ROI()[i]].value);
-                    writer.Write(frame.RLE[sensor.ROI()[i]].length);
+                    writer.Write(frame.RLE[sensor.ROI()[i]].run);
                 }
             }
             else
@@ -181,7 +181,7 @@ namespace LWIR_app.classes
                 for (int i = 0; i < frame.RLE.Length; i++)
                 {
                     writer.Write(frame.RLE[i].value);
-                    writer.Write(frame.RLE[i].length);
+                    writer.Write(frame.RLE[i].run);
                 }
             }
         }

@@ -2,6 +2,7 @@ using System.Globalization;
 using System.IO;
 using LWIR_app.classes;
 using Optris.OtcSdk;
+using RLE;
 
 namespace LWIR_app.Sensor;
 
@@ -86,11 +87,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
             using var writer =
                 new BinaryWriter(
-                    File.Open(
-                        filename,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None));
+                    File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
 
             WriteFrameHeader(frame, writer);
             WriteFrame(frame, writer);
@@ -126,7 +123,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                     for (int i = 0; i < sensor.ROI().Length; i++)
                     {
                         writer.Write(frame.data.rleValue[sensor.ROI()[i]].value);
-                        writer.Write(frame.data.rleValue[sensor.ROI()[i]].length);
+                        writer.Write(frame.data.rleValue[sensor.ROI()[i]].run);
                     }
                     break;
             }
@@ -145,7 +142,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                     for (int i = 0; i < frame.data.rleValue.Length; i++)
                     {
                         writer.Write(frame.data.rleValue[i].value);
-                        writer.Write(frame.data.rleValue[i].length);
+                        writer.Write(frame.data.rleValue[i].run);
                     }
                     break;
             }
@@ -171,18 +168,24 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         (float min, float max) = (float.MaxValue, float.MinValue);
 
+        float[] temps = frame.saveType switch
+        {
+            SaveDataType.Float => frame.data.fValue,
+            SaveDataType.U16 => DataConverter.IntToFloat(frame.data.iValue),
+            SaveDataType.RLE => DataConverter.IntToFloat(DataConverter.RLEToInt(frame.data.rleValue)),
+            _ => frame.data.fValue,
+        };
 
-        // TODO: Maybe just pass the analyser's statics tings into it
-        // double sum = 0;
+        double sum = 0;
 
-        // foreach (float temp in frame.temperatures)
-        // {
-        //     if (temp < min) min = temp;
-        //     if (temp > max) max = temp;
-        //     sum += temp;
-        // }
+        foreach (float temp in temps)
+        {
+            if (temp < min) min = temp;
+            if (temp > max) max = temp;
+            sum += temp;
+        }
 
-        // double mean = sum / frame.temperatures.Length;
+        double mean = sum / temps.Length;
 
         metadataWriter!.WriteLine(
             string.Join(",",
@@ -192,8 +195,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                 ((FrameMetadata)frame.metadata).getCounterHardware(),
                 min.ToString(CultureInfo.InvariantCulture),
                 max.ToString(CultureInfo.InvariantCulture),
-                // mean.ToString(CultureInfo.InvariantCulture),
-                "",
+                mean.ToString(CultureInfo.InvariantCulture),
                 ((FrameMetadata)frame.metadata).getTemperatureBox().ToString(CultureInfo.InvariantCulture),
                 ((FrameMetadata)frame.metadata).getTemperatureChip().ToString(CultureInfo.InvariantCulture)));
 
