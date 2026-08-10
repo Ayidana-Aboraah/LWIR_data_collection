@@ -22,13 +22,8 @@ public class RecorderBase
 
     public bool Connected() => sensor.Connected();
 
-    public void Start(string directory, RecorderSettings settings)
-    {
-        
-    }
+    public void Start(string directory, RecorderSettings settings){}
 
-    public void Stop()
-    {
-        
+    public void Stop(){
     }
 }

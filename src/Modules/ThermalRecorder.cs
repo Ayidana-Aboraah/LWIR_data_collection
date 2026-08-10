@@ -1,28 +1,26 @@
 ﻿using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
+using LWIR_app.Sensor;
 
 namespace LWIR_app.classes
 {
-    public class ThermalRecorder : IDisposable
+    public class ThermalRecorder(SensorBase sensor) : RecorderBase(sensor), IDisposable
     {
         private BlockingCollection<RecordedFrame> queue = [];
         private Task? writerTask;
-        private bool isRecording;
         private string sessionDirectory = "";
         private string frameDirectory = "";
 
         private StreamWriter? metadataWriter;
         private BinaryWriter? singleFileWriter;
         private int frameIndex = 0;
-        public bool IsRecording => isRecording;
         private RecorderSettings settings;
-        public RegionOfInterest? roi;
 
         public void Start(RecorderSettings settings)
         {
             this.settings = settings;
-            if (isRecording) return;
+            if (recording) return;
 
             frameIndex = 0;
 
@@ -38,7 +36,7 @@ namespace LWIR_app.classes
                 "Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
 
             queue = new BlockingCollection<RecordedFrame>(600);
-            isRecording = true;
+            recording = true;
 
             if (settings.singleBinary)
             {
@@ -68,7 +66,7 @@ namespace LWIR_app.classes
 
         public void Stop()
         {
-            if (!isRecording) return;
+            if (!recording) return;
 
             queue!.CompleteAdding();
 
@@ -78,8 +76,9 @@ namespace LWIR_app.classes
             metadataWriter?.Close();
             singleFileWriter?.Close();
 
-            isRecording = false;
+            recording = false;
         }
+        
         public void Enqueue(RecordedFrame frame)
         {
             try
@@ -94,7 +93,7 @@ namespace LWIR_app.classes
 
         public RecordedFrame[]? ReadFrames()
         {
-            if (!isRecording) return null;
+            if (!recording) return null;
 
             var len = queue.Count;
             return queue.ToArray()[(len - 20)..len];
@@ -106,7 +105,7 @@ namespace LWIR_app.classes
         {
             foreach (var frame in queue!.GetConsumingEnumerable())
             {
-                string suffix = settings.dataType.ToString() + ((settings.recordROIOnly) ? "_ROI" : "");
+                string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
                 string filename = Path.Combine(
                     frameDirectory,
                     $"frame_{frameIndex}_{suffix}.bin");
@@ -134,19 +133,13 @@ namespace LWIR_app.classes
 
             switch (frame.saveType)
             {
-                case SaveDataType.Float: WriteBaseDataFrame(frame, writer);
-                    break;
-
                 case SaveDataType.U16: WriteIntFrame(frame, writer);
                     break;
 
                 case SaveDataType.RLE: WriteRleFrame(frame, writer);
                     break;
 
-                default:
-                    WriteBaseDataFrame(frame, writer);
-                    WriteIntFrame(frame, writer);
-                    WriteRleFrame(frame, writer);
+                default: WriteBaseDataFrame(frame, writer);
                     break;
             }
 
@@ -159,7 +152,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for (int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperatures[roi.indexes[i]]);
+                for (int i = 0; i < sensor.roi().indexes.Length; i++) writer.Write(frame.temperatures[sensor.roi().indexes[i]]);
             }
             else foreach (float value in frame.temperatures) writer.Write(value);
         }
@@ -168,7 +161,7 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for (int i = 0; i < roi.indexes.Length; i++) writer.Write(frame.temperature_Ints[roi.indexes[i]]);
+                for (int i = 0; i < sensor.roi().indexes.Length; i++) writer.Write(frame.temperature_Ints[sensor.roi().indexes[i]]);
             }
             else foreach (ushort value in frame.temperature_Ints) writer.Write(value);
         }
@@ -177,10 +170,10 @@ namespace LWIR_app.classes
         {
             if (settings.recordROIOnly)
             {
-                for (int i = 0; i < roi.indexes.Length; i++)
+                for (int i = 0; i < sensor.roi().indexes.Length; i++)
                 {
-                    writer.Write(frame.RLE[roi.indexes[i]].value);
-                    writer.Write(frame.RLE[roi.indexes[i]].length);
+                    writer.Write(frame.RLE[sensor.roi().indexes[i]].value);
+                    writer.Write(frame.RLE[sensor.roi().indexes[i]].length);
                 }
             }
             else
@@ -191,7 +184,6 @@ namespace LWIR_app.classes
                     writer.Write(frame.RLE[i].length);
                 }
             }
-
         }
 
         private void WriteBinHeader(BinaryWriter writer)
@@ -239,6 +231,4 @@ namespace LWIR_app.classes
             metadataWriter.Flush();
         }
     }
-
-
 }

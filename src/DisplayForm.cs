@@ -22,6 +22,10 @@ namespace LWIR_app
         private readonly DispatcherTimer uiUpdateTimer = new();
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
+        private Display display;
+        private SensorBase current_sensor;
+        private RecordingGroup recordingGroup;
+        private ThermalRecorder recorder;
 
         private TextBlock sbOperationMode = new TextBlock
         {
@@ -45,8 +49,6 @@ namespace LWIR_app
             TextAlignment = TextAlignment.Right
         };
 
-
-
         private MenuItem[] DeviceInteractonsOptions = [
             new MenuItem { Header = "Quick Connect" },
             new MenuItem { Header = "Connect With Configuration..."},
@@ -58,18 +60,12 @@ namespace LWIR_app
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 
-        private Display display;
-
-        private SensorBase current_sensor;
-        private RecordingGroup recordingGroup;
-        private RecorderBase recorder;
-
         /// <summary>Constructor.</summary>
         public DisplayForm()
         {
             // DEBUG: TODO: remove after debug setup
             current_sensor = imagerShow;
-            recorder = new RecorderBase(current_sensor);
+            recorder = new ThermalRecorder(current_sensor);
             recordingGroup = new RecordingGroup(recorder);
             display = new Display(recorder);
             InitializeComponent();

@@ -8,12 +8,14 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
+using LWIR_app.Sensor;
+
 namespace Optris.OtcSdk {
 /// <summary>Encapsulates the metadata of frames provided by the devices.</summary>
 /// This metadata is passed alongside the frame data from the devices via the streaming interface (e.g. USB, Ethernet).
 
 [global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
-public class FrameMetadata : global::System.IDisposable {
+public class FrameMetadata : BaseMetadata, global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
