@@ -10,7 +10,6 @@ using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using WpfBrushes = System.Windows.Media.Brushes;
 
 namespace LWIR_app.models
 {
@@ -114,6 +113,12 @@ namespace LWIR_app.models
         }
 
         public FrameworkElement Footer() => footer;
+
+        public void DisableUI()
+        {
+            temperatureScaling.Disable();
+            footer.Disable();
+        }
 
         // TODO: Implement
         public void UpdateUI()
@@ -333,7 +338,7 @@ namespace LWIR_app.models
             // }
         }
 
-        public ChannelReader<FrameRecord> Reader() =>  channel.Reader;
+        public ChannelReader<FrameRecord> Reader() => channel.Reader;
 
         /// <summary>Starts the imager processing loop.</summary>
         private void StartProcessing()
@@ -346,6 +351,7 @@ namespace LWIR_app.models
              */
             operationModes = Imager.getOperationModes();
             activeModeIndex = Imager.getActiveOperationMode().getIndex();
+            Imager.setActiveOperationMode(operationModes.Last());
 
             UpdateOperationModeString();
 
@@ -371,22 +377,20 @@ namespace LWIR_app.models
         {
             OperationMode mode = Imager.getActiveOperationMode();
             var range = (mode.getTemperatureLowerLimit(), mode.getTemperatureUpperLimit());
-
             return range;
         }
 
         public void ChangePalette(string paletteName)
         {
-            if (IsConnected)
+            if (!IsConnected) return;
+
+            try
             {
-                try
-                {
-                    imageBuilder.setPalette(paletteName);
-                }
-                catch (SDKException ex)
-                {
-                    ShowMessageBox(ex.Message, "Failed to change palette", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                imageBuilder.setPalette(paletteName);
+            }
+            catch (SDKException ex)
+            {
+                ShowMessageBox(ex.Message, "Failed to change palette", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -50,7 +50,6 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                     FileAccess.Write,
                     FileShare.None));
 
-            // Don't worry about the queue warning since start can only be called after getting camera feed
             WriteBinHeader(singleFileWriter);
 
             writerTask = Task.Run(SingleWriterLoop);

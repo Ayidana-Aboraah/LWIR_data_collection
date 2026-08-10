@@ -56,14 +56,14 @@ public class TemperatureScalingGroup : GroupBox
         var opStack = new StackPanel { Orientation = Orientation.Vertical };
         opModes = [
             BuildOperationModeRadio(" -20°C–100°C", 0),
-                BuildOperationModeRadio("0°C–250°C", 1),
-                BuildOperationModeRadio("250°C–900°C", 2)
+            BuildOperationModeRadio("0°C–250°C", 1),
+            BuildOperationModeRadio("250°C–900°C", 2)
         ];
 
         foreach (RadioButton opMode in opModes) opStack.Children.Add(opMode);
         opGroup.Content = opStack;
 
-        var scaleGroup = BuildScaleGroup();
+        // var scaleGroup = BuildScaleGroup();
 
         Grid.SetColumn(opGroup, 1);
         // Grid.SetRow(scaleGroup, 2);
@@ -86,6 +86,14 @@ public class TemperatureScalingGroup : GroupBox
             if (max - min < 1) min -= 1;
             LWIR.SetScaleRange(min, max);
         }
+    }
+
+    public void Disable()
+    {
+        // imageScaleHigh.IsEnabled = false;
+        // imageScaleLow.IsEnabled = false;
+        // minTemp.IsEnabled = false;
+        // maxTemp.IsEnabled = false;
     }
 
     private FrameworkElement BuildTemperatureValueRow(string labelText, out TextBlock valueText, double topMargin = 0)
@@ -138,37 +146,37 @@ public class TemperatureScalingGroup : GroupBox
         return radio;
     }
 
-            private GroupBox BuildScaleGroup()
+    private GroupBox BuildScaleGroup()
+    {
+        var group = new GroupBox
         {
-            var group = new GroupBox
-            {
-                Header = "Scale",
-                Margin = new Thickness(0, 0, 0, 12)
-            };
+            Header = "Scale",
+            Margin = new Thickness(0, 0, 0, 12)
+        };
 
-            Grid panel = new Grid { Margin = new Thickness(8) };
-            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+        Grid panel = new Grid { Margin = new Thickness(8) };
+        panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        panel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        panel.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            FrameworkElement[] s = {
+        FrameworkElement[] s = {
                 BuildScaleRow("High:", out imageScaleHigh),
                 BuildScaleRow("Low:", out imageScaleLow)
             };
 
-            // TODO: Create a space between the elements
+        // TODO: Create a space between the elements
 
-            for (int i = 0; i < s.Length; i++)
-            {
-                Grid.SetRow(s[i], 0);
-                Grid.SetColumn(s[i], i);
-                panel.Children.Add(s[i]);
-            }
-
-            group.Content = panel;
-            return group;
+        for (int i = 0; i < s.Length; i++)
+        {
+            Grid.SetRow(s[i], 0);
+            Grid.SetColumn(s[i], i);
+            panel.Children.Add(s[i]);
         }
+
+        group.Content = panel;
+        return group;
+    }
 
     private void OperationMode_CheckedChanged(object sender, RoutedEventArgs e)
     {

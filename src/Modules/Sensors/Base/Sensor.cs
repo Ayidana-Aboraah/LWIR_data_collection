@@ -11,7 +11,6 @@ public interface SensorBase
     public abstract Bitmap? Render();
     public abstract void QuickConnect();
     public abstract void Disconnect();
-    public abstract void UpdateUI();
     public abstract bool Connected();
     public abstract void UpdateROI(System.Windows.Point start, System.Windows.Point end);
     public abstract void ClearROI();
@@ -20,5 +19,8 @@ public interface SensorBase
     public abstract ChannelReader<FrameRecord> Reader();
 
     public abstract StackPanel UI();
+    public abstract void UpdateUI();
+    public abstract void DisableUI();
+
     public abstract FrameworkElement Footer();
 }
