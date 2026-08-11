@@ -22,7 +22,11 @@ public class RecorderBase
         if (recording) return;
         this.settings = settings;
         recording = true;
+        sensor.IsRecording(recording);
     }
 
-    public virtual void Stop() => recording = false;
+    public virtual void Stop() {
+        recording = false;
+        sensor.IsRecording(recording);
+    }
 }

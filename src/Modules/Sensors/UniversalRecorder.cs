@@ -19,9 +19,9 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     public override void Start(RecorderSettings settings)
     {
-        cancellation.TryReset();
-        
         base.Start(settings);
+
+        cancellation.TryReset();
 
         frameIndex = 0;
 
@@ -67,7 +67,11 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         metadataWriter?.Flush();
         metadataWriter?.Close();
-        singleFileWriter?.Close();
+        if (settings.singleBinary)
+        {
+            singleFileWriter?.Flush();
+            singleFileWriter?.Close();
+        }
 
         base.Stop();
     }
