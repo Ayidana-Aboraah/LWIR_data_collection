@@ -7,23 +7,22 @@ public class RecorderBase
 {
     [Required]
     public SensorBase sensor;
+    protected RecorderSettings settings;
     public bool recording = false;
     public bool hasROI = false;
 
-    public RecorderBase(SensorBase sensor)
+    public RecorderBase(SensorBase sensor) => this.sensor = sensor;
+
+    public void Bind(SensorBase sensor) => this.sensor = sensor;
+
+    public virtual bool Connected() => sensor.Connected();
+
+    public virtual void Start(RecorderSettings settings)
     {
-        this.sensor = sensor;
+        if (recording) return;
+        this.settings = settings;
+        recording = true;
     }
 
-    public void Bind(SensorBase sensor)
-    {
-        this.sensor = sensor;
-    }
-
-    public bool Connected() => sensor.Connected();
-
-    public void Start(string directory, RecorderSettings settings){}
-
-    public void Stop(){
-    }
+    public virtual void Stop() => recording = false;
 }

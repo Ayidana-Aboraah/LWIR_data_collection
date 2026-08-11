@@ -167,8 +167,9 @@ public class RecordingGroup : GroupBox
                 return;
             }
 
-            recorder.Start(directory, new RecorderSettings
+            recorder.Start(new RecorderSettings
                 {
+                    baseDirectory = directory,
                     dataType = GetSelectedSaveDataType(),
                     singleBinary = singleBinaryToggle.IsChecked == true,
                     recordROIOnly = recordROIOnlyToggle.IsChecked == true

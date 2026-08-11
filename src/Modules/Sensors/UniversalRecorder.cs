@@ -15,15 +15,10 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     string sessionDirectory = "";
     string frameDirectory = "";
     int frameIndex = 0;
-    RecorderSettings settings;
 
-    public void Start(RecorderSettings settings)
+    public override void Start(RecorderSettings settings)
     {
-        if (recording) return;
-
-        this.settings = settings;
-
-        recording = true;
+        base.Start(settings);
 
         frameIndex = 0;
 
@@ -62,7 +57,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         }
     }
 
-    public void Stop()
+    public override void Stop()
     {
         if (!recording) return;
 
@@ -72,10 +67,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         metadataWriter?.Close();
         singleFileWriter?.Close();
 
-        recording = false;
+        base.Stop();
     }
-
-    public void Dispose() => Stop();
 
     private async Task WriterLoop()
     {
@@ -97,7 +90,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task SingleWriterLoop()
     {
-        await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter);
+        await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter!);
     }
 
     private void WriteFrame(FrameRecord frame, BinaryWriter writer)

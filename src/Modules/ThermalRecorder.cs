@@ -15,12 +15,10 @@ namespace LWIR_app.classes
         private StreamWriter? metadataWriter;
         private BinaryWriter? singleFileWriter;
         private int frameIndex = 0;
-        private RecorderSettings settings;
-
-        public void Start(RecorderSettings settings)
+        
+        public override void Start(RecorderSettings settings)
         {
-            this.settings = settings;
-            if (recording) return;
+            base.Start(settings);
 
             frameIndex = 0;
 
@@ -64,7 +62,7 @@ namespace LWIR_app.classes
             }
         }
 
-        public void Stop()
+        public override void Stop()
         {
             if (!recording) return;
 
@@ -125,7 +123,7 @@ namespace LWIR_app.classes
 
         private void SingleWriterLoop()
         {
-            foreach (var frame in queue!.GetConsumingEnumerable()) WriteFrame(frame, singleFileWriter);
+            foreach (var frame in queue!.GetConsumingEnumerable()) WriteFrame(frame, singleFileWriter!);
         }
 
         private void WriteFrame(RecordedFrame frame, BinaryWriter writer)
