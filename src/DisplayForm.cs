@@ -12,6 +12,7 @@ using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
 using LWIR_app.UI;
 using LWIR_app.Sensor;
+using LWIR_app.Sensor.LWIR;
 
 namespace LWIR_app
 {

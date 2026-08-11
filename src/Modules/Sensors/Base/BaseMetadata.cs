@@ -1,6 +1,6 @@
 namespace LWIR_app.Sensor;
 
-public abstract class BaseMetadata
+public class BaseMetadata
 {
     
 }
