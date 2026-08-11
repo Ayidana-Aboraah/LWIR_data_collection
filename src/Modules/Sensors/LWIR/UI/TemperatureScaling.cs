@@ -74,7 +74,7 @@ public class TemperatureScalingGroup : GroupBox
 
     public void UpdateUI()
     {
-        SetOperationModeSelection(LWIR.ActiveModeIndex);
+        UpdateOperationModeSelection(LWIR.ActiveModeIndex);
         if (LWIR.CalculateMinMaxTemperatureRegions())
         {
             (float min, float max) = (LWIR.MinRegion.temperature, LWIR.MaxRegion.temperature);
@@ -239,8 +239,8 @@ public class TemperatureScalingGroup : GroupBox
         suppressScaleTextEvents = true;
         try
         {
-            imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
-            imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
+            // imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
+            // imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
         }
         finally
         {
@@ -248,7 +248,7 @@ public class TemperatureScalingGroup : GroupBox
         }
     }
 
-    private void SetOperationModeSelection(int modeIndex)
+    private void UpdateOperationModeSelection(int modeIndex)
     {
         // opModes[modeIndex].IsChecked = true;
         for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
