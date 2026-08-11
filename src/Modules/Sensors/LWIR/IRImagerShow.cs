@@ -58,7 +58,7 @@ namespace LWIR_app.models
         StackPanel UI_Panel = new StackPanel { };
         private TemperatureScalingGroup temperatureScaling;
         private LWIR_Footer footer;
-        
+
 
         RegionOfInterest roi;
 
@@ -122,6 +122,7 @@ namespace LWIR_app.models
         // TODO: Implement
         public void UpdateUI()
         {
+            UI_Panel.Visibility = IsConnected ? Visibility.Visible : Visibility.Collapsed;
             temperatureScaling.UpdateUI();
             footer.UpdateUI();
         }
@@ -315,25 +316,6 @@ namespace LWIR_app.models
                         temperatures,
                         frameEvent.meta,
                         saveDataType));
-
-            // Sending thermal frame to the recorder if recording is active
-            // if (recorder.IsRecording)
-            // {
-            //     float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
-
-            //     frameEvent.thermalFrame.copyTemperaturesTo(
-            //         temperatures,
-            //         temperatures.Length);
-
-            //     recorder.Enqueue(
-            //         new RecordedFrame(
-            //             frameEvent.thermalFrame.getWidth(),
-            //             frameEvent.thermalFrame.getHeight(),
-            //             temperatures,
-            //             frameEvent.meta,
-            //             saveDataType
-            //     ));
-            // }
         }
 
         public ChannelReader<FrameRecord> Reader() => channel.Reader;
@@ -349,7 +331,6 @@ namespace LWIR_app.models
              */
             operationModes = Imager.getOperationModes();
             activeModeIndex = Imager.getActiveOperationMode().getIndex();
-            // Imager.setActiveOperationMode(operationModes.Last());
 
             UpdateOperationModeString();
 
@@ -374,8 +355,7 @@ namespace LWIR_app.models
         public (float Lower, float Upper) GetTemperatureRange()
         {
             OperationMode mode = Imager.getActiveOperationMode();
-            var range = (mode.getTemperatureLowerLimit(), mode.getTemperatureUpperLimit());
-            return range;
+            return (mode.getTemperatureLowerLimit(), mode.getTemperatureUpperLimit());
         }
 
         public void ChangePalette(string paletteName)

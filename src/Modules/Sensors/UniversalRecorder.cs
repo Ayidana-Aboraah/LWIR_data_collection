@@ -19,14 +19,15 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     public void Start(RecorderSettings settings)
     {
-        this.settings = settings;
         if (recording) return;
+
+        this.settings = settings;
+
+        recording = true;
 
         frameIndex = 0;
 
-        string sessionName = $"Session_{DateTime.Now:yyyyMMdd_HHmmss}";
-
-        sessionDirectory = Path.Combine(settings.baseDirectory, sessionName);
+        sessionDirectory = Path.Combine(settings.baseDirectory, $"Session_{DateTime.Now:yyyyMMdd_HHmmss}");
 
         Directory.CreateDirectory(sessionDirectory);
 
@@ -34,7 +35,6 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         metadataWriter.WriteLine("Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
 
-        recording = true;
 
         if (settings.singleBinary)
         {
@@ -42,6 +42,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
             string filename = Path.Combine(
                 sessionDirectory,
                 $"frame_{suffix}.bin");
+                
             singleFileWriter = new BinaryWriter(
                 File.Open(
                     filename,

@@ -11,45 +11,50 @@ namespace LWIR_app.UI;
 public class RecordingGroup : GroupBox
 {
     RecorderBase recorder;
+    private string savePath = @"D:\works\data_in\";
 
     private GroupBox saveDataTypeBox = new GroupBox
     {
         Header = "Save Data Type",
-        Margin = new Thickness(0, 0, 0, 10)
+        Margin = new Thickness(0, 0, 0, 10),
+        IsEnabled = false,
     };
+
     private RadioButton[] saveTypes = [
         new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
-            new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
-            new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
-        ];
+        new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
+        new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
+    ];
 
     private Button recordEnable = new Button
     {
         Content = "Record",
         IsEnabled = false,
-        Height = 30
+        Height = 30,
     };
 
     private Button saveDirectory = new Button
     {
         Content = "Set Save Directory",
         Height = 30,
-        Margin = new Thickness(0, 0, 0, 10)
+        Margin = new Thickness(0, 0, 0, 10),
+        IsEnabled = false,
     };
 
-    private string savePath = @"D:\works\data_in\";
     private CheckBox singleBinaryToggle = new CheckBox
     {
         Content = "Single Binary File",
         IsChecked = true,
-        Margin = new Thickness(0, 0, 0, 10)
+        Margin = new Thickness(0, 0, 0, 10),
+        IsEnabled = false,
     };
 
     private CheckBox recordROIOnlyToggle = new CheckBox
     {
         Content = "Record Only ROI",
         IsChecked = false,
-        Margin = new Thickness(0, 0, 0, 10)
+        Margin = new Thickness(0, 0, 0, 10),
+        IsEnabled = false,
     };
 
     public RecordingGroup(RecorderBase recorder)
@@ -95,8 +100,7 @@ public class RecordingGroup : GroupBox
         stack.Children.Add(recordROIOnlyToggle);
         stack.Children.Add(recordEnable);
 
-        // stack.IsEnabled = false;
-        Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
+        Visibility = Visibility.Collapsed;
         Content = stack;
     }
 
@@ -107,7 +111,7 @@ public class RecordingGroup : GroupBox
         singleBinaryToggle.IsEnabled = connected;
         recordROIOnlyToggle.IsEnabled = connected;
         recordEnable.IsEnabled = connected && !string.IsNullOrWhiteSpace(savePath);
-        Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
+        Visibility = connected ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public void Update(bool recording, bool sensorConnected)
@@ -163,8 +167,7 @@ public class RecordingGroup : GroupBox
                 return;
             }
 
-            recorder.Start(
-                directory, new RecorderSettings
+            recorder.Start(directory, new RecorderSettings
                 {
                     dataType = GetSelectedSaveDataType(),
                     singleBinary = singleBinaryToggle.IsChecked == true,

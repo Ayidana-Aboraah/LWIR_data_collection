@@ -56,6 +56,7 @@ namespace LWIR_app.classes
                 currentIndex = 0;
             }
         }
+        
         public static void Resume() => IsPlaying = true;
 
         public static void Pause() => IsPlaying = false;

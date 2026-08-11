@@ -41,9 +41,9 @@ namespace LWIR_app.models
 
             while (!parser.EndOfData)
             {
-                string[] fields = parser.ReadFields();
+                string[] fields = parser.ReadFields()!;
                 byte[] pixel = new byte[3];
-                for (int i = 0; i < fields.Length; i++) pixel[i] = Byte.Parse(fields[i]);
+                for (int i = 0; i < fields!.Length; i++) pixel[i] = byte.Parse(fields[i]);
                 colors.Add(Color.FromArgb(255, pixel[0], pixel[1], pixel[2]));
             }
             return colors.ToArray();
@@ -54,12 +54,12 @@ namespace LWIR_app.models
             if (palettes == null || palettes.Count == 0)
             {
                 palettes = LoadDefaultPalettes();
-                palettes.TryGetValue("Iron", out current_palette);
+                palettes.TryGetValue("Iron", out current_palette!);
             }
 
             float normalised = (temperature - scaleMin) / (scaleMax - scaleMin);
             normalised = Math.Clamp(normalised, 0.0f, 1.0f);
-            int len = current_palette.Length;
+            int len = current_palette!.Length;
 
             int i = Math.Clamp((int)Math.Floor(normalised * current_palette.Count()), 0, len - 1);
 

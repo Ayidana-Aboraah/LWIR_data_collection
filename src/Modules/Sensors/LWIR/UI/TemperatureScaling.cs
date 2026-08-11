@@ -77,8 +77,7 @@ public class TemperatureScalingGroup : GroupBox
         SetOperationModeSelection(LWIR.ActiveModeIndex);
         if (LWIR.CalculateMinMaxTemperatureRegions())
         {
-            float min = LWIR.MinRegion.temperature;
-            float max = LWIR.MaxRegion.temperature;
+            (float min, float max) = (LWIR.MinRegion.temperature, LWIR.MaxRegion.temperature);
             minTemp.Text = min.ToString("N2", CultureInfo.CurrentCulture);
             maxTemp.Text = max.ToString("N2", CultureInfo.CurrentCulture);
 
@@ -89,18 +88,15 @@ public class TemperatureScalingGroup : GroupBox
 
     public void Disable()
     {
-        // imageScaleHigh.IsEnabled = false;
-        // imageScaleLow.IsEnabled = false;
-        // minTemp.IsEnabled = false;
-        // maxTemp.IsEnabled = false;
+        imageScaleHigh.IsEnabled = false;
+        imageScaleLow.IsEnabled = false;
+        minTemp.IsEnabled = false;
+        maxTemp.IsEnabled = false;
     }
 
     private FrameworkElement BuildTemperatureValueRow(string labelText, out TextBlock valueText, double topMargin = 0)
     {
-        var row = new DockPanel
-        {
-            Margin = new Thickness(0, topMargin, 0, 0)
-        };
+        var row = new DockPanel { Margin = new Thickness(0, topMargin, 0, 0) };
 
         var label = new TextBlock
         {
@@ -243,8 +239,8 @@ public class TemperatureScalingGroup : GroupBox
         suppressScaleTextEvents = true;
         try
         {
-            // imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
-            // imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
+            imageScaleLow.Text = ((int)range.Lower - 50).ToString(CultureInfo.CurrentCulture);
+            imageScaleHigh.Text = ((int)range.Upper + 50).ToString(CultureInfo.CurrentCulture);
         }
         finally
         {

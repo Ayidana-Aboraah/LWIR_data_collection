@@ -26,10 +26,7 @@ public class PlaybackGroup : GroupBox
         Width = 200
     };
 
-    Button play = new Button
-    {
-        Content = "Play"
-    };
+    Button play = new Button { Content = "Play" };
 
     public PlaybackGroup()
     {
@@ -50,19 +47,14 @@ public class PlaybackGroup : GroupBox
             }
         };
 
-        playback_speed.ValueChanged += (_, _) =>
-        {
-            PlaybackTool.SetPlaybackRate(playback_speed.Value * 30);
-        };
+        playback_speed.ValueChanged += (_, _) => PlaybackTool.SetPlaybackRate(playback_speed.Value * 30);
 
-        playback.ValueChanged += (_, _) =>
-        {
-            PlaybackTool.currentIndex = (int) playback.Value;
-        };
+        playback.ValueChanged += (_, _) => PlaybackTool.currentIndex = (int) playback.Value;
         
-        stack.Children.Add(play);
         stack.Children.Add(playback);
         stack.Children.Add(playback_speed);
+        stack.Children.Add(play);
+
         Content = stack;
         Visibility = Visibility.Collapsed;
     }

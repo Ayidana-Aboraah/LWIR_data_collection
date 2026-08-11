@@ -17,17 +17,15 @@ namespace LWIR_app.UI;
 
 public class Display
 {
-    bool isDraggingRoi;
-    bool hasRoi;
-    System.Windows.Point mouse_position;
-    System.Windows.Point roiDragStart, roiDragCurrent;
-    Rectangle selectedRoi;
+    bool hasRoi, isDraggingRoi;
     int currentImageWidth, currentImageHeight;
+
+    Rectangle selectedRoi;
+    System.Windows.Point mouse_position, roiDragStart, roiDragCurrent;
+
     RecorderBase recorder;
     public Border thermalBorder;
-
     public DockPanel baseDisplay = new DockPanel();
-
 
     private System.Windows.Controls.Image roiPreviewImage = new System.Windows.Controls.Image
     {

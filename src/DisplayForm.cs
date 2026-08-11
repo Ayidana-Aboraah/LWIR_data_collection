@@ -23,7 +23,7 @@ namespace LWIR_app
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
         private SensorBase current_sensor;
-        private ThermalRecorder recorder;
+        private UniversalRecorder recorder;
         private Display display;
         private RecordingGroup recordingGroup;
         private PlaybackGroup playback;
@@ -43,7 +43,7 @@ namespace LWIR_app
         {
             // DEBUG: TODO: remove after debug setup
             current_sensor = imagerShow;
-            recorder = new ThermalRecorder(current_sensor);
+            recorder = new UniversalRecorder(current_sensor);
             recordingGroup = new RecordingGroup(recorder);
             playback = new PlaybackGroup();
             display = new Display(recorder);
@@ -251,7 +251,6 @@ namespace LWIR_app
                 // TODO: replace "S/N" portion with some status string
                 Title = "Optris Imager - " + imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
                 display.UpdateUI();
-                recordingGroup.Update(true && !PlaybackTool.Active);
                 uiUpdateTimer.Start();
             }
             else
@@ -259,14 +258,13 @@ namespace LWIR_app
                 Title = "Optris Imager";
                 display.Disable();
                 uiUpdateTimer.Stop();
-                recordingGroup.Update(false, false);
             }
 
             int optionsLength = DeviceInteractonsOptions.Length;
             for (int i = 0; i < optionsLength; i++) DeviceInteractonsOptions[i].IsEnabled = (i < optionsLength / 2) ? !connected : connected;
 
             imageConfigurationMenu.IsEnabled = connected;
-            recordingGroup.Update(false, true);
+            recordingGroup.Update(connected);
             current_sensor.UpdateUI();
         }
         private void BuildPaletteMenu()
