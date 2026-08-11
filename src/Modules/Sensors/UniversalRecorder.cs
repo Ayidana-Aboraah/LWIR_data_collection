@@ -110,7 +110,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         if (settings.recordROIOnly)
         {
-            switch (frame.saveType)
+            switch (settings.dataType)
             {
                 case SaveDataType.Float: for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.fValue[sensor.ROI()[i]]);
                     break;
@@ -127,7 +127,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         }
         else
         {
-            switch (frame.saveType)
+            switch (settings.dataType)
             {
                 case SaveDataType.Float: foreach (float value in frame.data.fValue) writer.Write(value);
                     break;
@@ -163,7 +163,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         (float min, float max) = (float.MaxValue, float.MinValue);
 
-        float[] temps = frame.saveType switch
+        float[] temps = settings.dataType switch
         {
             SaveDataType.Float => frame.data.fValue,
             SaveDataType.U16 => DataConverter.IntToFloat(frame.data.iValue),

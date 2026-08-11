@@ -21,6 +21,7 @@ public class RecorderBase
     {
         if (recording) return;
         this.settings = settings;
+        sensor.saveType(settings.dataType);
         recording = true;
         sensor.IsRecording(recording);
     }

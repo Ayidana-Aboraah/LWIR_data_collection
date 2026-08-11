@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using LWIR_app.classes;
 using LWIR_app.Sensor;
+using LWIR_app.Sensor.LWIR;
 using Microsoft.Win32;
 using WpfBrushes = System.Windows.Media.Brushes;
 
@@ -169,6 +170,8 @@ public class RecordingGroup : GroupBox
 
             recorder.Start(new RecorderSettings
                 {
+                    camera_width = ((IRImagerShow)recorder.sensor).Imager.getWidth(),
+                    camera_height = ((IRImagerShow)recorder.sensor).Imager.getHeight(),
                     baseDirectory = directory,
                     dataType = GetSelectedSaveDataType(),
                     singleBinary = singleBinaryToggle.IsChecked == true,

@@ -106,6 +106,8 @@ namespace LWIR_app.Sensor.LWIR
             UI_Panel.Children.Add(temperatureScaling);
         }
 
+        public void saveType(SaveDataType saveDataType) => this.saveDataType = saveDataType;
+
         public StackPanel UI() => UI_Panel;
 
         public FrameworkElement Footer() => footer;
