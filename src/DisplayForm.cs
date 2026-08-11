@@ -23,7 +23,7 @@ namespace LWIR_app
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
         private SensorBase current_sensor;
-        private ThermalRecorder recorder;
+        private UniversalRecorder recorder;
         private Display display;
         private RecordingGroup recordingGroup;
         private PlaybackGroup playback;
@@ -43,7 +43,7 @@ namespace LWIR_app
         {
             // DEBUG: TODO: remove after debug setup
             current_sensor = imagerShow;
-            recorder = new ThermalRecorder(current_sensor);
+            recorder = new UniversalRecorder(current_sensor);
             recordingGroup = new RecordingGroup(recorder);
             playback = new PlaybackGroup();
             display = new Display(recorder);
