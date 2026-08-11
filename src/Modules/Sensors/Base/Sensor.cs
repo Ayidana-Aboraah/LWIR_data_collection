@@ -16,6 +16,8 @@ public interface SensorBase
     public abstract void ClearROI();
     public abstract int[] ROI();
 
+    public abstract void IsRecording(bool recording);
+
     public abstract ChannelReader<FrameRecord> Reader();
 
     public abstract StackPanel UI();

@@ -2,7 +2,6 @@
 
 using Optris.OtcSdk;
 using System.IO;
-using System.Runtime.ExceptionServices;
 using System.Windows;
 
 

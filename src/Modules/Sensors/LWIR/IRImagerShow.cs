@@ -43,9 +43,10 @@ namespace LWIR_app.Sensor.LWIR
 
         public int ActiveModeIndex { get { return activeModeIndex; } }
         public bool HasROI { get { return ROI() != null; } }
+        public bool recording = false;
 
 
-        Channel<FrameRecord> channel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(60 * 60 * 15)
+        Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(60 * 60 * 15)
         {
             SingleReader = false,
             SingleWriter = true,
@@ -122,6 +123,8 @@ namespace LWIR_app.Sensor.LWIR
             temperatureScaling.UpdateUI();
             footer.UpdateUI();
         }
+
+        public void IsRecording(bool recording) => this.recording = recording;
 
         public int[] ROI() => roi.indexes;
 
@@ -294,13 +297,15 @@ namespace LWIR_app.Sensor.LWIR
                 counter.trigger();
             }
 
+            if (!recording) return;
+
             float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
 
             frameEvent.thermalFrame.copyTemperaturesTo(
                 temperatures,
                 temperatures.Length);
 
-            channel.Writer.WriteAsync(new FrameRecord(
+            recorderChannel.Writer.WriteAsync(new FrameRecord(
                         frameEvent.thermalFrame.getWidth(),
                         frameEvent.thermalFrame.getHeight(),
                         temperatures,
@@ -308,7 +313,7 @@ namespace LWIR_app.Sensor.LWIR
                         saveDataType));
         }
 
-        public ChannelReader<FrameRecord> Reader() => channel.Reader;
+        public ChannelReader<FrameRecord> Reader() => recorderChannel.Reader;
 
         /// <summary>Starts the imager processing loop.</summary>
         private void StartProcessing()
