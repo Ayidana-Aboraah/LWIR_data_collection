@@ -11,6 +11,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     Task? writerTask;
     StreamWriter? metadataWriter;
     BinaryWriter? singleFileWriter;
+    CancellationTokenSource cancellation = new CancellationTokenSource();
 
     string sessionDirectory = "";
     string frameDirectory = "";
@@ -18,6 +19,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     public override void Start(RecorderSettings settings)
     {
+        cancellation.TryReset();
+        
         base.Start(settings);
 
         frameIndex = 0;
@@ -29,7 +32,6 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         metadataWriter = new StreamWriter(Path.Combine(sessionDirectory, "metadata.csv"));
 
         metadataWriter.WriteLine("Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
-
 
         if (settings.singleBinary)
         {
@@ -61,7 +63,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         if (!recording) return;
 
-        writerTask!.Wait();
+        cancellation.Cancel();
 
         metadataWriter?.Flush();
         metadataWriter?.Close();
@@ -72,7 +74,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task WriterLoop()
     {
-        await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync())
+        await foreach (var frame in sensor.Reader().ReadAllAsync())
         {
             string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
             string filename = Path.Combine(
@@ -90,14 +92,13 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task SingleWriterLoop()
     {
-        await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter!);
+        await foreach (var frame in sensor.Reader().ReadAllAsync(cancellation.Token)) WriteFrame(frame, singleFileWriter!);
     }
 
     private void WriteFrame(FrameRecord frame, BinaryWriter writer)
     {
         WriteRecordedFrame(frame, writer);
         WriteMetadataRow(frame);
-
         frameIndex++;
     }
 
@@ -107,11 +108,9 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         {
             switch (frame.saveType)
             {
-                case SaveDataType.Float:
-                    for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.fValue[sensor.ROI()[i]]);
+                case SaveDataType.Float: for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.fValue[sensor.ROI()[i]]);
                     break;
-                case SaveDataType.U16:
-                    for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.iValue[sensor.ROI()[i]]);
+                case SaveDataType.U16: for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.iValue[sensor.ROI()[i]]);
                     break;
                 case SaveDataType.RLE:
                     for (int i = 0; i < sensor.ROI().Length; i++)
@@ -126,11 +125,9 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         {
             switch (frame.saveType)
             {
-                case SaveDataType.Float:
-                    foreach (float value in frame.data.fValue) writer.Write(value);
+                case SaveDataType.Float: foreach (float value in frame.data.fValue) writer.Write(value);
                     break;
-                case SaveDataType.U16:
-                    foreach (ushort value in frame.data.iValue) writer.Write(value);
+                case SaveDataType.U16: foreach (ushort value in frame.data.iValue) writer.Write(value);
                     break;
                 case SaveDataType.RLE:
                     for (int i = 0; i < frame.data.rleValue.Length; i++)

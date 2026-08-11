@@ -58,8 +58,6 @@ namespace LWIR_app.models
         StackPanel UI_Panel = new StackPanel { };
         private TemperatureScalingGroup temperatureScaling;
         private LWIR_Footer footer;
-
-
         RegionOfInterest roi;
 
 
@@ -98,7 +96,6 @@ namespace LWIR_app.models
 
             IsConnected = false;
 
-            // Hottest, coldest and mean temperature regions
             MinRegion = new TemperatureRegion();
             MaxRegion = new TemperatureRegion();
             MeanRegion = new TemperatureRegion();
@@ -239,9 +236,6 @@ namespace LWIR_app.models
         /// <return> current frame rate in Hz.</return>
         public double GetFPS() => Math.Round(counter.getFps(), 1);
 
-        /// <summary>Converts the latest thermal frame into a false color image and returns it.</summary>
-        /// 
-        /// <return>converted false color image.</return>
         public Bitmap? Render()
         {
             lock (frameEvent.thermalFrame)
@@ -251,18 +245,14 @@ namespace LWIR_app.models
                 imageBuilder.setThermalFrame(frameEvent.thermalFrame);
             }
 
-            // Convert the thermal frame to a false color image
             imageBuilder.convertTemperatureToPaletteImage();
 
-            // Extract the image data...
             (int width, int height) = (imageBuilder.getWidth(), imageBuilder.getHeight());
 
-            // The image size in bytes may not equal width * height due to width padding
             byte[] image = new byte[imageBuilder.getImageSizeInBytes()];
             imageBuilder.copyImageDataTo(image, image.Length);
 
 
-            // .. and create a bitmap
             Rectangle rectangle = new Rectangle(0, 0, width, height);
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
 
@@ -324,18 +314,11 @@ namespace LWIR_app.models
         /// <summary>Starts the imager processing loop.</summary>
         private void StartProcessing()
         {
-            /*
-             * Get a list of the available operation modes. Each operation mode is a valid combination of optics,
-             * temperature ranges and video formats. The returned container is always sorted in the same way. The
-             * availability of certain operation modes can depend on the used connection type (USB, Ethernet) to
-             * device (different video formats).
-             */
             operationModes = Imager.getOperationModes();
             activeModeIndex = Imager.getActiveOperationMode().getIndex();
 
             UpdateOperationModeString();
 
-            // Start processing
             Imager.runAsync();
         }
 
