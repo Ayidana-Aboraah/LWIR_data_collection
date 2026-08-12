@@ -25,7 +25,12 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         frameIndex = 0;
 
-        sessionDirectory = Path.Combine(settings.baseDirectory, $"Session_{DateTime.Now:yyyyMMdd_HHmmss}");
+        // sessionDirectory = Path.Combine(settings.baseDirectory, $"Session_{DateTime.Now:yyyyMMdd_HHmmss}");
+        sessionDirectory = Path.Combine(settings.baseDirectory, $"{DateTime.Now:yyyy-MM-dd}");
+
+        sessionDirectory = Path.Combine(sessionDirectory, $"session_{DateTime.Now:HHmmss}");
+
+        sessionDirectory = Path.Combine(sessionDirectory, $"LWIR");
 
         Directory.CreateDirectory(sessionDirectory);
 
