@@ -9,7 +9,7 @@ public class RecorderBase
     public SensorBase sensor;
     protected RecorderSettings settings;
     public bool recording = false;
-    public bool hasROI = false;
+    public bool hasROI() => sensor.HasROI();
 
     public RecorderBase(SensorBase sensor) => this.sensor = sensor;
 
@@ -21,7 +21,6 @@ public class RecorderBase
     {
         if (recording) return;
         this.settings = settings;
-        sensor.saveType(settings.dataType);
         recording = true;
         sensor.IsRecording(recording);
     }

@@ -39,7 +39,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
             string filename = Path.Combine(
                 sessionDirectory,
                 $"frame_{suffix}.bin");
-                
+
             singleFileWriter = new BinaryWriter(
                 File.Open(
                     filename,
@@ -112,15 +112,20 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         {
             switch (settings.dataType)
             {
-                case SaveDataType.Float: for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.fValue[sensor.ROI()[i]]);
+                case SaveDataType.Float: foreach(int ROI_Idx in sensor.ROI()) writer.Write(frame.data[ROI_Idx]);
                     break;
-                case SaveDataType.U16: for (int i = 0; i < sensor.ROI().Length; i++) writer.Write(frame.data.iValue[sensor.ROI()[i]]);
+
+                case SaveDataType.U16:
+                    ushort[] iValue = DataConverter.FloatToInt(frame.data);
+                    foreach(int ROI_Idx in sensor.ROI()) writer.Write(iValue[ROI_Idx]);
                     break;
+
                 case SaveDataType.RLE:
-                    for (int i = 0; i < sensor.ROI().Length; i++)
+                    RunLengthPair[] data = DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data));
+                    foreach(int ROI_Idx in sensor.ROI())
                     {
-                        writer.Write(frame.data.rleValue[sensor.ROI()[i]].value);
-                        writer.Write(frame.data.rleValue[sensor.ROI()[i]].run);
+                        writer.Write(data[ROI_Idx].value);
+                        writer.Write(data[ROI_Idx].run);
                     }
                     break;
             }
@@ -129,15 +134,14 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         {
             switch (settings.dataType)
             {
-                case SaveDataType.Float: foreach (float value in frame.data.fValue) writer.Write(value);
+                case SaveDataType.Float: foreach (float value in frame.data) writer.Write(value);
                     break;
-                case SaveDataType.U16: foreach (ushort value in frame.data.iValue) writer.Write(value);
+                case SaveDataType.U16:   foreach (ushort value in DataConverter.FloatToInt(frame.data)) writer.Write(value);
                     break;
-                case SaveDataType.RLE:
-                    for (int i = 0; i < frame.data.rleValue.Length; i++)
+                case SaveDataType.RLE:   foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
                     {
-                        writer.Write(frame.data.rleValue[i].value);
-                        writer.Write(frame.data.rleValue[i].run);
+                        writer.Write(value.value);
+                        writer.Write(value.run);
                     }
                     break;
             }
@@ -163,24 +167,16 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         (float min, float max) = (float.MaxValue, float.MinValue);
 
-        float[] temps = settings.dataType switch
-        {
-            SaveDataType.Float => frame.data.fValue,
-            SaveDataType.U16 => DataConverter.IntToFloat(frame.data.iValue),
-            SaveDataType.RLE => DataConverter.IntToFloat(DataConverter.RLEToInt(frame.data.rleValue)),
-            _ => frame.data.fValue,
-        };
-
         double sum = 0;
 
-        foreach (float temp in temps)
+        foreach (float temp in frame.data)
         {
             if (temp < min) min = temp;
             if (temp > max) max = temp;
             sum += temp;
         }
 
-        double mean = sum / temps.Length;
+        double mean = sum / frame.data.Length;
 
         metadataWriter!.WriteLine(
             string.Join(",",

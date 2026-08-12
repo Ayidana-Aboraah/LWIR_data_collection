@@ -162,7 +162,7 @@ public class RecordingGroup : GroupBox
                 return;
             }
 
-            if (recordROIOnlyToggle.IsChecked == true && !recorder.hasROI)
+            if (recordROIOnlyToggle.IsChecked == true && !recorder.hasROI())
             {
                 MessageBox.Show("Create ROI");
                 return;

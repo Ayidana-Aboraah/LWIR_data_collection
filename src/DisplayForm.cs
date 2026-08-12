@@ -33,7 +33,6 @@ namespace LWIR_app
             new MenuItem { Header = "Quick Connect" },
             new MenuItem { Header = "Connect With Configuration..."},
             new MenuItem { Header = "Disconnect", IsEnabled = false },
-            new MenuItem { Header = "Refresh Flag", IsEnabled = false },
         ];
         private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[4];
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
@@ -72,7 +71,6 @@ namespace LWIR_app
                 (_,_) => QuickConnect(),
                 (_,_) => ConnectWithConfigSelection(),
                 (_,_) => Disconnect(),
-                (_,_) => imagerShow.RefreshFlag(),
             ];
 
             var root = new DockPanel();

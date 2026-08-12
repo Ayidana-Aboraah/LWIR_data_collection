@@ -3,6 +3,7 @@
 using LWIR_app.classes;
 using LWIR_app.Sensor.LWIR.UI;
 using Optris.OtcSdk;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading.Channels;
@@ -42,7 +43,6 @@ namespace LWIR_app.Sensor.LWIR
         public bool Connected() => IsConnected;
 
         public int ActiveModeIndex { get { return activeModeIndex; } }
-        public bool HasROI { get { return ROI() != null; } }
         public bool recording = false;
 
 
@@ -53,12 +53,12 @@ namespace LWIR_app.Sensor.LWIR
             FullMode = BoundedChannelFullMode.DropOldest
         });
 
-        private SaveDataType saveDataType;
-
         StackPanel UI_Panel = new StackPanel { };
         private TemperatureScalingGroup temperatureScaling;
         private LWIR_Footer footer;
         RegionOfInterest roi;
+        bool hasROI;
+        private readonly DispatcherTimer flagRefreshTimer = new();
 
 
         /// <summary>Constructor</summary>
@@ -104,9 +104,10 @@ namespace LWIR_app.Sensor.LWIR
             footer = new LWIR_Footer(this);
 
             UI_Panel.Children.Add(temperatureScaling);
+            
+            flagRefreshTimer.Interval = TimeSpan.FromMinutes(5);
+            flagRefreshTimer.Tick += (_,_) => RefreshFlag();
         }
-
-        public void saveType(SaveDataType saveDataType) => this.saveDataType = saveDataType;
 
         public StackPanel UI() => UI_Panel;
 
@@ -130,11 +131,7 @@ namespace LWIR_app.Sensor.LWIR
 
         public int[] ROI() => roi.indexes;
 
-        public float findValue(int x, int y)
-        {
-            if (frameEvent.thermalFrame.isEmpty()) return float.NaN;
-            return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
-        }
+        public bool HasROI() => hasROI;
 
         public void UpdateROI(System.Windows.Point start, System.Windows.Point end)
         {
@@ -143,9 +140,17 @@ namespace LWIR_app.Sensor.LWIR
                 if (frameEvent.thermalFrame.isEmpty()) return;
             }
             roi = new RegionOfInterest(start, end, frameEvent.thermalFrame.getWidth());
+            hasROI = true;
         }
 
-        public void ClearROI() => roi = null;
+        public void ClearROI() => hasROI = false;
+
+
+        public float findValue(int x, int y)
+        {
+            if (frameEvent.thermalFrame.isEmpty()) return float.NaN;
+            return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
+        }
 
         /// <summary>Connects to the device specified in the configuration file.</summary>
         /// 
@@ -205,7 +210,8 @@ namespace LWIR_app.Sensor.LWIR
 
             try
             {
-                Imager.setActiveOperationMode(operationModes[modeIndex]);
+                // TODO: CHECK, did this because we found operations to have a duplicates which offset it
+                Imager.setActiveOperationMode(operationModes[modeIndex * 2]);
                 activeModeIndex = Imager.getActiveOperationMode().getIndex();
             }
             catch (SDKException ex)
@@ -311,8 +317,7 @@ namespace LWIR_app.Sensor.LWIR
                         frameEvent.thermalFrame.getWidth(),
                         frameEvent.thermalFrame.getHeight(),
                         temperatures,
-                        frameEvent.meta,
-                        saveDataType));
+                        frameEvent.meta));
         }
 
         public ChannelReader<FrameRecord> Reader() => recorderChannel.Reader;

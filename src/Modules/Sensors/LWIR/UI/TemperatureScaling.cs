@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using LWIR_app.models;
 
 namespace LWIR_app.Sensor.LWIR.UI;
 
@@ -22,6 +21,12 @@ public class TemperatureScalingGroup : GroupBox
     private TextBox imageScaleHigh = null!;
     private TextBlock minTemp = null!;
     private TextBlock maxTemp = null!;
+    private Button refresh = new Button
+    {
+        Content = "Uniformity Correction",
+        Height = 30,
+        Margin = new Thickness(0, 0, 0, 10),
+    };
     private RadioButton[] opModes = null!;
 
     public TemperatureScalingGroup(IRImagerShow LWIR)
@@ -37,6 +42,9 @@ public class TemperatureScalingGroup : GroupBox
         var valueStack = new StackPanel { Orientation = Orientation.Vertical };
         valueStack.Children.Add(BuildTemperatureValueRow("Max:", out maxTemp));
         valueStack.Children.Add(BuildTemperatureValueRow("Min:", out minTemp, 10));
+        valueStack.Children.Add(refresh);
+
+        refresh.Click += (_,_) => LWIR.RefreshFlag();
 
         // autoTempScale.Checked += (_, _) => AutoTempScale_CheckedChanged();
         // autoTempScale.Unchecked += (_, _) => AutoTempScale_CheckedChanged();
@@ -54,9 +62,9 @@ public class TemperatureScalingGroup : GroupBox
 
         var opStack = new StackPanel { Orientation = Orientation.Vertical };
         opModes = [
-            BuildOperationModeRadio(" -20°C–100°C", 0),
-            BuildOperationModeRadio("0°C–250°C", 1),
-            BuildOperationModeRadio("250°C–900°C", 2)
+            BuildOperationModeRadio("-20°C – 100°C", 0),
+            BuildOperationModeRadio("0°C – 250°C", 1),
+            BuildOperationModeRadio("150°C – 900°C", 2)
         ];
 
         foreach (RadioButton opMode in opModes) opStack.Children.Add(opMode);
@@ -74,7 +82,7 @@ public class TemperatureScalingGroup : GroupBox
 
     public void UpdateUI()
     {
-        UpdateOperationModeSelection(LWIR.ActiveModeIndex);
+        UpdateOperationModeSelection(LWIR.ActiveModeIndex/2); // TODO: CHECK, had to do this cause of dupplicates in OperatingModes  
         if (LWIR.CalculateMinMaxTemperatureRegions())
         {
             (float min, float max) = (LWIR.MinRegion.temperature, LWIR.MaxRegion.temperature);

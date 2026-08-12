@@ -17,12 +17,12 @@ public interface SensorBase
     public abstract void ClearROI();
     public abstract int[] ROI();
 
+    public abstract bool HasROI();
+
     public abstract void IsRecording(bool recording);
 
     public abstract ChannelReader<FrameRecord> Reader();
     
-    public void saveType(SaveDataType saveDataType);
-
     public abstract StackPanel UI();
     public abstract void UpdateUI();
     public abstract void DisableUI();
