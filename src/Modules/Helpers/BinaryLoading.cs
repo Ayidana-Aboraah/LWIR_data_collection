@@ -1,5 +1,6 @@
 
 using System.IO;
+using LWIR_app.Sensor;
 using Optris.OtcSdk;
 using RLE;
 
@@ -7,7 +8,7 @@ namespace LWIR_app.classes
 {
     public static class BinaryLoader
     {
-        public static RecordedFrame[] LoadFrames(string path)
+        public static FrameRecord[] LoadFrames(string path)
         {
             if (!File.Exists(path)) return [];
 
@@ -27,14 +28,14 @@ namespace LWIR_app.classes
 
             if (width <= 0 || height <= 0) throw new InvalidDataException($"Invalid frame dimensions in '{path}'.");
 
-            var frames = new List<RecordedFrame>();
+            var frames = new List<FrameRecord>();
             while (stream.Position < stream.Length)
-                frames.Add(new RecordedFrame(width, height, ReadFrameTemperatures(reader, width, height, saveType), new FrameMetadata(), saveType));
+                frames.Add(new FrameRecord(width, height, ReadFrameTemperatures(reader, width, height, saveType), new FrameMetadata()));
 
             return frames.ToArray();
         }
 
-        public static RecordedFrame[] LoadFrameSet(string path)
+        public static FrameRecord[] LoadFrameSet(string path)
         {
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException($"Playback path not found: {path}");
 
@@ -43,9 +44,9 @@ namespace LWIR_app.classes
                 .OrderBy(file => file, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
 
-            if (binaryFiles.Length == 0) return Array.Empty<RecordedFrame>();
+            if (binaryFiles.Length == 0) return Array.Empty<FrameRecord>();
 
-            var frames = new List<RecordedFrame>();
+            var frames = new List<FrameRecord>();
             foreach (string binaryFile in binaryFiles) frames.AddRange(LoadFrames(binaryFile));
 
             return frames.ToArray();
@@ -103,6 +104,6 @@ namespace LWIR_app.classes
             return SaveDataType.Float;
         }
 
-        private static bool IsPerFrameBinary(string path) => Path.GetFileName(path).StartsWith("frame", StringComparison.OrdinalIgnoreCase);
+        private static bool IsPerFrameBinary(string path) => path.Contains("frames", StringComparison.OrdinalIgnoreCase);
     }
 }

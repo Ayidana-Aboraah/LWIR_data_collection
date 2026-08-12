@@ -2,12 +2,13 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using LWIR_app.models;
+using LWIR_app.Sensor;
 
 namespace LWIR_app.classes
 {
     public sealed class PlaybackFrame : IDisposable
     {
-        public PlaybackFrame(RecordedFrame sourceFrame, Bitmap bitmap, float scaleMin, float scaleMax, float frameMin, float frameMax, float frameMean)
+        public PlaybackFrame(FrameRecord sourceFrame, Bitmap bitmap, float scaleMin, float scaleMax, float frameMin, float frameMax, float frameMean)
         {
             SourceFrame = sourceFrame;
             Bitmap = bitmap;
@@ -18,7 +19,7 @@ namespace LWIR_app.classes
             FrameMean = frameMean;
         }
 
-        public RecordedFrame SourceFrame { get; }
+        public FrameRecord SourceFrame { get; }
         public Bitmap Bitmap { get; }
         public float ScaleMin { get; }
         public float ScaleMax { get; }
@@ -31,7 +32,7 @@ namespace LWIR_app.classes
 
     public static class PlaybackTool
     {
-        private static readonly List<RecordedFrame> frames = new();
+        private static readonly List<FrameRecord> frames = new();
         private static readonly object gate = new();
         private static CancellationTokenSource? playbackCancellation;
         public static int currentIndex;
@@ -47,7 +48,7 @@ namespace LWIR_app.classes
 
         public static void UpdateROI(System.Windows.Point s, System.Windows.Point e) => roi = new RegionOfInterest(s, e, frames[currentIndex].width);
 
-        public static void LoadFrames(IEnumerable<RecordedFrame> newFrames)
+        public static void LoadFrames(IEnumerable<FrameRecord> newFrames)
         {
             lock (gate)
             {
@@ -61,7 +62,7 @@ namespace LWIR_app.classes
 
         public static void Pause() => IsPlaying = false;
 
-        public static RecordedFrame? GetCurrentFrame()
+        public static FrameRecord? GetCurrentFrame()
         {
             if (frames.Count == 0) return null;
 
@@ -72,20 +73,21 @@ namespace LWIR_app.classes
         public static float findTemp(int x, int y)
         {
             if (frames.Count() == 0) return float.NaN;
-            return frames[currentIndex].temperatures[(y * frames[currentIndex].width) + x];
+            currentIndex = Math.Clamp(currentIndex, 0, frames.Count - 1);
+            return frames[currentIndex].data[(y * frames[currentIndex].width) + x];
         }
 
         public static void SetPlaybackRate(double framesPerSecond) => FramesPerSecond = framesPerSecond;
 
         public static PlaybackFrame? RenderCurrentFrame()
         {
-            RecordedFrame? frame = GetCurrentFrame();
+            FrameRecord? frame = GetCurrentFrame();
             return frame == null ? null : RenderFrame(frame);
         }
 
-        public static PlaybackFrame RenderFrame(RecordedFrame frame)
+        public static PlaybackFrame RenderFrame(FrameRecord frame)
         {
-            float[] temperatures = frame.temperatures;
+            float[] temperatures = frame.data;
             if (temperatures == null || temperatures.Length == 0) throw new InvalidDataException("The playback frame does not contain any temperature data.");
 
             (float frameMin, float frameMax, float frameMean) = CalculateStatistics(temperatures);
@@ -135,10 +137,11 @@ namespace LWIR_app.classes
 
                     lock (gate)
                     {
-                        if (frames.Count == 0 || currentIndex >= frames.Count) break;
+                        if (frames.Count == 0 || currentIndex >= frames.Count)break;
 
                         playbackFrame = RenderFrame(frames[currentIndex]);
-                        Math.Max(++currentIndex, FrameCount-1);
+                        ++currentIndex;
+                        Math.Clamp(currentIndex, 0, FrameCount-1);
                     }
 
                     if (playbackFrame == null) break;

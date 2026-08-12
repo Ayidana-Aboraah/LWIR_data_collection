@@ -11,7 +11,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     Task? writerTask;
     StreamWriter? metadataWriter;
     BinaryWriter? singleFileWriter;
-    CancellationTokenSource cancellation = new CancellationTokenSource();
+    // CancellationTokenSource cancellation = new CancellationTokenSource();
 
     string sessionDirectory = "";
     string frameDirectory = "";
@@ -21,7 +21,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         base.Start(settings);
 
-        cancellation.TryReset();
+        // cancellation.TryReset();
 
         frameIndex = 0;
 
@@ -68,15 +68,12 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         if (!recording) return;
 
-        cancellation.Cancel();
+        // cancellation.Cancel();
+        // writerTask!.Dispose();
 
         metadataWriter?.Flush();
         metadataWriter?.Close();
-        if (settings.singleBinary)
-        {
-            singleFileWriter?.Flush();
-            singleFileWriter?.Close();
-        }
+        if (settings.singleBinary) singleFileWriter?.Close();
 
         base.Stop();
     }
@@ -101,7 +98,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task SingleWriterLoop()
     {
-        await foreach (var frame in sensor.Reader().ReadAllAsync(cancellation.Token)) WriteFrame(frame, singleFileWriter!);
+        await foreach (var frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter!);
     }
 
     private void WriteFrame(FrameRecord frame, BinaryWriter writer)

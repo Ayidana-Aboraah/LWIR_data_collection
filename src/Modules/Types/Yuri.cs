@@ -78,15 +78,14 @@ public struct YuriFrame
         headers[(int)HeaderPositions.samplingUnits] = 0;
 
         data = DataConverter.FloatToInt(originalFrame.data);
-        var x = ((FrameMetadata)originalFrame.metadata).getTimestamp();
-        var y = DateTimeOffset.FromUnixTimeMilliseconds(x); // TODO: Divide some value to ensure its within range
+        var now = DateTime.Now;
 
-        TimeTag[(int)TimeTagPositions.TimeTag_milisecond] = (UInt16)y.Millisecond;
-        TimeTag[(int)TimeTagPositions.TimeTag_second] = (UInt16)y.Second;
-        TimeTag[(int)TimeTagPositions.TimeTag_minute] = (UInt16)y.Minute;
-        TimeTag[(int)TimeTagPositions.TimeTag_hour] = (UInt16)y.Hour;
-        TimeTag[(int)TimeTagPositions.TimeTag_day] = (UInt16)y.Day;
-        TimeTag[(int)TimeTagPositions.TimeTag_month] = (UInt16)y.Month;
-        TimeTag[(int)TimeTagPositions.TimeTag_year] = (UInt16)y.Year;
+        TimeTag[(int)TimeTagPositions.TimeTag_milisecond] = (UInt16)now.Millisecond;
+        TimeTag[(int)TimeTagPositions.TimeTag_second] = (UInt16)now.Second;
+        TimeTag[(int)TimeTagPositions.TimeTag_minute] = (UInt16)now.Minute;
+        TimeTag[(int)TimeTagPositions.TimeTag_hour] = (UInt16)now.Hour;
+        TimeTag[(int)TimeTagPositions.TimeTag_day] = (UInt16)now.Day;
+        TimeTag[(int)TimeTagPositions.TimeTag_month] = (UInt16)now.Month;
+        TimeTag[(int)TimeTagPositions.TimeTag_year] = (UInt16)now.Year;
     }
 }
