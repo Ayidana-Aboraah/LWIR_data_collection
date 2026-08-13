@@ -8,6 +8,13 @@ public class RunLengthPair
     public RunLengthPair(ushort value) => this.value = value;
 }
 
+public class SuperRunLengthPair
+{
+    public ushort value;
+    public byte run = 1;
+    public SuperRunLengthPair(ushort value) => this.value = value;
+}
+
 public static class DataConverter
 {
     public static object? ValueToValue(Type inputType, Type outputType, Array input)

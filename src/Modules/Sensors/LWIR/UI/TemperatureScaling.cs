@@ -76,7 +76,7 @@ public class TemperatureScalingGroup : GroupBox
         // Grid.SetRow(scaleGroup, 2);
         layout.Children.Add(opGroup);
         // layout.Children.Add(scaleGroup);
-
+        
         Content = layout;
     }
 

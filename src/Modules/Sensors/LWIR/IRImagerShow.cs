@@ -3,7 +3,6 @@
 using LWIR_app.classes;
 using LWIR_app.Sensor.LWIR.UI;
 using Optris.OtcSdk;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading.Channels;
@@ -177,6 +176,8 @@ namespace LWIR_app.Sensor.LWIR
 
             StartProcessing();
 
+            SetOperationMode(operationModes.Last().getIndex());
+
             IsConnected = true;
         }
 
@@ -307,7 +308,7 @@ namespace LWIR_app.Sensor.LWIR
                 counter.trigger();
             }
 
-            if (!recording) return;
+            if (!recording || frameEvent.thermalFrame.getSize() != Imager.getWidth() * Imager.getHeight()) return;
 
             float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
 

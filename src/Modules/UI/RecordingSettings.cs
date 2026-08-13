@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using LWIR_app.classes;
 using LWIR_app.Sensor;
-using LWIR_app.Sensor.LWIR;
 using Microsoft.Win32;
 using WpfBrushes = System.Windows.Media.Brushes;
 
@@ -22,9 +21,9 @@ public class RecordingGroup : GroupBox
     };
 
     private RadioButton[] saveTypes = [
-        new RadioButton { Content = "BaseData", IsChecked = true, Margin = new Thickness(0, 0, 20, 6) },
+        new RadioButton { Content = "BaseData", Margin = new Thickness(0, 0, 20, 6) },
         new RadioButton { Content = "IntData", Margin = new Thickness(0, 0, 0, 6) },
-        new RadioButton { Content = "RLE Data", Margin = new Thickness(0, 0, 20, 0) },
+        new RadioButton { Content = "RLE Data", IsChecked = true, Margin = new Thickness(0, 0, 20, 0) },
     ];
 
     private Button recordEnable = new Button

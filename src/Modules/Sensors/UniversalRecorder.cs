@@ -122,6 +122,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private void WriteRecordedFrame(FrameRecord frame, BinaryWriter writer)
     {
+        if (frame.data.Length != settings.camera_width * settings.camera_height) return;
+        
         if (settings.recordROIOnly)
         {
             switch (settings.dataType)
@@ -152,7 +154,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                     break;
                 case SaveDataType.U16:   foreach (ushort value in DataConverter.FloatToInt(frame.data)) writer.Write(value);
                     break;
-                case SaveDataType.RLE:   foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
+                case SaveDataType.RLE:   
+                foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
                     {
                         writer.Write(value.value);
                         writer.Write(value.run);
