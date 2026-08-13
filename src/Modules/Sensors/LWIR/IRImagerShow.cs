@@ -127,9 +127,11 @@ namespace LWIR_app.Sensor.LWIR
             footer.UpdateUI();
         }
 
+        public (int, int) Dimensions() => (Imager.getWidth(), Imager.getHeight());
+
         public void IsRecording(bool recording) => this.recording = recording;
 
-        public int[] ROI() => roi.indexes;
+        public RegionOfInterest ROI() => roi;
 
         public bool HasROI() => hasROI;
 

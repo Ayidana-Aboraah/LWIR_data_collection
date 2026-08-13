@@ -3,6 +3,7 @@ using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using LWIR_app.classes;
 
 namespace LWIR_app.Sensor;
 
@@ -16,6 +17,8 @@ public class DummySensor : SensorBase
     });
 
     private readonly DispatcherTimer uiUpdateTimer = new();
+
+    RegionOfInterest roi;
 
     public DummySensor()
     {
@@ -38,9 +41,11 @@ public class DummySensor : SensorBase
     public void QuickConnect() { }
     public void Disconnect() { }
     public bool Connected() => true;
-    public void UpdateROI(System.Windows.Point a, System.Windows.Point b) { }
+    public void UpdateROI(System.Windows.Point a, System.Windows.Point b) => roi = new RegionOfInterest(a,b, 1);
     public void ClearROI() { }
-    public int[] ROI() => [];
+    public RegionOfInterest ROI() => roi;
+
+    public (int, int) Dimensions() => (1, 1);
 
     public ChannelReader<FrameRecord> Reader() => channel.Reader;
 

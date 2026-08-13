@@ -15,9 +15,11 @@ public interface SensorBase
     public abstract bool Connected();
     public abstract void UpdateROI(System.Windows.Point start, System.Windows.Point end);
     public abstract void ClearROI();
-    public abstract int[] ROI();
+    public abstract RegionOfInterest ROI();
 
     public abstract bool HasROI();
+
+    public abstract (int, int) Dimensions();
 
     public abstract void IsRecording(bool recording);
 

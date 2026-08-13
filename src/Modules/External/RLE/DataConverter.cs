@@ -10,36 +10,34 @@ public class RunLengthPair
 
 public static class DataConverter
 {
-    public static O[]? ValueToValue<I, O>(I[] input)
-        where I : RunLengthPair, INumber<ushort>, INumber<float>
-        where O : RunLengthPair, INumber<ushort>, INumber<float>
+    public static object? ValueToValue(Type inputType, Type outputType, Array input)
     {
-        switch (typeof(I))
+        switch (inputType)
         {
             case var IT when IT == typeof(float):
-                switch (typeof(O))
+                switch (outputType)
                 {
-                    case var OT when OT == typeof(float): return (O[])(object)input;
-                    case var OT when OT == typeof(ushort): return (O[])(object)FloatToInt((float[])(object)input);
-                    case var OT when OT == typeof(RunLengthPair): return (O[])(object)IntToRLE((ushort[])(object)FloatToInt((float[])(object)input));
+                    case var OT when OT == typeof(float): return input;
+                    case var OT when OT == typeof(ushort): return FloatToInt((float[])input);
+                    case var OT when OT == typeof(RunLengthPair): return IntToRLE(FloatToInt((float[])input));
                 }
                 break;
 
             case var IT when IT == typeof(ushort):
-                switch (typeof(O))
+                switch (outputType)
                 {
-                    case var OT when OT == typeof(float): return (O[])(object)IntToFloat((ushort[])(object)input);
-                    case var OT when OT == typeof(ushort): return (O[])(object)input;
-                    case var OT when OT == typeof(RunLengthPair): return (O[])(object)IntToRLE((ushort[])(object)input);
+                    case var OT when OT == typeof(float): return IntToFloat((ushort[])input);
+                    case var OT when OT == typeof(ushort): return input;
+                    case var OT when OT == typeof(RunLengthPair): return IntToRLE((ushort[])input);
                 }
                 break;
 
             case var IT when IT == typeof(RunLengthPair):
-                switch (typeof(O))
+                switch (outputType)
                 {
-                    case var OT when OT == typeof(float): return (O[])(object)IntToFloat((ushort[])(object)RLEToInt((RunLengthPair[])(object)input));
-                    case var OT when OT == typeof(ushort): return (O[])(object)RLEToInt((RunLengthPair[])(object)input);
-                    case var OT when OT == typeof(RunLengthPair): return (O[])(object)input;
+                    case var OT when OT == typeof(float): return IntToFloat(RLEToInt((RunLengthPair[])input));
+                    case var OT when OT == typeof(ushort): return RLEToInt((RunLengthPair[])input);
+                    case var OT when OT == typeof(RunLengthPair): return input;
                 }
                 break;
         }
@@ -49,7 +47,14 @@ public static class DataConverter
     public static ushort[] FloatToInt(float[] values)
     {
         ushort[] result = new ushort[values.Length];
-        for (int i = 0; i < result.Length; i++) result[i] = (ushort)Math.Floor(values[i] * 100f);
+        for (int i = 0; i < result.Length; i++)
+        {
+            float scaled = values[i] * 100f;
+            // Clamp to ushort range to prevent overflow
+            if (scaled > ushort.MaxValue) result[i] = ushort.MaxValue;
+            else if (scaled < ushort.MinValue) result[i] = ushort.MinValue;
+            else result[i] = (ushort)Math.Floor(scaled);
+        }
         return result;
     }
 
@@ -91,7 +96,14 @@ public static class DataConverter
         
         for (int frame_data_count = 0; frame_data_count < result.Length;)
         {
-            for (run_idx = 0; run_idx < values[rle_idx].run; run_idx++) result[frame_data_count++] = values[rle_idx].value;
+            // Bounds check to prevent IndexOutOfRangeException
+            if (rle_idx >= values.Length) break;
+            
+            for (run_idx = 0; run_idx < values[rle_idx].run; run_idx++)
+            {
+                if (frame_data_count >= result.Length) break;
+                result[frame_data_count++] = values[rle_idx].value;
+            }
             rle_idx++;
         }
         return (result, rle_idx, run_idx);

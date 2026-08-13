@@ -168,10 +168,12 @@ public class RecordingGroup : GroupBox
                 return;
             }
 
+            (int width, int height) = recorder.hasROI() ? recorder.sensor.ROI().Dimensions() : recorder.sensor.Dimensions() ;
+
             recorder.Start(new RecorderSettings
                 {
-                    camera_width = ((IRImagerShow)recorder.sensor).Imager.getWidth(),
-                    camera_height = ((IRImagerShow)recorder.sensor).Imager.getHeight(),
+                    camera_width = width,
+                    camera_height = height,
                     baseDirectory = directory,
                     dataType = GetSelectedSaveDataType(),
                     singleBinary = singleBinaryToggle.IsChecked == true,

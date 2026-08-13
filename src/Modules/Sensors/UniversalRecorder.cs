@@ -126,17 +126,17 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         {
             switch (settings.dataType)
             {
-                case SaveDataType.Float: foreach(int ROI_Idx in sensor.ROI()) writer.Write(frame.data[ROI_Idx]);
+                case SaveDataType.Float: foreach(int ROI_Idx in sensor.ROI().indexes) writer.Write(frame.data[ROI_Idx]);
                     break;
 
                 case SaveDataType.U16:
                     ushort[] iValue = DataConverter.FloatToInt(frame.data);
-                    foreach(int ROI_Idx in sensor.ROI()) writer.Write(iValue[ROI_Idx]);
+                    foreach(int ROI_Idx in sensor.ROI().indexes) writer.Write(iValue[ROI_Idx]);
                     break;
 
                 case SaveDataType.RLE:
                     RunLengthPair[] data = DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data));
-                    foreach(int ROI_Idx in sensor.ROI())
+                    foreach(int ROI_Idx in sensor.ROI().indexes)
                     {
                         writer.Write(data[ROI_Idx].value);
                         writer.Write(data[ROI_Idx].run);

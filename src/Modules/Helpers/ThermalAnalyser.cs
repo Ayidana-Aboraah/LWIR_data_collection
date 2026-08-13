@@ -70,8 +70,8 @@ namespace LWIR_app.classes
 
         public RegionOfInterest(Point start, Point end, int frameWidth)
         {
-            height  = (int) Math.Floor(start.Y - end.Y);
-            width   = (int) Math.Floor(start.X - end.X);
+            height  = (int) Math.Floor(end.Y - start.Y) + 1;
+            width   = (int) Math.Floor(end.X - start.X) + 1;
             indexes = new int[width * height];
             int count = 0;
 
@@ -81,5 +81,7 @@ namespace LWIR_app.classes
 
             active = true;
         }
+
+        public (int, int) Dimensions() => (width, height);
     }
 }
