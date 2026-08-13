@@ -62,13 +62,24 @@ public static class DataConverter
 
     public static RunLengthPair[] IntToRLE(ushort[] values)
     {
-        List<RunLengthPair> rle = [new RunLengthPair(values.Last())];
-        for (int i = 0; i < values.Length; i++)
+        if (values.Length == 0) return [];
+
+        List<RunLengthPair> rle = [];
+        ushort currentValue = values[0];
+        int currentRun = 1;
+
+        for (int i = 1; i < values.Length; i++)
         {
-            RunLengthPair last = rle.Last();
-            if (last.value == values[i] && last.run < ushort.MaxValue) last.run++;
-            else rle.Add(new RunLengthPair(values[i]));
+            if (values[i] == currentValue && currentRun < ushort.MaxValue) currentRun++;
+            else
+            {
+                rle.Add(new RunLengthPair(currentValue) { run = (ushort)currentRun });
+                currentValue = values[i];
+                currentRun = 1;
+            }
         }
+
+        rle.Add(new RunLengthPair(currentValue) { run = (ushort)currentRun });
         return rle.ToArray();
     }
 
@@ -89,7 +100,7 @@ public static class DataConverter
     public static ushort[] RLEToInt(RunLengthPair[] values)
     {
         List<ushort> result = new List<ushort>();
-        for (int i = 0; i < values.Length; i++) for (int a = 0; a < values[i].run; a++) result.Add(values[a].value);
+        for (int rle_idx = 0; rle_idx < values.Length; rle_idx++) for (int a = 0; a < values[rle_idx].run; a++) result.Add(values[rle_idx].value);
         return result.ToArray();
     }
 }

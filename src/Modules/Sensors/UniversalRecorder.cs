@@ -98,13 +98,25 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task SingleWriterLoop()
     {
-        await foreach (var frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter!);
+        StreamWriter sWriter = new StreamWriter(singleFileWriter.BaseStream);
+        
+        await foreach (var frame in sensor.Reader().ReadAllAsync()) {
+            WriteFrame(frame, singleFileWriter!);
+            WriteYuriFrame(frame, sWriter);
+        }
     }
 
     private void WriteFrame(FrameRecord frame, BinaryWriter writer)
     {
         WriteRecordedFrame(frame, writer);
         WriteMetadataRow(frame);
+        frameIndex++;
+    }
+
+    private void WriteYuriFrame(FrameRecord frame, StreamWriter writer)
+    {
+        YuriFrame yFrame = new YuriFrame(frame);
+        yFrame.Output(writer);
         frameIndex++;
     }
 

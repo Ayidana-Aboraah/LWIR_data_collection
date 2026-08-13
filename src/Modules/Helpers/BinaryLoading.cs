@@ -1,5 +1,6 @@
 
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using LWIR_app.Sensor;
 using Optris.OtcSdk;
 using RLE;
@@ -51,6 +52,28 @@ namespace LWIR_app.classes
 
             return frames.ToArray();
         }
+
+        private static long[] LoadMarkers(BinaryReader reader, int width, int height)
+        {
+            // TODO: Revise the approach to looping through the file stream
+            // Possible Issues:
+            //  
+            List<long> indexes = [];
+            int sum = 0;
+            byte[] buffer = new byte[4];
+            while (reader.BaseStream.Read(buffer) > 0){
+                var len = BitConverter.ToUInt16(buffer[2..]); // TODO: Check that this loads properly
+                sum += len;
+                if (sum == width * height) indexes.Add(reader.BaseStream.Position); 
+            }
+            return indexes.ToArray();
+
+            // TODO: Loop through the pairs and Load the Length
+            // TODO: Loop until the sum of lengths == w * h
+            // TODO: Mark indexes for frames
+            // TODO: Return the marked indexes 
+        }
+
         private static float[] ReadFrameTemperatures(BinaryReader reader, int width, int height, SaveDataType saveType)
         {
             int pixelCount = checked(width * height);
@@ -74,19 +97,26 @@ namespace LWIR_app.classes
             }
             else if (typeof(T) == typeof(ushort))
             {
-                for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadUInt16();
+                for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadUInt16() * 0.01f;
             }
             else if (typeof(T) == typeof(RunLengthPair))
             {
-                for (int count = 0; temperatures.Length < pixelCount;)
+                int count = 0;
+
+                while (count < pixelCount)
                 {
+                    if (reader.BaseStream.Position + 4 > reader.BaseStream.Length)
+                        throw new EndOfStreamException($"Unexpected end of RLE data while decoding {pixelCount} pixels.");
+
                     ushort value = reader.ReadUInt16();
                     ushort length = reader.ReadUInt16();
 
                     if (length == 0) throw new InvalidDataException("Encountered an RLE pair with zero length.");
+                    if (count + length > pixelCount)
+                        throw new InvalidDataException($"RLE run length {length} exceeds remaining pixel count ({pixelCount - count}).");
 
-                    float temperature = value / 100.0f;
-                    for (uint i = 0; i < length; i++) temperatures[count++] = temperature;
+                    float temperature = value * 0.01f;
+                    for (int i = 0; i < length; i++) temperatures[count++] = temperature;
                 }
             }
 

@@ -1,5 +1,5 @@
 using LWIR_app.Sensor;
-using Optris.OtcSdk;
+using System.IO;
 using RLE;
 
 namespace LWIR_app.classes;
@@ -87,5 +87,12 @@ public struct YuriFrame
         TimeTag[(int)TimeTagPositions.TimeTag_day] = (UInt16)now.Day;
         TimeTag[(int)TimeTagPositions.TimeTag_month] = (UInt16)now.Month;
         TimeTag[(int)TimeTagPositions.TimeTag_year] = (UInt16)now.Year;
+    }
+
+    public void Output(StreamWriter writer)
+    {
+        writer.Write(headers);
+        writer.Write(data);
+        writer.Write(TimeTag);
     }
 }
