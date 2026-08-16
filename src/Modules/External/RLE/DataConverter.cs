@@ -1,5 +1,3 @@
-using System.Numerics;
-
 namespace RLE;
 
 public class RunLengthPair

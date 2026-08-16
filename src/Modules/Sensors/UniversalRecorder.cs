@@ -11,7 +11,6 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     Task? writerTask;
     StreamWriter? metadataWriter;
     BinaryWriter? singleFileWriter;
-    // CancellationTokenSource cancellation = new CancellationTokenSource();
 
     string sessionDirectory = "";
     string frameDirectory = "";
@@ -21,11 +20,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         base.Start(settings);
 
-        // cancellation.TryReset();
-
         frameIndex = 0;
 
-        // sessionDirectory = Path.Combine(settings.baseDirectory, $"Session_{DateTime.Now:yyyyMMdd_HHmmss}");
         sessionDirectory = Path.Combine(settings.baseDirectory, $"{DateTime.Now:yyyy-MM-dd}");
 
         sessionDirectory = Path.Combine(sessionDirectory, $"LWIR");
@@ -68,9 +64,6 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         if (!recording) return;
 
-        // cancellation.Cancel();
-        // writerTask!.Dispose();
-
         metadataWriter?.Flush();
         metadataWriter?.Close();
         if (settings.singleBinary) singleFileWriter?.Close();
@@ -98,11 +91,12 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task SingleWriterLoop()
     {
-        StreamWriter sWriter = new StreamWriter(singleFileWriter.BaseStream);
+        // TODO: Setup the filepath for Everything and note Yuri on it
+        // StreamWriter sWriter = new StreamWriter(new FileStream("Yuri.bin", FileMode.Append));
         
         await foreach (var frame in sensor.Reader().ReadAllAsync()) {
             WriteFrame(frame, singleFileWriter!);
-            WriteYuriFrame(frame, sWriter);
+            // WriteYuriFrame(frame, sWriter);
         }
     }
 
