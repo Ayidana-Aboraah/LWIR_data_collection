@@ -1,8 +1,7 @@
 
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using LWIR_app.Sensor;
 using Optris.OtcSdk;
+using System.IO;
 using RLE;
 
 namespace LWIR_app.classes

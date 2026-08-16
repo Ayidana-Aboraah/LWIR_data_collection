@@ -63,35 +63,12 @@ namespace LWIR_app.Sensor.LWIR
         /// <summary>Constructor</summary>
         public IRImagerShow()
         {
-            /*
-             * The factory is implemented as a Singleton. Therefore, you have to call getInstance()
-             * first before you can create an IRImager object.
-             *
-             * The native implementation allows to access the thermal data of cameras connected via
-             * USB or Ethernet.
-             */
             Imager = IRImagerFactory.getInstance().create("native");
 
-            // Register this instance as client/observer
             Imager.addClient(this);
 
-            /*
-             * Create an image builder object that will convert thermal frame data to false color images
-             * 
-             * Its color format refers to the sequence of the bytes for the color values in the generated image array.
-             * The color format of C# Bitmap class, however, refers to the significance of the color value bytes. Since
-             * x64 is little-endian a C# Bitmap color format of RBG equals a BGR ImageBuilder color format.
-             * 
-             * Images are typically read line by line. To improve the performance of that operation this happens in bigger
-             * byte chunks. The C# Bitmap class uses four byte chunks. Thus, the width alignment should be set to four 
-             * bytes. This will ensure that each line has a size in bytes that is a multiple of four.
-             * 
-             * The temperature range decimal indicates the precision of the thermal data. The ImageBuilder requires this
-             * information to correctly decode that data.
-             */
             imageBuilder = new ImageBuilder(ColorFormat.BGR, WidthAlignment.FourBytes);
             imageBuilder.setTemperatureScalingMode(TemperatureScalingMode.Manual);
-            // useAutoScaling = true;
 
             IsConnected = false;
 
@@ -103,9 +80,9 @@ namespace LWIR_app.Sensor.LWIR
             footer = new LWIR_Footer(this);
 
             UI_Panel.Children.Add(temperatureScaling);
-            
+
             flagRefreshTimer.Interval = TimeSpan.FromMinutes(5);
-            flagRefreshTimer.Tick += (_,_) => RefreshFlag();
+            flagRefreshTimer.Tick += (_, _) => RefreshFlag();
         }
 
         public StackPanel UI() => UI_Panel;
@@ -153,9 +130,6 @@ namespace LWIR_app.Sensor.LWIR
             return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
         }
 
-        /// <summary>Connects to the device specified in the configuration file.</summary>
-        /// 
-        /// <param name="configFile">path to the configuration files of the device to connect to.</param>
         public void Connect(string configFile)
         {
             if (IsConnected) return;
@@ -167,7 +141,7 @@ namespace LWIR_app.Sensor.LWIR
             IsConnected = true;
         }
 
-        /// <summary>Quickly connects to the first detected device on the USB port.</summary>
+        /// Quickly connects to the first detected device on the USB port
         public void QuickConnect()
         {
             if (IsConnected) return;
@@ -181,7 +155,7 @@ namespace LWIR_app.Sensor.LWIR
             IsConnected = true;
         }
 
-        /// <summary>Disconnects from the currently connected device.</summary>
+        /// Disconnects from the currently connected device
         public void Disconnect()
         {
             if (!IsConnected) return;
@@ -191,19 +165,18 @@ namespace LWIR_app.Sensor.LWIR
             IsConnected = false;
         }
 
-        /// <summary>Refreshes the flag by triggering a flag event that cause the shutter flag to close for a short time.</summary>
+        /// Refreshes the flag by triggering a flag event that cause the shutter flag to close for a short time
         public void RefreshFlag()
         {
-            if (IsConnected)
+            if (!IsConnected) return;
+            
+            try
             {
-                try
-                {
-                    Imager.forceFlagEvent();
-                }
-                catch (SDKException ex)
-                {
-                    ShowMessageBox(ex.Message, "Failed to refresh flag", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                Imager.forceFlagEvent();
+            }
+            catch (SDKException ex)
+            {
+                ShowMessageBox(ex.Message, "Failed to refresh flag", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -228,26 +201,13 @@ namespace LWIR_app.Sensor.LWIR
             UpdateOperationModeString();
         }
 
-
-        /// <summary>Returns the type of the device.</summary>
-        /// 
-        /// <return>type of the device.</summary>
         public string GetDeviceType() => Imager.getDeviceType().ToString();
 
-        /// <summary>Returns the serial number of the device.</summary>
-        /// 
-        /// <return>serial number of the device.</return>
         public uint GetSerialNumber() => Imager.getSerialNumber();
 
-        /// <summary>Returns the current flag state of the device.</summary>
-        /// 
-        /// <return>current flag state of the device.</return>
         public string GetFlagState() => flagState;
 
-        /// <summary>Returns the current frame rate in Hz.</summary>
-        /// 
-        /// <return> current frame rate in Hz.</return>
-        public double GetFPS() => Math.Round(counter.getFps(), 1);
+        public double GetFPS() => Math.Round(counter.getFps(), 1); /// Returns the current frame rate in Hz
 
         public Bitmap? Render()
         {
@@ -276,30 +236,10 @@ namespace LWIR_app.Sensor.LWIR
             return bitmap;
         }
 
-        /// <summary>Calculates the position and temperature of the hottest and coldest region with the given radius.</summary>
-        /// 
-        /// <returns>True, if calculation was successful. False otherwise.</returns>
+        // Calculates the position and temperature of the hottest and coldest region with the given radius.
         public bool CalculateMinMaxTemperatureRegions() => imageBuilder.getMinMaxRegions(regionRadius, MinRegion, MaxRegion);
 
-        /// <summary>Calculates the mean temperature of a region with the given radius in the center of the frame.</summary>
-        /// 
-        /// <returns>True, if calculation was successful. False otherwise.</returns>
-        public bool CalculateCenterMeanTemperatureRegion()
-        {
-            MeanRegion = new TemperatureRegion(Imager.getWidth() / 2 - regionRadius,
-                                               Imager.getHeight() / 2 - regionRadius,
-                                               Imager.getWidth() / 2 + regionRadius,
-                                               Imager.getHeight() / 2 + regionRadius);
-
-            return imageBuilder.getMeanTemperatureInRegion(MeanRegion);
-        }
-
-
-        // Callbacks
-        /// <summary>Callback method triggered by imager when a new thermal frame is available.</summary>
-        /// 
-        /// <param name="thermal">thermal frame data.</param>
-        /// <param name="meta">data of the thermal frame.</param>
+        // Callback method triggered by imager when a new thermal frame is available
         public override void onFrame(FrameEvent evt)
         {
             lock (frameEvent)
@@ -325,7 +265,6 @@ namespace LWIR_app.Sensor.LWIR
 
         public ChannelReader<FrameRecord> Reader() => recorderChannel.Reader;
 
-        /// <summary>Starts the imager processing loop.</summary>
         private void StartProcessing()
         {
             operationModes = Imager.getOperationModes();
@@ -336,12 +275,9 @@ namespace LWIR_app.Sensor.LWIR
             Imager.runAsync();
         }
 
-        /// <summary>Updates the string representation of the active operation mode.</summary>
         private void UpdateOperationModeString()
         {
             OperationMode mode = Imager.getActiveOperationMode();
-
-            // string opticsText = (mode.getOpticsText().Length > 0) ? string.Format(" {},", mode.getOpticsText()) : "";
 
             OperationModeString = string.Format("{0}°, {1}x{2} @ {3} Hz",
                                                  mode.getFieldOfView(),

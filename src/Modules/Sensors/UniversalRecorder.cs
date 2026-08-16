@@ -8,7 +8,6 @@ namespace LWIR_app.Sensor;
 
 public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 {
-    Task? writerTask;
     StreamWriter? metadataWriter;
     BinaryWriter? singleFileWriter;
 
@@ -50,13 +49,13 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
             WriteBinHeader(singleFileWriter);
 
-            writerTask = Task.Run(SingleWriterLoop);
+            Task.Run(SingleWriterLoop);
         }
         else
         {
             frameDirectory = Path.Combine(sessionDirectory, "frames");
             Directory.CreateDirectory(frameDirectory);
-            writerTask = Task.Run(WriterLoop);
+            Task.Run(WriterLoop);
         }
     }
 
@@ -193,7 +192,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
             string.Join(",",
                 frameIndex,
                 ((FrameMetadata)frame.metadata).getTimestamp(),
-                ((FrameMetadata)frame.metadata).getCounter(),
+                DateTime.UtcNow.ToFileTimeUtc().ToString(), // Replaced the Metadata's timestamp since this wouldn't correlate to antyhing useful for outside tools
                 ((FrameMetadata)frame.metadata).getCounterHardware(),
                 min.ToString(CultureInfo.InvariantCulture),
                 max.ToString(CultureInfo.InvariantCulture),

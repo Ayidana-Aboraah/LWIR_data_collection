@@ -1,17 +1,17 @@
-using System.Globalization;
+using WpfBrushes = System.Windows.Media.Brushes;
 using System.Runtime.InteropServices;
-using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Drawing.Drawing2D;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Globalization;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using LWIR_app.classes;
-using WpfBrushes = System.Windows.Media.Brushes;
 using LWIR_app.Sensor;
+using System.Windows;
+using System.Drawing;
 
 namespace LWIR_app.UI;
 
@@ -78,7 +78,7 @@ public class Display
 
     public void UpdateUI()
     {
-        Bitmap? image = PlaybackTool.Active ? PlaybackTool.RenderFrame(PlaybackTool.GetCurrentFrame()).Bitmap : recorder.sensor.Render();
+        Bitmap? image = PlaybackTool.Active ? PlaybackTool.RenderFrame(PlaybackTool.GetCurrentFrame()!).Bitmap : recorder.sensor.Render();
         if (image == null) return;
 
         currentImageWidth = image.Width;
@@ -159,11 +159,7 @@ public class Display
         e.Handled = true;
     }
 
-    private bool IsPointInsideImageViewport(System.Windows.Point point)
-    {
-        Rect viewport = GetImageViewport(currentImageWidth, currentImageHeight);
-        return viewport.Contains(point);
-    }
+    private bool IsPointInsideImageViewport(System.Windows.Point point) => GetImageViewport(currentImageWidth, currentImageHeight).Contains(point);
 
     private bool TryGetMouseImagePixel(out System.Drawing.Point imagePixel)
     {

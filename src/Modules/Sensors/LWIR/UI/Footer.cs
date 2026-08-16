@@ -1,4 +1,3 @@
-using LWIR_app.models;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;

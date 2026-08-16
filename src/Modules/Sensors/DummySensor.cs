@@ -1,9 +1,9 @@
-using System.Drawing;
 using System.Threading.Channels;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
+using System.Windows.Controls;
 using LWIR_app.classes;
+using System.Drawing;
+using System.Windows;
 
 namespace LWIR_app.Sensor;
 
@@ -16,14 +16,16 @@ public class DummySensor : SensorBase
         FullMode = BoundedChannelFullMode.DropOldest
     });
 
-    private readonly DispatcherTimer uiUpdateTimer = new();
+    private readonly DispatcherTimer dataTimer = new();
 
     RegionOfInterest roi;
 
     public DummySensor()
     {
-        uiUpdateTimer.Interval = TimeSpan.FromMilliseconds(33);
-        uiUpdateTimer.Tick += (_, _) =>
+        roi = new();
+
+        dataTimer.Interval = TimeSpan.FromMilliseconds(33);
+        dataTimer.Tick += (_, _) =>
         {
             channel.Writer.WriteAsync(
                 new FrameRecord(1, 1, [float.NaN], new BaseMetadata())

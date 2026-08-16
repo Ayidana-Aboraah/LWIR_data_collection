@@ -1,15 +1,4 @@
-using System.Runtime.InteropServices;
-using RLE;
-
 namespace LWIR_app.Sensor;
-
-[StructLayout(LayoutKind.Explicit)]
-public struct FrameData
-{
-    [FieldOffset(0)] public ushort[] iValue;
-    [FieldOffset(0)] public float[] fValue;
-    [FieldOffset(0)] public RunLengthPair[] rleValue;
-}
 
 public class FrameRecord
 {

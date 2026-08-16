@@ -1,6 +1,5 @@
 using System.Windows;
 using System.Windows.Controls;
-using LWIR_app.models;
 
 namespace LWIR_app.Sensor.LWIR;
 
@@ -8,10 +7,7 @@ public class CameraSettingsGroup
 {
     IRImagerShow LWIR;
     
-    public CameraSettingsGroup(IRImagerShow LWIR)
-    {
-        this.LWIR = LWIR;
-    }
+    public CameraSettingsGroup(IRImagerShow LWIR) => this.LWIR = LWIR;
 
     GroupBox foucsGroup()
     {

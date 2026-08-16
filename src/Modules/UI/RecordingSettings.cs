@@ -74,7 +74,6 @@ public class RecordingGroup : GroupBox
         radioGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         radioGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-        // TODO: Create a space between the elements
 
         for (int i = 0; i < saveTypes.Length; i++)
         {

@@ -1,7 +1,6 @@
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using LWIR_app.classes;
+using System.Windows;
 
 namespace LWIR_app.UI;
 
@@ -64,7 +63,6 @@ public class PlaybackGroup : GroupBox
     {
         Visibility = PlaybackTool.Active ? Visibility.Visible : Visibility.Collapsed;
         playback.Maximum = PlaybackTool.FrameCount;
-        // ensure the slider reflects the current index
-        playback.Value = Math.Clamp(PlaybackTool.currentIndex, 0, (int)playback.Maximum);
+        playback.Value = Math.Clamp(PlaybackTool.currentIndex, 0, (int)playback.Maximum);// ensure the slider reflects the current index
     }
 }
