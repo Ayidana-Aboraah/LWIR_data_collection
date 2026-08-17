@@ -45,11 +45,10 @@ namespace LWIR_app.Sensor.LWIR
         public bool recording = false;
 
 
-        Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(60 * 60 * 15)
+        Channel<FrameRecord> recorderChannel = Channel.CreateUnbounded<FrameRecord>(new UnboundedChannelOptions()
         {
-            SingleReader = false,
+            SingleReader = true,
             SingleWriter = true,
-            FullMode = BoundedChannelFullMode.DropOldest
         });
 
         StackPanel UI_Panel = new StackPanel { };

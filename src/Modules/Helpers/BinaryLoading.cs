@@ -100,12 +100,14 @@ namespace LWIR_app.classes
 
                 while (count < pixelCount)
                 {
-                    if (reader.BaseStream.Position + 4 > reader.BaseStream.Length) throw new EndOfStreamException($"Unexpected end of RLE data while decoding {pixelCount} pixels.");
+                    if (reader.BaseStream.Position + 4 > reader.BaseStream.Length) break;
+                    // if (reader.BaseStream.Position + 4 > reader.BaseStream.Length) throw new EndOfStreamException($"Unexpected end of RLE data while decoding {pixelCount} pixels.");
 
                     ushort value = reader.ReadUInt16();
                     ushort length = reader.ReadUInt16();
 
-                    if (length == 0) throw new InvalidDataException("Encountered an RLE pair with zero length.");
+                    if (length == 0) break;
+                    // if (length == 0) throw new InvalidDataException("Encountered an RLE pair with zero length.");
                     // if (count + length > pixelCount)
                     //     throw new InvalidDataException($"RLE run length {length} exceeds remaining pixel count ({pixelCount - count}).");
 
