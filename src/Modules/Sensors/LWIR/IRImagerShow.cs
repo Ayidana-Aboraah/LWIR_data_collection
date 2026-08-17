@@ -83,6 +83,7 @@ namespace LWIR_app.Sensor.LWIR
 
             flagRefreshTimer.Interval = TimeSpan.FromMinutes(5);
             flagRefreshTimer.Tick += (_, _) => RefreshFlag();
+            roi = new();
         }
 
         public StackPanel UI() => UI_Panel;
@@ -95,7 +96,6 @@ namespace LWIR_app.Sensor.LWIR
             footer.Disable();
         }
 
-        // TODO: Implement
         public void UpdateUI()
         {
             UI_Panel.Visibility = IsConnected ? Visibility.Visible : Visibility.Collapsed;
@@ -186,7 +186,7 @@ namespace LWIR_app.Sensor.LWIR
 
             try
             {
-                // TODO: CHECK, did this because we found operations to have a duplicates which offset it
+                // CHECK, we did this because we found operations to have a duplicates which offset it
                 Imager.setActiveOperationMode(operationModes[modeIndex * 2]);
                 activeModeIndex = Imager.getActiveOperationMode().getIndex();
             }

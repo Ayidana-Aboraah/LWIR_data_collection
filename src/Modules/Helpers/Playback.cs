@@ -171,7 +171,7 @@ namespace LWIR_app.classes
             }
         }
 
-        private static (float Min, float Max, float Mean) CalculateStatistics(float[] temperatures)
+        public static (float Min, float Max, float Mean) CalculateStatistics(float[] temperatures)
         {
             (float min, float max) = (float.MaxValue, float.MinValue);
             double sum = 0;

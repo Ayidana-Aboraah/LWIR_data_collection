@@ -1,7 +1,7 @@
 using System.Globalization;
-using System.IO;
 using LWIR_app.classes;
 using Optris.OtcSdk;
+using System.IO;
 using RLE;
 
 namespace LWIR_app.Sensor;
@@ -22,6 +22,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         frameIndex = 0;
 
         sessionDirectory = Path.Combine(settings.baseDirectory, $"{DateTime.Now:yyyy-MM-dd}");
+
+        // sessionDirectory = Path.Combine(sessionDirectory, projectName); //
 
         sessionDirectory = Path.Combine(sessionDirectory, $"LWIR");
 
@@ -92,8 +94,9 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         // TODO: Setup the filepath for Everything and note Yuri on it
         // StreamWriter sWriter = new StreamWriter(new FileStream("Yuri.bin", FileMode.Append));
-        
-        await foreach (var frame in sensor.Reader().ReadAllAsync()) {
+
+        await foreach (var frame in sensor.Reader().ReadAllAsync())
+        {
             WriteFrame(frame, singleFileWriter!);
             // WriteYuriFrame(frame, sWriter);
         }
@@ -116,25 +119,29 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     private void WriteRecordedFrame(FrameRecord frame, BinaryWriter writer)
     {
         if (frame.data.Length != settings.camera_width * settings.camera_height) return;
-        
+
         if (settings.recordROIOnly)
         {
             switch (settings.dataType)
             {
-                case SaveDataType.Float: foreach(int ROI_Idx in sensor.ROI().indexes) writer.Write(frame.data[ROI_Idx]);
+                case SaveDataType.Float:
+                    foreach (int ROI_Idx in sensor.ROI().indexes) writer.Write(frame.data[ROI_Idx]);
                     break;
 
                 case SaveDataType.U16:
                     ushort[] iValue = DataConverter.FloatToInt(frame.data);
-                    foreach(int ROI_Idx in sensor.ROI().indexes) writer.Write(iValue[ROI_Idx]);
+                    foreach (int ROI_Idx in sensor.ROI().indexes) writer.Write(iValue[ROI_Idx]);
                     break;
 
                 case SaveDataType.RLE:
-                    RunLengthPair[] data = DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data));
-                    foreach(int ROI_Idx in sensor.ROI().indexes)
+                    List<float> roi_temps = new List<float>();
+                    foreach (int ROI_Idx in sensor.ROI().indexes) roi_temps.Add(frame.data[ROI_Idx]);
+
+                    RunLengthPair[] data = DataConverter.IntToRLE(DataConverter.FloatToInt(roi_temps.ToArray()));
+                    foreach (RunLengthPair pair in data)
                     {
-                        writer.Write(data[ROI_Idx].value);
-                        writer.Write(data[ROI_Idx].run);
+                        writer.Write(pair.value);
+                        writer.Write(pair.run);
                     }
                     break;
             }
@@ -143,12 +150,14 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         {
             switch (settings.dataType)
             {
-                case SaveDataType.Float: foreach (float value in frame.data) writer.Write(value);
+                case SaveDataType.Float:
+                    foreach (float value in frame.data) writer.Write(value);
                     break;
-                case SaveDataType.U16:   foreach (ushort value in DataConverter.FloatToInt(frame.data)) writer.Write(value);
+                case SaveDataType.U16:
+                    foreach (ushort value in DataConverter.FloatToInt(frame.data)) writer.Write(value);
                     break;
-                case SaveDataType.RLE:   
-                foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
+                case SaveDataType.RLE:
+                    foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
                     {
                         writer.Write(value.value);
                         writer.Write(value.run);

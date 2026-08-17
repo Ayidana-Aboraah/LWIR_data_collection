@@ -11,6 +11,12 @@ namespace LWIR_app.classes
 
         public RegionOfInterest() => indexes = [];
 
+        public (float,float,float) Statistics(float[] temperatures){
+            List<float> temps = new List<float>();
+            for(int i = 0; i < indexes.Length; i++)temps.Add(temperatures[indexes[i]]);
+            return PlaybackTool.CalculateStatistics(temps.ToArray());
+        }
+
         public RegionOfInterest(Point start, Point end, int frameWidth)
         {
             height  = (int) Math.Floor(end.Y - start.Y) + 1;

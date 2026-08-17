@@ -82,7 +82,7 @@ public class TemperatureScalingGroup : GroupBox
 
     public void UpdateUI()
     {
-        UpdateOperationModeSelection(LWIR.ActiveModeIndex/2); // TODO: CHECK, had to do this cause of dupplicates in OperatingModes  
+        UpdateOperationModeSelection(LWIR.ActiveModeIndex/2); // CHECK, had to do this cause of dupplicates in OperatingModes  
         if (LWIR.CalculateMinMaxTemperatureRegions())
         {
             (float min, float max) = (LWIR.MinRegion.temperature, LWIR.MaxRegion.temperature);
@@ -168,8 +168,6 @@ public class TemperatureScalingGroup : GroupBox
                 BuildScaleRow("Low:", out imageScaleLow)
             };
 
-        // TODO: Create a space between the elements
-
         for (int i = 0; i < s.Length; i++)
         {
             Grid.SetRow(s[i], 0);
@@ -188,7 +186,7 @@ public class TemperatureScalingGroup : GroupBox
         if (radioButton.Tag is not int modeIndex) return;
 
         LWIR.SetOperationMode(modeIndex);
-        SetAutoScalingRange();
+        // SetAutoScalingRange();
     }
 
     private void AutoTempScale_CheckedChanged()
@@ -258,7 +256,6 @@ public class TemperatureScalingGroup : GroupBox
 
     private void UpdateOperationModeSelection(int modeIndex)
     {
-        // opModes[modeIndex].IsChecked = true;
         for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
     }
 

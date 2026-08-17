@@ -16,7 +16,6 @@ using LWIR_app.Sensor.LWIR;
 
 namespace LWIR_app
 {
-    /// <summary>Main window of the application.</summary>
     public sealed class DisplayForm : Window
     {
         private readonly IRImagerShow imagerShow = new();
@@ -38,7 +37,6 @@ namespace LWIR_app
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 
-        /// <summary>Constructor.</summary>
         public DisplayForm()
         {
             // DEBUG: TODO: remove after debug setup
@@ -115,7 +113,7 @@ namespace LWIR_app
                 {
                     PlaybackTool.LoadFrames(BinaryLoader.LoadFrameSet(dialog.FolderName));
                     PlaybackTool.Active = true;
-                    imagerShow.Disconnect();
+                    Disconnect();
                     UpdateUiOnConnectionStatus();
                 }
             };
@@ -162,10 +160,7 @@ namespace LWIR_app
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
             };
 
-            var stack = new StackPanel
-            {
-                Orientation = Orientation.Vertical
-            };
+            var stack = new StackPanel{ Orientation = Orientation.Vertical };
 
             stack.Children.Add(display.BuildRoiPreviewGroup());
             stack.Children.Add(recordingGroup);

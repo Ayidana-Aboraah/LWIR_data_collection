@@ -25,12 +25,8 @@ public class DummySensor : SensorBase
         roi = new();
 
         dataTimer.Interval = TimeSpan.FromMilliseconds(33);
-        dataTimer.Tick += (_, _) =>
-        {
-            channel.Writer.WriteAsync(
-                new FrameRecord(1, 1, [float.NaN], new BaseMetadata())
-            );
-        };
+        dataTimer.Tick += (_, _) => channel.Writer.WriteAsync(
+                new FrameRecord(1, 1, [float.NaN], new BaseMetadata()));
     }
 
     public bool HasROI() => false;

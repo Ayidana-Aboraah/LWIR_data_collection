@@ -12,7 +12,7 @@ namespace LWIR_app.models
         public static void Init()
         {
             palettes = LoadDefaultPalettes();
-            palettes.TryGetValue("Iron", out current_palette);
+            palettes.TryGetValue("Iron", out current_palette!);
         }
 
         public static string[] LoadDefaultPaletteNames()

@@ -11,12 +11,14 @@
 namespace Optris.OtcSdk {
 
 [global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
-public class otcsdk {
-  /// <summary>Returns a string representation of the given alarm input.</summary>
-  /// Use `alarmInputToString()` in Python instead.
-  /// <param name="alarmInput"> for which a string representation is desired.</param> 
-  /// <returns>string respresentation of the given alarm input.</returns>
-  public static string toString(AlarmInput alarmInput) {
+#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
+    public class otcsdk {
+#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
+        /// <summary>Returns a string representation of the given alarm input.</summary>
+        /// Use `alarmInputToString()` in Python instead.
+        /// <param name="alarmInput"> for which a string representation is desired.</param> 
+        /// <returns>string respresentation of the given alarm input.</returns>
+        public static string toString(AlarmInput alarmInput) {
     string ret = otcsdkPINVOKE.toString__SWIG_0((int)alarmInput);
     return ret;
   }

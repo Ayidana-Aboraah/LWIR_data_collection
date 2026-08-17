@@ -91,21 +91,16 @@ namespace LWIR_app.classes
             var temperatures = new float[pixelCount];
 
             if (typeof(T) == typeof(float))
-            {
                 for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadSingle();
-            }
             else if (typeof(T) == typeof(ushort))
-            {
                 for (int i = 0; i < pixelCount; i++) temperatures[i] = reader.ReadUInt16() * 0.01f;
-            }
             else if (typeof(T) == typeof(RunLengthPair))
             {
                 int count = 0;
 
                 while (count < pixelCount)
                 {
-                    if (reader.BaseStream.Position + 4 > reader.BaseStream.Length) break;
-                        // throw new EndOfStreamException($"Unexpected end of RLE data while decoding {pixelCount} pixels.");
+                    if (reader.BaseStream.Position + 4 > reader.BaseStream.Length) throw new EndOfStreamException($"Unexpected end of RLE data while decoding {pixelCount} pixels.");
 
                     ushort value = reader.ReadUInt16();
                     ushort length = reader.ReadUInt16();
