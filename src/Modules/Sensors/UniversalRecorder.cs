@@ -23,7 +23,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         sessionDirectory = Path.Combine(settings.baseDirectory, $"{DateTime.Now:yyyy-MM-dd}");
 
-        // sessionDirectory = Path.Combine(sessionDirectory, projectName); //
+        sessionDirectory = Path.Combine(sessionDirectory, ProjectDetails.ProjectName);
 
         sessionDirectory = Path.Combine(sessionDirectory, $"LWIR");
 

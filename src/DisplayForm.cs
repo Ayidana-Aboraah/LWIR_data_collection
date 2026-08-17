@@ -13,6 +13,7 @@ using WpfBrushes = System.Windows.Media.Brushes;
 using LWIR_app.UI;
 using LWIR_app.Sensor;
 using LWIR_app.Sensor.LWIR;
+using System.Diagnostics;
 
 namespace LWIR_app
 {
@@ -40,7 +41,11 @@ namespace LWIR_app
         public DisplayForm()
         {
             // DEBUG: TODO: remove after debug setup
-            current_sensor = imagerShow;
+            current_sensor = ProjectDetails.BaseSensor switch
+            {
+                // "NIR" =>
+                _ => imagerShow
+            };
             recorder = new UniversalRecorder(current_sensor);
             recordingGroup = new RecordingGroup(recorder);
             playback = new PlaybackGroup();

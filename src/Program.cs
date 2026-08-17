@@ -2,14 +2,15 @@ using System.Windows;
 using Optris.OtcSdk;
 using System.IO;
 
-
 namespace LWIR_app
 {
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            ProjectDetails.Import(args);
+
             AppDomain.CurrentDomain.FirstChanceException += (_, eventArgs) =>
             {
                 if (eventArgs.Exception is InvalidOperationException) LogException(eventArgs.Exception);
