@@ -201,7 +201,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
             string.Join(",",
                 frameIndex,
                 ((FrameMetadata)frame.metadata).getTimestamp(),
-                DateTime.UtcNow.ToFileTimeUtc().ToString(), // Replaced the Metadata's timestamp since this wouldn't correlate to antyhing useful for outside tools
+                DateTime.Now.ToFileTimeUtc().ToString(), // Replaced the Metadata's timestamp since this wouldn't correlate to antyhing useful for outside tools
                 ((FrameMetadata)frame.metadata).getCounterHardware(),
                 min.ToString(CultureInfo.InvariantCulture),
                 max.ToString(CultureInfo.InvariantCulture),
