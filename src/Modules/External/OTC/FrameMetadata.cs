@@ -8,218 +8,280 @@
 // the SWIG interface file instead.
 //------------------------------------------------------------------------------
 
+using System.Globalization;
+using System.IO;
 using LWIR_app.Sensor;
 
-namespace Optris.OtcSdk {
-/// <summary>Encapsulates the metadata of frames provided by the devices.</summary>
-/// This metadata is passed alongside the frame data from the devices via the streaming interface (e.g. USB, Ethernet).
+namespace Optris.OtcSdk
+{
+  /// <summary>Encapsulates the metadata of frames provided by the devices.</summary>
+  /// This metadata is passed alongside the frame data from the devices via the streaming interface (e.g. USB, Ethernet).
 
-[global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
-public class FrameMetadata : BaseMetadata, global::System.IDisposable {
-  private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
-
-  internal FrameMetadata(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(FrameMetadata obj) {
-    return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(FrameMetadata obj) {
-    if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
-      global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.Dispose();
-      return ptr;
-    } else {
-      return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+  [global::System.CodeDom.Compiler.GeneratedCode("SWIG", "4.3.0")]
+  public class FrameMetadata : BaseMetadata, global::System.IDisposable
+  {
+    private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+    protected bool swigCMemOwn;
+    
+    public override void WriteHeader(BinaryWriter writer)
+    {
+      writer.Write(getTimestamp());
+      writer.Write(getCounter());
+      writer.Write(getCounterHardware());
     }
-  }
 
-  ~FrameMetadata() {
-    Dispose(false);
-  }
+    public override void WriteMetadataHeader(StreamWriter writer) =>
+      writer.Write("Frame,Timestamp,Counter,HardwareCounter,BoxTemp,ChipTemp,MinTemp,MaxTemp,MeanTemp,");
 
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
+    public override void WriteMetadata(StreamWriter writer, int frameIdx, float min, float max, double mean)
+    {
+      writer.Write(string.Join(",",
+      frameIdx,
+      DateTime.Now.ToFileTime().ToString(),
+      getCounter(),
+      getCounterHardware(),
+      getTemperatureBox(),
+      getTemperatureChip(),
+      min.ToString(CultureInfo.InvariantCulture),
+      max.ToString(CultureInfo.InvariantCulture),
+      mean.ToString(CultureInfo.InvariantCulture)
+      ));
+    }
 
-  protected virtual void Dispose(bool disposing) {
-    lock(this) {
-      if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          otcsdkPINVOKE.delete_FrameMetadata(swigCPtr);
-        }
-        swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+    internal FrameMetadata(global::System.IntPtr cPtr, bool cMemoryOwn)
+    {
+      swigCMemOwn = cMemoryOwn;
+      swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
+    }
+
+    internal static global::System.Runtime.InteropServices.HandleRef getCPtr(FrameMetadata obj)
+    {
+      return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
+    }
+
+    internal static global::System.Runtime.InteropServices.HandleRef swigRelease(FrameMetadata obj)
+    {
+      if (obj != null)
+      {
+        if (!obj.swigCMemOwn)
+          throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
+        global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
+        obj.swigCMemOwn = false;
+        obj.Dispose();
+        return ptr;
+      }
+      else
+      {
+        return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
-  }
 
-  ///  Constructor.
-  public FrameMetadata() : this(otcsdkPINVOKE.new_FrameMetadata(), true) {
-  }
+    ~FrameMetadata()
+    {
+      Dispose(false);
+    }
 
-  /// <summary>Indicates whether the provided thermal data is reliable.</summary>
-  /// During the initial startup calibration the provided thermal data is not reliable. This is
-  /// equivalent to the shutter flag being in the Initializing state
-  /// <returns>true if the provided thermal data is reliable. False otherwise.</returns>
-  public bool isThermalDataReliable() {
-    bool ret = otcsdkPINVOKE.FrameMetadata_isThermalDataReliable(swigCPtr);
-    return ret;
-  }
+    public void Dispose()
+    {
+      Dispose(true);
+      global::System.GC.SuppressFinalize(this);
+    }
 
-  /// <summary>Returns a consecutive number for each received frame.</summary>
-  /// <returns>consecutive number for each received frame.</returns>
-  public uint getCounter() {
-    uint ret = otcsdkPINVOKE.FrameMetadata_getCounter(swigCPtr);
-    return ret;
-  }
+    protected virtual void Dispose(bool disposing)
+    {
+      lock (this)
+      {
+        if (swigCPtr.Handle != global::System.IntPtr.Zero)
+        {
+          if (swigCMemOwn)
+          {
+            swigCMemOwn = false;
+            otcsdkPINVOKE.delete_FrameMetadata(swigCPtr);
+          }
+          swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+        }
+      }
+    }
 
-  /// <summary>Returns the frame number received from the device.</summary>
-  /// This counter may overflow.
-  /// <returns>frame number received from the device.</returns>
-  public uint getCounterHardware() {
-    uint ret = otcsdkPINVOKE.FrameMetadata_getCounterHardware(swigCPtr);
-    return ret;
-  }
+    ///  Constructor.
+    public FrameMetadata() : this(otcsdkPINVOKE.new_FrameMetadata(), true)
+    {
+    }
 
-  /// <summary>Returns the frame timestamp in UNITS (10000000 units per second).</summary>
-  /// <returns>frame timestamp in UNITS (10000000 units per second).</returns>
-  public long getTimestamp() {
-    long ret = otcsdkPINVOKE.FrameMetadata_getTimestamp(swigCPtr);
-    return ret;
-  }
+    /// <summary>Indicates whether the provided thermal data is reliable.</summary>
+    /// During the initial startup calibration the provided thermal data is not reliable. This is
+    /// equivalent to the shutter flag being in the Initializing state
+    /// <returns>true if the provided thermal data is reliable. False otherwise.</returns>
+    public bool isThermalDataReliable()
+    {
+      bool ret = otcsdkPINVOKE.FrameMetadata_isThermalDataReliable(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the media timestamp.</summary>
-  /// <returns>media timestamp.</returns>
-  public long getTimestampMedia() {
-    long ret = otcsdkPINVOKE.FrameMetadata_getTimestampMedia(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns a consecutive number for each received frame.</summary>
+    /// <returns>consecutive number for each received frame.</returns>
+    public uint getCounter()
+    {
+      uint ret = otcsdkPINVOKE.FrameMetadata_getCounter(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the state of the shutter flag at frame capturing time.</summary>
-  /// <returns>state of the shutter flag at frame capturing time.</returns>
-  public FlagState getFlagState() {
-    FlagState ret = (FlagState)otcsdkPINVOKE.FrameMetadata_getFlagState(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the frame number received from the device.</summary>
+    /// This counter may overflow.
+    /// <returns>frame number received from the device.</returns>
+    public uint getCounterHardware()
+    {
+      uint ret = otcsdkPINVOKE.FrameMetadata_getCounterHardware(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the shutter flag temperature in °C at frame capturing time.</summary>
-  /// <returns>shutter flag temperature in °C at frame capturing time.</returns>
-  public float getTemperatureFlag() {
-    float ret = otcsdkPINVOKE.FrameMetadata_getTemperatureFlag(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the frame timestamp in UNITS (10000000 units per second).</summary>
+    /// <returns>frame timestamp in UNITS (10000000 units per second).</returns>
+    public long getTimestamp()
+    {
+      long ret = otcsdkPINVOKE.FrameMetadata_getTimestamp(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the housing temperature in °C at frame capturing time.</summary>
-  /// <returns>housing temperature in °C at frame capturing time.</returns>
-  public float getTemperatureBox() {
-    float ret = otcsdkPINVOKE.FrameMetadata_getTemperatureBox(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the media timestamp.</summary>
+    /// <returns>media timestamp.</returns>
+    public long getTimestampMedia()
+    {
+      long ret = otcsdkPINVOKE.FrameMetadata_getTimestampMedia(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the sensor chip temperature in °C at frame capturing time.</summary>
-  /// <returns>sensor chip temperature in °C at frame capturing time.</returns>
-  public float getTemperatureChip() {
-    float ret = otcsdkPINVOKE.FrameMetadata_getTemperatureChip(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the state of the shutter flag at frame capturing time.</summary>
+    /// <returns>state of the shutter flag at frame capturing time.</returns>
+    public FlagState getFlagState()
+    {
+      FlagState ret = (FlagState)otcsdkPINVOKE.FrameMetadata_getFlagState(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the source of the standard emissivity value.</summary>
-  /// <returns>source of the standard emissivity value.</returns>
-  public RadiationParameterSource getEmissivitySource() {
-    RadiationParameterSource ret = (RadiationParameterSource)otcsdkPINVOKE.FrameMetadata_getEmissivitySource(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the shutter flag temperature in °C at frame capturing time.</summary>
+    /// <returns>shutter flag temperature in °C at frame capturing time.</returns>
+    public float getTemperatureFlag()
+    {
+      float ret = otcsdkPINVOKE.FrameMetadata_getTemperatureFlag(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the source of the standard transmissivity value.</summary>
-  /// <returns>source of the standard transmissivity value.</returns>
-  public RadiationParameterSource getTransmissivitySource() {
-    RadiationParameterSource ret = (RadiationParameterSource)otcsdkPINVOKE.FrameMetadata_getTransmissivitySource(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the housing temperature in °C at frame capturing time.</summary>
+    /// <returns>housing temperature in °C at frame capturing time.</returns>
+    public float getTemperatureBox()
+    {
+      float ret = otcsdkPINVOKE.FrameMetadata_getTemperatureBox(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the source of the standard ambient temperature value.</summary>
-  /// <returns>source of the standard ambient temperature value.</returns>
-  public RadiationParameterSource getAmbientTemperatureSource() {
-    RadiationParameterSource ret = (RadiationParameterSource)otcsdkPINVOKE.FrameMetadata_getAmbientTemperatureSource(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the sensor chip temperature in °C at frame capturing time.</summary>
+    /// <returns>sensor chip temperature in °C at frame capturing time.</returns>
+    public float getTemperatureChip()
+    {
+      float ret = otcsdkPINVOKE.FrameMetadata_getTemperatureChip(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the standard radiation parameters.</summary>
-  /// The standard radiation parameters are used to process the thermal frame and all measurement fields that
-  /// do not specify a custom emissivity. Measurement fields with a custom emissivity, however, will still utilize
-  /// the transmissivity and ambient temperature from the standard radiation parameters.
-  /// <remarks>The standard radiation parameters may be modified via the process interface (PIF) and through           automated ambient temperature estimations. This method return the parameters set in the configuration           or via IRImager::setRadiationParameters().</remarks>
-  ///            To get the set/configured parameters see IRImager::getRadiationParameters().
-  /// <returns>standard radiation parameters.</returns>
-  public RadiationParameters getRadiationParameters() {
-    RadiationParameters ret = new RadiationParameters(otcsdkPINVOKE.FrameMetadata_getRadiationParameters(swigCPtr), true);
-    return ret;
-  }
+    /// <summary>Returns the source of the standard emissivity value.</summary>
+    /// <returns>source of the standard emissivity value.</returns>
+    public RadiationParameterSource getEmissivitySource()
+    {
+      RadiationParameterSource ret = (RadiationParameterSource)otcsdkPINVOKE.FrameMetadata_getEmissivitySource(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Sets the standard radiation parameters used to process the       frame. Intended for code paths that reconstruct a       FrameMetadata from an external source (ZMQ wire, recorded       frames, tests) where the SDK's internal processing pipeline       isn't the producer of this metadata.</summary>
-  /// <param name="radiation"> the radiation parameters to store.</param>
-  public void setRadiationParameters(RadiationParameters radiation) {
-    otcsdkPINVOKE.FrameMetadata_setRadiationParameters(swigCPtr, RadiationParameters.getCPtr(radiation));
-    if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
-  }
+    /// <summary>Returns the source of the standard transmissivity value.</summary>
+    /// <returns>source of the standard transmissivity value.</returns>
+    public RadiationParameterSource getTransmissivitySource()
+    {
+      RadiationParameterSource ret = (RadiationParameterSource)otcsdkPINVOKE.FrameMetadata_getTransmissivitySource(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the analog input value on the given PIF channel.</summary>
-  /// <remarks>The input values returned from channels on PIF devices that are just configurable but not</remarks><param name="deviceIndex"> of the PIF device.</param> 
-  /// <param name="pinIndex">    of the pin on the specified PIF device.</param> 
-  /// <returns>analog input value on the given PIF channel.</returns> 
-  /// <exception cref="SDKException"> if either the device or pin index is out of range.</exception>
-  public float getPifAiValue(int deviceIndex, int pinIndex) {
-    float ret = otcsdkPINVOKE.FrameMetadata_getPifAiValue(swigCPtr, deviceIndex, pinIndex);
-    return ret;
-  }
+    /// <summary>Returns the source of the standard ambient temperature value.</summary>
+    /// <returns>source of the standard ambient temperature value.</returns>
+    public RadiationParameterSource getAmbientTemperatureSource()
+    {
+      RadiationParameterSource ret = (RadiationParameterSource)otcsdkPINVOKE.FrameMetadata_getAmbientTemperatureSource(swigCPtr);
+      return ret;
+    }
 
-  /// <summary>Returns the digital input value on the given PIF channel.</summary>
-  /// <remarks>The input values returned from channels on PIF devices that are just configurable but not</remarks><param name="deviceIndex"> of the PIF device.</param> 
-  /// <param name="pinIndex">    of the pin on the specified PIF device.</param> 
-  /// <returns>digital input value on the given PIF channel.</returns> 
-  /// <exception cref="SDKException"> if either the device or pin index is out of range.</exception>
-  public bool getPifDiValue(int deviceIndex, int pinIndex) {
-    bool ret = otcsdkPINVOKE.FrameMetadata_getPifDiValue(swigCPtr, deviceIndex, pinIndex);
-    return ret;
-  }
+    /// <summary>Returns the standard radiation parameters.</summary>
+    /// The standard radiation parameters are used to process the thermal frame and all measurement fields that
+    /// do not specify a custom emissivity. Measurement fields with a custom emissivity, however, will still utilize
+    /// the transmissivity and ambient temperature from the standard radiation parameters.
+    /// <remarks>The standard radiation parameters may be modified via the process interface (PIF) and through           automated ambient temperature estimations. This method return the parameters set in the configuration           or via IRImager::setRadiationParameters().</remarks>
+    ///            To get the set/configured parameters see IRImager::getRadiationParameters().
+    /// <returns>standard radiation parameters.</returns>
+    public RadiationParameters getRadiationParameters()
+    {
+      RadiationParameters ret = new RadiationParameters(otcsdkPINVOKE.FrameMetadata_getRadiationParameters(swigCPtr), true);
+      return ret;
+    }
 
-  /// <summary>Returns the count of actually connected PIF devices.</summary>
-  /// <returns>count of actually connected PIF devices.</returns>
-  public int getPifActualDeviceCount() {
-    int ret = otcsdkPINVOKE.FrameMetadata_getPifActualDeviceCount(swigCPtr);
-    return ret;
-  }
+    /// <summary>Sets the standard radiation parameters used to process the       frame. Intended for code paths that reconstruct a       FrameMetadata from an external source (ZMQ wire, recorded       frames, tests) where the SDK's internal processing pipeline       isn't the producer of this metadata.</summary>
+    /// <param name="radiation"> the radiation parameters to store.</param>
+    public void setRadiationParameters(RadiationParameters radiation)
+    {
+      otcsdkPINVOKE.FrameMetadata_setRadiationParameters(swigCPtr, RadiationParameters.getCPtr(radiation));
+      if (otcsdkPINVOKE.SWIGPendingException.Pending) throw otcsdkPINVOKE.SWIGPendingException.Retrieve();
+    }
 
-  /// <summary>Returns the count of configurable PIF devices.</summary>
-  /// <returns>count of configurable PIF devices.</returns>
-  public int getPifConfigurableDeviceCount() {
-    int ret = otcsdkPINVOKE.FrameMetadata_getPifConfigurableDeviceCount(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the analog input value on the given PIF channel.</summary>
+    /// <remarks>The input values returned from channels on PIF devices that are just configurable but not</remarks><param name="deviceIndex"> of the PIF device.</param> 
+    /// <param name="pinIndex">    of the pin on the specified PIF device.</param> 
+    /// <returns>analog input value on the given PIF channel.</returns> 
+    /// <exception cref="SDKException"> if either the device or pin index is out of range.</exception>
+    public float getPifAiValue(int deviceIndex, int pinIndex)
+    {
+      float ret = otcsdkPINVOKE.FrameMetadata_getPifAiValue(swigCPtr, deviceIndex, pinIndex);
+      return ret;
+    }
 
-  /// <summary>Returns the count of analog input channels per PIF device.</summary>
-  /// <returns>count of analog input channels per PIF device.</returns>
-  public int getPifAiCountPerDevice() {
-    int ret = otcsdkPINVOKE.FrameMetadata_getPifAiCountPerDevice(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the digital input value on the given PIF channel.</summary>
+    /// <remarks>The input values returned from channels on PIF devices that are just configurable but not</remarks><param name="deviceIndex"> of the PIF device.</param> 
+    /// <param name="pinIndex">    of the pin on the specified PIF device.</param> 
+    /// <returns>digital input value on the given PIF channel.</returns> 
+    /// <exception cref="SDKException"> if either the device or pin index is out of range.</exception>
+    public bool getPifDiValue(int deviceIndex, int pinIndex)
+    {
+      bool ret = otcsdkPINVOKE.FrameMetadata_getPifDiValue(swigCPtr, deviceIndex, pinIndex);
+      return ret;
+    }
 
-  /// <summary>Returns the count of digital input channels per PIF device.</summary>
-  /// <returns>count of digital input channels per PIF device.</returns>
-  public int getPifDiCountPerDevice() {
-    int ret = otcsdkPINVOKE.FrameMetadata_getPifDiCountPerDevice(swigCPtr);
-    return ret;
-  }
+    /// <summary>Returns the count of actually connected PIF devices.</summary>
+    /// <returns>count of actually connected PIF devices.</returns>
+    public int getPifActualDeviceCount()
+    {
+      int ret = otcsdkPINVOKE.FrameMetadata_getPifActualDeviceCount(swigCPtr);
+      return ret;
+    }
 
-}
+    /// <summary>Returns the count of configurable PIF devices.</summary>
+    /// <returns>count of configurable PIF devices.</returns>
+    public int getPifConfigurableDeviceCount()
+    {
+      int ret = otcsdkPINVOKE.FrameMetadata_getPifConfigurableDeviceCount(swigCPtr);
+      return ret;
+    }
+
+    /// <summary>Returns the count of analog input channels per PIF device.</summary>
+    /// <returns>count of analog input channels per PIF device.</returns>
+    public int getPifAiCountPerDevice()
+    {
+      int ret = otcsdkPINVOKE.FrameMetadata_getPifAiCountPerDevice(swigCPtr);
+      return ret;
+    }
+
+    /// <summary>Returns the count of digital input channels per PIF device.</summary>
+    /// <returns>count of digital input channels per PIF device.</returns>
+    public int getPifDiCountPerDevice()
+    {
+      int ret = otcsdkPINVOKE.FrameMetadata_getPifDiCountPerDevice(swigCPtr);
+      return ret;
+    }
+
+  }
 
 }

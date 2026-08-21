@@ -23,7 +23,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         sessionDirectory = Path.Combine(settings.baseDirectory, $"{DateTime.Now:yyyy-MM-dd}");
 
-        sessionDirectory = Path.Combine(sessionDirectory, ProjectDetails.ProjectName);
+        sessionDirectory = Path.Combine(sessionDirectory, SensorManager.ProjectName);
 
         sessionDirectory = Path.Combine(sessionDirectory, $"LWIR");
 
@@ -177,9 +177,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         writer.Write(settings.camera_width);
         writer.Write(settings.camera_height);
-        writer.Write(((FrameMetadata)frame.metadata).getTimestamp());
-        writer.Write(((FrameMetadata)frame.metadata).getCounter());
-        writer.Write(((FrameMetadata)frame.metadata).getCounterHardware());
+        frame.metadata.WriteHeader(writer);
     }
 
     private void WriteMetadataRow(FrameRecord frame)
@@ -197,18 +195,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         double mean = sum / frame.data.Length;
 
-        metadataWriter!.WriteLine(
-            string.Join(",",
-                frameIndex,
-                ((FrameMetadata)frame.metadata).getTimestamp(),
-                DateTime.Now.ToFileTimeUtc().ToString(), // Replaced the Metadata's timestamp since this wouldn't correlate to antyhing useful for outside tools
-                ((FrameMetadata)frame.metadata).getCounterHardware(),
-                min.ToString(CultureInfo.InvariantCulture),
-                max.ToString(CultureInfo.InvariantCulture),
-                mean.ToString(CultureInfo.InvariantCulture),
-                ((FrameMetadata)frame.metadata).getTemperatureBox().ToString(CultureInfo.InvariantCulture),
-                ((FrameMetadata)frame.metadata).getTemperatureChip().ToString(CultureInfo.InvariantCulture)));
+        frame.metadata.WriteMetadata(metadataWriter!, frameIndex, min, max, mean);
 
-        metadataWriter.Flush();
+        metadataWriter!.Flush();
     }
 }

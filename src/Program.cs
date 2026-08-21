@@ -9,7 +9,7 @@ namespace LWIR_app
         [STAThread]
         static void Main(string[] args)
         {
-            ProjectDetails.Import(args);
+            SensorManager.ImportProjectConfig(args);
 
             AppDomain.CurrentDomain.FirstChanceException += (_, eventArgs) =>
             {
@@ -20,10 +20,6 @@ namespace LWIR_app
             {
                 LogException(eventArgs.ExceptionObject as Exception ?? new Exception("Unknown unhandled exception"));
             };
-
-            Sdk.init(Verbosity.Off, Verbosity.Off, "LWIR_app");
-
-            EnumerationManager.getInstance().addEthernetDetector("192.168.0.0/24");
 
             try
             {

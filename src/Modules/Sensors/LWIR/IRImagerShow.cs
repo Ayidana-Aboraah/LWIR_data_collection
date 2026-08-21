@@ -85,6 +85,12 @@ namespace LWIR_app.Sensor.LWIR
             roi = new();
         }
 
+        public static void init()
+        {
+            Sdk.init(Verbosity.Off, Verbosity.Off, "LWIR_app");
+            EnumerationManager.getInstance().addEthernetDetector("192.168.0.0/24");
+        }
+
         public StackPanel UI() => UI_Panel;
 
         public FrameworkElement Footer() => footer;
@@ -168,7 +174,7 @@ namespace LWIR_app.Sensor.LWIR
         public void RefreshFlag()
         {
             if (!IsConnected) return;
-            
+
             try
             {
                 Imager.forceFlagEvent();
@@ -247,7 +253,7 @@ namespace LWIR_app.Sensor.LWIR
                 counter.trigger();
             }
 
-            if (!recording || frameEvent.thermalFrame.getSize() != Imager.getWidth() * Imager.getHeight()) return;
+            if (!recording || !frameEvent.meta.isThermalDataReliable() || frameEvent.thermalFrame.getSize() != Imager.getWidth() * Imager.getHeight()) return;
 
             float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
 

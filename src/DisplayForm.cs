@@ -23,7 +23,6 @@ namespace LWIR_app
         private readonly DispatcherTimer uiUpdateTimer = new();
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
-        private SensorBase current_sensor;
         private UniversalRecorder recorder;
         private Display display;
         private RecordingGroup recordingGroup;
@@ -41,12 +40,7 @@ namespace LWIR_app
         public DisplayForm()
         {
             // DEBUG: TODO: remove after debug setup
-            current_sensor = ProjectDetails.BaseSensor switch
-            {
-                // "NIR" =>
-                _ => imagerShow
-            };
-            recorder = new UniversalRecorder(current_sensor);
+            recorder = new UniversalRecorder(SensorManager.current_sensor);
             recordingGroup = new RecordingGroup(recorder);
             playback = new PlaybackGroup();
             display = new Display(recorder);
@@ -170,7 +164,7 @@ namespace LWIR_app
             stack.Children.Add(display.BuildRoiPreviewGroup());
             stack.Children.Add(recordingGroup);
             stack.Children.Add(playback);
-            stack.Children.Add(current_sensor.UI());
+            stack.Children.Add(SensorManager.current_sensor.UI());
 
             scrollViewer.Content = stack;
             panelBorder.Child = scrollViewer;
@@ -234,9 +228,9 @@ namespace LWIR_app
 
         private void UpdateUI()
         {
-            current_sensor.UI().Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
-            recordingGroup.Update(current_sensor.Connected());
-            current_sensor.UpdateUI();
+            SensorManager.current_sensor.UI().Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
+            recordingGroup.Update(SensorManager.current_sensor.Connected());
+            SensorManager.current_sensor.UpdateUI();
             playback.UpdateUI();
             display.UpdateUI();
         }
@@ -264,7 +258,7 @@ namespace LWIR_app
 
             imageConfigurationMenu.IsEnabled = connected;
             recordingGroup.Update(connected);
-            current_sensor.UpdateUI();
+            SensorManager.current_sensor.UpdateUI();
         }
         private void BuildPaletteMenu()
         {
