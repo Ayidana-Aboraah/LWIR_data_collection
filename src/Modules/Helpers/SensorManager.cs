@@ -1,9 +1,9 @@
 using System.IO;
-using LWIR_app.Sensor;
-using LWIR_app.Sensor.LWIR;
+using ThermalCamerApp.Camera;
+using ThermalCamerApp.Camera.LWIR;
 using Tommy;
 
-namespace LWIR_app;
+namespace ThermalCamerApp;
 
 public static class SensorManager
 {

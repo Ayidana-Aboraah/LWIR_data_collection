@@ -1,4 +1,4 @@
-namespace LWIR_app.classes
+namespace ThermalCamerApp.classes
 {
     public struct RecorderSettings
     {

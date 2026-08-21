@@ -1,10 +1,10 @@
 
-using LWIR_app.Sensor;
+using ThermalCamerApp.Camera;
 using Optris.OtcSdk;
 using System.IO;
 using RLE;
 
-namespace LWIR_app.classes
+namespace ThermalCamerApp.classes
 {
     public static class BinaryLoader
     {

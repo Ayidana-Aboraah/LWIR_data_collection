@@ -2,15 +2,15 @@ using System.Drawing;
 using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
-using LWIR_app.classes;
+using ThermalCamerApp.classes;
 
-namespace LWIR_app.Sensor;
+namespace ThermalCamerApp.Camera;
 
 public interface SensorBase
 {
     public abstract float findValue(int x, int y);
     public abstract Bitmap? Render();
-    public abstract void QuickConnect();
+    public abstract void Connect();
     public abstract void Disconnect();
     public abstract bool Connected();
     public abstract void UpdateROI(System.Windows.Point start, System.Windows.Point end);

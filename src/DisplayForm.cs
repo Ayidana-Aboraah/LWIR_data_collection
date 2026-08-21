@@ -6,16 +6,16 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using LWIR_app.classes;
-using LWIR_app.models;
+using ThermalCamerApp.classes;
+using ThermalCamerApp.models;
 using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
-using LWIR_app.UI;
-using LWIR_app.Sensor;
-using LWIR_app.Sensor.LWIR;
+using ThermalCamerApp.UI;
+using ThermalCamerApp.Camera;
+using ThermalCamerApp.Camera.LWIR;
 using System.Diagnostics;
 
-namespace LWIR_app
+namespace ThermalCamerApp
 {
     public sealed class DisplayForm : Window
     {
@@ -194,7 +194,7 @@ namespace LWIR_app
 
             try
             {
-                imagerShow.QuickConnect();
+                imagerShow.Connect();
                 PlaybackTool.Active = false;
             }
             catch (SDKException ex)

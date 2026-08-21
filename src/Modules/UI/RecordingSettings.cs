@@ -1,12 +1,12 @@
 using System.Windows;
 using System.Windows.Controls;
-using LWIR_app.classes;
-using LWIR_app.Sensor;
+using ThermalCamerApp.classes;
+using ThermalCamerApp.Camera;
 using Microsoft.Win32;
 using WpfBrushes = System.Windows.Media.Brushes;
 
 
-namespace LWIR_app.UI;
+namespace ThermalCamerApp.UI;
 
 public class RecordingGroup : GroupBox
 {

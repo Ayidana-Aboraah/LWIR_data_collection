@@ -2,7 +2,7 @@ using System.Windows;
 using Optris.OtcSdk;
 using System.IO;
 
-namespace LWIR_app
+namespace ThermalCamerApp
 {
     internal static class Program
     {

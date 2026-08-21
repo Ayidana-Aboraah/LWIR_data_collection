@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace LWIR_app.Sensor.LWIR.UI;
+namespace ThermalCamerApp.Camera.LWIR.UI;
 
 public class TemperatureScalingGroup : GroupBox
 {

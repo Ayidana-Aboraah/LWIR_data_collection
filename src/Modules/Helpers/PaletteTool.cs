@@ -2,7 +2,7 @@ using System.IO;
 using System.Windows.Media;
 using Microsoft.VisualBasic.FileIO;
 
-namespace LWIR_app.models
+namespace ThermalCamerApp.models
 {
     public static class PaletteTool
     {

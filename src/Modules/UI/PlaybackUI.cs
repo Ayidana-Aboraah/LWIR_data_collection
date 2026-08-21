@@ -1,8 +1,8 @@
 using System.Windows.Controls;
-using LWIR_app.classes;
+using ThermalCamerApp.classes;
 using System.Windows;
 
-namespace LWIR_app.UI;
+namespace ThermalCamerApp.UI;
 
 public class PlaybackGroup : GroupBox
 {

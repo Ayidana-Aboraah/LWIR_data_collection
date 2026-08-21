@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace LWIR_app.Sensor;
+namespace ThermalCamerApp.Camera;
 
 public class BaseMetadata
 {

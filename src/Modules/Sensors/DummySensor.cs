@@ -1,11 +1,11 @@
 using System.Threading.Channels;
 using System.Windows.Threading;
 using System.Windows.Controls;
-using LWIR_app.classes;
+using ThermalCamerApp.classes;
 using System.Drawing;
 using System.Windows;
 
-namespace LWIR_app.Sensor;
+namespace ThermalCamerApp.Camera;
 
 public class DummySensor : SensorBase
 {
@@ -36,7 +36,7 @@ public class DummySensor : SensorBase
 
     public Bitmap? Render() => null;
 
-    public void QuickConnect() { }
+    public void Connect() { }
     public void Disconnect() { }
     public bool Connected() => true;
     public void UpdateROI(System.Windows.Point a, System.Windows.Point b) => roi = new RegionOfInterest(a,b, 1);

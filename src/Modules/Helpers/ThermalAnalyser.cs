@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace LWIR_app.classes;
+namespace ThermalCamerApp.classes;
 
 //     public class ThermalAnalyser
 //     {

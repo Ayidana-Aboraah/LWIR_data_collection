@@ -8,12 +8,12 @@ using System.Globalization;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Drawing.Text;
-using LWIR_app.classes;
-using LWIR_app.Sensor;
+using ThermalCamerApp.classes;
+using ThermalCamerApp.Camera;
 using System.Windows;
 using System.Drawing;
 
-namespace LWIR_app.UI;
+namespace ThermalCamerApp.UI;
 
 public class Display
 {

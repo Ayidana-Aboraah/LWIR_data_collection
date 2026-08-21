@@ -1,8 +1,8 @@
-using LWIR_app.Sensor;
+using ThermalCamerApp.Camera;
 using System.IO;
 using RLE;
 
-namespace LWIR_app.classes;
+namespace ThermalCamerApp.classes;
 
 public struct YuriFrame
 {

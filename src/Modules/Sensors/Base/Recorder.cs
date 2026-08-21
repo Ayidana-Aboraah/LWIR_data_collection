@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using LWIR_app.classes;
+using ThermalCamerApp.classes;
 
-namespace LWIR_app.Sensor;
+namespace ThermalCamerApp.Camera;
 
 public class RecorderBase
 {

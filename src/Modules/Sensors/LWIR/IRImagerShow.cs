@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
-using LWIR_app.classes;
-using LWIR_app.Sensor.LWIR.UI;
+using ThermalCamerApp.classes;
+using ThermalCamerApp.Camera.LWIR.UI;
 using Optris.OtcSdk;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace LWIR_app.Sensor.LWIR
+namespace ThermalCamerApp.Camera.LWIR
 {
     /// <summary>
     /// A more feature rich implementation of an IRImagerClient that converts thermal frames to false color images and
@@ -147,7 +147,7 @@ namespace LWIR_app.Sensor.LWIR
         }
 
         /// Quickly connects to the first detected device on the USB port
-        public void QuickConnect()
+        public void Connect()
         {
             if (IsConnected) return;
 

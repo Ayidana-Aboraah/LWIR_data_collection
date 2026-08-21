@@ -1,10 +1,10 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using LWIR_app.models;
-using LWIR_app.Sensor;
+using ThermalCamerApp.models;
+using ThermalCamerApp.Camera;
 
-namespace LWIR_app.classes
+namespace ThermalCamerApp.classes
 {
     public sealed class PlaybackFrame : IDisposable
     {
