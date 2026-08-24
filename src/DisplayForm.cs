@@ -13,13 +13,12 @@ using WpfBrushes = System.Windows.Media.Brushes;
 using ThermalCamerApp.UI;
 using ThermalCamerApp.Camera;
 using ThermalCamerApp.Camera.LWIR;
-using System.Diagnostics;
 
 namespace ThermalCamerApp
 {
     public sealed class DisplayForm : Window
     {
-        private readonly IRImagerShow imagerShow = new();
+        // private readonly IRImagerShow imagerShow = new();
         private readonly DispatcherTimer uiUpdateTimer = new();
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 
@@ -33,7 +32,7 @@ namespace ThermalCamerApp
             new MenuItem { Header = "Connect With Configuration..."},
             new MenuItem { Header = "Disconnect", IsEnabled = false },
         ];
-        private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[4];
+        private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[3];
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 
@@ -99,7 +98,7 @@ namespace ThermalCamerApp
                 {
                     PlaybackTool.LoadFrames(BinaryLoader.LoadFrames(dialog.FileName));
                     PlaybackTool.Active = true;
-                    imagerShow.Disconnect();
+                    SensorManager.current_sensor.Disconnect();
                     UpdateUiOnConnectionStatus();
                 }
             };
@@ -173,11 +172,11 @@ namespace ThermalCamerApp
 
         private void Connect(string filename)
         {
-            if (imagerShow.IsConnected) return;
+            if (SensorManager.current_sensor.Connected()) return;
 
             try
             {
-                imagerShow.Connect(filename);
+                SensorManager.current_sensor.Connect(filename);
                 PlaybackTool.Active = false;
             }
             catch (SDKException ex)
@@ -190,11 +189,11 @@ namespace ThermalCamerApp
 
         private void QuickConnect()
         {
-            if (imagerShow.IsConnected) return;
+            if (SensorManager.current_sensor.Connected()) return;
 
             try
             {
-                imagerShow.Connect();
+                SensorManager.current_sensor.Connect();
                 PlaybackTool.Active = false;
             }
             catch (SDKException ex)
@@ -219,10 +218,10 @@ namespace ThermalCamerApp
 
         private void Disconnect()
         {
-            if (!imagerShow.IsConnected) return;
+            if (!SensorManager.current_sensor.Connected()) return;
 
             recorder.Stop();
-            imagerShow.Disconnect();
+            SensorManager.current_sensor.Disconnect();
             UpdateUiOnConnectionStatus();
         }
 
@@ -237,11 +236,11 @@ namespace ThermalCamerApp
 
         private void UpdateUiOnConnectionStatus()
         {
-            bool connected = imagerShow.IsConnected;
+            bool connected = SensorManager.current_sensor.Connected();
 
             if (connected || PlaybackTool.Active)
             {
-                string status = PlaybackTool.Active ? "Replay": imagerShow.GetDeviceType() + " (S/N " + imagerShow.GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
+                string status = PlaybackTool.Active ? "Replay": SensorManager.current_sensor.status();
                 Title = "Optris Imager - " + status;
                 display.UpdateUI();
                 uiUpdateTimer.Start();
@@ -278,7 +277,7 @@ namespace ThermalCamerApp
                     if (sender is not MenuItem item || item.Tag is not string) return;
 
                     SetSelectedPalette(palette);
-                    imagerShow.ChangePalette(palette);
+                    PaletteTool.SetPalette(palette);
                 };
                 colorPaletteMenu.Items.Add(item);
                 paletteMenuItems[palette] = item;

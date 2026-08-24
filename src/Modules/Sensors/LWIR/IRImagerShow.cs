@@ -9,6 +9,8 @@ using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using System.Globalization;
+using ThermalCamerApp.models;
 
 namespace ThermalCamerApp.Camera.LWIR
 {
@@ -215,23 +217,29 @@ namespace ThermalCamerApp.Camera.LWIR
 
                 imageBuilder.setThermalFrame(frameEvent.thermalFrame);
             }
-
-            imageBuilder.convertTemperatureToPaletteImage();
-
-            (int width, int height) = (imageBuilder.getWidth(), imageBuilder.getHeight());
-
-            byte[] image = new byte[imageBuilder.getImageSizeInBytes()];
-            imageBuilder.copyImageDataTo(image, image.Length);
+            ThermalFrame frame = frameEvent.thermalFrame; 
+            float[] temps = new float[frame.getSize()];
+            frame.copyTemperaturesTo(temps, temps.Length);
 
 
-            Rectangle rectangle = new Rectangle(0, 0, width, height);
-            Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+            return PaletteTool.Render(temps,MinRegion.temperature, MaxRegion.temperature, frame.getWidth(), frame.getHeight());
 
-            BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadWrite, bitmap.PixelFormat);
-            System.Runtime.InteropServices.Marshal.Copy(image, 0, bitmapData.Scan0, image.Length);
-            bitmap.UnlockBits(bitmapData);
+            // imageBuilder.convertTemperatureToPaletteImage();
 
-            return bitmap;
+            // (int width, int height) = (imageBuilder.getWidth(), imageBuilder.getHeight());
+
+            // byte[] image = new byte[imageBuilder.getImageSizeInBytes()];
+            // imageBuilder.copyImageDataTo(image, image.Length);
+
+
+            // Rectangle rectangle = new Rectangle(0, 0, width, height);
+            // Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+
+            // BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadWrite, bitmap.PixelFormat);
+            // System.Runtime.InteropServices.Marshal.Copy(image, 0, bitmapData.Scan0, image.Length);
+            // bitmap.UnlockBits(bitmapData);
+
+            // return bitmap;
         }
 
         // Calculates the position and temperature of the hottest and coldest region with the given radius.
@@ -289,6 +297,8 @@ namespace ThermalCamerApp.Camera.LWIR
             OperationMode mode = Imager.getActiveOperationMode();
             return (mode.getTemperatureLowerLimit(), mode.getTemperatureUpperLimit());
         }
+
+        public string status() => GetDeviceType() + " (S/N " + GetSerialNumber().ToString(CultureInfo.CurrentCulture) + ")";
 
         public void ChangePalette(string paletteName)
         {

@@ -6,15 +6,8 @@ using System.Windows;
 using System.Drawing;
 using Basler.Pylon;
 using RLE;
-using System.Net.Http.Headers;
 
 namespace ThermalCamerApp.Camera.NIR;
-
-public struct NIR_Config
-{
-    public int width;
-    public int height;
-}
 
 public class NIR : SensorBase
 {
@@ -29,7 +22,6 @@ public class NIR : SensorBase
 
     public float[] currentTemperatures;
     IGrabResult? currentFrame;
-    NIR_Config config;
 
     StackPanel UI_Panel = new StackPanel { };
     Border footer = new Border { };
@@ -49,6 +41,8 @@ public class NIR : SensorBase
     }
 
     // Connection
+    public void Connect(string filename) => Connect(); 
+
     public void Connect()
     {
         camera.Open();
@@ -58,19 +52,14 @@ public class NIR : SensorBase
 
         camera.StreamGrabber.Start();
 
-        config = new NIR_Config
-        {
-            width = (int)camera.Parameters[PLCameraLinkCamera.Width].GetValue(),
-            height = (int)camera.Parameters[PLCameraLinkCamera.Height].GetValue(),
-        };
-
         camera.StreamGrabber.ImageGrabbed += (object? sender, ImageGrabbedEventArgs args) =>
         {
             currentFrame = args.GrabResult;
             ConvertToFrameData();
+            recorderChannel.Writer.WriteAsync(new FrameRecord(currentFrame.Width, currentFrame.Height, currentTemperatures, new BaseMetadata()));
         };
     }
-    public bool Connected() => camera!.IsConnected; // TODO: REPLACE
+    public bool Connected() => camera!.IsConnected;
     public void Disconnect()
     {
         camera!.StreamGrabber.Stop();
@@ -79,8 +68,8 @@ public class NIR : SensorBase
 
     // ROI
     public RegionOfInterest ROI() => roi;
-    public void UpdateROI(System.Windows.Point start, System.Windows.Point end) => roi.Update(start, end, config.width);
-    public (int, int) Dimensions() => (config.width, config.height);
+    public void UpdateROI(System.Windows.Point start, System.Windows.Point end) => roi.Update(start, end, currentFrame!.Width);
+    public (int, int) Dimensions() => (currentFrame!.Width, currentFrame!.Height);
     public float findValue(int x, int y) => currentTemperatures[(y * currentFrame!.Width) + x];
 
     // External
@@ -92,7 +81,7 @@ public class NIR : SensorBase
     {
         if (camera!.StreamGrabber.IsGrabbing) return null;
 
-        Bitmap bitmap = new Bitmap(config.width, config.height, PixelFormat.Format32bppRgb);
+        Bitmap bitmap = new Bitmap(currentFrame!.Width, currentFrame!.Height, PixelFormat.Format32bppRgb);
         BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
         converter.OutputPixelFormat = PixelType.BGRA8packed; // Place the pointer to the buffer of the bitmap.
 
@@ -101,6 +90,7 @@ public class NIR : SensorBase
         return bitmap;
     }
 
+    public string status() => "";
     public StackPanel UI() => UI_Panel;
 
     public void UpdateUI() { }
@@ -108,4 +98,4 @@ public class NIR : SensorBase
     public void DisableUI() { }
 
     public FrameworkElement Footer() => footer;
-} 
+}

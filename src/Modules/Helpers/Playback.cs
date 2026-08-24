@@ -87,16 +87,9 @@ namespace ThermalCamerApp.classes
 
         public static PlaybackFrame RenderFrame(FrameRecord frame)
         {
-            float[] temperatures = frame.data;
-            if (temperatures == null || temperatures.Length == 0) throw new InvalidDataException("The playback frame does not contain any temperature data.");
-
-            (float frameMin, float frameMax, float frameMean) = CalculateStatistics(temperatures);
-            (float scaleMin, float scaleMax) = (frameMin, frameMax);
-
-            if (Math.Abs(scaleMax - scaleMin) < float.Epsilon) scaleMax = scaleMin + 0.0001f;
-
-            Bitmap bitmap = RenderBitmap(frame.width, frame.height, temperatures, scaleMin, scaleMax);
-            return new PlaybackFrame(frame, bitmap, scaleMin, scaleMax, frameMin, frameMax, frameMean);
+            (float min, float max, float mean) = CalculateStatistics(frame.data);
+            Bitmap bitmap = PaletteTool.Render(frame.data, min, max, frame.width, frame.height);
+            return new PlaybackFrame(frame, bitmap, min, max, min, max, mean);
         }
 
         public static async Task PlayAsync(CancellationToken cancellationToken = default) => await PlayAsync(null, cancellationToken).ConfigureAwait(false);
@@ -184,51 +177,6 @@ namespace ThermalCamerApp.classes
             }
 
             return (min, max, (float)(sum / temperatures.Length));
-        }
-
-        private static Bitmap RenderBitmap(int width, int height, float[] temperatures, float scaleMin, float scaleMax)
-        {
-            if (width <= 0 || height <= 0) throw new InvalidDataException("Cannot render a frame with empty dimensions.");
-
-            if (temperatures.Length != checked(width * height)) throw new InvalidDataException("Temperature data length does not match the frame dimensions.");
-
-            Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-            // WriteableBitmap wb = new WriteableBitmap(width, height, 70, 40, System.Windows.Media.PixelFormats.Rgb24, new BitmapPalette(imageBuilder.current_palette));
-            Rectangle rectangle = new Rectangle(0, 0, width, height);
-            // Int32Rect rect = new Int32Rect(0,0, width, height);
-            BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.WriteOnly, bitmap.PixelFormat);
-            try
-            {
-                int stride = bitmapData.Stride;
-                // int stride = wb.BackBufferStride;
-                byte[] pixels = new byte[stride * height];
-
-                for (int y = 0; y < height; y++)
-                {
-                    int sourceRowOffset = y * width;
-                    int destinationRowOffset = y * stride;
-
-                    for (int x = 0; x < width; x++)
-                    {
-                        (byte R, byte G, byte B) = PaletteTool.MapTemperatureToColor(temperatures[sourceRowOffset + x], scaleMin, scaleMax);
-                        int pixelOffset = destinationRowOffset + (x * 3);
-
-                        pixels[pixelOffset] = B;
-                        pixels[pixelOffset + 1] = G;
-                        pixels[pixelOffset + 2] = R;
-                    }
-                }
-
-                System.Runtime.InteropServices.Marshal.Copy(pixels, 0, bitmapData.Scan0, pixels.Length);
-                // wb.WritePixels(rect,pixels, stride, 0);
-            }
-            finally
-            {
-                bitmap.UnlockBits(bitmapData);
-            }
-
-            return bitmap;
-            // return wb;
         }
 
     }
