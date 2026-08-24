@@ -144,7 +144,7 @@ public class Display
         else
         {
             hasRoi = false;
-            recorder.sensor.ClearROI();
+            recorder.sensor.ROI().Clear();
         }
 
         e.Handled = true;
@@ -154,7 +154,7 @@ public class Display
     {
         hasRoi = false;
         isDraggingRoi = false;
-        recorder.sensor.ClearROI();
+        recorder.sensor.ROI().Clear();
         displayImage.ReleaseMouseCapture();
         e.Handled = true;
     }

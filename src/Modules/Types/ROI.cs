@@ -5,11 +5,13 @@ namespace ThermalCamerApp.classes
 {
     public class RegionOfInterest
     {
-        public int[] indexes;
-        public int width, height;
-        public bool active;
+        public int[] indexes = [];
+        public int width = 0, height = 0;
+        public bool active = false;
 
-        public RegionOfInterest() => indexes = [];
+        public RegionOfInterest() => Clear();
+
+        public RegionOfInterest(Point start, Point end, int frameWidth) => Update(start,end,frameWidth);
 
         public (float,float,float) Statistics(float[] temperatures){
             List<float> temps = new List<float>();
@@ -17,7 +19,8 @@ namespace ThermalCamerApp.classes
             return PlaybackTool.CalculateStatistics(temps.ToArray());
         }
 
-        public RegionOfInterest(Point start, Point end, int frameWidth)
+
+        public void Update(Point start, Point end, int frameWidth)
         {
             height  = (int) Math.Floor(end.Y - start.Y) + 1;
             width   = (int) Math.Floor(end.X - start.X) + 1;
@@ -29,6 +32,15 @@ namespace ThermalCamerApp.classes
                     indexes[count++] = ((((int)Math.Floor(start.Y)) + y) * frameWidth) + ((int)Math.Floor(start.X)) + x;
 
             active = true;
+        }
+
+        public bool HasROI() => indexes.Length > 0;
+
+        public void Clear()
+        {
+            indexes = [];
+            active = false;
+            (width, height) = (0, 0);
         }
 
         public (int, int) Dimensions() => (width, height);

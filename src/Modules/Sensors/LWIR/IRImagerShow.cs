@@ -43,8 +43,6 @@ namespace ThermalCamerApp.Camera.LWIR
 
         public int ActiveModeIndex { get { return activeModeIndex; } }
         public bool recording = false;
-
-
         Channel<FrameRecord> recorderChannel = Channel.CreateUnbounded<FrameRecord>(new UnboundedChannelOptions()
         {
             SingleReader = true,
@@ -55,7 +53,6 @@ namespace ThermalCamerApp.Camera.LWIR
         private TemperatureScalingGroup temperatureScaling;
         private LWIR_Footer footer;
         RegionOfInterest roi;
-        bool hasROI;
         private readonly DispatcherTimer flagRefreshTimer = new();
 
 
@@ -114,7 +111,7 @@ namespace ThermalCamerApp.Camera.LWIR
 
         public RegionOfInterest ROI() => roi;
 
-        public bool HasROI() => hasROI;
+        public bool HasROI() => roi.indexes.Length > 0;
 
         public void UpdateROI(System.Windows.Point start, System.Windows.Point end)
         {
@@ -122,12 +119,8 @@ namespace ThermalCamerApp.Camera.LWIR
             {
                 if (frameEvent.thermalFrame.isEmpty()) return;
             }
-            roi = new RegionOfInterest(start, end, frameEvent.thermalFrame.getWidth());
-            hasROI = true;
+            roi.Update(start, end, frameEvent.thermalFrame.getWidth());
         }
-
-        public void ClearROI() => hasROI = false;
-
 
         public float findValue(int x, int y)
         {
