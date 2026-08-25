@@ -1,6 +1,7 @@
 using System.Windows;
 using Optris.OtcSdk;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ThermalCamerApp
 {
@@ -9,7 +10,8 @@ namespace ThermalCamerApp
         [STAThread]
         static void Main(string[] args)
         {
-            SensorManager.ImportProjectConfig(args);
+            // SensorManager.ImportProjectConfig(args);
+            SensorManager.DebugImport("NIR");
 
             AppDomain.CurrentDomain.FirstChanceException += (_, eventArgs) =>
             {

@@ -6,36 +6,43 @@ using System.Windows;
 using System.Drawing;
 using Basler.Pylon;
 using RLE;
+using ThermalCamerApp.models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ThermalCamerApp.Camera.NIR;
+
+public struct NIR_Config
+{
+    public int Width, Height;
+}
 
 public class NIR : SensorBase
 {
     Basler.Pylon.Camera camera;
     RegionOfInterest roi = new();
-    PixelDataConverter converter = new PixelDataConverter();
+    PixelDataConverter converter;
     Channel<FrameRecord> recorderChannel = Channel.CreateUnbounded<FrameRecord>(new UnboundedChannelOptions()
     {
         SingleReader = true,
         SingleWriter = true,
     });
 
-    public float[] currentTemperatures;
-    IGrabResult? currentFrame;
+    NIR_Config config;
 
+    public float[] currentTemperatures = [];
     StackPanel UI_Panel = new StackPanel { };
     Border footer = new Border { };
 
     public NIR()
     {
-        camera = new Basler.Pylon.Camera("USB", CameraSelectionStrategy.FirstFound);
-        currentTemperatures = [];
+        camera = new Basler.Pylon.Camera(CameraSelectionStrategy.FirstFound);
+        converter = new PixelDataConverter();
     }
 
-    public void parseTemperatures()
+    public void parseTemperatures(IGrabResult currentFrame)
     {
         converter.OutputPixelFormat = PixelType.Mono16;
-        ushort[] values = new ushort[currentFrame!.PayloadSize];
+        ushort[] values = new ushort[currentFrame!.PayloadSize / 2];
         converter.Convert(values, currentFrame);
         currentTemperatures = DataConverter.IntToFloat(values);
     }
@@ -50,12 +57,14 @@ public class NIR : SensorBase
 
         camera.Parameters[PLCameraLinkCamera.PixelFormat].SetValue(PLCamera.PixelFormat.Mono12);
 
-        camera.StreamGrabber.Start();
+        camera.StreamGrabber.Start(GrabStrategy.LatestImages, GrabLoop.ProvidedByStreamGrabber);
 
         camera.StreamGrabber.ImageGrabbed += (object? sender, ImageGrabbedEventArgs args) =>
         {
-            currentFrame = args.GrabResult;
-            parseTemperatures();
+            var currentFrame = args.GrabResult;
+            parseTemperatures(currentFrame);
+            config.Width = currentFrame.Width;
+            config.Height = currentFrame.Height;
             recorderChannel.Writer.WriteAsync(new FrameRecord(currentFrame.Width, currentFrame.Height, currentTemperatures, new BaseMetadata()));
         };
     }
@@ -68,9 +77,9 @@ public class NIR : SensorBase
 
     // ROI
     public RegionOfInterest ROI() => roi;
-    public void UpdateROI(System.Windows.Point start, System.Windows.Point end) => roi.Update(start, end, currentFrame!.Width);
-    public (int, int) Dimensions() => (currentFrame!.Width, currentFrame!.Height);
-    public float findValue(int x, int y) => currentTemperatures[(y * currentFrame!.Width) + x];
+    public void UpdateROI(System.Windows.Point start, System.Windows.Point end) => roi.Update(start, end, config.Width);
+    public (int, int) Dimensions() => (config.Width, config.Height);
+    public float findValue(int x, int y) => currentTemperatures[(y * config.Width) + x];
 
     // External
     public void IsRecording(bool recording) { }
@@ -79,15 +88,10 @@ public class NIR : SensorBase
     // Rendering
     public Bitmap? Render()
     {
-        if (camera!.StreamGrabber.IsGrabbing) return null;
+        if (!camera!.StreamGrabber.IsGrabbing || currentTemperatures.Count() < 1) return null;
 
-        Bitmap bitmap = new Bitmap(currentFrame!.Width, currentFrame!.Height, PixelFormat.Format32bppRgb);
-        BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
-        converter.OutputPixelFormat = PixelType.BGRA8packed; // Place the pointer to the buffer of the bitmap.
-
-        converter.Convert(bmpData.Scan0, bmpData.Stride * bitmap.Height, currentFrame);
-        bitmap.UnlockBits(bmpData);
-        return bitmap;
+        (float min, float max, _) = PlaybackTool.CalculateStatistics(currentTemperatures);
+        return PaletteTool.Render(currentTemperatures, min, max, config.Width, config.Height);
     }
 
     public string status() => "";
