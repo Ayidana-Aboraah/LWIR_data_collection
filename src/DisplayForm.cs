@@ -1,6 +1,5 @@
 // Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,13 +11,11 @@ using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
 using ThermalCamerApp.UI;
 using ThermalCamerApp.Camera;
-using ThermalCamerApp.Camera.LWIR;
 
 namespace ThermalCamerApp
 {
     public sealed class DisplayForm : Window
     {
-        // private readonly IRImagerShow imagerShow = new();
         private readonly DispatcherTimer uiUpdateTimer = new();
         private readonly Dictionary<string, MenuItem> paletteMenuItems = new();
 

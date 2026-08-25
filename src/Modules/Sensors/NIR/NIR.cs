@@ -32,7 +32,7 @@ public class NIR : SensorBase
         currentTemperatures = [];
     }
 
-    public void ConvertToFrameData()
+    public void parseTemperatures()
     {
         converter.OutputPixelFormat = PixelType.Mono16;
         ushort[] values = new ushort[currentFrame!.PayloadSize];
@@ -55,7 +55,7 @@ public class NIR : SensorBase
         camera.StreamGrabber.ImageGrabbed += (object? sender, ImageGrabbedEventArgs args) =>
         {
             currentFrame = args.GrabResult;
-            ConvertToFrameData();
+            parseTemperatures();
             recorderChannel.Writer.WriteAsync(new FrameRecord(currentFrame.Width, currentFrame.Height, currentTemperatures, new BaseMetadata()));
         };
     }
