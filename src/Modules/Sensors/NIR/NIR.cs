@@ -30,7 +30,6 @@ public class NIR : SensorBase
     NIR_Config config;
 
     public float[] currentTemperatures = [];
-    StackPanel UI_Panel = new StackPanel { };
     Border footer = new Border { };
 
     public NIR()
@@ -45,6 +44,7 @@ public class NIR : SensorBase
         ushort[] values = new ushort[currentFrame!.PayloadSize / 2];
         converter.Convert(values, currentFrame);
         currentTemperatures = DataConverter.IntToFloat(values);
+        for (int i = 0; i < currentTemperatures.Length; i++) currentTemperatures[i] = (currentTemperatures[i] < 10) ? 0 : currentTemperatures[i];
     }
 
     // Connection
@@ -52,8 +52,7 @@ public class NIR : SensorBase
 
     public void Connect()
     {
-        camera.Open();
-        // TODO: Set up a parameters display ting
+        camera.Open(); // TODO: Set up a parameters display ting
 
         camera.Parameters[PLCameraLinkCamera.PixelFormat].SetValue(PLCamera.PixelFormat.Mono12);
 
@@ -68,7 +67,7 @@ public class NIR : SensorBase
             recorderChannel.Writer.WriteAsync(new FrameRecord(currentFrame.Width, currentFrame.Height, currentTemperatures, new BaseMetadata()));
         };
     }
-    public bool Connected() => camera!.IsConnected;
+    public bool Connected() => camera!.IsOpen;
     public void Disconnect()
     {
         camera!.StreamGrabber.Stop();
@@ -90,12 +89,22 @@ public class NIR : SensorBase
     {
         if (!camera!.StreamGrabber.IsGrabbing || currentTemperatures.Count() < 1) return null;
 
+
         (float min, float max, _) = PlaybackTool.CalculateStatistics(currentTemperatures);
         return PaletteTool.Render(currentTemperatures, min, max, config.Width, config.Height);
     }
 
     public string status() => "";
-    public StackPanel UI() => UI_Panel;
+    public StackPanel UI()
+    {
+        StackPanel panel = new StackPanel { Orientation = Orientation.Vertical};
+        
+        // TODO: Add Threshold
+        // TODO: Gain Slider
+        // TODO: Exposure Slider
+
+        return panel;
+    }
 
     public void UpdateUI() { }
 

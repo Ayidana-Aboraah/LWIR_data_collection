@@ -1,32 +1,34 @@
-using System.IO;
 using ThermalCamerApp.Camera;
 using ThermalCamerApp.Camera.LWIR;
 using ThermalCamerApp.Camera.NIR;
-using Tommy;
 
 namespace ThermalCamerApp;
 
 public static class SensorManager
 {
     public static string ProjectName = "";
+
+    public static string SensorName = "";
     public static SensorBase current_sensor;
 
     public static void ImportProjectConfig(string[] args)
     {
-        if (args.Length < 1) return;
+        if (args.Length == 0)
+        {
+            // TODO: Load Temp/dummy Sensor
+            // TODO: Put into Developer Mode
+            current_sensor = new IRImagerShow();
+            return;
+        }
 
         ProjectName = args[0];
+        SensorName = args[1];
 
-        var config = TOML.Parse(new StringReader(args[1]));
-
-        switch (config["sensorType"].AsString.ToString())
+        switch (SensorName)
         {
-            case "LWIR":
-                IRImagerShow.init();
-                current_sensor = new IRImagerShow();
+            case "LWIR": current_sensor = new IRImagerShow();
                 break;
-            case "NIR":
-                current_sensor = new NIR();
+            case "NIR": current_sensor = new NIR();
                 break;
         }
     }
@@ -35,8 +37,7 @@ public static class SensorManager
     {
         switch (sensor)
         {
-            case "LWIR": IRImagerShow.init();
-                current_sensor = new IRImagerShow();
+            case "LWIR": current_sensor = new IRImagerShow();
                 break;
             case "NIR": current_sensor = new NIR();
                 break;

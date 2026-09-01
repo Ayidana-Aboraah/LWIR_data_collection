@@ -11,6 +11,7 @@ using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
 using ThermalCamerApp.UI;
 using ThermalCamerApp.Camera;
+using System.Diagnostics;
 
 namespace ThermalCamerApp
 {
@@ -29,7 +30,12 @@ namespace ThermalCamerApp
             new MenuItem { Header = "Connect With Configuration..."},
             new MenuItem { Header = "Disconnect", IsEnabled = false },
         ];
+        private MenuItem[] DeviceOptions = [
+            new MenuItem { Header = "Long-Wave IR" },
+            new MenuItem { Header = "Short-Wave IR"},
+        ];
         private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[3];
+        private RoutedEventHandler[] DeviceSelection = new RoutedEventHandler[2];
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 
@@ -129,6 +135,20 @@ namespace ThermalCamerApp
                 DeviceInteractonsOptions[i].Click += DeviceInteractions[i];
             }
 
+            // #region Finish adding the Sensor Selection Later
+            // for (int i = 0; i < DeviceOptions.Length; i++)
+            // {
+            //     DeviceInteractonsOptions[0].Items.Add(DeviceOptions[i]);
+            //     DeviceOptions[i].Click += DeviceSelection[i];
+            // }
+            // // TODO: Append the open camera
+            // {
+            //     var y = EnumerationManager.getInstance().getDetectedDevices();
+            //     var x = Basler.Pylon.CameraFinder.Enumerate();
+            //     Debug.Write("");
+            // }
+            // #endregion
+
             imageConfigurationMenu.Items.Add(colorPaletteMenu);
 
             menuStrip.Items.Add(fileMenu);
@@ -155,7 +175,7 @@ namespace ThermalCamerApp
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
             };
 
-            var stack = new StackPanel{ Orientation = Orientation.Vertical };
+            var stack = new StackPanel { Orientation = Orientation.Vertical };
 
             stack.Children.Add(display.BuildRoiPreviewGroup());
             stack.Children.Add(recordingGroup);
@@ -237,7 +257,7 @@ namespace ThermalCamerApp
 
             if (connected || PlaybackTool.Active)
             {
-                string status = PlaybackTool.Active ? "Replay": SensorManager.current_sensor.status();
+                string status = PlaybackTool.Active ? "Replay" : SensorManager.current_sensor.status();
                 Title = "Optris Imager - " + status;
                 display.UpdateUI();
                 uiUpdateTimer.Start();
