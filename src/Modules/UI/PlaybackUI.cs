@@ -6,12 +6,16 @@ namespace ThermalCamerApp.UI;
 
 public class PlaybackGroup : GroupBox
 {
+    TextBlock text = new TextBlock
+    {
+        Text = "Current Frame: "
+    };
     Slider playback = new Slider
     {
         Value = 0,
         Minimum = 0,
         Maximum = 1,
-        TickFrequency = 1,
+        TickFrequency = 30,
         IsSnapToTickEnabled = true,
         Width = 200
     };
@@ -20,7 +24,7 @@ public class PlaybackGroup : GroupBox
     {
         Value = 1,
         Minimum = .25,
-        Maximum = 2,
+        Maximum = 3,
         TickFrequency = .25,
         IsSnapToTickEnabled = true,
         Width = 200
@@ -47,10 +51,17 @@ public class PlaybackGroup : GroupBox
             }
         };
 
-        playback_speed.ValueChanged += (_, _) => PlaybackTool.SetPlaybackRate(playback_speed.Value * 30);
+        playback_speed.ValueChanged += (_, _) => {
+            PlaybackTool.SetPlaybackRate(playback_speed.Value * 30);
+            // playback.TickFrequency = playback_speed.Value * 30;
+        };
 
-        playback.ValueChanged += (_, _) => PlaybackTool.currentIndex = (int)playback.Value;
-        
+        playback.ValueChanged += (_, _) => {
+            PlaybackTool.currentIndex = (int)playback.Value;
+            text.Text = $"Current Frame: {PlaybackTool.currentIndex}";
+        };
+
+        stack.Children.Add(text);
         stack.Children.Add(playback);
         stack.Children.Add(playback_speed);
         stack.Children.Add(play);

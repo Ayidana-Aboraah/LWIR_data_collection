@@ -2,60 +2,32 @@ using System.Windows;
 
 namespace ThermalCamerApp.classes;
 
-//     public class ThermalAnalyser
-//     {
-//         ThermalRecorder recorder;
+public class ThermalAnalyser
+{
+    public static (float Min, float Max, float Mean) CalculateStatistics(float[] temperatures)
+    {
+        (float min, float max) = (float.MaxValue, float.MinValue);
+        double sum = 0;
 
-//         RecordedFrame[] frameset;
+        foreach (float temperature in temperatures)
+        {
+            min = (temperature < min) ? temperature : min;
+            max = (temperature > max) ? temperature : max;
+            sum += temperature;
+        }
 
-//         RegionOfInterest roi;
+        return (min, max, (float)(sum / temperatures.Length));
+    }
 
-//         public ThermalAnalyser(ThermalRecorder recorder)
-//         {
-//             this.recorder = recorder;
-//         }
+    public static float FindRegionTemp(float[] temperatures, int x, int y, int width ,int height)
+    {
+        (_, _, var mean) = new RegionOfInterest(new Point(x, y), new Point(x+width, y+height), width).Statistics(temperatures);
+        return mean;    
+    }
+}
 
-//         public void Update()
-//         {
-//             var frameset = recorder.ReadFrames();
-
-//             if (frameset == null) return; // TODO: Don't draw
-
-//             uint[] indexes;
-
-//             float[][] temps = new float[frameset.Length][];
-
-//             // foreach (RecordedFrame frame in frameset)
-//             for (int i = 0; i < frameset.Length; i++)
-//             {
-//                 indexes = roi.indexes((uint)frameset[i].width);
-
-//                 for (int x = 0; i < indexes.Length; i++) temps[i][x] = frameset[x].temperatures[x];
-
-//                 // TODO: Generate statistics
-//             }
-
-//             // TODO: Average Statistics
-//             // TODO: Update Plot (temp against frameidx)
-//             // TODO: Update Statistics Text
-//         }
-
-//         public void GenerateFrameStatistics(float[][] temperatures_set, uint set_size)
-//         {
-//             float fps = 60; // S0, 60 frames to get 1 sec
-//             float[][] averages = new float[temperatures_set.Length][];
-//             for (int i = 0; i < temperatures_set[0].Length; i++)
-//             {
-//                 // for (InitializingNewItemEventArgs)
-//             }
-//             // TODO: 
-//             // TODO: RMS based on set size
-//             // TODO: Compare by setsize
-//         }
-//     }
-
-//     public struct ThermalStatistics
-//     {
-//         double thermal_derivative;
-//         double mean_temperature;
-//     }
+public struct ThermalStatistics
+{
+    double thermal_derivative;
+    double mean_temperature;
+}

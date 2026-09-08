@@ -1,8 +1,9 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Windows.Media;
 using Microsoft.VisualBasic.FileIO;
+using ThermalCamerApp.Camera;
+using ThermalCamerApp.classes;
 using Color = System.Windows.Media.Color;
 
 namespace ThermalCamerApp.models
@@ -82,6 +83,12 @@ namespace ThermalCamerApp.models
             if (Math.Abs(max - min) < float.Epsilon) max = min + 0.0001f;
 
             return RenderBitmap(width, height, temperatures, min, max);
+        }
+
+        public static Bitmap Render(FrameRecord frame)
+        {
+            (float max, float min, _) = ThermalAnalyser.CalculateStatistics(frame.data);
+            return Render(frame.data, min, max, frame.width, frame.height);
         }
 
         private static Bitmap RenderBitmap(int width, int height, float[] temperatures, float scaleMin, float scaleMax)

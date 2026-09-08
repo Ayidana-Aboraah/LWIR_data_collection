@@ -11,7 +11,6 @@ using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
 using ThermalCamerApp.UI;
 using ThermalCamerApp.Camera;
-using System.Diagnostics;
 
 namespace ThermalCamerApp
 {
@@ -35,7 +34,7 @@ namespace ThermalCamerApp
             new MenuItem { Header = "Short-Wave IR"},
         ];
         private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[3];
-        private RoutedEventHandler[] DeviceSelection = new RoutedEventHandler[2];
+        // private RoutedEventHandler[] DeviceSelection = new RoutedEventHandler[2];
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 
@@ -93,13 +92,15 @@ namespace ThermalCamerApp
             var fileMenu = new MenuItem { Header = "File" };
             var LoadFrame = new MenuItem { Header = "Load Frame" };
             var LoadFrameSet = new MenuItem { Header = "Load Frame Set" };
+            var ExportVideo = new MenuItem { Header = "Export Video" };
             var quitMenu = new MenuItem { Header = "Quit" };
             LoadFrame.Click += (_, _) =>
             {
                 OpenFileDialog dialog = new OpenFileDialog();
                 if (dialog.ShowDialog() == true)
                 {
-                    PlaybackTool.LoadFrames(BinaryLoader.LoadFrames(dialog.FileName));
+                    // PlaybackTool.LoadFrames(BinaryLoader.LoadFrames(dialog.FileName));
+                    PlaybackTool.LoadFrames(BinaryLoader.LoadFramesAndMarkers(dialog.FileName));
                     PlaybackTool.Active = true;
                     SensorManager.current_sensor.Disconnect();
                     UpdateUiOnConnectionStatus();
@@ -120,6 +121,13 @@ namespace ThermalCamerApp
             };
             fileMenu.Items.Add(LoadFrameSet);
 
+            ExportVideo.Click += (_, _) =>
+            {
+                OpenFolderDialog dialog = new OpenFolderDialog();
+                if (dialog.ShowDialog() == true) VideoHelper.LoadFramesAsVideo(640, 480, dialog.FolderName);
+            };
+            fileMenu.Items.Add(ExportVideo);
+
             quitMenu.Click += (_, _) =>
             {
                 Disconnect();
@@ -135,19 +143,17 @@ namespace ThermalCamerApp
                 DeviceInteractonsOptions[i].Click += DeviceInteractions[i];
             }
 
-            // #region Finish adding the Sensor Selection Later
-            // for (int i = 0; i < DeviceOptions.Length; i++)
-            // {
-            //     DeviceInteractonsOptions[0].Items.Add(DeviceOptions[i]);
-            //     DeviceOptions[i].Click += DeviceSelection[i];
-            // }
-            // // TODO: Append the open camera
-            // {
-            //     var y = EnumerationManager.getInstance().getDetectedDevices();
-            //     var x = Basler.Pylon.CameraFinder.Enumerate();
-            //     Debug.Write("");
-            // }
-            // #endregion
+            if (SensorManager.OperatorMode)
+            {
+                bool[] connectedSensors = SensorManager.ActiveSensors();
+
+                for (int i = 0; i < DeviceOptions.Length; i++)
+                {
+                    DeviceInteractonsOptions[0].Items.Add(DeviceOptions[i]);
+                    DeviceOptions[i].Click += (_, _) => SensorManager.SetSensor(i);
+                    DeviceOptions[i].Visibility = connectedSensors[i] ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
 
             imageConfigurationMenu.Items.Add(colorPaletteMenu);
 

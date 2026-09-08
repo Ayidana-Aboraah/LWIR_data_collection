@@ -16,7 +16,7 @@ namespace ThermalCamerApp.classes
         public (float,float,float) Statistics(float[] temperatures){
             List<float> temps = new List<float>();
             for(int i = 0; i < indexes.Length; i++)temps.Add(temperatures[indexes[i]]);
-            return PlaybackTool.CalculateStatistics(temps.ToArray());
+            return ThermalAnalyser.CalculateStatistics(temps.ToArray());
         }
 
 

@@ -1,6 +1,4 @@
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using ThermalCamerApp.models;
 using ThermalCamerApp.Camera;
 
@@ -32,12 +30,12 @@ namespace ThermalCamerApp.classes
 
     public static class PlaybackTool
     {
-        private static readonly List<FrameRecord> frames = new();
+        public static readonly List<FrameRecord> frames = new();
         private static readonly object gate = new();
         private static CancellationTokenSource? playbackCancellation;
         public static int currentIndex;
 
-        public static double FramesPerSecond { get; set; } = 10.0;
+        public static double FramesPerSecond { get; set; } = 30.0;
         public static bool IsPlaying { get; private set; }
         public static bool Active = false;
         public static int FrameCount => frames.Count;
@@ -87,7 +85,7 @@ namespace ThermalCamerApp.classes
 
         public static PlaybackFrame RenderFrame(FrameRecord frame)
         {
-            (float min, float max, float mean) = CalculateStatistics(frame.data);
+            (float min, float max, float mean) = ThermalAnalyser.CalculateStatistics(frame.data);
             Bitmap bitmap = PaletteTool.Render(frame.data, min, max, frame.width, frame.height);
             return new PlaybackFrame(frame, bitmap, min, max, min, max, mean);
         }
@@ -164,20 +162,6 @@ namespace ThermalCamerApp.classes
             }
         }
 
-        public static (float Min, float Max, float Mean) CalculateStatistics(float[] temperatures)
-        {
-            (float min, float max) = (float.MaxValue, float.MinValue);
-            double sum = 0;
-
-            foreach (float temperature in temperatures)
-            {
-                min = (temperature < min) ? temperature : min;
-                max = (temperature > max) ? temperature : max;
-                sum += temperature;
-            }
-
-            return (min, max, (float)(sum / temperatures.Length));
-        }
 
     }
 }

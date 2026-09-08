@@ -52,18 +52,72 @@ namespace ThermalCamerApp.classes
             return frames.ToArray();
         }
 
-        private static long[] LoadMarkers(BinaryReader reader, int width, int height)
+        public static FrameRecord[] LoadFramesAndMarkers(string path)
+        {
+            if (!File.Exists(path)) return [];
+
+            SaveDataType saveType = InferSaveType(path);
+            // TODO: Pass the Type into the Load Marked Frame Functions 
+
+            using FileStream stream = File.OpenRead(path);
+            using BinaryReader reader = new BinaryReader(stream);
+
+            int width = reader.ReadInt32();
+            int height = reader.ReadInt32();
+            if (IsPerFrameBinary(path))
+            {
+                long timestamp = reader.ReadInt64();
+                uint counter = reader.ReadUInt32();
+                uint hardwareCounter = reader.ReadUInt32();
+            }
+
+            if (width <= 0 || height <= 0) throw new InvalidDataException($"Invalid frame dimensions in '{path}'.");
+
+            return LoadMarkedFrames(reader, width, height);
+        }
+
+        // TODO: Implementing partial Loading
+        public static FrameRecord[] LoadMarkedFrames(BinaryReader reader, int width, int height)
+        {
+            var frameIdxes = LoadMarkers(reader, width, height);
+            List<FrameRecord> records = new List<FrameRecord>();
+
+            for (int i = 0; i < frameIdxes.Length - 1; i++)
+            {
+                List<RunLengthPair> frame = new List<RunLengthPair>();
+                reader.BaseStream.Position = frameIdxes[i];
+
+                int sum = 0;
+                while (sum < width * height)
+                {
+                    ushort val = reader.ReadUInt16();
+                    ushort run = reader.ReadUInt16();
+                    frame.Add(new RunLengthPair(val) { run = run });
+                    sum += run;
+                }
+                records.Add(new FrameRecord(width, height, DataConverter.IntToFloat(DataConverter.RLEToInt(frame.ToArray())), new BaseMetadata()));
+            }
+            return records.ToArray();
+        }
+
+        public static long[] LoadMarkers(BinaryReader reader, int width, int height)
         {
             // TODO: Revise the approach to looping through the file stream
             // Possible Issues:
             //  
             List<long> indexes = [];
             int sum = 0;
-            byte[] buffer = new byte[4];
-            while (reader.BaseStream.Read(buffer) > 0){
-                var len = BitConverter.ToUInt16(buffer[2..]); // TODO: Check that this loads properly
+            while (reader.BaseStream.Position < reader.BaseStream.Length)
+            {
+                _ = reader.ReadUInt16();
+                var len = reader.ReadUInt16();
+                // var len = BitConverter.ToUInt16(buffer[2..]); // TODO: Check that this loads properly
                 sum += len;
-                if (sum == width * height) indexes.Add(reader.BaseStream.Position); 
+                if (sum == width * height)
+                {
+                    indexes.Add(reader.BaseStream.Position);
+                    sum = 0;
+                }
             }
             return indexes.ToArray();
 

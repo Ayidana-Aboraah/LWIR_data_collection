@@ -296,6 +296,8 @@ public class Display
         int markerSize = 20;
         int markerSizeHalf = markerSize / 2;
 
+        // NOTE: perhaps try to scale the measurement box
+
         using Graphics graphics = Graphics.FromImage(bitmap);
         using GraphicsPath path = new GraphicsPath(FillMode.Winding);
         using System.Drawing.Brush fgBrush = new SolidBrush(fgColor);

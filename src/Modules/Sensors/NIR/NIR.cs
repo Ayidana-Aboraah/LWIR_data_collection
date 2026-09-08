@@ -90,7 +90,7 @@ public class NIR : SensorBase
         if (!camera!.StreamGrabber.IsGrabbing || currentTemperatures.Count() < 1) return null;
 
 
-        (float min, float max, _) = PlaybackTool.CalculateStatistics(currentTemperatures);
+        (float min, float max, _) = ThermalAnalyser.CalculateStatistics(currentTemperatures);
         return PaletteTool.Render(currentTemperatures, min, max, config.Width, config.Height);
     }
 

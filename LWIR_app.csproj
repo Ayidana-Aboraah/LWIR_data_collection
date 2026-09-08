@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="Basler.Pylon.NET.x64" Version="10.3.2.636" />
+    <PackageReference Include="FFMediaToolkit" Version="4.8.1" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
     <PackageReference Include="Tommy" Version="3.1.2" />
   </ItemGroup>
