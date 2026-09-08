@@ -11,7 +11,7 @@ namespace ThermalCamerApp
         [STAThread]
         static void Main(string[] args)
         {
-            FFmpegLoader.FFmpegPath = @"C:\Users\ayidana.aboraah\Downloads\ffmpeg-n7.1.3-43-g5a1f107b4c-win64-gpl-shared-7.1\ffmpeg-n7.1.3-43-g5a1f107b4c-win64-gpl-shared-7.1\bin";
+            // FFmpegLoader.FFmpegPath = @"C:\Users\ayidana.aboraah\Downloads\ffmpeg-n7.1.3-43-g5a1f107b4c-win64-gpl-shared-7.1\ffmpeg-n7.1.3-43-g5a1f107b4c-win64-gpl-shared-7.1\bin";
 
             IRImagerShow.init();
             SensorManager.ImportProjectConfig(args);

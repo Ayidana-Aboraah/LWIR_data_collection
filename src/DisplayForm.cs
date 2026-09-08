@@ -143,14 +143,17 @@ namespace ThermalCamerApp
                 DeviceInteractonsOptions[i].Click += DeviceInteractions[i];
             }
 
-            if (SensorManager.OperatorMode)
+            if (!SensorManager.OperatorMode)
             {
                 bool[] connectedSensors = SensorManager.ActiveSensors();
 
                 for (int i = 0; i < DeviceOptions.Length; i++)
                 {
                     DeviceInteractonsOptions[0].Items.Add(DeviceOptions[i]);
-                    DeviceOptions[i].Click += (_, _) => SensorManager.SetSensor(i);
+                    DeviceOptions[i].Click += (_, _) => { 
+                        Disconnect(); 
+                        SensorManager.SetSensor(i);
+                    };
                     DeviceOptions[i].Visibility = connectedSensors[i] ? Visibility.Visible : Visibility.Collapsed;
                 }
             }

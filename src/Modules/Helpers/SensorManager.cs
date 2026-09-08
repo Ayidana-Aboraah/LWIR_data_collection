@@ -30,11 +30,9 @@ public static class SensorManager
 
         switch (SensorName)
         {
-            case "LWIR":
-                current_sensor = new IRImagerShow();
+            case "LWIR": current_sensor = new IRImagerShow();
                 break;
-            case "NIR":
-                current_sensor = new NIR();
+            case "NIR": current_sensor = new NIR();
                 break;
         }
     }
@@ -42,9 +40,9 @@ public static class SensorManager
     public static void SetSensor(int i)
     {
         switch (i) {
-            case 0: current_sensor = new IRImagerShow();
-                break;
             case 1: current_sensor = new NIR();
+                break;
+            default: current_sensor = new IRImagerShow();
                 break;
         }
     }
