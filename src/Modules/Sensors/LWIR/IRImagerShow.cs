@@ -102,7 +102,6 @@ namespace ThermalCamerApp.Camera.LWIR
 
         public void UpdateUI()
         {
-            UI_Panel.Visibility = IsConnected  && SensorManager.OperatorMode ? Visibility.Visible : Visibility.Collapsed;
             temperatureScaling.UpdateUI();
             footer.UpdateUI();
         }

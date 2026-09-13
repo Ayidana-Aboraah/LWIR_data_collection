@@ -250,7 +250,10 @@ namespace ThermalCamerApp
 
         private void UpdateUI()
         {
-            SensorManager.current_sensor.UI().Visibility = PlaybackTool.Active ? Visibility.Collapsed : Visibility.Visible;
+            SensorManager.current_sensor.UI().Visibility =
+                PlaybackTool.Active || SensorManager.OperatorMode
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
             recordingGroup.Update(SensorManager.current_sensor.Connected());
             SensorManager.current_sensor.UpdateUI();
             playback.UpdateUI();
