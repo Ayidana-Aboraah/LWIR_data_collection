@@ -100,6 +100,22 @@ namespace ThermalCamerApp.classes
             return records.ToArray();
         }
 
+        public static FrameRecord LoadFrameFromMarker(BinaryReader reader, long marker, long width, long height)
+        {
+            // TODO: Move filestream to marker
+            reader.BaseStream.Position = marker;
+            // TODO: Copy until equal to a full frame
+            int sum = 0;
+            List<RunLengthPair> frame = [];
+            while (sum < width * height)
+            {
+                ushort val = reader.ReadUInt16();
+                ushort run = reader.ReadUInt16();
+                frame.Add(new RunLengthPair(val) { run = run });
+            }
+            return new FrameRecord((int)width, (int)height, DataConverter.IntToFloat(DataConverter.RLEToInt(frame.ToArray())), new BaseMetadata());
+        }
+
         public static long[] LoadMarkers(BinaryReader reader, int width, int height)
         {
             // TODO: Revise the approach to looping through the file stream

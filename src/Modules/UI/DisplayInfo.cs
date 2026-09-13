@@ -272,7 +272,53 @@ public class Display
 
         using Bitmap roiBitmap = sourceImage.Clone(roi, sourceImage.PixelFormat);
         roiPreviewImage.Source = ConvertBitmapToSource(roiBitmap);
-        roiPreviewInfo.Text = string.Format(CultureInfo.CurrentCulture, "{0} x {1} px", roi.Width, roi.Height);
+
+        if (TryGetRoiStatistics(roi, out (float Min, float Max, float Mean) statistics))
+        {
+            roiPreviewInfo.Text = string.Format(
+                CultureInfo.CurrentCulture,
+                "{0} x {1} px\nMin: {2:N1} C | Max: {3:N1} C | Mean: {4:N1} C",
+                roi.Width,
+                roi.Height,
+                statistics.Min,
+                statistics.Max,
+                statistics.Mean);
+        }
+        else
+        {
+            roiPreviewInfo.Text = string.Format(
+                CultureInfo.CurrentCulture,
+                "{0} x {1} px\nNo valid temperature data",
+                roi.Width,
+                roi.Height);
+        }
+    }
+
+    private bool TryGetRoiStatistics(Rectangle roi, out (float Min, float Max, float Mean) statistics)
+    {
+        List<float> temperatures = new(roi.Width * roi.Height);
+
+        for (int y = roi.Top; y < roi.Bottom; y++)
+        {
+            for (int x = roi.Left; x < roi.Right; x++)
+            {
+                float temperature = PlaybackTool.Active
+                    ? PlaybackTool.findTemp(x, y)
+                    : recorder.sensor.findValue(x, y);
+
+                if (!float.IsNaN(temperature) && !float.IsInfinity(temperature))
+                    temperatures.Add(temperature);
+            }
+        }
+
+        if (temperatures.Count == 0)
+        {
+            statistics = default;
+            return false;
+        }
+
+        statistics = ThermalAnalyser.CalculateStatistics(temperatures.ToArray());
+        return true;
     }
 
     private static void DrawRectangleOverlay(Bitmap bitmap, Rectangle rectangle, System.Drawing.Color color, float thickness)

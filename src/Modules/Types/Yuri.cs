@@ -10,7 +10,7 @@ public struct YuriFrame
     UInt16[] data;
 
     UInt16[] TimeTag = new UInt16[16];
-
+    
     enum HeaderPositions
     {
         Length = 0,
