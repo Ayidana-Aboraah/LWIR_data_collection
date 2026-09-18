@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WpfBrushes = System.Windows.Media.Brushes;
 
-namespace ThermalCamerApp.Camera.LWIR.UI;
+namespace SensorInterface.Sensor.LWIR.UI;
 
 public class LWIR_Footer : Border
 {

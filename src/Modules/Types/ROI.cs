@@ -1,7 +1,7 @@
 
 using System.Windows;
 
-namespace ThermalCamerApp.classes
+namespace SensorInterface.classes
 {
     public class RegionOfInterest
     {

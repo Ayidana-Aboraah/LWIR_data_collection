@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace ThermalCamerApp.Camera;
+namespace SensorInterface.Sensor;
 
 public class BaseMetadata
 {

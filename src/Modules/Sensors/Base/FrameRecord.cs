@@ -1,4 +1,4 @@
-namespace ThermalCamerApp.Camera;
+namespace SensorInterface.Sensor;
 
 public class FrameRecord
 {

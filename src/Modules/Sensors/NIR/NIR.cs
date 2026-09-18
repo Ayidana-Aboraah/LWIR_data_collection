@@ -1,15 +1,15 @@
 using System.Threading.Channels;
 using System.Windows.Controls;
-using ThermalCamerApp.classes;
+using SensorInterface.classes;
 using System.Drawing.Imaging;
 using System.Windows;
 using System.Drawing;
 using Basler.Pylon;
 using RLE;
-using ThermalCamerApp.models;
+using SensorInterface.models;
 using System.ComponentModel.DataAnnotations;
 
-namespace ThermalCamerApp.Camera.NIR;
+namespace SensorInterface.Sensor.NIR;
 
 public struct NIR_Config
 {

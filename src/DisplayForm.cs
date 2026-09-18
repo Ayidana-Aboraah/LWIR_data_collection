@@ -5,14 +5,14 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using ThermalCamerApp.classes;
-using ThermalCamerApp.models;
+using SensorInterface.classes;
+using SensorInterface.models;
 using Optris.OtcSdk;
 using WpfBrushes = System.Windows.Media.Brushes;
-using ThermalCamerApp.UI;
-using ThermalCamerApp.Camera;
+using SensorInterface.UI;
+using SensorInterface.Sensor;
 
-namespace ThermalCamerApp
+namespace SensorInterface
 {
     public sealed class DisplayForm : Window
     {
@@ -57,7 +57,7 @@ namespace ThermalCamerApp
 
         private void InitializeComponent()
         {
-            Title = "Optris Imager";
+            Title = "CCAM Sensor Interface";
             Width = 1538;
             Height = 879;
             MinWidth = 683;

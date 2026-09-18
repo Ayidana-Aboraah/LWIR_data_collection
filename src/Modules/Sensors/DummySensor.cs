@@ -1,11 +1,11 @@
 using System.Threading.Channels;
 using System.Windows.Threading;
 using System.Windows.Controls;
-using ThermalCamerApp.classes;
+using SensorInterface.classes;
 using System.Drawing;
 using System.Windows;
 
-namespace ThermalCamerApp.Camera;
+namespace SensorInterface.Sensor;
 
 public class DummySensor : SensorBase
 {

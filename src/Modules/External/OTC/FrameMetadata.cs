@@ -10,7 +10,7 @@
 
 using System.Globalization;
 using System.IO;
-using ThermalCamerApp.Camera;
+using SensorInterface.Sensor;
 
 namespace Optris.OtcSdk
 {

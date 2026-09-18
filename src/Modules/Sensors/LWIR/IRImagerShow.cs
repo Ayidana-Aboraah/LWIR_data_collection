@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2008-2025 Optris GmbH & Co. KG
 
-using ThermalCamerApp.classes;
-using ThermalCamerApp.Camera.LWIR.UI;
+using SensorInterface.classes;
+using SensorInterface.Sensor.LWIR.UI;
 using Optris.OtcSdk;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -10,9 +10,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Globalization;
-using ThermalCamerApp.models;
+using SensorInterface.models;
 
-namespace ThermalCamerApp.Camera.LWIR
+namespace SensorInterface.Sensor.LWIR
 {
     /// <summary>
     /// A more feature rich implementation of an IRImagerClient that converts thermal frames to false color images and

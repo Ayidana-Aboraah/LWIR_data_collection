@@ -1,8 +1,8 @@
 using System.Windows.Controls;
-using ThermalCamerApp.classes;
+using SensorInterface.classes;
 using System.Windows;
 
-namespace ThermalCamerApp.UI;
+namespace SensorInterface.UI;
 
 public class PlaybackGroup : GroupBox
 {

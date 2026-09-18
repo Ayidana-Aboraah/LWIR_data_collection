@@ -1,10 +1,10 @@
 using System.Windows;
 using Optris.OtcSdk;
 using System.IO;
-using ThermalCamerApp.Camera.LWIR;
+using SensorInterface.Sensor.LWIR;
 using FFMediaToolkit;
 
-namespace ThermalCamerApp
+namespace SensorInterface
 {
     internal static class Program
     {

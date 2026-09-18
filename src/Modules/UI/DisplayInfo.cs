@@ -8,12 +8,12 @@ using System.Globalization;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Drawing.Text;
-using ThermalCamerApp.classes;
-using ThermalCamerApp.Camera;
+using SensorInterface.classes;
+using SensorInterface.Sensor;
 using System.Windows;
 using System.Drawing;
 
-namespace ThermalCamerApp.UI;
+namespace SensorInterface.UI;
 
 public class Display
 {

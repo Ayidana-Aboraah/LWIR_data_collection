@@ -2,11 +2,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
-using ThermalCamerApp.Camera;
-using ThermalCamerApp.classes;
+using SensorInterface.Sensor;
+using SensorInterface.classes;
 using Color = System.Windows.Media.Color;
 
-namespace ThermalCamerApp.models
+namespace SensorInterface.models
 {
     public static class PaletteTool
     {

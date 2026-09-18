@@ -1,4 +1,4 @@
-namespace ThermalCamerApp.classes
+namespace SensorInterface.classes
 {
     public struct RecorderSettings
     {

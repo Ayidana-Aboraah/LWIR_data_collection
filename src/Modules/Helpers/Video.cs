@@ -3,9 +3,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using FFMediaToolkit.Encoding;
-using ThermalCamerApp.models;
+using SensorInterface.models;
 
-namespace ThermalCamerApp.classes;
+namespace SensorInterface.classes;
 
 public static class VideoHelper
 {

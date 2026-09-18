@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using ThermalCamerApp.classes;
+using SensorInterface.classes;
 
-namespace ThermalCamerApp.Camera;
+namespace SensorInterface.Sensor;
 
 public class RecorderBase
 {

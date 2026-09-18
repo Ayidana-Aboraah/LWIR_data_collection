@@ -2,12 +2,13 @@ using System.Drawing;
 using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
-using ThermalCamerApp.classes;
+using SensorInterface.classes;
 
-namespace ThermalCamerApp.Camera;
+namespace SensorInterface.Sensor;
 
 public interface SensorBase
 {
+    public abstract SensorConfig config();
     public abstract float findValue(int x, int y);
     public abstract Bitmap? Render();
     public abstract void Connect();

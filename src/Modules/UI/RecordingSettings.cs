@@ -1,12 +1,12 @@
 using System.Windows;
 using System.Windows.Controls;
-using ThermalCamerApp.classes;
-using ThermalCamerApp.Camera;
+using SensorInterface.classes;
+using SensorInterface.Sensor;
 using Microsoft.Win32;
 using WpfBrushes = System.Windows.Media.Brushes;
 
 
-namespace ThermalCamerApp.UI;
+namespace SensorInterface.UI;
 
 public class RecordingGroup : GroupBox
 {

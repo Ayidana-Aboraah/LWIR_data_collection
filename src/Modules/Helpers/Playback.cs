@@ -1,8 +1,8 @@
 using System.Drawing;
-using ThermalCamerApp.models;
-using ThermalCamerApp.Camera;
+using SensorInterface.models;
+using SensorInterface.Sensor;
 
-namespace ThermalCamerApp.classes
+namespace SensorInterface.classes
 {
     public sealed class PlaybackFrame : IDisposable
     {

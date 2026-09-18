@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ThermalCamerApp.Camera.LWIR;
+namespace SensorInterface.Sensor.LWIR;
 
 public class CameraSettingsGroup
 {

@@ -1,10 +1,10 @@
 using System.Globalization;
-using ThermalCamerApp.classes;
+using SensorInterface.classes;
 using Optris.OtcSdk;
 using System.IO;
 using RLE;
 
-namespace ThermalCamerApp.Camera;
+namespace SensorInterface.Sensor;
 
 public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 {
