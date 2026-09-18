@@ -24,17 +24,7 @@ namespace SensorInterface
         private RecordingGroup recordingGroup;
         private PlaybackGroup playback;
 
-        private MenuItem[] DeviceInteractonsOptions = [
-            new MenuItem { Header = "Quick Connect" },
-            new MenuItem { Header = "Connect With Configuration..."},
-            new MenuItem { Header = "Disconnect", IsEnabled = false },
-        ];
-        private MenuItem[] DeviceOptions = [
-            new MenuItem { Header = "Long-Wave IR" },
-            new MenuItem { Header = "Short-Wave IR"},
-        ];
-        private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[3];
-        // private RoutedEventHandler[] DeviceSelection = new RoutedEventHandler[2];
+        // private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[3];
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 
@@ -102,7 +92,6 @@ namespace SensorInterface
                     // PlaybackTool.LoadFrames(BinaryLoader.LoadFrames(dialog.FileName));
                     PlaybackTool.LoadFrames(BinaryLoader.LoadFramesAndMarkers(dialog.FileName));
                     PlaybackTool.Active = true;
-                    SensorManager.current_sensor.Disconnect();
                     UpdateUiOnConnectionStatus();
                 }
             };
@@ -115,7 +104,6 @@ namespace SensorInterface
                 {
                     PlaybackTool.LoadFrames(BinaryLoader.LoadFrameSet(dialog.FolderName));
                     PlaybackTool.Active = true;
-                    Disconnect();
                     UpdateUiOnConnectionStatus();
                 }
             };
@@ -128,32 +116,16 @@ namespace SensorInterface
             };
             fileMenu.Items.Add(ExportVideo);
 
-            quitMenu.Click += (_, _) =>
-            {
-                Disconnect();
-                Application.Current.Shutdown();
-            };
+            quitMenu.Click += (_, _) => Application.Current.Shutdown();
             fileMenu.Items.Add(quitMenu);
 
             var deviceMenu = new MenuItem { Header = "Device" };
 
-            for (int i = 0; i < DeviceInteractonsOptions.Length; i++)
-            {
-                deviceMenu.Items.Add(DeviceInteractonsOptions[i]);
-                DeviceInteractonsOptions[i].Click += DeviceInteractions[i];
-            }
-
-            if (SensorManager.OperatorMode)
-            {
-                bool[] connectedSensors = SensorManager.ActiveSensors();
-
-                for (int i = 0; i < DeviceOptions.Length; i++)
-                {
-                    DeviceInteractonsOptions[0].Items.Add(DeviceOptions[i]);
-                    DeviceOptions[i].Click += (_, _) => SensorManager.SetSensor(i);
-                    DeviceOptions[i].Visibility = connectedSensors[i] ? Visibility.Visible : Visibility.Collapsed;
-                }
-            }
+            // for (int i = 0; i < DeviceInteractonsOptions.Length; i++)
+            // {
+            //     deviceMenu.Items.Add(DeviceInteractonsOptions[i]);
+            //     DeviceInteractonsOptions[i].Click += DeviceInteractions[i];
+            // }
 
             imageConfigurationMenu.Items.Add(colorPaletteMenu);
 
@@ -186,104 +158,32 @@ namespace SensorInterface
             stack.Children.Add(display.BuildRoiPreviewGroup());
             stack.Children.Add(recordingGroup);
             stack.Children.Add(playback);
-            stack.Children.Add(SensorManager.current_sensor.UI());
+            foreach (SensorBase sensor in SensorManager.sensors) stack.Children.Add(sensor.UI());
 
             scrollViewer.Content = stack;
             panelBorder.Child = scrollViewer;
             return panelBorder;
         }
 
-        private void Connect(string filename)
-        {
-            if (SensorManager.current_sensor.Connected()) return;
-
-            try
-            {
-                SensorManager.current_sensor.Connect(filename);
-                PlaybackTool.Active = false;
-            }
-            catch (SDKException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            UpdateUiOnConnectionStatus();
-        }
-
-        private void QuickConnect()
-        {
-            if (SensorManager.current_sensor.Connected()) return;
-
-            try
-            {
-                SensorManager.current_sensor.Connect();
-                PlaybackTool.Active = false;
-            }
-            catch (SDKException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            UpdateUiOnConnectionStatus();
-        }
-
-        private void ConnectWithConfigSelection()
-        {
-            var openFileDialog = new OpenFileDialog
-            {
-                Title = "Please select the configuration file of the device to connect to...",
-                Filter = "XML configuration files (*.xml)|*.xml|All files (*.*)|*.*",
-                Multiselect = false
-            };
-
-            if (openFileDialog.ShowDialog() == true) Connect(openFileDialog.FileName);
-        }
-
-        private void Disconnect()
-        {
-            if (!SensorManager.current_sensor.Connected()) return;
-
-            recorder.Stop();
-            SensorManager.current_sensor.Disconnect();
-            UpdateUiOnConnectionStatus();
-        }
-
         private void UpdateUI()
         {
-            SensorManager.current_sensor.UI().Visibility =
-                PlaybackTool.Active || SensorManager.OperatorMode
-                    ? Visibility.Collapsed
-                    : Visibility.Visible;
-            recordingGroup.Update(SensorManager.current_sensor.Connected());
-            SensorManager.current_sensor.UpdateUI();
+            foreach (SensorBase sensor in SensorManager.sensors)
+            {
+                sensor.UI().Visibility =
+                    PlaybackTool.Active || SensorManager.OperatorMode
+                        ? Visibility.Collapsed
+                        : Visibility.Visible;
+                recordingGroup.Update(sensor.Connected());
+                sensor.UpdateUI();
+            }
+
             playback.UpdateUI();
             display.UpdateUI();
         }
 
         private void UpdateUiOnConnectionStatus()
         {
-            bool connected = SensorManager.current_sensor.Connected();
-
-            if (connected || PlaybackTool.Active)
-            {
-                string status = PlaybackTool.Active ? "Replay" : SensorManager.current_sensor.status();
-                Title = "Optris Imager - " + status;
-                display.UpdateUI();
-                uiUpdateTimer.Start();
-            }
-            else
-            {
-                Title = "Optris Imager";
-                display.Disable();
-                uiUpdateTimer.Stop();
-            }
-
-            int optionsLength = DeviceInteractonsOptions.Length;
-            for (int i = 0; i < optionsLength; i++) DeviceInteractonsOptions[i].IsEnabled = (i < optionsLength / 2) ? !connected : connected;
-
-            imageConfigurationMenu.IsEnabled = connected;
-            recordingGroup.Update(connected);
-            SensorManager.current_sensor.UpdateUI();
+            foreach (SensorBase sensor in SensorManager.sensors) sensor.UpdateUI();
         }
         private void BuildPaletteMenu()
         {

@@ -1,10 +1,10 @@
+using Tommy;
 using System.IO;
 using Optris.OtcSdk;
 using SensorInterface.classes;
 using SensorInterface.Sensor;
 using SensorInterface.Sensor.LWIR;
 using SensorInterface.Sensor.NIR;
-using Tommy;
 
 namespace SensorInterface;
 
@@ -21,17 +21,12 @@ public static class SensorManager
         {
             TomlTable sensorTable = sensor.AsTable;
             SensorConfig config = new SensorConfig(sensorTable["Name"], Enum.Parse<SaveDataType>(sensorTable["SaveType"].AsString.ToString()), Enum.Parse<SensorType>(sensorTable["SensorType"].AsString.ToString()), sensorTable["Settings"].AsTable);
-            switch (sensorTable["SensorType"].AsString.ToString())
+            sensors.Add( (sensorTable["SensorType"].AsString.ToString()) switch
             {
-                case "Optris_LWIR": sensors.Add(new IRImagerShow());
-                    break;
-
-                case "Basler_NIR": sensors.Add(new NIR());
-                    break;
-
-                case "Photodiode": 
-                    break;
-            }
+                "Optris_LWIR" => (new IRImagerShow()),
+                "Basler_NIR" => (new NIR()),
+                // "Photodiode" => ,
+            });
         }
     }
 
