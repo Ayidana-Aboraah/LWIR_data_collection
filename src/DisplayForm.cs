@@ -24,7 +24,6 @@ namespace SensorInterface
         private RecordingGroup recordingGroup;
         private PlaybackGroup playback;
 
-        // private RoutedEventHandler[] DeviceInteractions = new RoutedEventHandler[3];
         private MenuItem imageConfigurationMenu = new MenuItem { Header = "Image Configuration", IsEnabled = false };
         private MenuItem colorPaletteMenu = new MenuItem { Header = "Color Palette" };
 

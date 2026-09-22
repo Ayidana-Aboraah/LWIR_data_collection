@@ -16,7 +16,7 @@ public struct NIR_Config
     public int Width, Height;
 }
 
-public class NIR : SensorBase
+public class BaslerNIR : SensorBase
 {
     Basler.Pylon.Camera camera;
     RegionOfInterest roi = new();
@@ -32,7 +32,7 @@ public class NIR : SensorBase
     public float[] currentTemperatures = [];
     Border footer = new Border { };
 
-    public NIR()
+    public BaslerNIR()
     {
         camera = new Basler.Pylon.Camera(CameraSelectionStrategy.FirstFound);
         converter = new PixelDataConverter();

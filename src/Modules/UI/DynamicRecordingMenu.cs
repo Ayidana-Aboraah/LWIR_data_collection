@@ -2,13 +2,16 @@ using System.Windows;
 using System.Windows.Controls;
 using SensorInterface.Sensor;
 using SensorInterface.classes;
+using SensorInterface.models;
 
 namespace SensorInterface.UI;
 
-public class RecordingMenu
+public class RecordingMenu : GroupBox
 {
     SaveDataType saveType;
     private string savePath = @"D:\works\data_in\";
+
+    public bool recordROIOnly = false;
 
     private Button saveDirectory = new Button
     {
@@ -26,13 +29,34 @@ public class RecordingMenu
         IsEnabled = false,
     };
 
-    private CheckBox recordROIOnlyToggle = new CheckBox
+    public TextBox projectName = new TextBox
     {
-        Content = "Record Only ROI",
-        IsChecked = false,
-        Margin = new Thickness(0, 0, 0, 10),
-        IsEnabled = false,
+        TextWrapping = TextWrapping.Wrap,
+        Text = "[Type Project Name Here]"
     };
+
+    public RecordingMenu()
+    {
+        Header = "Recording";
+        StackPanel panel = new StackPanel() { };
+
+        Grid split = new Grid();
+        split.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        split.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+        Grid.SetColumn(saveDirectory, 0);
+        Grid.SetColumn(singleBinaryToggle, 1);
+        split.Children.Add(saveDirectory);
+        split.Children.Add(singleBinaryToggle);
+
+        panel.Children.Add(projectName);
+        panel.Children.Add(split);
+
+        foreach (SensorSet sensor in SensorManager.sensors.ToArray())
+            panel.Children.Add(BuildSensorOption(sensor.recorder));
+
+        Content = panel;
+    }
 
     // TODO: create a list of a grids for each recording thing
     private Grid BuildSensorOption(UniversalRecorder recorder)
@@ -46,18 +70,49 @@ public class RecordingMenu
             Padding = new Thickness(5, 0, 5, 0)
         };
 
+        Button ROIOnlyToggle = new Button
+        {
+            Content = "⌞ ⌝",
+            Background = Visuals.CCAM_Blue,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Height = 30,
+            Width = 30,
+        };
+        ROIOnlyToggle.Click += (_, _) =>
+        {
+            if (recordROIOnly)
+            {
+                ROIOnlyToggle.Background = Visuals.CCAM_Blue;
+                recordROIOnly = false;
+            }
+            else
+            {
+                ROIOnlyToggle.Background = Visuals.CCAM_Yellow;
+                recordROIOnly = true;
+            }
+        };
+
         Button record = new Button
         {
             Content = "▶︎",
+            Background = Visuals.CCAM_Blue,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
             Height = 30,
-            Margin = new Thickness(0, 0, 0, 10),
+            Width = 30,
         };
-        record.Click += (_,_) =>
+        record.Click += (_, _) =>
         {
-            if (recorder.recording) recorder.Stop();
-            else {
-                (int width, int height) = recorder.hasROI() ? recorder.sensor.ROI().Dimensions() : recorder.sensor.Dimensions() ;
-                
+            if (recorder.recording)
+            {
+                record.Background = Visuals.CCAM_Blue;
+                recorder.Stop();
+                record.Content = "▶︎";
+            }
+            else
+            {
+                (int width, int height) = recorder.hasROI() ? recorder.sensor.ROI().Dimensions() : recorder.sensor.Dimensions();
                 recorder.Start(new RecorderSettings
                 {
                     camera_width = width,
@@ -65,27 +120,30 @@ public class RecordingMenu
                     baseDirectory = savePath,
                     dataType = saveType,
                     singleBinary = singleBinaryToggle.IsChecked == true,
-                    recordROIOnly = recordROIOnlyToggle.IsChecked == true
+                    recordROIOnly = recordROIOnly,
                 });
+                record.Background = Visuals.Stop_Red;
+                record.Content = "⏸";
             }
         };
 
         Button connection = new Button
         {
             Content = "⏻",
+            Background = Visuals.CCAM_Blue,
             Height = 30,
             Margin = new Thickness(0, 0, 0, 10),
         };
-        connection.Click += (_,_) =>
+        connection.Click += (_, _) =>
         {
             if (recorder.sensor.Connected())
             {
-                // TODO: Set the colour for the Content to Yellow
+                connection.Background = Visuals.Grey;
                 recorder.sensor.Disconnect();
             }
             else
             {
-                // TODO: Set the Colour for the content to Blue
+                connection.Background = Visuals.Start_Green;
                 recorder.sensor.Connect();
             }
         };
@@ -94,11 +152,12 @@ public class RecordingMenu
         {
             Height = 32,
             IsEditable = false,
+            Background = Visuals.CCAM_Blue,
             ItemsSource = Enum.GetNames<SaveDataType>(),
-            SelectedIndex = (int) recorder.sensor.config().saveType,
+            SelectedIndex = (int)recorder.sensor.config().saveType,
             Padding = new Thickness(8, 4, 8, 4)
         };
-        compression.SelectionChanged += (_,_) => saveType = (SaveDataType)compression.SelectedIndex;
+        compression.SelectionChanged += (_, _) => saveType = (SaveDataType)compression.SelectedIndex;
 
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });

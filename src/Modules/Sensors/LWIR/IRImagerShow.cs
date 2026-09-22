@@ -51,9 +51,11 @@ namespace SensorInterface.Sensor.LWIR
             SingleWriter = true,
         });
 
-        StackPanel UI_Panel = new StackPanel { };
-        private TemperatureScalingGroup temperatureScaling;
-        private LWIR_Footer footer;
+        SensorConfig config;
+
+        // StackPanel UI_Panel = new StackPanel { };
+        // private TemperatureScalingGroup temperatureScaling;
+        // private LWIR_Footer footer;
         RegionOfInterest roi;
         private readonly DispatcherTimer flagRefreshTimer = new();
 
@@ -74,10 +76,11 @@ namespace SensorInterface.Sensor.LWIR
             MaxRegion = new TemperatureRegion();
             MeanRegion = new TemperatureRegion();
 
-            temperatureScaling = new TemperatureScalingGroup(this);
-            footer = new LWIR_Footer(this);
+            // TODO: REmove UI references
+            // temperatureScaling = new TemperatureScalingGroup(this);
+            // footer = new LWIR_Footer(this);
 
-            UI_Panel.Children.Add(temperatureScaling);
+            // UI_Panel.Children.Add(temperatureScaling);
 
             flagRefreshTimer.Interval = TimeSpan.FromMinutes(5);
             flagRefreshTimer.Tick += (_, _) => RefreshFlag();
@@ -90,25 +93,30 @@ namespace SensorInterface.Sensor.LWIR
             EnumerationManager.getInstance().addEthernetDetector("192.168.0.0/24");
         }
 
-        public StackPanel UI() => UI_Panel;
 
-        public FrameworkElement Footer() => footer;
+        public SensorConfig Config() => config;
 
-        public void DisableUI()
-        {
-            temperatureScaling.Disable();
-            footer.Disable();
-        }
+        // public StackPanel UI() => UI_Panel;
 
-        public void UpdateUI()
-        {
-            temperatureScaling.UpdateUI();
-            footer.UpdateUI();
-        }
+        // public FrameworkElement Footer() => footer;
+
+        // public void DisableUI()
+        // {
+        //     temperatureScaling.Disable();
+        //     footer.Disable();
+        // }
+
+        // public void UpdateUI()
+        // {
+        //     temperatureScaling.UpdateUI();
+        //     footer.UpdateUI();
+        // }
 
         public (int, int) Dimensions() => (Imager.getWidth(), Imager.getHeight());
 
-        public void IsRecording(bool recording) => this.recording = recording;
+        // public void IsRecording(bool recording) => this.recording = recording;
+        public void Enable() => recording = true;
+        public void Disable() => recording = false;
 
         public RegionOfInterest ROI() => roi;
 

@@ -3,6 +3,7 @@ using Optris.OtcSdk;
 using System.IO;
 using SensorInterface.Sensor.LWIR;
 using FFMediaToolkit;
+using SensorInterface.Sensor;
 
 namespace SensorInterface
 {
@@ -11,10 +12,23 @@ namespace SensorInterface
         [STAThread]
         static void Main(string[] args)
         {
+            if (args.Length > 0 && args[0] == "-s")
+            {
+                // TODO: Launch Sensor Project
+                // TODO: Check args[1] for what sensor / the sensor type
+                switch (args[1])
+                {
+                    case nameof(SensorType.Optris_LWIR):
+                    break;
+                    case nameof(SensorType.Basler_NIR):
+                    break;
+                    case nameof(SensorType.Photodiode):
+                    break;
+                }
+            }
             FFmpegLoader.FFmpegPath = @"C:\Users\ayidana.aboraah\Downloads\ffmpeg-n7.1.3-43-g5a1f107b4c-win64-gpl-shared-7.1\ffmpeg-n7.1.3-43-g5a1f107b4c-win64-gpl-shared-7.1\bin";
 
             IRImagerShow.init();
-            SensorManager.ImportProjectConfig(args);
             // SensorManager.DebugImport("LWIR");
 
             AppDomain.CurrentDomain.FirstChanceException += (_, eventArgs) =>

@@ -1,23 +1,30 @@
-using System.Globalization;
 using SensorInterface.classes;
-using Optris.OtcSdk;
 using System.IO;
 using RLE;
 
 namespace SensorInterface.Sensor;
 
-public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
+public class UniversalRecorder
 {
     StreamWriter? metadataWriter;
     BinaryWriter? singleFileWriter;
-
+    protected RecorderSettings settings;
     string sessionDirectory = "";
     string frameDirectory = "";
     int frameIndex = 0;
+    public SensorService sensor;
+    public SensorType sensorType;
+    public bool recording = false;
+    // public bool hasROI() => sensor.ROI().HasROI();
 
-    public override void Start(RecorderSettings settings)
+    public UniversalRecorder(SensorType sensorType) => this.sensorType = sensorType;
+
+    public void Start(RecorderSettings settings)
     {
-        base.Start(settings);
+        if (recording) return;
+        recording = true;
+        this.settings = settings;
+        // sensor.IsRecording(recording);
 
         frameIndex = 0;
 
@@ -37,17 +44,9 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         if (settings.singleBinary)
         {
-            string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
-            string filename = Path.Combine(
-                sessionDirectory,
-                $"frame_{suffix}.bin");
+            string filename = Path.Combine(sessionDirectory, $"frame_{settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "")}.bin");
 
-            singleFileWriter = new BinaryWriter(
-                File.Open(
-                    filename,
-                    FileMode.Create,
-                    FileAccess.Write,
-                    FileShare.None));
+            singleFileWriter = new BinaryWriter( File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
 
             WriteBinHeader(singleFileWriter);
 
@@ -61,7 +60,9 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         }
     }
 
-    public override void Stop()
+    public virtual bool Connected() => sensor.Connected();
+
+    public void Stop()
     {
         if (!recording) return;
 
@@ -69,21 +70,17 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         metadataWriter?.Close();
         if (settings.singleBinary) singleFileWriter?.Close();
 
-        base.Stop();
+        recording = false;
+        sensor.Activeate(recording);
     }
 
     private async Task WriterLoop()
     {
         await foreach (var frame in sensor.Reader().ReadAllAsync())
         {
-            string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
-            string filename = Path.Combine(
-                frameDirectory,
-                $"frame_{frameIndex}_{suffix}.bin");
+            string filename = Path.Combine(frameDirectory, $"frame_{frameIndex}_{settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "")}.bin");
 
-            using var writer =
-                new BinaryWriter(
-                    File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
+            using var writer = new BinaryWriter(File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
 
             WriteFrameHeader(frame, writer);
             WriteFrame(frame, writer);
@@ -92,27 +89,13 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task SingleWriterLoop()
     {
-        // TODO: Setup the filepath for Everything and note Yuri on it
-        // StreamWriter sWriter = new StreamWriter(new FileStream("Yuri.bin", FileMode.Append));
-
-        await foreach (var frame in sensor.Reader().ReadAllAsync())
-        {
-            WriteFrame(frame, singleFileWriter!);
-            // WriteYuriFrame(frame, sWriter);
-        }
+        await foreach (var frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter!);
     }
 
     private void WriteFrame(FrameRecord frame, BinaryWriter writer)
     {
         WriteRecordedFrame(frame, writer);
         WriteMetadataRow(frame);
-        frameIndex++;
-    }
-
-    private void WriteYuriFrame(FrameRecord frame, StreamWriter writer)
-    {
-        YuriFrame yFrame = new YuriFrame(frame);
-        yFrame.Output(writer);
         frameIndex++;
     }
 
@@ -182,21 +165,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private void WriteMetadataRow(FrameRecord frame)
     {
-        (float min, float max) = (float.MaxValue, float.MinValue);
-
-        double sum = 0;
-
-        foreach (float temp in frame.data)
-        {
-            if (temp < min) min = temp;
-            if (temp > max) max = temp;
-            sum += temp;
-        }
-
-        double mean = sum / frame.data.Length;
-
+        (float min, float max, float mean) = ThermalAnalyser.CalculateStatistics(frame.data);
         frame.metadata.WriteMetadata(metadataWriter!, frameIndex, min, max, mean);
-
         metadataWriter!.Flush();
     }
 }
