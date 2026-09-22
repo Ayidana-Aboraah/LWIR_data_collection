@@ -27,7 +27,8 @@ public class TemperatureScalingGroup : GroupBox
         Height = 30,
         Margin = new Thickness(0, 0, 0, 10),
     };
-    private RadioButton[] opModes = null!;
+    private List<RadioButton> opModes = [];
+    StackPanel opStack = new StackPanel { Orientation = Orientation.Vertical };
 
     public TemperatureScalingGroup(IRImagerShow LWIR)
     {
@@ -44,7 +45,7 @@ public class TemperatureScalingGroup : GroupBox
         valueStack.Children.Add(BuildTemperatureValueRow("Min:", out minTemp, 10));
         valueStack.Children.Add(refresh);
 
-        refresh.Click += (_,_) => LWIR.RefreshFlag();
+        refresh.Click += (_, _) => LWIR.RefreshFlag();
 
         // autoTempScale.Checked += (_, _) => AutoTempScale_CheckedChanged();
         // autoTempScale.Unchecked += (_, _) => AutoTempScale_CheckedChanged();
@@ -52,22 +53,20 @@ public class TemperatureScalingGroup : GroupBox
 
         Grid.SetColumn(valueStack, 0);
         layout.Children.Add(valueStack);
-
-        var opGroup = new GroupBox
+        GroupBox opGroup = new GroupBox
         {
             Header = "Operation Mode",
             Margin = new Thickness(10, 0, 0, 0),
             Padding = new Thickness(6)
         };
 
-        var opStack = new StackPanel { Orientation = Orientation.Vertical };
-        opModes = [
-            BuildOperationModeRadio("-20°C – 100°C", 0),
-            BuildOperationModeRadio("0°C – 250°C", 1),
-            BuildOperationModeRadio("150°C – 900°C", 2)
-        ];
+        UpdateTempOptions();
+        // opModes = [
+        //     BuildOperationModeRadio("-20°C – 100°C", 0),
+        //     BuildOperationModeRadio("0°C – 250°C", 1),
+        //     BuildOperationModeRadio("150°C – 900°C", 2)
+        // ];
 
-        foreach (RadioButton opMode in opModes) opStack.Children.Add(opMode);
         opGroup.Content = opStack;
 
         // var scaleGroup = BuildScaleGroup();
@@ -76,13 +75,13 @@ public class TemperatureScalingGroup : GroupBox
         // Grid.SetRow(scaleGroup, 2);
         layout.Children.Add(opGroup);
         // layout.Children.Add(scaleGroup);
-        
+
         Content = layout;
     }
 
     public void UpdateUI()
     {
-        UpdateOperationModeSelection(LWIR.ActiveModeIndex/2); // CHECK, had to do this cause of dupplicates in OperatingModes  
+        UpdateOperationModeSelection(LWIR.ActiveModeIndex); // CHECK, had to do this cause of dupplicates in OperatingModes  
         if (LWIR.CalculateMinMaxTemperatureRegions())
         {
             (float min, float max) = (LWIR.MinRegion.temperature, LWIR.MaxRegion.temperature);
@@ -100,6 +99,14 @@ public class TemperatureScalingGroup : GroupBox
         imageScaleLow.IsEnabled = false;
         minTemp.IsEnabled = false;
         maxTemp.IsEnabled = false;
+    }
+
+    public void UpdateTempOptions()
+    {
+        for (int i = 0; i < LWIR.operationModes.Count; i++)
+            opModes.Add(BuildOperationModeRadio($"{LWIR.operationModes[i].getTemperatureLowerLimit()}°C - {LWIR.operationModes[i].getTemperatureUpperLimit()}°C [{LWIR.operationModes[i].getFrameWidth()} x {LWIR.operationModes[i].getFrameHeight()}]", i));
+        opStack.Children.Clear();
+        foreach (RadioButton opMode in opModes) opStack.Children.Add(opMode);
     }
 
     private FrameworkElement BuildTemperatureValueRow(string labelText, out TextBlock valueText, double topMargin = 0)
@@ -256,7 +263,7 @@ public class TemperatureScalingGroup : GroupBox
 
     private void UpdateOperationModeSelection(int modeIndex)
     {
-        for (int i = 0; i < opModes.Length; i++) opModes[i].IsChecked = i == modeIndex;
+        for (int i = 0; i < opModes.Count; i++) opModes[i].IsChecked = i == modeIndex;
     }
 
     private void imageScale_TextChanged(object sender, TextChangedEventArgs e)

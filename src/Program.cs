@@ -11,8 +11,8 @@ namespace ThermalCamerApp
         static void Main(string[] args)
         {
             IRImagerShow.init();
-            SensorManager.ImportProjectConfig(args);
-            // SensorManager.DebugImport("LWIR");
+            // SensorManager.ImportProjectConfig(args);
+            SensorManager.DebugImport("LWIR");
 
             AppDomain.CurrentDomain.FirstChanceException += (_, eventArgs) =>
             {

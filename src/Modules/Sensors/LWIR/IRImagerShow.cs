@@ -36,7 +36,7 @@ namespace ThermalCamerApp.Camera.LWIR
         private int regionRadius = 3;
         public string OperationModeString { get; private set; } = string.Empty;
 
-        private OperationModeVector operationModes = new();
+        public OperationModeVector operationModes = new();
         private int activeModeIndex = 0;
         public bool useAutoScaling;
 
@@ -150,7 +150,10 @@ namespace ThermalCamerApp.Camera.LWIR
 
             StartProcessing();
 
-            SetOperationMode(operationModes.Last().getIndex());
+            temperatureScaling.UpdateTempOptions();
+            activeModeIndex = operationModes.Last().getIndex()-1;
+
+            // SetOperationMode();
 
             IsConnected = true;
         }
@@ -187,7 +190,7 @@ namespace ThermalCamerApp.Camera.LWIR
             try
             {
                 // CHECK, we did this because we found operations to have a duplicates which offset it
-                Imager.setActiveOperationMode(operationModes[modeIndex * 2]);
+                Imager.setActiveOperationMode(operationModes[modeIndex]);
                 activeModeIndex = Imager.getActiveOperationMode().getIndex();
             }
             catch (SDKException ex)
