@@ -1,13 +1,11 @@
 using System.Threading.Channels;
 using System.Windows.Controls;
 using SensorInterface.classes;
-using System.Drawing.Imaging;
 using System.Windows;
 using System.Drawing;
 using Basler.Pylon;
 using RLE;
 using SensorInterface.models;
-using System.ComponentModel.DataAnnotations;
 
 namespace SensorInterface.Sensor.NIR;
 
@@ -18,8 +16,7 @@ public struct NIR_Config
 
 public class BaslerNIR : SensorBase
 {
-    Basler.Pylon.Camera camera;
-    RegionOfInterest roi = new();
+    Camera camera;
     PixelDataConverter converter;
     Channel<FrameRecord> recorderChannel = Channel.CreateUnbounded<FrameRecord>(new UnboundedChannelOptions()
     {
@@ -34,7 +31,7 @@ public class BaslerNIR : SensorBase
 
     public BaslerNIR()
     {
-        camera = new Basler.Pylon.Camera(CameraSelectionStrategy.FirstFound);
+        camera = new Camera(CameraSelectionStrategy.FirstFound);
         converter = new PixelDataConverter();
     }
 
@@ -75,8 +72,6 @@ public class BaslerNIR : SensorBase
     }
 
     // ROI
-    public RegionOfInterest ROI() => roi;
-    public void UpdateROI(System.Windows.Point start, System.Windows.Point end) => roi.Update(start, end, config.Width);
     public (int, int) Dimensions() => (config.Width, config.Height);
     public float findValue(int x, int y) => currentTemperatures[(y * config.Width) + x];
 

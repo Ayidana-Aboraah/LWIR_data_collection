@@ -32,6 +32,8 @@ public class SensorService : ISubprocessService
     StreamReader? _reader;
     Process? _process;
 
+    public Channel<FrameRecord> inputQueue;
+
     public event EventHandler<String> outputReceived;
     public event EventHandler? ProcessExited;
     public SensorService(string pipeName)
@@ -67,7 +69,7 @@ public class SensorService : ISubprocessService
         _ = ReadLoopAsync(cancellationToken);
     }
 
-        public static async Task Read<T>(ChannelWriter<T> recorder, StreamReader reader)
+        public async Task Read<T>(ChannelWriter<T> recorder, StreamReader reader)
     {
         // Read Header
         char[] headerBuf = new char[5];
@@ -81,11 +83,9 @@ public class SensorService : ISubprocessService
         {
             case (char)MessageType.SensorData: 
             // TODO: Use CCAM Sensor Data format Parser
-            BinaryLoader.LoadData<T>(new BinaryReader(reader.BaseStream), BinaryLoader.DefaultDataParser, (_,_) =>
-            {
-                // TODO: parsing
-            });
+            BinaryLoader.LoadData<T, Array>(new BinaryReader(reader.BaseStream), BinaryLoader.DefaultTagParser, BinaryLoader.DefaultDataParser);
             // TODO: Load into the recorder channel
+            // inputQueue.Writer.WriteAsync();
                 break;
             
             default:
@@ -111,6 +111,16 @@ public class SensorService : ISubprocessService
     public async Task SendConfig(TomlTable config, CancellationToken cancellationToken = default)
     {
         await SendCommandAsync(config, cancellationToken); // TODO: Check if this is valid
+    }
+
+    public void Connect()
+    {
+        
+    }
+
+    public void Disconnect()
+    {
+        
     }
 
     public void Enable()

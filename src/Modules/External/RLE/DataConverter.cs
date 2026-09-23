@@ -1,4 +1,4 @@
-namespace RLE;
+﻿namespace RLE;
 
 public class RunLengthPair
 {
@@ -6,12 +6,13 @@ public class RunLengthPair
     public RunLengthPair(ushort value) => this.value = value;
 }
 
-public class SuperRunLengthPair
+public class ShortRunLengthPair
 {
     public ushort value;
     public byte run = 1;
-    public SuperRunLengthPair(ushort value) => this.value = value;
+    public ShortRunLengthPair(ushort value) => this.value = value;
 }
+
 
 public static class DataConverter
 {

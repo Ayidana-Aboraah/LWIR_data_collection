@@ -1,4 +1,3 @@
-
 using SensorInterface.Sensor;
 using Optris.OtcSdk;
 using System.IO;

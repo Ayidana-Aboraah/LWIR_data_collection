@@ -54,12 +54,6 @@ namespace SensorInterface
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Background = WpfBrushes.Black;
 
-            DeviceInteractions = [
-                (_,_) => QuickConnect(),
-                (_,_) => ConnectWithConfigSelection(),
-                (_,_) => Disconnect(),
-            ];
-
             var root = new DockPanel();
             Content = root;
 
@@ -71,7 +65,7 @@ namespace SensorInterface
             DockPanel.SetDock(controlPanelBorder, Dock.Right);
             root.Children.Add(controlPanelBorder);
             root.Children.Add(display.baseDisplay);
-            Closing += (_, _) => Disconnect();
+            // Closing += (_, _) => Disconnect();
         }
 
         private Menu BuildMenu()

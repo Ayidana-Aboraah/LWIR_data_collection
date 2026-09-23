@@ -33,7 +33,7 @@ namespace Optris.OtcSdk
     public override void WriteMetadataHeader(StreamWriter writer) =>
       writer.Write("Frame,Timestamp,Counter,HardwareCounter,BoxTemp,ChipTemp,MinTemp,MaxTemp,MeanTemp,");
 
-    public override void WriteMetadata(StreamWriter writer, int frameIdx, float min, float max, double mean)
+    public override void WriteMetadata(StreamWriter writer, int frameIdx, float min, float max, float mean)
     {
       writer.Write(string.Join(",",
       frameIdx,

@@ -13,28 +13,34 @@ public class UniversalRecorder
     string frameDirectory = "";
     int frameIndex = 0;
     public SensorService sensor;
+    public SensorConfig config;
     public SensorType sensorType;
     public bool recording = false;
-    // public bool hasROI() => sensor.ROI().HasROI();
 
-    public UniversalRecorder(SensorType sensorType) => this.sensorType = sensorType;
+    // ROI
+    public RegionOfInterest roi = new();
+    public void UpdateROI(System.Windows.Point start, System.Windows.Point end) => roi.Update(start, end, settings.camera_width);
+
+    public bool hasROI() => roi.active;
+
+    public UniversalRecorder(SensorType sensorType, SensorConfig config) {
+        this.sensorType = sensorType;
+        this.config = config;
+    }
 
     public void Start(RecorderSettings settings)
     {
         if (recording) return;
+
         recording = true;
         this.settings = settings;
-        // sensor.IsRecording(recording);
+        sensor.Enable();
 
         frameIndex = 0;
 
         sessionDirectory = Path.Combine(settings.baseDirectory, $"{DateTime.Now:yyyy-MM-dd}");
 
-        sessionDirectory = Path.Combine(sessionDirectory, SensorManager.ProjectName);
-
-        sessionDirectory = Path.Combine(sessionDirectory, SensorManager.SensorName);
-
-        sessionDirectory = Path.Combine(sessionDirectory, $"Session_{DateTime.Now:HH_mm_ss}");
+        foreach (var v in new string[] {SensorManager.ProjectName, SensorManager.SensorName, $"Session_{DateTime.Now:HH_mm_ss}"}) Path.Combine(sessionDirectory, v);
 
         Directory.CreateDirectory(sessionDirectory);
 
@@ -46,7 +52,7 @@ public class UniversalRecorder
         {
             string filename = Path.Combine(sessionDirectory, $"frame_{settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "")}.bin");
 
-            singleFileWriter = new BinaryWriter( File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
+            singleFileWriter = new BinaryWriter(File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
 
             WriteBinHeader(singleFileWriter);
 
@@ -71,12 +77,14 @@ public class UniversalRecorder
         if (settings.singleBinary) singleFileWriter?.Close();
 
         recording = false;
-        sensor.Activeate(recording);
+        sensor.Disable();
     }
+
+    public (int, int) Dimensions() => (settings.camera_width, settings.camera_height);
 
     private async Task WriterLoop()
     {
-        await foreach (var frame in sensor.Reader().ReadAllAsync())
+        await foreach (var frame in sensor.inputQueue.Reader.ReadAllAsync())
         {
             string filename = Path.Combine(frameDirectory, $"frame_{frameIndex}_{settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "")}.bin");
 
@@ -89,7 +97,7 @@ public class UniversalRecorder
 
     private async Task SingleWriterLoop()
     {
-        await foreach (var frame in sensor.Reader().ReadAllAsync()) WriteFrame(frame, singleFileWriter!);
+        await foreach (var frame in sensor.inputQueue.Reader.ReadAllAsync()) WriteFrame(frame, singleFileWriter!);
     }
 
     private void WriteFrame(FrameRecord frame, BinaryWriter writer)
@@ -108,17 +116,17 @@ public class UniversalRecorder
             switch (settings.dataType)
             {
                 case SaveDataType.Float:
-                    foreach (int ROI_Idx in sensor.ROI().indexes) writer.Write(frame.data[ROI_Idx]);
+                    foreach (int ROI_Idx in roi.indexes) writer.Write(frame.data[ROI_Idx]);
                     break;
 
                 case SaveDataType.U16:
                     ushort[] iValue = DataConverter.FloatToInt(frame.data);
-                    foreach (int ROI_Idx in sensor.ROI().indexes) writer.Write(iValue[ROI_Idx]);
+                    foreach (int ROI_Idx in roi.indexes) writer.Write(iValue[ROI_Idx]);
                     break;
 
                 case SaveDataType.RLE:
                     List<float> roi_temps = new List<float>();
-                    foreach (int ROI_Idx in sensor.ROI().indexes) roi_temps.Add(frame.data[ROI_Idx]);
+                    foreach (int ROI_Idx in roi.indexes) roi_temps.Add(frame.data[ROI_Idx]);
 
                     RunLengthPair[] data = DataConverter.IntToRLE(DataConverter.FloatToInt(roi_temps.ToArray()));
                     foreach (RunLengthPair pair in data)
@@ -133,14 +141,11 @@ public class UniversalRecorder
         {
             switch (settings.dataType)
             {
-                case SaveDataType.Float:
-                    foreach (float value in frame.data) writer.Write(value);
+                case SaveDataType.Float: foreach (float value in frame.data) writer.Write(value);
                     break;
-                case SaveDataType.U16:
-                    foreach (ushort value in DataConverter.FloatToInt(frame.data)) writer.Write(value);
+                case SaveDataType.U16: foreach (ushort value in DataConverter.FloatToInt(frame.data)) writer.Write(value);
                     break;
-                case SaveDataType.RLE:
-                    foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
+                case SaveDataType.RLE: foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
                     {
                         writer.Write(value.value);
                         writer.Write(value.run);

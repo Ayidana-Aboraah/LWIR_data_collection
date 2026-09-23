@@ -8,10 +8,9 @@ namespace SensorInterface.UI;
 
 public class RecordingMenu : GroupBox
 {
-    SaveDataType saveType;
     private string savePath = @"D:\works\data_in\";
-
     public bool recordROIOnly = false;
+    SaveDataType saveType;
 
     private Button saveDirectory = new Button
     {
@@ -35,10 +34,11 @@ public class RecordingMenu : GroupBox
         Text = "[Type Project Name Here]"
     };
 
+    StackPanel sensorPanel = new StackPanel{};
+
     public RecordingMenu()
     {
         Header = "Recording";
-        StackPanel panel = new StackPanel() { };
 
         Grid split = new Grid();
         split.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -46,26 +46,32 @@ public class RecordingMenu : GroupBox
 
         Grid.SetColumn(saveDirectory, 0);
         Grid.SetColumn(singleBinaryToggle, 1);
+
         split.Children.Add(saveDirectory);
         split.Children.Add(singleBinaryToggle);
 
-        panel.Children.Add(projectName);
-        panel.Children.Add(split);
+        sensorPanel.Children.Add(projectName);
+        sensorPanel.Children.Add(split);
 
-        foreach (SensorSet sensor in SensorManager.sensors.ToArray())
-            panel.Children.Add(BuildSensorOption(sensor.recorder));
+        UpdateSensorList();
 
-        Content = panel;
+        Content = sensorPanel;
     }
 
-    // TODO: create a list of a grids for each recording thing
+    public void UpdateSensorList()
+    {
+        sensorPanel.Children.Clear();
+        foreach (UniversalRecorder sensor in SensorManager.sensors) sensorPanel.Children.Add(BuildSensorOption(sensor));
+    }
+
+    // TODO: create a list of grids for each recording thing
     private Grid BuildSensorOption(UniversalRecorder recorder)
     {
         var grid = new Grid();
 
         TextBlock name = new TextBlock
         {
-            Text = recorder.sensor.config().name,
+            Text = recorder.config.name,
             HorizontalAlignment = HorizontalAlignment.Left,
             Padding = new Thickness(5, 0, 5, 0)
         };
@@ -112,7 +118,7 @@ public class RecordingMenu : GroupBox
             }
             else
             {
-                (int width, int height) = recorder.hasROI() ? recorder.sensor.ROI().Dimensions() : recorder.sensor.Dimensions();
+                (int width, int height) = recorder.hasROI() ? recorder.roi.Dimensions() : recorder.Dimensions();
                 recorder.Start(new RecorderSettings
                 {
                     camera_width = width,
@@ -153,9 +159,9 @@ public class RecordingMenu : GroupBox
             Height = 32,
             IsEditable = false,
             Background = Visuals.CCAM_Blue,
+            Padding = new Thickness(8, 4, 8, 4),
             ItemsSource = Enum.GetNames<SaveDataType>(),
-            SelectedIndex = (int)recorder.sensor.config().saveType,
-            Padding = new Thickness(8, 4, 8, 4)
+            SelectedIndex = (int)recorder.config.saveType,
         };
         compression.SelectionChanged += (_, _) => saveType = (SaveDataType)compression.SelectedIndex;
 

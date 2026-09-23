@@ -228,7 +228,6 @@ namespace SensorInterface.Sensor.LWIR
             float[] temps = new float[frame.getSize()];
             frame.copyTemperaturesTo(temps, temps.Length);
 
-
             return PaletteTool.Render(temps,MinRegion.temperature, MaxRegion.temperature, frame.getWidth(), frame.getHeight());
 
             // imageBuilder.convertTemperatureToPaletteImage();
