@@ -1,11 +1,18 @@
 using ThermalCamerApp.classes;
 using System.IO;
+using System.Threading.Channels;
 using RLE;
 
 namespace ThermalCamerApp.Camera;
 
 public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 {
+    private const int WorkerCount = 4;
+    private const int PipelineCapacity = 16;
+
+    private sealed record IndexedFrame(int Index, FrameRecord Frame);
+    private sealed record CompressedFrame(int Index, FrameRecord Frame, byte[] Data);
+
     StreamWriter? metadataWriter;
     BinaryWriter? singleFileWriter;
 
@@ -84,40 +91,154 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
     private async Task WriterLoop(CancellationToken cancellationToken)
     {
-        await foreach (var frame in sensor.Reader().ReadAllAsync(cancellationToken))
+        await RunPipeline(cancellationToken, compressedFrame =>
         {
             string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
             string filename = Path.Combine(
                 frameDirectory,
-                $"frame_{frameIndex}_{suffix}.bin");
+                $"frame_{compressedFrame.Index}_{suffix}.bin");
 
-            using var writer =
-                new BinaryWriter(
-                    File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
+            using var writer = new BinaryWriter(
+                File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None));
 
-            WriteFrameHeader(frame, writer);
-            WriteFrame(frame, writer);
-        }
+            WriteFrameHeader(compressedFrame.Frame, writer);
+            writer.Write(compressedFrame.Data);
+            WriteMetadataRow(compressedFrame.Frame, compressedFrame.Index);
+        });
     }
 
     private async Task SingleWriterLoop(CancellationToken cancellationToken)
     {
-        // TODO: Setup the filepath for Everything and note Yuri on it
-        // StreamWriter sWriter = new StreamWriter(new FileStream("Yuri.bin", FileMode.Append));
-        // frame.metadata.WriteHeader(new BinaryWriter(metadataWriter!.BaseStream));
-
-        await foreach (var frame in sensor.Reader().ReadAllAsync(cancellationToken))
+        await RunPipeline(cancellationToken, compressedFrame =>
         {
-            WriteFrame(frame, singleFileWriter!);
-            // WriteYuriFrame(frame, sWriter);
+            singleFileWriter!.Write(compressedFrame.Data);
+            WriteMetadataRow(compressedFrame.Frame, compressedFrame.Index);
+        });
+    }
+
+    private async Task RunPipeline(
+        CancellationToken cancellationToken,
+        Action<CompressedFrame> saveFrame)
+    {
+        using CancellationTokenSource pipelineCancellation =
+            CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        CancellationToken pipelineToken = pipelineCancellation.Token;
+
+        Channel<IndexedFrame> input = Channel.CreateBounded<IndexedFrame>(
+            new BoundedChannelOptions(PipelineCapacity)
+            {
+                SingleWriter = true,
+                FullMode = BoundedChannelFullMode.Wait,
+            });
+        Channel<CompressedFrame> output = Channel.CreateBounded<CompressedFrame>(
+            new BoundedChannelOptions(PipelineCapacity)
+            {
+                SingleReader = true,
+                FullMode = BoundedChannelFullMode.Wait,
+            });
+        using SemaphoreSlim availableSlots = new(PipelineCapacity, PipelineCapacity);
+
+        Task producer = ProduceFrames(input.Writer, availableSlots, pipelineToken);
+        Task[] workers = Enumerable.Range(0, WorkerCount)
+            .Select(_ => CompressFrames(input.Reader, output.Writer, pipelineToken))
+            .ToArray();
+        Task outputCompletion = CompleteOutputWhenWorkersFinish(workers, output.Writer);
+
+        var pendingFrames = new CompressedFrame?[PipelineCapacity];
+        int nextIndex = 0;
+
+        try
+        {
+            await foreach (CompressedFrame compressedFrame in output.Reader.ReadAllAsync(pipelineToken))
+            {
+                pendingFrames[compressedFrame.Index % PipelineCapacity] = compressedFrame;
+
+                while (pendingFrames[nextIndex % PipelineCapacity] is { } readyFrame &&
+                       readyFrame.Index == nextIndex)
+                {
+                    saveFrame(readyFrame);
+                    pendingFrames[nextIndex % PipelineCapacity] = null;
+                    availableSlots.Release();
+                    nextIndex++;
+                }
+            }
+
+            await producer;
+            await Task.WhenAll(workers);
+            await outputCompletion;
+        }
+        finally
+        {
+            pipelineCancellation.Cancel();
+            input.Writer.TryComplete();
+            output.Writer.TryComplete();
+
+            try
+            {
+                await Task.WhenAll(producer, outputCompletion, Task.WhenAll(workers));
+            }
+            catch (OperationCanceledException) when (pipelineToken.IsCancellationRequested)
+            {
+            }
         }
     }
 
-    private void WriteFrame(FrameRecord frame, BinaryWriter writer)
+    private async Task ProduceFrames(
+        ChannelWriter<IndexedFrame> writer,
+        SemaphoreSlim availableSlots,
+        CancellationToken cancellationToken)
     {
-        WriteRecordedFrame(frame, writer);
-        WriteMetadataRow(frame);
-        frameIndex++;
+        try
+        {
+            await foreach (FrameRecord frame in sensor.Reader().ReadAllAsync(cancellationToken))
+            {
+                await availableSlots.WaitAsync(cancellationToken);
+                int index = frameIndex++;
+
+                try
+                {
+                    await writer.WriteAsync(new IndexedFrame(index, frame), cancellationToken);
+                }
+                catch
+                {
+                    availableSlots.Release();
+                    throw;
+                }
+            }
+        }
+        finally
+        {
+            writer.TryComplete();
+        }
+    }
+
+    private async Task CompressFrames(
+        ChannelReader<IndexedFrame> reader,
+        ChannelWriter<CompressedFrame> writer,
+        CancellationToken cancellationToken)
+    {
+        await foreach (IndexedFrame indexedFrame in reader.ReadAllAsync(cancellationToken))
+        {
+            byte[] compressedData = CompressFrame(indexedFrame.Frame);
+            await writer.WriteAsync(
+                new CompressedFrame(indexedFrame.Index, indexedFrame.Frame, compressedData),
+                cancellationToken);
+        }
+    }
+
+    private static async Task CompleteOutputWhenWorkersFinish(
+        Task[] workers,
+        ChannelWriter<CompressedFrame> writer)
+    {
+        try
+        {
+            await Task.WhenAll(workers);
+            writer.TryComplete();
+        }
+        catch (Exception exception)
+        {
+            writer.TryComplete(exception);
+        }
     }
 
     private void WriteYuriFrame(FrameRecord frame, StreamWriter writer)
@@ -125,6 +246,17 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         YuriFrame yFrame = new YuriFrame(frame);
         yFrame.Output(writer);
         frameIndex++;
+    }
+
+    private byte[] CompressFrame(FrameRecord frame)
+    {
+        using var stream = new MemoryStream();
+        using (var writer = new BinaryWriter(stream, System.Text.Encoding.UTF8, leaveOpen: true))
+        {
+            WriteRecordedFrame(frame, writer);
+        }
+
+        return stream.ToArray();
     }
 
     private void WriteRecordedFrame(FrameRecord frame, BinaryWriter writer)
@@ -198,11 +330,11 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         // frame.metadata.WriteHeader(new BinaryWriter(metadataWriter!.BaseStream));
     }
 
-    private void WriteMetadataRow(FrameRecord frame)
+    private void WriteMetadataRow(FrameRecord frame, int index)
     {
         (float min, float max, float mean) = PlaybackTool.CalculateStatistics(frame.data);
 
-        frame.metadata.WriteMetadata(metadataWriter!, frameIndex, min, max, mean);
+        frame.metadata.WriteMetadata(metadataWriter!, index, min, max, mean);
 
         metadataWriter!.Flush();
     }
