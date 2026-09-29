@@ -9,8 +9,8 @@ namespace ThermalCamerApp
         [STAThread]
         static void Main(string[] args)
         {
-            SensorManager.ImportProjectConfig(args);
-            // SensorManager.DebugImport("NIR");
+            // SensorManager.ImportProjectConfig(args);
+            SensorManager.DebugImport("LWIR");
 
             AppDomain.CurrentDomain.FirstChanceException += (_, eventArgs) =>
             {
