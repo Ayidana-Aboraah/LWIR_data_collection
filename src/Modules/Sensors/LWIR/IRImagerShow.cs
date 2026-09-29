@@ -45,7 +45,7 @@ namespace ThermalCamerApp.Camera.LWIR
 
         public int ActiveModeIndex { get { return activeModeIndex; } }
         public bool recording = false;
-        Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(150)
+        Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(120)
         {
             SingleReader = true,
             SingleWriter = true,

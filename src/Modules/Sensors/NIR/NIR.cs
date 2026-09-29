@@ -19,12 +19,11 @@ public struct NIR_Config
 public class NIR : SensorBase
 {
     private const double AcquisitionFrameRate = 30.0;
-    private const int RecorderBufferCapacity = 150;
 
     Basler.Pylon.Camera camera;
     RegionOfInterest roi = new();
     PixelDataConverter converter;
-    Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(150)
+    Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(120)
     {
         SingleReader = true,
         SingleWriter = true,
