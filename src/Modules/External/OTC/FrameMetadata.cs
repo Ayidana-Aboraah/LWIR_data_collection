@@ -31,7 +31,7 @@ namespace Optris.OtcSdk
     }
 
     public override void WriteMetadataHeader(StreamWriter writer) =>
-      writer.Write("Frame,Timestamp,Counter,HardwareCounter,BoxTemp,ChipTemp,MinTemp,MaxTemp,MeanTemp,");
+      writer.Write("Frame,Timestamp,Counter,HardwareCounter,BoxTemp,ChipTemp,MinTemp,MaxTemp,MeanTemp\n");
 
     public override void WriteMetadata(StreamWriter writer, int frameIdx, float min, float max, double mean)
     {
@@ -46,6 +46,7 @@ namespace Optris.OtcSdk
       max.ToString(CultureInfo.InvariantCulture),
       mean.ToString(CultureInfo.InvariantCulture)
       ));
+      frameIdx++;
     }
 
     internal FrameMetadata(global::System.IntPtr cPtr, bool cMemoryOwn)
