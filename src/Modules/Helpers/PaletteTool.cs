@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Buffers;
 using System.Windows.Media;
 using Microsoft.VisualBasic.FileIO;
 using Color = System.Windows.Media.Color;
@@ -99,25 +100,33 @@ namespace ThermalCamerApp.models
             {
                 int stride = bitmapData.Stride;
                 // int stride = wb.BackBufferStride;
-                byte[] pixels = new byte[stride * height];
-
-                for (int y = 0; y < height; y++)
+                byte[] pixels = ArrayPool<byte>.Shared.Rent(stride * height);
+                try
                 {
-                    int sourceRowOffset = y * width;
-                    int destinationRowOffset = y * stride;
+                    Array.Clear(pixels, 0, stride * height);
 
-                    for (int x = 0; x < width; x++)
+                    for (int y = 0; y < height; y++)
                     {
-                        (byte R, byte G, byte B) = PaletteTool.MapTemperatureToColor(temperatures[sourceRowOffset + x], scaleMin, scaleMax);
-                        int pixelOffset = destinationRowOffset + (x * 3);
+                        int sourceRowOffset = y * width;
+                        int destinationRowOffset = y * stride;
 
-                        pixels[pixelOffset] = B;
-                        pixels[pixelOffset + 1] = G;
-                        pixels[pixelOffset + 2] = R;
+                        for (int x = 0; x < width; x++)
+                        {
+                            (byte R, byte G, byte B) = PaletteTool.MapTemperatureToColor(temperatures[sourceRowOffset + x], scaleMin, scaleMax);
+                            int pixelOffset = destinationRowOffset + (x * 3);
+
+                            pixels[pixelOffset] = B;
+                            pixels[pixelOffset + 1] = G;
+                            pixels[pixelOffset + 2] = R;
+                        }
                     }
-                }
 
-                System.Runtime.InteropServices.Marshal.Copy(pixels, 0, bitmapData.Scan0, pixels.Length);
+                    System.Runtime.InteropServices.Marshal.Copy(pixels, 0, bitmapData.Scan0, stride * height);
+                }
+                finally
+                {
+                    ArrayPool<byte>.Shared.Return(pixels);
+                }
                 // wb.WritePixels(rect,pixels, stride, 0);
             }
             finally

@@ -56,6 +56,7 @@ namespace ThermalCamerApp.Camera.LWIR
         private LWIR_Footer footer;
         RegionOfInterest roi;
         private readonly DispatcherTimer flagRefreshTimer = new();
+        private readonly object frameEventLock = new();
 
 
         /// <summary>Constructor</summary>
@@ -117,17 +118,20 @@ namespace ThermalCamerApp.Camera.LWIR
 
         public void UpdateROI(System.Windows.Point start, System.Windows.Point end)
         {
-            lock (frameEvent.thermalFrame)
+            lock (frameEventLock)
             {
                 if (frameEvent.thermalFrame.isEmpty()) return;
+                roi.Update(start, end, frameEvent.thermalFrame.getWidth());
             }
-            roi.Update(start, end, frameEvent.thermalFrame.getWidth());
         }
 
         public float findValue(int x, int y)
         {
-            if (frameEvent.thermalFrame.isEmpty()) return float.NaN;
-            return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
+            lock (frameEventLock)
+            {
+                if (frameEvent.thermalFrame.isEmpty()) return float.NaN;
+                return frameEvent.thermalFrame.getTemperature((y * frameEvent.thermalFrame.getWidth()) + x);
+            }
         }
 
         public void Connect(string configFile)
@@ -166,6 +170,19 @@ namespace ThermalCamerApp.Camera.LWIR
             Imager.disconnect();
 
             IsConnected = false;
+        }
+
+        public new void Dispose()
+        {
+            flagRefreshTimer.Stop();
+            Imager.removeClient(this);
+            Disconnect();
+            lock (frameEventLock)
+            {
+                frameEvent.Dispose();
+            }
+            Imager.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         /// Refreshes the flag by triggering a flag event that cause the shutter flag to close for a short time
@@ -214,18 +231,17 @@ namespace ThermalCamerApp.Camera.LWIR
 
         public Bitmap? Render()
         {
-            lock (frameEvent.thermalFrame)
+            lock (frameEventLock)
             {
                 if (frameEvent.thermalFrame.isEmpty()) return null;
 
                 imageBuilder.setThermalFrame(frameEvent.thermalFrame);
+                ThermalFrame frame = frameEvent.thermalFrame;
+                float[] temps = new float[frame.getSize()];
+                frame.copyTemperaturesTo(temps, temps.Length);
+
+                return PaletteTool.Render(temps, MinRegion.temperature, MaxRegion.temperature, frame.getWidth(), frame.getHeight());
             }
-            ThermalFrame frame = frameEvent.thermalFrame; 
-            float[] temps = new float[frame.getSize()];
-            frame.copyTemperaturesTo(temps, temps.Length);
-
-
-            return PaletteTool.Render(temps,MinRegion.temperature, MaxRegion.temperature, frame.getWidth(), frame.getHeight());
 
             // imageBuilder.convertTemperatureToPaletteImage();
 
@@ -251,25 +267,27 @@ namespace ThermalCamerApp.Camera.LWIR
         // Callback method triggered by imager when a new thermal frame is available
         public override void onFrame(FrameEvent evt)
         {
-            lock (frameEvent)
+            FrameEvent nextFrame = evt.clone();
+            lock (frameEventLock)
             {
-                frameEvent = evt.clone();
+                frameEvent.Dispose();
+                frameEvent = nextFrame;
                 counter.trigger();
             }
 
-            if (!recording || !frameEvent.meta.isThermalDataReliable() || frameEvent.thermalFrame.getSize() != Imager.getWidth() * Imager.getHeight()) return;
+            lock (frameEventLock)
+            {
+                if (!recording || !frameEvent.meta.isThermalDataReliable() || frameEvent.thermalFrame.getSize() != Imager.getWidth() * Imager.getHeight()) return;
 
-            float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
+                float[] temperatures = new float[frameEvent.thermalFrame.getSize()];
+                frameEvent.thermalFrame.copyTemperaturesTo(temperatures, temperatures.Length);
 
-            frameEvent.thermalFrame.copyTemperaturesTo(
-                temperatures,
-                temperatures.Length);
-
-            recorderChannel.Writer.WriteAsync(new FrameRecord(
-                        frameEvent.thermalFrame.getWidth(),
-                        frameEvent.thermalFrame.getHeight(),
-                        temperatures,
-                        frameEvent.meta));
+                recorderChannel.Writer.WriteAsync(new FrameRecord(
+                            frameEvent.thermalFrame.getWidth(),
+                            frameEvent.thermalFrame.getHeight(),
+                            temperatures,
+                            frameEvent.meta));
+            }
         }
 
         public ChannelReader<FrameRecord> Reader() => recorderChannel.Reader;

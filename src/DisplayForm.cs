@@ -83,7 +83,7 @@ namespace ThermalCamerApp
             DockPanel.SetDock(controlPanelBorder, Dock.Right);
             root.Children.Add(controlPanelBorder);
             root.Children.Add(display.baseDisplay);
-            Closing += (_, _) => Disconnect();
+            Closing += (_, _) => CloseResources();
         }
 
         private Menu BuildMenu()
@@ -240,6 +240,13 @@ namespace ThermalCamerApp
             recorder.Stop();
             SensorManager.current_sensor.Disconnect();
             UpdateUiOnConnectionStatus();
+        }
+
+        private void CloseResources()
+        {
+            uiUpdateTimer.Stop();
+            Disconnect();
+            SensorManager.current_sensor.Dispose();
         }
 
         private void UpdateUI()

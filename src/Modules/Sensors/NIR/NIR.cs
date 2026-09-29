@@ -18,16 +18,22 @@ public struct NIR_Config
 
 public class NIR : SensorBase
 {
+    private const double AcquisitionFrameRate = 30.0;
+    private const int RecorderBufferCapacity = 120;
+
     Basler.Pylon.Camera camera;
     RegionOfInterest roi = new();
     PixelDataConverter converter;
-    Channel<FrameRecord> recorderChannel = Channel.CreateUnbounded<FrameRecord>(new UnboundedChannelOptions()
+    Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(RecorderBufferCapacity)
     {
         SingleReader = true,
         SingleWriter = true,
+        FullMode = BoundedChannelFullMode.Wait,
     });
 
     NIR_Config config;
+    private volatile bool recording;
+    private readonly EventHandler<ImageGrabbedEventArgs> imageGrabbedHandler;
 
     public float[] currentTemperatures = [];
     Border footer = new Border { };
@@ -36,6 +42,8 @@ public class NIR : SensorBase
     {
         camera = new Basler.Pylon.Camera(CameraSelectionStrategy.FirstFound);
         converter = new PixelDataConverter();
+        imageGrabbedHandler = OnImageGrabbed;
+        camera.StreamGrabber.ImageGrabbed += imageGrabbedHandler;
     }
 
     public void parseTemperatures(IGrabResult currentFrame)
@@ -56,22 +64,41 @@ public class NIR : SensorBase
 
         camera.Parameters[PLCameraLinkCamera.PixelFormat].SetValue(PLCamera.PixelFormat.Mono12);
 
-        camera.StreamGrabber.Start(GrabStrategy.LatestImages, GrabLoop.ProvidedByStreamGrabber);
-
-        camera.StreamGrabber.ImageGrabbed += (object? sender, ImageGrabbedEventArgs args) =>
+        if (camera.Parameters[PLCamera.AcquisitionFrameRateEnable].IsWritable &&
+            camera.Parameters[PLCamera.AcquisitionFrameRate].IsWritable)
         {
-            var currentFrame = args.GrabResult;
-            parseTemperatures(currentFrame);
-            config.Width = currentFrame.Width;
-            config.Height = currentFrame.Height;
-            recorderChannel.Writer.WriteAsync(new FrameRecord(currentFrame.Width, currentFrame.Height, currentTemperatures, new BaseMetadata()));
-        };
+            camera.Parameters[PLCamera.AcquisitionFrameRateEnable].SetValue(true);
+            camera.Parameters[PLCamera.AcquisitionFrameRate].SetValue(AcquisitionFrameRate);
+        }
+
+        camera.StreamGrabber.Start(GrabStrategy.LatestImages, GrabLoop.ProvidedByStreamGrabber);
+    }
+
+    private void OnImageGrabbed(object? sender, ImageGrabbedEventArgs args)
+    {
+        IGrabResult currentFrame = args.GrabResult;
+        parseTemperatures(currentFrame);
+        config.Width = currentFrame.Width;
+        config.Height = currentFrame.Height;
+        if (recording)
+            recorderChannel.Writer.WriteAsync(new FrameRecord(currentFrame.Width, currentFrame.Height, currentTemperatures, new BaseMetadata())).GetAwaiter().GetResult();
     }
     public bool Connected() => camera!.IsOpen;
     public void Disconnect()
     {
-        camera!.StreamGrabber.Stop();
+        if (!camera.IsOpen) return;
+
+        recording = false;
+        if (camera.StreamGrabber.IsGrabbing) camera.StreamGrabber.Stop();
         camera.Close();
+    }
+
+    public void Dispose()
+    {
+        Disconnect();
+        converter.Dispose();
+        camera.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     // ROI
@@ -81,14 +108,13 @@ public class NIR : SensorBase
     public float findValue(int x, int y) => currentTemperatures[(y * config.Width) + x];
 
     // External
-    public void IsRecording(bool recording) { }
+    public void IsRecording(bool recording) => this.recording = recording;
     public ChannelReader<FrameRecord> Reader() => recorderChannel.Reader;
 
     // Rendering
     public Bitmap? Render()
     {
         if (!camera!.StreamGrabber.IsGrabbing || currentTemperatures.Count() < 1) return null;
-
 
         (float min, float max, _) = PlaybackTool.CalculateStatistics(currentTemperatures);
         return PaletteTool.Render(currentTemperatures, min, max, config.Width, config.Height);

@@ -14,9 +14,20 @@ namespace ThermalCamerApp.classes
         public RegionOfInterest(Point start, Point end, int frameWidth) => Update(start,end,frameWidth);
 
         public (float,float,float) Statistics(float[] temperatures){
-            List<float> temps = new List<float>();
-            for(int i = 0; i < indexes.Length; i++)temps.Add(temperatures[indexes[i]]);
-            return PlaybackTool.CalculateStatistics(temps.ToArray());
+            if (indexes.Length == 0) return (float.NaN, float.NaN, float.NaN);
+
+            float min = float.MaxValue;
+            float max = float.MinValue;
+            double sum = 0;
+            for (int i = 0; i < indexes.Length; i++)
+            {
+                float temperature = temperatures[indexes[i]];
+                min = Math.Min(min, temperature);
+                max = Math.Max(max, temperature);
+                sum += temperature;
+            }
+
+            return (min, max, (float)(sum / indexes.Length));
         }
 
 

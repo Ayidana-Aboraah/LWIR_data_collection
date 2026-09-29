@@ -6,7 +6,7 @@ using ThermalCamerApp.classes;
 
 namespace ThermalCamerApp.Camera;
 
-public interface SensorBase
+public interface SensorBase : IDisposable
 {
     public abstract float findValue(int x, int y);
     public abstract Bitmap? Render();

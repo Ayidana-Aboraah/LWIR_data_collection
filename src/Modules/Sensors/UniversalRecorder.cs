@@ -1,6 +1,4 @@
-using System.Globalization;
 using ThermalCamerApp.classes;
-using Optris.OtcSdk;
 using System.IO;
 using RLE;
 
@@ -14,6 +12,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     string sessionDirectory = "";
     string frameDirectory = "";
     int frameIndex = 0;
+    CancellationTokenSource? writerCancellation;
+    Task? writerTask;
 
     public override void Start(RecorderSettings settings)
     {
@@ -51,13 +51,15 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
             WriteBinHeader(singleFileWriter);
 
-            Task.Run(SingleWriterLoop);
+            writerCancellation = new CancellationTokenSource();
+            writerTask = Task.Run(() => SingleWriterLoop(writerCancellation.Token));
         }
         else
         {
             frameDirectory = Path.Combine(sessionDirectory, "frames");
             Directory.CreateDirectory(frameDirectory);
-            Task.Run(WriterLoop);
+            writerCancellation = new CancellationTokenSource();
+            writerTask = Task.Run(() => WriterLoop(writerCancellation.Token));
         }
     }
 
@@ -65,16 +67,23 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         if (!recording) return;
 
-        metadataWriter?.Flush();
-        metadataWriter?.Close();
-        if (settings.singleBinary) singleFileWriter?.Close();
-
         base.Stop();
+        writerCancellation?.Cancel();
+        try { writerTask?.GetAwaiter().GetResult(); }
+        catch (OperationCanceledException) { }
+        writerCancellation?.Dispose();
+        writerCancellation = null;
+        writerTask = null;
+        metadataWriter?.Flush();
+        metadataWriter?.Dispose();
+        metadataWriter = null;
+        singleFileWriter?.Dispose();
+        singleFileWriter = null;
     }
 
-    private async Task WriterLoop()
+    private async Task WriterLoop(CancellationToken cancellationToken)
     {
-        await foreach (var frame in sensor.Reader().ReadAllAsync())
+        await foreach (var frame in sensor.Reader().ReadAllAsync(cancellationToken))
         {
             string suffix = settings.dataType.ToString() + (settings.recordROIOnly ? "_ROI" : "");
             string filename = Path.Combine(
@@ -90,12 +99,12 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
         }
     }
 
-    private async Task SingleWriterLoop()
+    private async Task SingleWriterLoop(CancellationToken cancellationToken)
     {
         // TODO: Setup the filepath for Everything and note Yuri on it
         // StreamWriter sWriter = new StreamWriter(new FileStream("Yuri.bin", FileMode.Append));
 
-        await foreach (var frame in sensor.Reader().ReadAllAsync())
+        await foreach (var frame in sensor.Reader().ReadAllAsync(cancellationToken))
         {
             WriteFrame(frame, singleFileWriter!);
             // WriteYuriFrame(frame, sWriter);
@@ -129,8 +138,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                     break;
 
                 case SaveDataType.U16:
-                    ushort[] iValue = DataConverter.FloatToInt(frame.data);
-                    foreach (int ROI_Idx in sensor.ROI().indexes) writer.Write(iValue[ROI_Idx]);
+                    foreach (int ROI_Idx in sensor.ROI().indexes) writer.Write(ToUShort(frame.data[ROI_Idx]));
                     break;
 
                 case SaveDataType.RLE:
@@ -154,7 +162,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                     foreach (float value in frame.data) writer.Write(value);
                     break;
                 case SaveDataType.U16:
-                    foreach (ushort value in DataConverter.FloatToInt(frame.data)) writer.Write(value);
+                    foreach (float value in frame.data) writer.Write(ToUShort(value));
                     break;
                 case SaveDataType.RLE:
                     foreach (RunLengthPair value in DataConverter.IntToRLE(DataConverter.FloatToInt(frame.data)))
@@ -165,6 +173,14 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
                     break;
             }
         }
+    }
+
+    private static ushort ToUShort(float value)
+    {
+        float scaled = value * 100f;
+        if (scaled > ushort.MaxValue) return ushort.MaxValue;
+        if (scaled < ushort.MinValue) return ushort.MinValue;
+        return (ushort)Math.Floor(scaled);
     }
 
     private void WriteBinHeader(BinaryWriter writer)
