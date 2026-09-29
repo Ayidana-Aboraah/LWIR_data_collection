@@ -45,11 +45,17 @@ namespace ThermalCamerApp.Camera.LWIR
 
         public int ActiveModeIndex { get { return activeModeIndex; } }
         public bool recording = false;
-        Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(120)
+        // Channel<FrameRecord> recorderChannel = Channel.CreateBounded<FrameRecord>(new BoundedChannelOptions(120)
+        // {
+        //     SingleReader = true,
+        //     SingleWriter = true,
+        //     FullMode = BoundedChannelFullMode.Wait,
+        // });
+
+        Channel<FrameRecord> recorderChannel = Channel.CreateUnbounded<FrameRecord>(new UnboundedChannelOptions()
         {
             SingleReader = true,
             SingleWriter = true,
-            FullMode = BoundedChannelFullMode.Wait,
         });
 
         StackPanel UI_Panel = new StackPanel { };

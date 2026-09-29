@@ -2,7 +2,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Buffers;
-using System.Windows.Media;
 using Microsoft.VisualBasic.FileIO;
 using Color = System.Windows.Media.Color;
 
