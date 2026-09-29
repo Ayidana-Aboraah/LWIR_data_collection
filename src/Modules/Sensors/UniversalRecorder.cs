@@ -33,7 +33,8 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
 
         metadataWriter = new StreamWriter(Path.Combine(sessionDirectory, "metadata.csv"));
 
-        metadataWriter.WriteLine("Frame,Timestamp,Counter,HardwareCounter,MinTemp,MaxTemp,MeanTemp,BoxTemp,ChipTemp");
+      metadataWriter.Write("Frame,Timestamp,Counter,HardwareCounter,BoxTemp,ChipTemp,MinTemp,MaxTemp,MeanTemp\n");
+
 
         if (settings.singleBinary)
         {
@@ -103,6 +104,7 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         // TODO: Setup the filepath for Everything and note Yuri on it
         // StreamWriter sWriter = new StreamWriter(new FileStream("Yuri.bin", FileMode.Append));
+        // frame.metadata.WriteHeader(new BinaryWriter(metadataWriter!.BaseStream));
 
         await foreach (var frame in sensor.Reader().ReadAllAsync(cancellationToken))
         {
@@ -193,23 +195,12 @@ public class UniversalRecorder(SensorBase sensor) : RecorderBase(sensor)
     {
         writer.Write(settings.camera_width);
         writer.Write(settings.camera_height);
-        frame.metadata.WriteHeader(writer);
+        // frame.metadata.WriteHeader(new BinaryWriter(metadataWriter!.BaseStream));
     }
 
     private void WriteMetadataRow(FrameRecord frame)
     {
-        (float min, float max) = (float.MaxValue, float.MinValue);
-
-        double sum = 0;
-
-        foreach (float temp in frame.data)
-        {
-            if (temp < min) min = temp;
-            if (temp > max) max = temp;
-            sum += temp;
-        }
-
-        double mean = sum / frame.data.Length;
+        (float min, float max, float mean) = PlaybackTool.CalculateStatistics(frame.data);
 
         frame.metadata.WriteMetadata(metadataWriter!, frameIndex, min, max, mean);
 

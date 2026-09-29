@@ -45,7 +45,7 @@ namespace Optris.OtcSdk
       min.ToString(CultureInfo.InvariantCulture),
       max.ToString(CultureInfo.InvariantCulture),
       mean.ToString(CultureInfo.InvariantCulture)
-      ));
+      ) + "\n");
       frameIdx++;
     }
 
